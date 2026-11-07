@@ -283,6 +283,9 @@ either errors. This would have caught section 0 before any money was spent.
   ARCHIVE_TOKEN, STRIPE_KEY), placeholders from Hermes's shipped docs (`ghp_` with a single repeated
   character, commented out in `~/.hermes/.env` as well), and random bytes inside a binary. None are real.
 - Before anything is published: redact the 6 files (or drop them), then re-run the scan on the export.
+  Done 2026-11-07, for the open-source release: the key is replaced with `oc_sk_REDACTED` in those 6 files
+  and in 18 Hermes request dumps that held its masked form (first 8 and last 4 characters), 42 places in all.
+  A re-scan finds no part of the key anywhere in the folder.
 
 ## F. Final (03:21 UTC, 6 Nov): 405 cells, $5.78, runner exit 0, 0 infra errors
 | arm | approved | 95% CI | raw | solved | gates | reliable | $/pt | spend | real 429s |
