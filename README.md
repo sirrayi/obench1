@@ -62,7 +62,7 @@ A full run of 405 cells took 10 h 52 min on one Mac and cost $5.78 on the OpenCo
 
 ## Who made it
 
-The Overseer team wrote OBench1, and also builds Overseer, one of the harnesses it compares. The docs' [limits page](https://ovrhq.dev/docs/obench1/limits) explains what that means for the result.
+OBench1 is written by [sirrayi](https://github.com/sirrayi), who also builds Overseer, one of the harnesses it compares. The docs' [limits page](https://ovrhq.dev/docs/obench1/limits) explains what that means for the result.
 
 ## Licence
 
