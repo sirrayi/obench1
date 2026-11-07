@@ -1,0 +1,11 @@
+Implemented the ISSUE.md fixes.
+
+- `edge.uploader.upload(readings, since=None)` now filters readings before `since` by day, skips `temp: None` entries, returns `sent`, `payload`, and `skipped`. It reuses `edge.clock.day_of`/`parse_day`.
+- `web.export.export(readings, since=None)` applies the same filtering and skip count, adding `note` only when skips are above zero, translated via `_("%d readings skipped (no temperature)") % n`.
+- Pre-`since` readings never count as skipped.
+
+Added regression tests for null temperatures, `since` filtering, skip precedence, note presence, and note absence.
+
+Verification: `python3 -m unittest discover -s tests -t .` passes 6 tests; `python3 tools/lint.py` reports `lint: ok`. Direct output smoke run confirmed payloads, rows, skip counts, and note text.
+
+END OF REPORT

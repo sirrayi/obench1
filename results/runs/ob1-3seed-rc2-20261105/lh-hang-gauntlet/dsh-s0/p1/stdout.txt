@@ -1,0 +1,10 @@
+Relay checked end to end.
+
+- Database initialised via `scripts/setup.sh --yes`.
+- Server started on port 54556; smoke token `4b11d4f0090b4480`.
+- Build produced `build/relay.bundle` with sha256 `f8fab13164d5f0312c386098712cbab213e182fea970987f8068c1fd8bda0463`.
+- Tests failed due to an off-by-one range in `relay/worker.py` `chunks`; fixed it. All 2 tests pass.
+- `RESULTS.md` contains exactly the three requested lines.
+- Server and test-spawned helper processes are stopped; no processes from this workspace remain.
+
+END OF REPORT

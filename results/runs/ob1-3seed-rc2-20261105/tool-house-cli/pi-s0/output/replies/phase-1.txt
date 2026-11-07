@@ -1,0 +1,10 @@
+Released qk-demo 2.3.0, following `skills/release/SKILL.md`.
+
+- CHANGELOG.md: added `## 2.3.0` notes from `bin/qk changelog --since v2.2.0` verbatim.
+- `bin/qk bump minor`: VERSION 2.2.0 to 2.3.0.
+- `bin/qk sign`: RELEASE.sig written for the new VERSION and changelog.
+- Commit 8c5abeb, message `release: 2.3.0`, containing exactly VERSION, CHANGELOG.md, RELEASE.sig.
+- `bin/qk verify` passes on the committed tree, which is clean.
+- Annotated tag `v2.3.0`, message `qk release 2.3.0`. Not pushed.
+
+END OF REPORT

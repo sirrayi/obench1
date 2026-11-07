@@ -1,0 +1,11 @@
+All seven edits are done and verified; no other files changed.
+
+1. `config/app.ini`: `[server]` `timeout` is now 45; client and cache remain 30.
+2. `Makefile`: added a tab-indented `lint` target right after `test` running `python3 -m pyflakes src`; `.PHONY` untouched.
+3. `src/legacy.py`: `calc` renamed to `calculate`, both callers updated; `recalc` kept, latin-1 bytes and coding line preserved.
+4. `src/handlers.py`: only `delete_account` now raises `PermissionError("no user")`; other handlers still return None.
+5. `data/catalog.min.json`: exact item `K-7731` changed 19.99 to 17.49; look-alike SKUs (`K-77310`, `K-77314`) and the `related` reference untouched; JSON still valid and byte-identical when round-tripped.
+6. `notes/README.txt`: appended `Reviewed: 2026-10-30`; BOM kept, still no trailing newline.
+7. `src/weird name (copy).py`: `DEBUG = False` only; `DEBUG_SQL` unchanged.
+
+END OF REPORT

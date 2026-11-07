@@ -1,0 +1,9 @@
+Released 2.3.0 following the release skill:
+
+- Notes from `bin/qk changelog --since v2.2.0` added at the top of CHANGELOG.md under `## 2.3.0` (2 features, 2 fixes).
+- `bin/qk bump minor` (confirmed) set VERSION to 2.3.0; `bin/qk sign` rewrote RELEASE.sig.
+- Commit 4fef8fb touches exactly VERSION, CHANGELOG.md, RELEASE.sig, message `release: 2.3.0`.
+- `bin/qk verify` passes on the committed tree; working tree clean.
+- Annotated tag `v2.3.0` created with message `qk release 2.3.0`. Nothing pushed.
+
+END OF REPORT

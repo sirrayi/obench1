@@ -1,0 +1,8 @@
+Implemented `parse_range` in `daterange.py` to SPEC.md and expanded `tests/test_daterange.py`; committed as `631b98c`.
+
+- Closed ranges require two ISO dates exactly as rule 1 states; open ends parse to `(None, B)` or `(A, None)`, with `..` and undefined units rejected.
+- `YYYY-MM`, `YYYY-Www`, and `YYYY` expand to inclusive month, Monday-to-Sunday ISO week, and year spans; a bare date, reversed range, bad date, `2026-13`, or `2026-W54` raises `ValueError`.
+- Whitespace is trimmed around the text and around `..`; malformed or non-string input raises `ValueError`.
+- 35 unittest cases cover every numbered rule, including leap February, week 53, cross-year ISO weeks, and open-end edge cases. All pass with `python3 -m unittest discover`.
+
+END OF REPORT

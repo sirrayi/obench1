@@ -1,0 +1,7 @@
+Added `tally export --csv PATH` in `tally/cli.py`, backed by `store.export_csv` in `tally/store.py`. It writes the required header, sorts by date with stable ordering for same-date expenses, and formats amounts to two decimals.
+
+Updated `README.md` and added unittest coverage in `tests/test_store.py` and `tests/test_cli.py`. All 17 tests pass.
+
+Committed as `7907dbf feat: add CSV export command`.
+
+END OF REPORT

@@ -1,0 +1,383 @@
+diff --git a/daterange.py b/daterange.py
+index 256bfee..e9ff0af 100644
+--- a/daterange.py
++++ b/daterange.py
+@@ -1,6 +1,110 @@
+-"""Date ranges, see SPEC.md."""
++"""Date ranges, see SPEC.md.
++
++``parse_range(text)`` turns a compact range expression into an inclusive
++``(start, end)`` pair of :class:`datetime.date` objects.  A ``None`` end
++means that side of the range is open.
++"""
++import calendar
+ import datetime
++import re
++
++# Accepted tokens: full date, month, ISO week (YYYY-Www) and year.
++_FULL_DATE_RE = re.compile(r"\A(\d{4})-(\d{2})-(\d{2})\Z")
++_MONTH_RE = re.compile(r"\A(\d{4})-(\d{2})\Z")
++_WEEK_RE = re.compile(r"\A(\d{4})-W(\d{2})\Z")
++_YEAR_RE = re.compile(r"\A(\d{4})\Z")
++
++# Tokens never contain a dot, so the range separator is easy to isolate.
++_RANGE_RE = re.compile(r"\A([^.]*)\.\.([^.]*)\Z")
+ 
+ 
+ def parse_range(text):
+-    raise NotImplementedError
++    """Return the inclusive ``(start, end)`` date pair described by *text*.
++
++    The two ends are ISO dates, months, ISO weeks or years; see SPEC.md for
++    the accepted forms.  A missing end (``..B`` or ``A..``) is represented by
++    ``None``.  Malformed text raises :exc:`ValueError`.
++    """
++    if not isinstance(text, str):
++        raise ValueError("range must be text, not %r" % (text,))
++
++    stripped = text.strip()
++    if not stripped:
++        raise ValueError("empty range")
++
++    if ".." not in stripped:
++        # A single token stands for its whole span, e.g. the whole month.
++        return _expand(stripped)
++
++    match = _RANGE_RE.fullmatch(stripped)
++    if match is None:
++        raise ValueError("malformed range: %r" % (text,))
++
++    start_text = match.group(1).strip()
++    end_text = match.group(2).strip()
++    if not start_text and not end_text:
++        raise ValueError("'..' on its own is not a range")
++
++    start = _expand(start_text)[0] if start_text else None
++    end = _expand(end_text)[1] if end_text else None
++    if start is not None and end is not None and end < start:
++        raise ValueError("range end %s is before start %s" % (end, start))
++    return (start, end)
++
++
++def _expand(token):
++    """Return ``(first, last)`` for a single date, month, ISO week or year."""
++    match = _FULL_DATE_RE.fullmatch(token)
++    if match is not None:
++        year, month, day = (int(part) for part in match.groups())
++        try:
++            value = datetime.date(year, month, day)
++        except ValueError:
++            raise ValueError("invalid date: %r" % (token,)) from None
++        return (value, value)
++
++    match = _MONTH_RE.fullmatch(token)
++    if match is not None:
++        return _month_span(token, int(match.group(1)), int(match.group(2)))
++
++    match = _WEEK_RE.fullmatch(token)
++    if match is not None:
++        return _week_span(token, int(match.group(1)), int(match.group(2)))
++
++    match = _YEAR_RE.fullmatch(token)
++    if match is not None:
++        return _year_span(token, int(match.group(1)))
++
++    raise ValueError("unrecognised date, month, week or year: %r" % (token,))
++
++
++def _month_span(token, year, month):
++    if not 1 <= month <= 12:
++        raise ValueError("invalid month: %r" % (token,))
++    try:
++        first = datetime.date(year, month, 1)
++    except ValueError:
++        raise ValueError("invalid month: %r" % (token,)) from None
++    last = datetime.date(year, month, calendar.monthrange(year, month)[1])
++    return (first, last)
++
++
++def _week_span(token, year, week):
++    try:
++        # The Monday of ISO week 1 is the Monday nearest to January 4th.
++        january_4th = datetime.date(year, 1, 4)
++        monday = january_4th - datetime.timedelta(days=january_4th.isoweekday() - 1)
++        monday += datetime.timedelta(weeks=week - 1)
++        if not 1 <= week <= 53 or monday.isocalendar()[:2] != (year, week):
++            raise ValueError("invalid ISO week: %r" % (token,))
++        sunday = monday + datetime.timedelta(days=6)
++    except (ValueError, OverflowError):
++        raise ValueError("invalid ISO week: %r" % (token,)) from None
++    return (monday, sunday)
++
++
++def _year_span(token, year):
++    try:
++        return (datetime.date(year, 1, 1), datetime.date(year, 12, 31))
++    except ValueError:
++        raise ValueError("invalid year: %r" % (token,)) from None
+diff --git a/tests/test_daterange.py b/tests/test_daterange.py
+index 7018d91..79b28a3 100644
+--- a/tests/test_daterange.py
++++ b/tests/test_daterange.py
+@@ -1,9 +1,259 @@
++"""Tests for daterange.parse_range, covering every rule in SPEC.md."""
+ import datetime
+ import unittest
+ 
+ from daterange import parse_range
+ 
++D = datetime.date
+ 
+-class TestRange(unittest.TestCase):
++
++class TestDateToDate(unittest.TestCase):
+     def test_two_dates(self):
+-        self.assertEqual(parse_range("2026-10-01..2026-10-31"), (datetime.date(2026, 10, 1), datetime.date(2026, 10, 31)))
++        self.assertEqual(
++            parse_range("2026-10-01..2026-10-31"),
++            (D(2026, 10, 1), D(2026, 10, 31)),
++        )
++
++    def test_same_date_twice(self):
++        self.assertEqual(
++            parse_range("2026-10-01..2026-10-01"),
++            (D(2026, 10, 1), D(2026, 10, 1)),
++        )
++
++    def test_leap_day(self):
++        self.assertEqual(
++            parse_range("2024-02-29..2024-03-01"),
++            (D(2024, 2, 29), D(2024, 3, 1)),
++        )
++
++    def test_spaces_around_text(self):
++        self.assertEqual(
++            parse_range("  2026-10-01..2026-10-31  "),
++            (D(2026, 10, 1), D(2026, 10, 31)),
++        )
++
++    def test_spaces_around_separator(self):
++        self.assertEqual(
++            parse_range("2026-10-01 .. 2026-10-31"),
++            (D(2026, 10, 1), D(2026, 10, 31)),
++        )
++
++    def test_several_spaces_around_separator(self):
++        self.assertEqual(
++            parse_range("2026-10-01   ..   2026-10-31"),
++            (D(2026, 10, 1), D(2026, 10, 31)),
++        )
++
++    def test_tabs_around_separator(self):
++        self.assertEqual(
++            parse_range("\t2026-10-01\t..\t2026-10-31\t"),
++            (D(2026, 10, 1), D(2026, 10, 31)),
++        )
++
++
++class TestMonth(unittest.TestCase):
++    def test_thirty_one_day_month(self):
++        self.assertEqual(parse_range("2026-10"), (D(2026, 10, 1), D(2026, 10, 31)))
++
++    def test_thirty_day_month(self):
++        self.assertEqual(parse_range("2026-09"), (D(2026, 9, 1), D(2026, 9, 30)))
++
++    def test_february_non_leap_year(self):
++        self.assertEqual(parse_range("2026-02"), (D(2026, 2, 1), D(2026, 2, 28)))
++
++    def test_february_leap_year(self):
++        self.assertEqual(parse_range("2024-02"), (D(2024, 2, 1), D(2024, 2, 29)))
++
++    def test_january(self):
++        self.assertEqual(parse_range("2026-01"), (D(2026, 1, 1), D(2026, 1, 31)))
++
++    def test_december(self):
++        self.assertEqual(parse_range("2026-12"), (D(2026, 12, 1), D(2026, 12, 31)))
++
++    def test_surrounding_spaces(self):
++        self.assertEqual(parse_range("  2026-10  "), (D(2026, 10, 1), D(2026, 10, 31)))
++
++
++class TestIsoWeek(unittest.TestCase):
++    def test_spec_example(self):
++        self.assertEqual(parse_range("2026-W44"), (D(2026, 10, 26), D(2026, 11, 1)))
++
++    def test_week_one_may_start_in_previous_year(self):
++        self.assertEqual(parse_range("2026-W01"), (D(2025, 12, 29), D(2026, 1, 4)))
++
++    def test_week_fifty_three_in_long_year(self):
++        self.assertEqual(parse_range("2026-W53"), (D(2026, 12, 28), D(2027, 1, 3)))
++
++    def test_week_fifty_three_ends_in_next_year(self):
++        self.assertEqual(parse_range("2020-W53"), (D(2020, 12, 28), D(2021, 1, 3)))
++
++    def test_week_single_digit_week_number(self):
++        self.assertEqual(parse_range("2026-W05"), (D(2026, 1, 26), D(2026, 2, 1)))
++
++    def test_surrounding_spaces(self):
++        self.assertEqual(parse_range(" 2026-W44 "), (D(2026, 10, 26), D(2026, 11, 1)))
++
++
++class TestYear(unittest.TestCase):
++    def test_whole_year(self):
++        self.assertEqual(parse_range("2026"), (D(2026, 1, 1), D(2026, 12, 31)))
++
++    def test_leap_year(self):
++        self.assertEqual(parse_range("2024"), (D(2024, 1, 1), D(2024, 12, 31)))
++
++    def test_surrounding_spaces(self):
++        self.assertEqual(parse_range("  2026\t"), (D(2026, 1, 1), D(2026, 12, 31)))
++
++
++class TestOpenEnds(unittest.TestCase):
++    def test_open_start(self):
++        self.assertEqual(parse_range("..2026-10-01"), (None, D(2026, 10, 1)))
++
++    def test_open_end(self):
++        self.assertEqual(parse_range("2026-10-01.."), (D(2026, 10, 1), None))
++
++    def test_open_start_with_spaces(self):
++        self.assertEqual(parse_range("  .. 2026-10-01 "), (None, D(2026, 10, 1)))
++
++    def test_open_end_with_spaces(self):
++        self.assertEqual(parse_range(" 2026-10-01 ..  "), (D(2026, 10, 1), None))
++
++    def test_open_start_of_month_expands_to_last_day(self):
++        self.assertEqual(parse_range("..2026-10"), (None, D(2026, 10, 31)))
++
++    def test_open_end_of_month_expands_to_first_day(self):
++        self.assertEqual(parse_range("2026-10.."), (D(2026, 10, 1), None))
++
++    def test_open_end_of_week(self):
++        self.assertEqual(parse_range("2026-W44.."), (D(2026, 10, 26), None))
++
++    def test_open_end_of_year(self):
++        self.assertEqual(parse_range("..2026"), (None, D(2026, 12, 31)))
++
++
++class TestMixedTokens(unittest.TestCase):
++    def test_month_to_month(self):
++        self.assertEqual(parse_range("2026-10..2026-12"), (D(2026, 10, 1), D(2026, 12, 31)))
++
++    def test_date_to_month(self):
++        self.assertEqual(parse_range("2026-10-15..2026-12"), (D(2026, 10, 15), D(2026, 12, 31)))
++
++    def test_month_to_date(self):
++        self.assertEqual(parse_range("2026-11..2026-11-15"), (D(2026, 11, 1), D(2026, 11, 15)))
++
++    def test_week_to_month(self):
++        self.assertEqual(parse_range("2026-W44..2026-11"), (D(2026, 10, 26), D(2026, 11, 30)))
++
++    def test_year_to_month(self):
++        self.assertEqual(parse_range("2026..2026-03"), (D(2026, 1, 1), D(2026, 3, 31)))
++
++    def test_single_date(self):
++        self.assertEqual(parse_range("2026-10-01"), (D(2026, 10, 1), D(2026, 10, 1)))
++
++    def test_result_is_a_pair_of_dates(self):
++        start, end = parse_range("2026-W44")
++        self.assertIsInstance(start, datetime.date)
++        self.assertIsInstance(end, datetime.date)
++
++    def test_open_end_is_none(self):
++        start, end = parse_range("2026-10-01..")
++        self.assertIsInstance(start, datetime.date)
++        self.assertIsNone(end)
++
++
++class TestErrors(unittest.TestCase):
++    def assert_invalid(self, text):
++        with self.assertRaises(ValueError):
++            parse_range(text)
++
++    def test_empty_text(self):
++        self.assert_invalid("")
++
++    def test_whitespace_only(self):
++        self.assert_invalid("   ")
++        self.assert_invalid("\t\n")
++
++    def test_bare_separator(self):
++        self.assert_invalid("..")
++        self.assert_invalid(" .. ")
++        self.assert_invalid("...")
++
++    def test_end_before_start(self):
++        self.assert_invalid("2026-10-31..2026-10-01")
++
++    def test_month_end_before_start(self):
++        self.assert_invalid("2026-12..2026-10")
++
++    def test_week_end_before_start(self):
++        self.assert_invalid("2026-W44..2026-W40")
++
++    def test_year_end_before_start(self):
++        self.assert_invalid("2027..2026")
++
++    def test_same_month_but_backwards_days(self):
++        self.assert_invalid("2026-11-15..2026-11-02")
++
++    def test_bad_month_number(self):
++        self.assert_invalid("2026-13")
++        self.assert_invalid("2026-00")
++        self.assert_invalid("2026-13..2026-12")
++
++    def test_bad_day(self):
++        self.assert_invalid("2026-02-30")
++        self.assert_invalid("2025-02-29")
++        self.assert_invalid("2026-04-31")
++        self.assert_invalid("2026-10-01..2026-10-32")
++
++    def test_unpadded_parts(self):
++        self.assert_invalid("2026-1")
++        self.assert_invalid("2026-10-1")
++        self.assert_invalid("2026-W4")
++
++    def test_bad_iso_week(self):
++        self.assert_invalid("2026-W54")
++        self.assert_invalid("2026-W00")
++        self.assert_invalid("2025-W53")
++        self.assert_invalid("2024-W53")
++
++    def test_bad_year(self):
++        self.assert_invalid("0000")
++        self.assert_invalid("0000-01")
++        self.assert_invalid("202")
++        self.assert_invalid("20261")
++
++    def test_junk_text(self):
++        self.assert_invalid("abc")
++        self.assert_invalid("2026 10")
++        self.assert_invalid("2026 -10")
++        self.assert_invalid("2026.10.01")
++        self.assert_invalid("2026-10-01T00:00")
++        self.assert_invalid("2026-W44x")
++        self.assert_invalid("W44")
++
++    def test_extra_separators(self):
++        self.assert_invalid("2026-10-01..2026-10-31..")
++        self.assert_invalid("..2026-10-01..2026-10-31")
++        self.assert_invalid("2026-10-01...2026-10-31")
++
++    def test_missing_side_is_not_empty(self):
++        self.assert_invalid("2026-10-01..nope")
++        self.assert_invalid("nope..2026-10-01")
++
++    def test_non_text_input(self):
++        self.assert_invalid(None)
++        self.assert_invalid(20261001)
++
++
++class TestErrorType(unittest.TestCase):
++    def test_errors_are_value_errors(self):
++        for text in ("", "..", "2026-13", "2026-W54", "2026-10-31..2026-10-01"):
++            try:
++                parse_range(text)
++            except ValueError:
++                pass
++            else:
++                self.fail("%r did not raise ValueError" % (text,))
++
++
++if __name__ == "__main__":
++    unittest.main()

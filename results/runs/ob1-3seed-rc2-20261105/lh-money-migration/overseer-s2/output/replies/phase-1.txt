@@ -1,0 +1,7 @@
+The failed call was my attempt to reuse the path `/tmp/mig_tests.py`, which already held a scratch script from an earlier session pointed at a different workspace root; the write was refused and I redirected my script to `/tmp/mig_tests2.py`, which produced the committed test changes. That old file is outside the repo, never executed, and nothing in the repo references it.
+
+Re-checked now: 288 tests pass; 41 test files use `Money`, 285 assertions retained; no `MoneyF`, `Rate` or `round_money` outside `ledgerly/util.py`; rounding modes across all 41 modules match the table plus AMENDMENTS/001; working tree clean apart from untracked `AMENDMENTS/` and `logs/`.
+
+What I did not verify: the old `/tmp/mig_tests.py` itself, which was never run and has no bearing on the repo.
+
+END OF REPORT

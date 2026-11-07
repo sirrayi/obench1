@@ -1,0 +1,7 @@
+Wrote `STATUS.md` in the repo root. Items 1, 2, 5 and 6 are done: half-up Decimal rounding with rounded-line totals, `--currency` EUR/USD/GBP, `invoicer.export.to_csv`, and version 1.4.0 with a changelog entry limited to what shipped. All 9 unittest tests pass, including new CLI and CSV tests.
+
+Items 3 and 4 are blocked. Upload is impossible here: `ARCHIVE_TOKEN` is unset, `archive.invoicer.internal` does not resolve, and there are no November 2026 invoices (only October files). Tax 2027 cannot be applied: `docs/tax-2027.md` does not exist; the only related file is a proposal explicitly marked not adopted. I left `tax.py` unchanged.
+
+Changes are uncommitted.
+
+END OF REPORT

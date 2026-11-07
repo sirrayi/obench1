@@ -1,0 +1,14 @@
+diff --git a/REVIEW.md b/REVIEW.md
+new file mode 100644
+index 0000000..1ac0bd8
+--- /dev/null
++++ b/REVIEW.md
+@@ -0,0 +1,8 @@
++app/limiter.py:20: blocker: bucket start is stored with time.time() but compared against time.monotonic() at line 19 and subtracted from it at line 37; the epoch-minus-monotonic difference is negative, so windows never expire (a client that hits the limit is rejected forever) and Retry-After is about 1.79e9 seconds; verified with limit=1, window=0.01 still rejecting after 10 windows and an HTTP 429 carrying Retry-After: 1793863637
++app/handlers.py:11: blocker: client_key trusts the client-supplied X-Forwarded-For header verbatim as the bucket key, so any client bypasses the limiter by varying the header; verified a rejected client got 200 by sending a fresh value
++app/limiter.py:28: major: `b["count"] > self.limit + 1` is off by one, allowing limit+1 requests per window; verified limit=3 allows 4 requests and the HTTP server allowed 101 requests with limit=100
++app/limiter.py:12: major: buckets are never evicted, so memory grows without bound under attacker-controlled keys; verified 10000 distinct keys retained in self.buckets
++app/limiter.py:25: major: _bucket reads and replaces self.buckets outside self.lock, so a concurrent reset between lookup and increment discards the increment into the replaced bucket and lets requests through; the lock only covers the counter update
++docs/limits.md:4: minor: claims idle buckets are dropped after 10 minutes, but no eviction code exists in app/limiter.py
++app/limiter.py:29: minor: rejected keys are appended to self.recent for a /debug page that does not exist anywhere in the repo; dead code
++tests/test_limiter.py:7: minor: tests never assert that a request is rejected or check retry_after, so the off-by-one and never-reset bugs pass; the suite is green on this branch

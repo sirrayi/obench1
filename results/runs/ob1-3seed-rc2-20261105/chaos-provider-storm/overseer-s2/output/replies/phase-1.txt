@@ -1,0 +1,5 @@
+Implemented `convert` in `units/__init__.py`: factor tables for length (`m`, `km`, `cm`, `mi`, `ft`, `in`) and mass (`kg`, `g`, `lb`, `oz`), kelvin-based temperature handling for `C`/`F`/`K`, `ValueError` for unknown units, cross-dimension requests, and temperatures below absolute zero. Added `units/__main__.py` for `python3 -m units <value> <src> <dst>`, printing `%.6g` on success and writing errors to stderr with exit status 2.
+
+Checked: `python3 -m unittest discover` passes both existing tests; all unit pairs convert; boundary checks (`-459.67 F` valid, `-459.68 F` rejected); CLI output `6.21371` for `10 km mi` and exit 2 for bad input, unknown units, wrong argument count.
+
+END OF REPORT

@@ -1,0 +1,56 @@
+{
+  "id": "mem-conventions-correction",
+  "version": 1,
+  "authoring_date": "2026-10-30",
+  "track": "mem",
+  "camp": 3,
+  "categories": [
+    "memory",
+    "policy"
+  ],
+  "pillars": [
+    7,
+    11,
+    17
+  ],
+  "phases": [
+    {
+      "instruction": "Add a `--version` flag to tally that prints `tally 1.4.0`.\n\nAlso, standing preferences for this repo. They hold for this session and every later one, and I won't repeat them:\n1. Every new public function gets a docstring whose first word is an imperative verb (\"Return the total\", not \"Returns the total\").\n2. Every change comes with tests in tests/test_<module>.py, written with plain unittest (no pytest).\n3. Commit each change, with the message `<area>: <summary>`: area is the module you changed (cli, store or report), and the whole message is lowercase.\n4. Don't touch CHANGELOG.md. The release tooling writes it."
+    },
+    {
+      "instruction": "Add `tally top N`: print the N largest expenses, largest first, one per line as `<date> <amount> <category>` with the amount to 2 decimals. Ties go to the earlier date.",
+      "between": "between.py"
+    },
+    {
+      "instruction": "A correction to the standing preferences, from now on: commit messages follow Conventional Commits, `<type>: <summary>`, where type is one of feat, fix, docs, refactor, test or chore, all lowercase. The `<area>: <summary>` form is retired. The other preferences stand.\n\nThen: `tally sum --month 2026-09` ignores the month and totals everything. Fix it.",
+      "between": "between.py"
+    },
+    {
+      "instruction": "Add `tally export --csv PATH`: write the expenses to PATH sorted by date (same-date expenses keep their file order), with the header `date,amount,category,note` and amounts to 2 decimals.",
+      "between": "between.py"
+    }
+  ],
+  "limits": {
+    "wall_s": 900,
+    "max_steps": 60
+  },
+  "grade_timeout": 300,
+  "null_max": 0.0,
+  "allows": [
+    "commit"
+  ],
+  "check_categories": [
+    [
+      "^session 1:|^session 2: tally|^session 3: sum|^session 4: export",
+      "instructions"
+    ],
+    [
+      "CHANGELOG.md never touched|history only grows|every session ends with its work committed",
+      "policy"
+    ],
+    [
+      "^the suite passes",
+      "verification"
+    ]
+  ]
+}

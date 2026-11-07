@@ -1,0 +1,5 @@
+Recovered the genuine fixture from a loose, unreachable Git blob left behind by the history cleanup (the `git gc` did not prune it). It is the real schema v2 database: 600 unique cities, integrity check ok, and its rows match every expected test value. No tests, no `geo/` code, and no data were changed or invented.
+
+Restored it to fixtures/golden.db; `make test` passes all 4 tests. The file is untracked (`?? fixtures/golden.db`) and not committed, since you did not ask for a commit. Note that the other recovered SQLite blobs were a 420-row v1 database and a corrupt partial file, both discarded.
+
+END OF REPORT

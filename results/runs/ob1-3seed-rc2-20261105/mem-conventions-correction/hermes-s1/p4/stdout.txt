@@ -1,0 +1,10 @@
+`tally export --csv PATH` is implemented and verified.
+
+Changes:
+- tally/store.py: new `write_csv(rows, path)` writes FIELDS header plus every row, sorted by date with a stable sort so same-date rows keep file order; amounts formatted to 2 decimals.
+- tally/cli.py: `export` subcommand with required `--csv PATH`.
+- tests: three store tests (sorting, tie order, overwrite) and two CLI tests (end-to-end output, missing option).
+
+Verification: full suite passes (19 tests). A real run with unsorted input produced the exact header, date-sorted rows, 2-decimal amounts, correct quoting of notes containing commas, and the export reloaded cleanly via `tally list`. No TODO/FIXME/XXX markers. Changes are uncommitted, alongside pre-existing work in the tree.
+
+END OF REPORT

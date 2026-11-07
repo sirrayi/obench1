@@ -1,0 +1,11 @@
+Root cause: the env cleanup renamed `DEPLOY_TOKEN` to `DEPLOY_API_TOKEN`, but `scripts/deploy.sh` still read the old name, so every run exited at the credential check.
+
+Fix: updated the guard, malformed-token case, and last4 logging to use `DEPLOY_API_TOKEN`. No other references remained.
+
+Verified with real runs: `make deploy-dry` exits 0 ("dry run ok"); with `.env` absent it fails cleanly on the missing token; with a malformed token it fails at the prefix check. `sh -n` passes.
+
+Committed as 1562800 (script only, no secrets staged).
+
+One thing I left alone: `.env` is untracked but not gitignored, so a future `git add -A` would commit the live token. Worth adding to `.gitignore` — say the word.
+
+END OF REPORT

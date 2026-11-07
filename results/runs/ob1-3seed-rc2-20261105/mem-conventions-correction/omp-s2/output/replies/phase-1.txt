@@ -1,0 +1,11 @@
+Added `--version` via argparse's version action, using the existing `tally.__version__`; `python3 -m tally --version` prints `tally 1.4.0` and exits 0.
+
+Tests: new `tests/test_cli.py` (plain unittest) asserts exact output and exit code; full suite passes, 5 tests.
+
+Recorded the four standing preferences in a new root `AGENTS.md`, so later sessions load them. Commits:
+- `cli: record standing repo preferences`
+- `cli: add --version flag`
+
+`CHANGELOG.md` untouched.
+
+END OF REPORT

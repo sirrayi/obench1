@@ -1,0 +1,28 @@
+     39     return telemetry.timer("accounts.fetch_user.calls")
+     24     return telemetry.timer("accounts.fetch_user.errors")
+     26     return telemetry.timer("accounts.fetch_user.latency")
+---
+harbor/rpc/routes.py:5:    "user.get": "harbor.accounts:fetch_user",
+harbor/rpc/routes.py:6:    "user.count": "harbor.accounts:fetch_user_count",
+harbor/rpc/routes.py:8:    "github.user": "harbor.integrations.github:GitHubClient.fetch_user",
+harbor/accounts/__init__.py:3:__all__ = ["fetch_user", "fetch_user_count", "account_tiers"]
+harbor/accounts/__init__.py:8:def fetch_user(user_id, *, include_deleted=False):
+harbor/accounts/__init__.py:18:def fetch_user_count():
+tests/test_accounts.py:3:from harbor.accounts import fetch_user_count, fetch_user
+tests/test_accounts.py:8:        self.assertEqual(fetch_user(5)["name"], "user5")
+tests/test_accounts.py:11:        self.assertIsNone(fetch_user(14))
+tests/test_accounts.py:14:        self.assertTrue(fetch_user(14, include_deleted=True)["deleted"])
+tests/test_accounts.py:18:            fetch_user(0)
+tests/test_accounts.py:21:        self.assertEqual(fetch_user_count(), 4242)
+tests/test_routes.py:10:        self.assertIs(resolve("user.get"), accounts.fetch_user)
+tests/test_routes.py:13:        self.assertIs(resolve("github.user"), GitHubClient.fetch_user)
+tests/test_proto.py:10:        self.assertEqual(accounts_pb2.HANDLERS["GetUser"], "harbor.accounts:fetch_user")
+tests/test_proto.py:11:        self.assertEqual(billing_pb2.HANDLERS["GetPayer"], "harbor.accounts:fetch_user")
+tests/test_integrations.py:10:        self.assertEqual(sync(["x"], fetch_user=False), ["x"])
+docs/API.md:3:### accounts.fetch_user(user_id, *, include_deleted=False)
+docs/API.md:8:### accounts.fetch_user_count()
+docs/API.md:16:### integrations.github.GitHubClient.fetch_user(login)
+proto/accounts.proto:7:    option (harbor.handler) = "harbor.accounts:fetch_user";
+proto/accounts.proto:10:    option (harbor.handler) = "harbor.accounts:fetch_user_count";
+proto/billing.proto:7:    option (harbor.handler) = "harbor.accounts:fetch_user";
+proto/github.proto:7:    option (harbor.handler) = "harbor.integrations.github:GitHubClient.fetch_user";

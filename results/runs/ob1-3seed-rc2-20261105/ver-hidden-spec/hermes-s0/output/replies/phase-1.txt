@@ -1,0 +1,9 @@
+Implemented `parse_range` in daterange.py and expanded tests/test_daterange.py to 44 cases covering every spec bullet: date pairs, months (including leap February), ISO weeks (including year-crossing 2020-W53), years, open ends, whitespace, reversed ranges, and malformed input.
+
+All tests pass (`python3 -m unittest discover -s tests`). Python is 3.9, so no newer syntax is used.
+
+Two interpretation choices worth knowing before acceptance:
+- A standalone full date (`2026-10-01`) is accepted as a one-day span.
+- Month/week/year terms are allowed as endpoints of `A..B`, not just bare ISO dates.
+
+Files are modified but not committed. END OF REPORT

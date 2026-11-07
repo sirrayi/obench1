@@ -1,0 +1,9 @@
+Rename complete.
+
+- `harbor.accounts.load_account` replaces `fetch_user` everywhere in `harbor/` and `tests/`; unrelated `fetch_user` symbols, metrics, logs, and comments untouched.
+- Deprecated `fetch_user` wrapper warns with the exact message and forwards to `load_account`; excluded from `__all__`.
+- Applied addendum: `load_account(..., *, with_deleted=False)`; deprecated wrapper still accepts `include_deleted`.
+- Updated `routes.py`, protos, regenerated `*_pb2.py`, `docs/API.md`, tests, and `CHANGELOG.md`.
+- Verified: 204 tests pass; 886 owner-function invocations pass; all 306 diffs reduce to the intended token renames; modules import cleanly.
+
+END OF REPORT

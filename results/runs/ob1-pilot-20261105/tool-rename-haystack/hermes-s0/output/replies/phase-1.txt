@@ -1,0 +1,3 @@
+Completed the rename: `accounts.fetch_user` is now `load_account` across harbor/ and tests/, including imports, calls, attributes, `getattr`, mock targets, and route/proto handler strings. Added the deprecated `fetch_user` wrapper with the exact warning and removed it from `__all__`. Updated docs and CHANGELOG, regenerated proto output with `tools/genproto.py`, and applied the addendum renaming `include_deleted` to `with_deleted` at every call site, partial, and keyword dict; the wrapper still accepts `include_deleted`. All 204 tests pass.
+
+END OF REPORT

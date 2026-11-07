@@ -1,0 +1,161 @@
+ledgerly/interest/penalties.py:5:Money amounts are floats for now (see MIGRATION.md).
+ledgerly/interest/penalties.py:10:from ledgerly.types import MoneyF, Rate
+ledgerly/interest/penalties.py:11:from ledgerly.util import EXPONENT, round_money
+ledgerly/interest/penalties.py:16:def capped_penalty(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str) -> MoneyF:
+ledgerly/interest/penalties.py:24:    return min(round_money(amount * pct / 100, currency), cap)
+ledgerly/interest/penalties.py:27:def penalty_settled(paid: MoneyF, due: MoneyF) -> bool:
+ledgerly/interest/penalties.py:36:def net_penalty(gross: MoneyF, pct: Rate, currency: str) -> MoneyF:
+ledgerly/interest/penalties.py:44:    return gross - round_money(gross * pct / 100, currency)
+ledgerly/interest/penalties.py:47:def format_penalty(amount: MoneyF, currency: str) -> str:
+ledgerly/interest/penalties.py:53:    return "%.*f %s" % (EXPONENT[currency], amount, currency)
+ledgerly/interest/penalties.py:56:def penalty_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+ledgerly/interest/penalties.py:83:    def __init__(self, ref: str, amount: MoneyF, currency: str):
+ledgerly/interest/accrual.py:5:Money amounts are floats for now (see MIGRATION.md).
+ledgerly/interest/accrual.py:10:from ledgerly.types import MoneyF, Rate
+ledgerly/interest/accrual.py:11:from ledgerly.util import round_money
+ledgerly/interest/accrual.py:16:def total_accrual(amounts: list, currency: str) -> MoneyF:
+ledgerly/interest/accrual.py:22:    return round_money(sum(amounts), currency)
+ledgerly/interest/accrual.py:25:def percent_of_accrual(amount: MoneyF, pct: Rate, currency: str) -> MoneyF:
+ledgerly/interest/accrual.py:33:    return round_money(amount * pct / 100, currency)
+ledgerly/interest/accrual.py:36:def capped_accrual(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str) -> MoneyF:
+ledgerly/interest/accrual.py:44:    return min(round_money(amount * pct / 100, currency), cap)
+ledgerly/interest/accrual.py:47:def scaled_accrual(amount: MoneyF, factor: Rate, currency: str) -> MoneyF:
+ledgerly/interest/accrual.py:55:    return round_money(amount * factor, currency)
+ledgerly/interest/accrual.py:58:def accrual_settled(paid: MoneyF, due: MoneyF) -> bool:
+ledgerly/interest/accrual.py:85:    def __init__(self, ref: str, amount: MoneyF, currency: str):
+ledgerly/interest/savings.py:5:Money amounts are floats for now (see MIGRATION.md).
+ledgerly/interest/savings.py:10:from ledgerly.types import MoneyF, Rate
+ledgerly/interest/savings.py:11:from ledgerly.util import round_money
+ledgerly/interest/savings.py:16:def capped_savings(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str) -> MoneyF:
+ledgerly/interest/savings.py:24:    return min(round_money(amount * pct / 100, currency), cap)
+ledgerly/interest/savings.py:27:def percent_of_savings(amount: MoneyF, pct: Rate, currency: str) -> MoneyF:
+ledgerly/interest/savings.py:35:    return round_money(amount * pct / 100, currency)
+ledgerly/interest/savings.py:38:def savings_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+ledgerly/interest/savings.py:47:def split_savings(amount: MoneyF, parts: int = 2, currency: str = "USD") -> list:
+ledgerly/interest/savings.py:55:    share = round_money(amount / parts, currency)
+ledgerly/interest/savings.py:56:    return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+ledgerly/interest/savings.py:59:def accrued_savings(balance: MoneyF, annual_rate: Rate, days: int = 30, currency: str = "USD") -> MoneyF:
+ledgerly/interest/savings.py:67:    return round_money(balance * annual_rate / 100 * days / 365, currency)
+ledgerly/interest/savings.py:88:    def __init__(self, ref: str, amount: MoneyF, currency: str):
+ledgerly/interest/loans.py:5:Money amounts are floats for now (see MIGRATION.md).
+ledgerly/interest/loans.py:10:from ledgerly.types import MoneyF, Rate
+ledgerly/interest/loans.py:11:from ledgerly.util import round_money
+ledgerly/interest/loans.py:16:def percent_of_loan(amount: MoneyF, pct: Rate, currency: str) -> MoneyF:
+ledgerly/interest/loans.py:24:    return round_money(amount * pct / 100, currency)
+ledgerly/interest/loans.py:27:def capped_loan(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str) -> MoneyF:
+ledgerly/interest/loans.py:35:    return min(round_money(amount * pct / 100, currency), cap)
+ledgerly/interest/loans.py:38:def scaled_loan(amount: MoneyF, factor: Rate, currency: str) -> MoneyF:
+ledgerly/interest/loans.py:46:    return round_money(amount * factor, currency)
+ledgerly/interest/loans.py:49:def loan_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+ledgerly/interest/loans.py:58:def split_loan(amount: MoneyF, parts: int = 2, currency: str = "USD") -> list:
+ledgerly/interest/loans.py:66:    share = round_money(amount / parts, currency)
+ledgerly/interest/loans.py:67:    return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+ledgerly/interest/loans.py:88:    def __init__(self, ref: str, amount: MoneyF, currency: str):
+ledgerly/interest/late_fees.py:5:Money amounts are floats for now (see MIGRATION.md).
+ledgerly/interest/late_fees.py:10:from ledgerly.types import MoneyF, Rate
+ledgerly/interest/late_fees.py:11:from ledgerly.util import round_money
+ledgerly/interest/late_fees.py:16:def percent_of_late_fee(amount: MoneyF, pct: Rate, currency: str) -> MoneyF:
+ledgerly/interest/late_fees.py:24:    return round_money(amount * pct / 100, currency)
+ledgerly/interest/late_fees.py:27:def late_fee_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+ledgerly/interest/late_fees.py:36:def late_fee_settled(paid: MoneyF, due: MoneyF) -> bool:
+ledgerly/interest/late_fees.py:45:def accrued_late_fee(balance: MoneyF, annual_rate: Rate, days: int = 30, currency: str = "USD") -> MoneyF:
+ledgerly/interest/late_fees.py:53:    return round_money(balance * annual_rate / 100 * days / 365, currency)
+ledgerly/interest/late_fees.py:56:def capped_late_fee(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str) -> MoneyF:
+ledgerly/interest/late_fees.py:64:    return min(round_money(amount * pct / 100, currency), cap)
+ledgerly/interest/late_fees.py:85:    def __init__(self, ref: str, amount: MoneyF, currency: str):
+ledgerly/invoices/deposits.py:5:Money amounts are floats for now (see MIGRATION.md).
+ledgerly/invoices/deposits.py:10:from ledgerly.types import MoneyF, Rate
+ledgerly/invoices/deposits.py:11:from ledgerly.util import EXPONENT, round_money
+ledgerly/invoices/deposits.py:16:def capped_deposit(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str) -> MoneyF:
+ledgerly/invoices/deposits.py:24:    return min(round_money(amount * pct / 100, currency), cap)
+ledgerly/invoices/deposits.py:27:def deposit_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+ledgerly/invoices/deposits.py:36:def accrued_deposit(balance: MoneyF, annual_rate: Rate, days: int = 30, currency: str = "USD") -> MoneyF:
+ledgerly/invoices/deposits.py:44:    return round_money(balance * annual_rate / 100 * days / 365, currency)
+ledgerly/invoices/deposits.py:47:def format_deposit(amount: MoneyF, currency: str) -> str:
+ledgerly/invoices/deposits.py:53:    return "%.*f %s" % (EXPONENT[currency], amount, currency)
+ledgerly/invoices/deposits.py:56:def deposit_settled(paid: MoneyF, due: MoneyF) -> bool:
+ledgerly/invoices/deposits.py:83:    def __init__(self, ref: str, amount: MoneyF, currency: str):
+ledgerly/invoices/discounts.py:5:Money amounts are floats for now (see MIGRATION.md).
+ledgerly/invoices/discounts.py:10:from ledgerly.types import MoneyF, Rate
+ledgerly/invoices/discounts.py:11:from ledgerly.util import round_money
+---utils refs---
+./ledgerly/interest/penalties.py:10:from ledgerly.types import MoneyF, Rate
+./ledgerly/interest/penalties.py:11:from ledgerly.util import EXPONENT, round_money
+./ledgerly/interest/accrual.py:10:from ledgerly.types import MoneyF, Rate
+./ledgerly/interest/accrual.py:11:from ledgerly.util import round_money
+./ledgerly/interest/savings.py:10:from ledgerly.types import MoneyF, Rate
+./ledgerly/interest/savings.py:11:from ledgerly.util import round_money
+./ledgerly/interest/loans.py:10:from ledgerly.types import MoneyF, Rate
+./ledgerly/interest/loans.py:11:from ledgerly.util import round_money
+./ledgerly/interest/late_fees.py:10:from ledgerly.types import MoneyF, Rate
+./ledgerly/interest/late_fees.py:11:from ledgerly.util import round_money
+./ledgerly/invoices/deposits.py:10:from ledgerly.types import MoneyF, Rate
+./ledgerly/invoices/deposits.py:11:from ledgerly.util import EXPONENT, round_money
+./ledgerly/invoices/discounts.py:10:from ledgerly.types import MoneyF, Rate
+./ledgerly/invoices/discounts.py:11:from ledgerly.util import round_money
+./ledgerly/invoices/lines.py:10:from ledgerly.types import MoneyF, Rate
+./ledgerly/invoices/lines.py:11:from ledgerly.util import round_money
+./ledgerly/invoices/subtotals.py:10:from ledgerly.types import MoneyF, Rate
+./ledgerly/invoices/subtotals.py:11:from ledgerly.util import round_money
+./ledgerly/invoices/credits.py:10:from ledgerly.types import MoneyF, Rate
+./ledgerly/invoices/credits.py:11:from ledgerly.util import EXPONENT, round_money
+./ledgerly/fx/spreads.py:11:from ledgerly.types import MoneyF, Rate
+./ledgerly/fx/spreads.py:12:from ledgerly.util import EXPONENT, round_money
+./ledgerly/fx/cross_rates.py:11:from ledgerly.types import MoneyF, Rate
+./ledgerly/fx/cross_rates.py:12:from ledgerly.util import round_money
+./ledgerly/fx/convert.py:11:from ledgerly.types import MoneyF, Rate
+./ledgerly/fx/convert.py:12:from ledgerly.util import EXPONENT, round_money
+./ledgerly/fx/quotes.py:11:from ledgerly.types import MoneyF, Rate
+./ledgerly/fx/quotes.py:12:from ledgerly.util import round_money
+./ledgerly/fx/revaluation.py:11:from ledgerly.types import MoneyF, Rate
+./ledgerly/fx/revaluation.py:12:from ledgerly.util import round_money
+./ledgerly/tax/withholding.py:10:from ledgerly.types import MoneyF, Rate
+./ledgerly/tax/withholding.py:11:from ledgerly.util import round_money
+./ledgerly/tax/exemptions.py:10:from ledgerly.types import MoneyF, Rate
+./ledgerly/tax/exemptions.py:11:from ledgerly.util import round_money
+./ledgerly/tax/vat.py:10:from ledgerly.types import MoneyF, Rate
+./ledgerly/tax/vat.py:11:from ledgerly.util import EXPONENT, round_money
+./ledgerly/tax/sales_tax.py:10:from ledgerly.types import MoneyF, Rate
+./ledgerly/tax/sales_tax.py:11:from ledgerly.util import EXPONENT, round_money
+./ledgerly/tax/reverse_charge.py:10:from ledgerly.types import MoneyF, Rate
+./ledgerly/tax/reverse_charge.py:11:from ledgerly.util import round_money
+./ledgerly/refunds/goodwill.py:10:from ledgerly.types import MoneyF, Rate
+./ledgerly/refunds/goodwill.py:11:from ledgerly.util import EXPONENT, round_money
+./ledgerly/refunds/returns.py:10:from ledgerly.types import MoneyF, Rate
+./ledgerly/refunds/returns.py:11:from ledgerly.util import EXPONENT, round_money
+./ledgerly/refunds/chargebacks.py:10:from ledgerly.types import MoneyF, Rate
+./ledgerly/refunds/chargebacks.py:11:from ledgerly.util import round_money
+./ledgerly/refunds/partial.py:10:from ledgerly.types import MoneyF, Rate
+./ledgerly/refunds/partial.py:11:from ledgerly.util import round_money
+./ledgerly/refunds/cancellations.py:10:from ledgerly.types import MoneyF, Rate
+./ledgerly/refunds/cancellations.py:11:from ledgerly.util import EXPONENT, round_money
+./ledgerly/export/json_export.py:11:from ledgerly.types import MoneyF
+./ledgerly/export/json_export.py:12:from ledgerly.util import EXPONENT, round_money
+./ledgerly/export/csv_export.py:10:from ledgerly.types import MoneyF
+./ledgerly/export/csv_export.py:11:from ledgerly.util import EXPONENT, round_money
+./ledgerly/payouts/fees.py:10:from ledgerly.types import MoneyF, Rate
+./ledgerly/payouts/fees.py:11:from ledgerly.util import round_money
+./ledgerly/payouts/transfers.py:10:from ledgerly.types import MoneyF, Rate
+./ledgerly/payouts/transfers.py:11:from ledgerly.util import round_money
+./ledgerly/payouts/commissions.py:10:from ledgerly.types import MoneyF, Rate
+./ledgerly/payouts/commissions.py:11:from ledgerly.util import EXPONENT, round_money
+./ledgerly/payouts/holdbacks.py:10:from ledgerly.types import MoneyF, Rate
+./ledgerly/payouts/holdbacks.py:11:from ledgerly.util import EXPONENT, round_money
+./ledgerly/payouts/splits.py:10:from ledgerly.types import MoneyF, Rate
+./ledgerly/payouts/splits.py:11:from ledgerly.util import EXPONENT, round_money
+./ledgerly/billing/overage.py:10:from ledgerly.types import MoneyF, Rate
+./ledgerly/billing/overage.py:11:from ledgerly.util import round_money
+./ledgerly/billing/proration.py:10:from ledgerly.types import MoneyF, Rate
+./ledgerly/billing/proration.py:11:from ledgerly.util import EXPONENT, round_money
+./ledgerly/billing/plans.py:10:from ledgerly.types import MoneyF, Rate
+./ledgerly/billing/plans.py:11:from ledgerly.util import EXPONENT, round_money
+./ledgerly/billing/coupons.py:10:from ledgerly.types import MoneyF, Rate
+./ledgerly/billing/coupons.py:11:from ledgerly.util import EXPONENT, round_money
+./ledgerly/billing/usage.py:10:from ledgerly.types import MoneyF, Rate
+./ledgerly/billing/usage.py:11:from ledgerly.util import EXPONENT, round_money
+./ledgerly/reports/aging.py:10:from ledgerly.types import MoneyF, Rate
+./ledgerly/reports/aging.py:11:from ledgerly.util import round_money
+./ledgerly/reports/statements.py:10:from ledgerly.types import MoneyF, Rate
+./ledgerly/reports/statements.py:11:from ledgerly.util import round_money
+./ledgerly/reports/summaries.py:10:from ledgerly.types import MoneyF, Rate
+./ledgerly/reports/summaries.py:11:from ledgerly.util import round_money

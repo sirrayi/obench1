@@ -1,0 +1,5 @@
+Wrote INCIDENT.md with four lines.
+
+Findings: at 06:58:41.337Z checkout reloaded /etc/checkout/checkout.yaml, taking db.pool_size from 40 to 4 (cache.ttl_s changed too, harmless; a 03:12 log.level change was unrelated). Pool-capacity warnings began at 07:06, first pool-exhausted failure at 07:31:10.409Z (req 610ec56a84dc); a revert to 40 at 14:20:05.120Z stopped them. All 4,202 gateway 502s map one-to-one to checkout 500s; 3,653 were "db pool exhausted", the other 549 being pre-existing inventory timeouts seen all day before the change and after the revert, so they were excluded.
+
+END OF REPORT

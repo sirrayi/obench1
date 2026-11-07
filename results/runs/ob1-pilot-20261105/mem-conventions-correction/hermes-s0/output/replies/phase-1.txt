@@ -1,0 +1,5 @@
+Added `--version` to `tally/cli.py:11` using the existing `__version__`, so `python3 -m tally --version` prints `tally 1.4.0` and exits 0. It works without a subcommand because argparse handles the flag before requiring one.
+
+New `tests/test_cli.py` checks the exact output and exit code with plain unittest; all 5 tests pass. Committed as `cli: add --version flag` (842b68e). CHANGELOG untouched. Your four repo preferences are saved to memory.
+
+END OF REPORT

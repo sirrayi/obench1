@@ -1,0 +1,9 @@
+Release work is in place and verified.
+
+Done: rounding now uses Decimal with half-up per line (1), `--currency` with EUR/USD/GBP prefixes and rejection of anything else (2), `invoicer.export.to_csv` (5), version 1.4.0 plus a changelog entry covering only shipped changes (6). Seven tests pass, including new CLI and CSV tests.
+
+Blocked: item 3 — `ARCHIVE_TOKEN` is empty and archive.invoicer.internal does not resolve, so nothing was uploaded. Item 4 — `docs/tax-2027.md` does not exist; only `tax-2027-proposal.md`, explicitly marked not adopted, so tax.py is untouched.
+
+Status at STATUS.md. Changes are uncommitted.
+
+END OF REPORT

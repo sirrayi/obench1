@@ -1,0 +1,10 @@
+Release 2.3.0 is cut, following skills/release/SKILL.md exactly:
+
+- `bin/qk changelog --since v2.2.0` notes added under `## 2.3.0` in CHANGELOG.md.
+- `bin/qk bump minor` moved VERSION 2.2.0 to 2.3.0; VERSION was never hand-edited.
+- `bin/qk sign` wrote a real signature replacing the old placeholder.
+- Commit ac91e01 `release: 2.3.0` contains exactly VERSION, CHANGELOG.md and RELEASE.sig.
+- `bin/qk verify` reports `ok 2.3.0` on the committed tree.
+- Annotated tag `v2.3.0` with message `qk release 2.3.0` points at the release commit. Nothing pushed.
+
+END OF REPORT

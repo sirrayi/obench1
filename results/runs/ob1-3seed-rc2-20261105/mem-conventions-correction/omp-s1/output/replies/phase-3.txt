@@ -1,0 +1,5 @@
+Fixed `report.total` to filter rows by `month` prefix before summing; `--month 2026-09` now yields 531.77 instead of the full 1935.71, and composes with `--category` (42.00).
+
+Added `test_total_month` and `test_total_month_and_category`. Full suite passes (10 tests); committed snapshot passes 7 tests and the CLI reproduces 531.77. Committed only the fix as `8892aef fix: honor --month in sum totals` under the revised Conventional Commits rule; pre-existing uncommitted `top` work left intact and unstaged.
+
+END OF REPORT

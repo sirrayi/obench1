@@ -1,0 +1,15 @@
+Done.
+
+Preference updated: commit messages now use Conventional Commits (`<type>: <summary>`, lowercase type) for all commits from now on; the `<area>:` form is retired.
+
+Fix: `report.total()` accepted a `month` argument but never filtered on it. Added an `in_month` helper and a month check in the loop, so `sum --month YYYY-MM` now restricts rows to that month, alone or combined with `--category`. Without `--month`, totals are unchanged.
+
+Verified against `expenses.csv`: 2026-09 gives 531.77, 2026-10 gives 701.10, all rows give 1935.71. Added unit and CLI tests; all 18 pass.
+
+Commits:
+- `1f9bc64 feat: add top command` (pre-existing uncommitted work, committed separately)
+- `738be54 fix: honor month filter in sum totals`
+
+Working tree is clean.
+
+END OF REPORT

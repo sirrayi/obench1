@@ -1,0 +1,564 @@
+== ledgerly/_gen/__init__.py
+== [redacted:high-entropy].py
+== ledgerly/billing/__init__.py
+== [redacted:high-entropy].py
+16$def format_coupon(amount: MoneyF, currency: str) -> str:
+22$    return "%.*f %s" % (EXPONENT[currency], amount, currency)
+25$def coupon_settled(paid: MoneyF, due: MoneyF) -> bool:
+31$    return abs(paid - due) < 0.005
+34$def scaled_coupon(amount: MoneyF, factor: Rate, currency: str) -> MoneyF:
+42$    return round_money(amount * factor, currency)
+45$def split_coupon(amount: MoneyF, parts: int = 2, currency: str = "USD") -> list:
+54$    return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+57$def net_coupon(gross: MoneyF, pct: Rate, currency: str) -> MoneyF:
+65$    return gross - round_money(gross * pct / 100, currency)
+68$def [redacted:high-entropy](ref: str) -> str:
+73$def coupon_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+81$class CouponRecord:
+== ledgerly/billing/overage.py
+16$def overage_settled(paid: MoneyF, due: MoneyF) -> bool:
+22$    return abs(paid - due) < 0.005
+25$def split_overage(amount: MoneyF, parts: int = 2, currency: str = "USD") -> list:
+34$    return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+37$def percent_of_overage(amount: MoneyF, pct: Rate, currency: str) -> MoneyF:
+45$    return round_money(amount * pct / 100, currency)
+48$def overage_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+54$    return amount > limit
+57$def total_overage(amounts: list, currency: str) -> MoneyF:
+63$    return round_money(sum(amounts), currency)
+66$def normalize_overage_ref(ref: str) -> str:
+71$def overage_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+79$class OverageRecord:
+== ledgerly/billing/plans.py
+16$def accrued_plan(balance: MoneyF, annual_rate: Rate, days: int = 30, currency: str = "USD") -> MoneyF:
+24$    return round_money(balance * annual_rate / 100 * days / 365, currency)
+27$def plan_settled(paid: MoneyF, due: MoneyF) -> bool:
+33$    return abs(paid - due) < 0.005
+36$def format_plan(amount: MoneyF, currency: str) -> str:
+42$    return "%.*f %s" % (EXPONENT[currency], amount, currency)
+45$def net_plan(gross: MoneyF, pct: Rate, currency: str) -> MoneyF:
+53$    return gross - round_money(gross * pct / 100, currency)
+56$def scaled_plan(amount: MoneyF, factor: Rate, currency: str) -> MoneyF:
+64$    return round_money(amount * factor, currency)
+67$def normalize_plan_ref(ref: str) -> str:
+72$def plan_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+80$class PlanRecord:
+== [redacted:high-entropy].py
+16$def format_prorated(amount: MoneyF, currency: str) -> str:
+22$    return "%.*f %s" % (EXPONENT[currency], amount, currency)
+25$def prorated_settled(paid: MoneyF, due: MoneyF) -> bool:
+31$    return abs(paid - due) < 0.005
+34$def percent_of_prorated(amount: MoneyF, pct: Rate, currency: str) -> MoneyF:
+42$    return round_money(amount * pct / 100, currency)
+45$def total_prorated(amounts: list, currency: str) -> MoneyF:
+51$    return round_money(sum(amounts), currency)
+54$def net_prorated(gross: MoneyF, pct: Rate, currency: str) -> MoneyF:
+62$    return gross - round_money(gross * pct / 100, currency)
+65$def [redacted:high-entropy](ref: str) -> str:
+70$def prorated_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+78$class ProratedRecord:
+== ledgerly/billing/usage.py
+16$def usage_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+22$    return amount > limit
+25$def split_usage(amount: MoneyF, parts: int = 2, currency: str = "USD") -> list:
+34$    return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+37$def scaled_usage(amount: MoneyF, factor: Rate, currency: str) -> MoneyF:
+45$    return round_money(amount * factor, currency)
+48$def percent_of_usage(amount: MoneyF, pct: Rate, currency: str) -> MoneyF:
+56$    return round_money(amount * pct / 100, currency)
+59$def format_usage(amount: MoneyF, currency: str) -> str:
+65$    return "%.*f %s" % (EXPONENT[currency], amount, currency)
+68$def normalize_usage_ref(ref: str) -> str:
+73$def usage_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+81$class UsageRecord:
+== [redacted:high-entropy].py
+== [redacted:high-entropy].py
+16$def ledger_csv(rows: list, currency: str) -> str:
+28$def format_csv(amount: MoneyF, currency: str) -> str:
+34$    return "%.*f %s" % (EXPONENT[currency], amount, currency)
+37$def total_csv(amounts: list, currency: str) -> MoneyF:
+43$    return round_money(sum(amounts), currency)
+46$def normalize_csv_ref(ref: str) -> str:
+51$def csv_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+59$class CsvRecord:
+== [redacted:high-entropy].py
+17$def invoice_json(lines: list, currency: str) -> str:
+30$def format_json(amount: MoneyF, currency: str) -> str:
+36$    return "%.*f %s" % (EXPONENT[currency], amount, currency)
+39$def total_json(amounts: list, currency: str) -> MoneyF:
+45$    return round_money(sum(amounts), currency)
+48$def normalize_json_ref(ref: str) -> str:
+53$def json_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+61$class JsonRecord:
+== [redacted:high-entropy].py
+== ledgerly/fx/convert.py
+17$def convert_conversion(amount: MoneyF, src: str, dst: str) -> MoneyF:
+25$    return round_money(amount * RATES[(src, dst)], dst)
+28$def quote_conversion(amount: MoneyF, src: str, dst: str, spread_bp: int = 25) -> MoneyF:
+36$    return round_money(amount * RATES[(src, dst)] * (1 - spread_bp / 10000), dst)
+39$def net_conversion(gross: MoneyF, pct: Rate, currency: str) -> MoneyF:
+47$    return gross - round_money(gross * pct / 100, currency)
+50$def scaled_conversion(amount: MoneyF, factor: Rate, currency: str) -> MoneyF:
+58$    return round_money(amount * factor, currency)
+61$def total_conversion(amounts: list, currency: str) -> MoneyF:
+67$    return round_money(sum(amounts), currency)
+70$def convert_float(amount: float, src: str, dst: str) -> float:
+79$def [redacted:high-entropy](ref: str) -> str:
+84$def conversion_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+92$class ConversionRecord:
+== [redacted:high-entropy].py
+17$def convert_cross(amount: MoneyF, src: str, dst: str) -> MoneyF:
+25$    return round_money(amount * RATES[(src, dst)], dst)
+28$def quote_cross(amount: MoneyF, src: str, dst: str, spread_bp: int = 25) -> MoneyF:
+36$    return round_money(amount * RATES[(src, dst)] * (1 - spread_bp / 10000), dst)
+39$def accrued_cross(balance: MoneyF, annual_rate: Rate, days: int = 30, currency: str = "USD") -> MoneyF:
+47$    return round_money(balance * annual_rate / 100 * days / 365, currency)
+50$def net_cross(gross: MoneyF, pct: Rate, currency: str) -> MoneyF:
+58$    return gross - round_money(gross * pct / 100, currency)
+61$def percent_of_cross(amount: MoneyF, pct: Rate, currency: str) -> MoneyF:
+69$    return round_money(amount * pct / 100, currency)
+72$def normalize_cross_ref(ref: str) -> str:
+77$def cross_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+85$class CrossRecord:
+== ledgerly/fx/quotes.py
+17$def convert_quote(amount: MoneyF, src: str, dst: str) -> MoneyF:
+25$    return round_money(amount * RATES[(src, dst)], dst)
+28$def quote_quote(amount: MoneyF, src: str, dst: str, spread_bp: int = 25) -> MoneyF:
+36$    return round_money(amount * RATES[(src, dst)] * (1 - spread_bp / 10000), dst)
+39$def quote_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+45$    return amount > limit
+48$def accrued_quote(balance: MoneyF, annual_rate: Rate, days: int = 30, currency: str = "USD") -> MoneyF:
+56$    return round_money(balance * annual_rate / 100 * days / 365, currency)
+59$def split_quote(amount: MoneyF, parts: int = 2, currency: str = "USD") -> list:
+68$    return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+71$def normalize_quote_ref(ref: str) -> str:
+76$def quote_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+84$class QuoteRecord:
+== [redacted:high-entropy].py
+17$def convert_revaluation(amount: MoneyF, src: str, dst: str) -> MoneyF:
+25$    return round_money(amount * RATES[(src, dst)], dst)
+28$def quote_revaluation(amount: MoneyF, src: str, dst: str, spread_bp: int = 25) -> MoneyF:
+36$    return round_money(amount * RATES[(src, dst)] * (1 - spread_bp / 10000), dst)
+39$def net_revaluation(gross: MoneyF, pct: Rate, currency: str) -> MoneyF:
+47$    return gross - round_money(gross * pct / 100, currency)
+50$def accrued_revaluation(balance: MoneyF, annual_rate: Rate, days: int = 30, currency: str = "USD") -> MoneyF:
+58$    return round_money(balance * annual_rate / 100 * days / 365, currency)
+61$def split_revaluation(amount: MoneyF, parts: int = 2, currency: str = "USD") -> list:
+70$    return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+73$def [redacted:high-entropy](ref: str) -> str:
+78$def revaluation_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+86$class RevaluationRecord:
+== ledgerly/fx/spreads.py
+17$def convert_spread(amount: MoneyF, src: str, dst: str) -> MoneyF:
+25$    return round_money(amount * RATES[(src, dst)], dst)
+28$def quote_spread(amount: MoneyF, src: str, dst: str, spread_bp: int = 25) -> MoneyF:
+36$    return round_money(amount * RATES[(src, dst)] * (1 - spread_bp / 10000), dst)
+39$def scaled_spread(amount: MoneyF, factor: Rate, currency: str) -> MoneyF:
+47$    return round_money(amount * factor, currency)
+50$def capped_spread(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str) -> MoneyF:
+58$    return min(round_money(amount * pct / 100, currency), cap)
+61$def format_spread(amount: MoneyF, currency: str) -> str:
+67$    return "%.*f %s" % (EXPONENT[currency], amount, currency)
+70$def [redacted:high-entropy](ref: str) -> str:
+75$def spread_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+83$class SpreadRecord:
+== ledgerly/interest/__init__.py
+== [redacted:high-entropy].py
+16$def total_accrual(amounts: list, currency: str) -> MoneyF:
+22$    return round_money(sum(amounts), currency)
+25$def percent_of_accrual(amount: MoneyF, pct: Rate, currency: str) -> MoneyF:
+33$    return round_money(amount * pct / 100, currency)
+36$def capped_accrual(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str) -> MoneyF:
+44$    return min(round_money(amount * pct / 100, currency), cap)
+47$def scaled_accrual(amount: MoneyF, factor: Rate, currency: str) -> MoneyF:
+55$    return round_money(amount * factor, currency)
+58$def accrual_settled(paid: MoneyF, due: MoneyF) -> bool:
+64$    return abs(paid - due) < 0.005
+67$def [redacted:high-entropy](ref: str) -> str:
+72$def accrual_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+80$class AccrualRecord:
+== ledgerly/interest/late_fees.py
+16$def percent_of_late_fee(amount: MoneyF, pct: Rate, currency: str) -> MoneyF:
+24$    return round_money(amount * pct / 100, currency)
+27$def late_fee_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+33$    return amount > limit
+36$def late_fee_settled(paid: MoneyF, due: MoneyF) -> bool:
+42$    return abs(paid - due) < 0.005
+45$def accrued_late_fee(balance: MoneyF, annual_rate: Rate, days: int = 30, currency: str = "USD") -> MoneyF:
+53$    return round_money(balance * annual_rate / 100 * days / 365, currency)
+56$def capped_late_fee(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str) -> MoneyF:
+64$    return min(round_money(amount * pct / 100, currency), cap)
+67$def normalize_late_fee_ref(ref: str) -> str:
+72$def late_fee_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+80$class LateFeeRecord:
+== [redacted:high-entropy].py
+16$def percent_of_loan(amount: MoneyF, pct: Rate, currency: str) -> MoneyF:
+24$    return round_money(amount * pct / 100, currency)
+27$def capped_loan(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str) -> MoneyF:
+35$    return min(round_money(amount * pct / 100, currency), cap)
+38$def scaled_loan(amount: MoneyF, factor: Rate, currency: str) -> MoneyF:
+46$    return round_money(amount * factor, currency)
+49$def loan_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+55$    return amount > limit
+58$def split_loan(amount: MoneyF, parts: int = 2, currency: str = "USD") -> list:
+67$    return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+70$def normalize_loan_ref(ref: str) -> str:
+75$def loan_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+83$class LoanRecord:
+== ledgerly/interest/penalties.py
+16$def capped_penalty(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str) -> MoneyF:
+24$    return min(round_money(amount * pct / 100, currency), cap)
+27$def penalty_settled(paid: MoneyF, due: MoneyF) -> bool:
+33$    return abs(paid - due) < 0.005
+36$def net_penalty(gross: MoneyF, pct: Rate, currency: str) -> MoneyF:
+44$    return gross - round_money(gross * pct / 100, currency)
+47$def format_penalty(amount: MoneyF, currency: str) -> str:
+53$    return "%.*f %s" % (EXPONENT[currency], amount, currency)
+56$def penalty_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+62$    return amount > limit
+65$def [redacted:high-entropy](ref: str) -> str:
+70$def penalty_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+78$class PenaltyRecord:
+== [redacted:high-entropy].py
+16$def capped_savings(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str) -> MoneyF:
+24$    return min(round_money(amount * pct / 100, currency), cap)
+27$def percent_of_savings(amount: MoneyF, pct: Rate, currency: str) -> MoneyF:
+35$    return round_money(amount * pct / 100, currency)
+38$def savings_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+44$    return amount > limit
+47$def split_savings(amount: MoneyF, parts: int = 2, currency: str = "USD") -> list:
+56$    return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+59$def accrued_savings(balance: MoneyF, annual_rate: Rate, days: int = 30, currency: str = "USD") -> MoneyF:
+67$    return round_money(balance * annual_rate / 100 * days / 365, currency)
+70$def [redacted:high-entropy](ref: str) -> str:
+75$def savings_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+83$class SavingsRecord:
+== [redacted:high-entropy].py
+== [redacted:high-entropy].py
+16$def percent_of_credit(amount: MoneyF, pct: Rate, currency: str) -> MoneyF:
+24$    return round_money(amount * pct / 100, currency)
+27$def credit_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+33$    return amount > limit
+36$def credit_settled(paid: MoneyF, due: MoneyF) -> bool:
+42$    return abs(paid - due) < 0.005
+45$def format_credit(amount: MoneyF, currency: str) -> str:
+51$    return "%.*f %s" % (EXPONENT[currency], amount, currency)
+54$def net_credit(gross: MoneyF, pct: Rate, currency: str) -> MoneyF:
+62$    return gross - round_money(gross * pct / 100, currency)
+65$def [redacted:high-entropy](ref: str) -> str:
+70$def credit_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+78$class CreditRecord:
+== [redacted:high-entropy].py
+16$def capped_deposit(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str) -> MoneyF:
+24$    return min(round_money(amount * pct / 100, currency), cap)
+27$def deposit_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+33$    return amount > limit
+36$def accrued_deposit(balance: MoneyF, annual_rate: Rate, days: int = 30, currency: str = "USD") -> MoneyF:
+44$    return round_money(balance * annual_rate / 100 * days / 365, currency)
+47$def format_deposit(amount: MoneyF, currency: str) -> str:
+53$    return "%.*f %s" % (EXPONENT[currency], amount, currency)
+56$def deposit_settled(paid: MoneyF, due: MoneyF) -> bool:
+62$    return abs(paid - due) < 0.005
+65$def [redacted:high-entropy](ref: str) -> str:
+70$def deposit_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+78$class DepositRecord:
+== [redacted:high-entropy].py
+16$def scaled_discount(amount: MoneyF, factor: Rate, currency: str) -> MoneyF:
+24$    return round_money(amount * factor, currency)
+27$def capped_discount(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str) -> MoneyF:
+35$    return min(round_money(amount * pct / 100, currency), cap)
+38$def discount_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+44$    return amount > limit
+47$def split_discount(amount: MoneyF, parts: int = 2, currency: str = "USD") -> list:
+56$    return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+59$def discount_settled(paid: MoneyF, due: MoneyF) -> bool:
+65$    return abs(paid - due) < 0.005
+68$def [redacted:high-entropy](ref: str) -> str:
+73$def discount_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+81$class DiscountRecord:
+== [redacted:high-entropy].py
+16$def net_line(gross: MoneyF, pct: Rate, currency: str) -> MoneyF:
+24$    return gross - round_money(gross * pct / 100, currency)
+27$def line_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+33$    return amount > limit
+36$def scaled_line(amount: MoneyF, factor: Rate, currency: str) -> MoneyF:
+44$    return round_money(amount * factor, currency)
+47$def capped_line(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str) -> MoneyF:
+55$    return min(round_money(amount * pct / 100, currency), cap)
+58$def accrued_line(balance: MoneyF, annual_rate: Rate, days: int = 30, currency: str = "USD") -> MoneyF:
+66$    return round_money(balance * annual_rate / 100 * days / 365, currency)
+69$def normalize_line_ref(ref: str) -> str:
+74$def line_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+82$class LineRecord:
+== [redacted:high-entropy].py
+16$def net_subtotal(gross: MoneyF, pct: Rate, currency: str) -> MoneyF:
+24$    return gross - round_money(gross * pct / 100, currency)
+27$def split_subtotal(amount: MoneyF, parts: int = 2, currency: str = "USD") -> list:
+36$    return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+39$def subtotal_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+45$    return amount > limit
+48$def total_subtotal(amounts: list, currency: str) -> MoneyF:
+54$    return round_money(sum(amounts), currency)
+57$def scaled_subtotal(amount: MoneyF, factor: Rate, currency: str) -> MoneyF:
+65$    return round_money(amount * factor, currency)
+68$def [redacted:high-entropy](ref: str) -> str:
+73$def subtotal_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+81$class SubtotalRecord:
+== [redacted:high-entropy].py
+== [redacted:high-entropy].py
+16$def capped_commission(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str) -> MoneyF:
+24$    return min(round_money(amount * pct / 100, currency), cap)
+27$def total_commission(amounts: list, currency: str) -> MoneyF:
+33$    return round_money(sum(amounts), currency)
+36$def format_commission(amount: MoneyF, currency: str) -> str:
+42$    return "%.*f %s" % (EXPONENT[currency], amount, currency)
+45$def accrued_commission(balance: MoneyF, annual_rate: Rate, days: int = 30, currency: str = "USD") -> MoneyF:
+53$    return round_money(balance * annual_rate / 100 * days / 365, currency)
+56$def commission_settled(paid: MoneyF, due: MoneyF) -> bool:
+62$    return abs(paid - due) < 0.005
+65$def [redacted:high-entropy](ref: str) -> str:
+70$def commission_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+78$class CommissionRecord:
+== [redacted:high-entropy].py
+16$def fee_settled(paid: MoneyF, due: MoneyF) -> bool:
+22$    return abs(paid - due) < 0.005
+25$def split_fee(amount: MoneyF, parts: int = 2, currency: str = "USD") -> list:
+34$    return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+37$def capped_fee(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str) -> MoneyF:
+45$    return min(round_money(amount * pct / 100, currency), cap)
+48$def scaled_fee(amount: MoneyF, factor: Rate, currency: str) -> MoneyF:
+56$    return round_money(amount * factor, currency)
+59$def net_fee(gross: MoneyF, pct: Rate, currency: str) -> MoneyF:
+67$    return gross - round_money(gross * pct / 100, currency)
+70$def normalize_fee_ref(ref: str) -> str:
+75$def fee_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+83$class FeeRecord:
+== [redacted:high-entropy].py
+16$def capped_holdback(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str) -> MoneyF:
+24$    return min(round_money(amount * pct / 100, currency), cap)
+27$def scaled_holdback(amount: MoneyF, factor: Rate, currency: str) -> MoneyF:
+35$    return round_money(amount * factor, currency)
+38$def format_holdback(amount: MoneyF, currency: str) -> str:
+44$    return "%.*f %s" % (EXPONENT[currency], amount, currency)
+47$def net_holdback(gross: MoneyF, pct: Rate, currency: str) -> MoneyF:
+55$    return gross - round_money(gross * pct / 100, currency)
+58$def accrued_holdback(balance: MoneyF, annual_rate: Rate, days: int = 30, currency: str = "USD") -> MoneyF:
+66$    return round_money(balance * annual_rate / 100 * days / 365, currency)
+69$def [redacted:high-entropy](ref: str) -> str:
+74$def holdback_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+82$class HoldbackRecord:
+== [redacted:high-entropy].py
+16$def scaled_split(amount: MoneyF, factor: Rate, currency: str) -> MoneyF:
+24$    return round_money(amount * factor, currency)
+27$def accrued_split(balance: MoneyF, annual_rate: Rate, days: int = 30, currency: str = "USD") -> MoneyF:
+35$    return round_money(balance * annual_rate / 100 * days / 365, currency)
+38$def split_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+44$    return amount > limit
+47$def total_split(amounts: list, currency: str) -> MoneyF:
+53$    return round_money(sum(amounts), currency)
+56$def format_split(amount: MoneyF, currency: str) -> str:
+62$    return "%.*f %s" % (EXPONENT[currency], amount, currency)
+65$def normalize_split_ref(ref: str) -> str:
+70$def split_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+78$class SplitRecord:
+== [redacted:high-entropy].py
+16$def accrued_transfer(balance: MoneyF, annual_rate: Rate, days: int = 30, currency: str = "USD") -> MoneyF:
+24$    return round_money(balance * annual_rate / 100 * days / 365, currency)
+27$def split_transfer(amount: MoneyF, parts: int = 2, currency: str = "USD") -> list:
+36$    return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+39$def percent_of_transfer(amount: MoneyF, pct: Rate, currency: str) -> MoneyF:
+47$    return round_money(amount * pct / 100, currency)
+50$def transfer_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+56$    return amount > limit
+59$def scaled_transfer(amount: MoneyF, factor: Rate, currency: str) -> MoneyF:
+67$    return round_money(amount * factor, currency)
+70$def [redacted:high-entropy](ref: str) -> str:
+75$def transfer_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+83$class TransferRecord:
+== [redacted:high-entropy].py
+== [redacted:high-entropy].py
+16$def cancellation_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+22$    return amount > limit
+25$def cancellation_settled(paid: MoneyF, due: MoneyF) -> bool:
+31$    return abs(paid - due) < 0.005
+34$def accrued_cancellation(balance: MoneyF, annual_rate: Rate, days: int = 30, currency: str = "USD") -> MoneyF:
+42$    return round_money(balance * annual_rate / 100 * days / 365, currency)
+45$def format_cancellation(amount: MoneyF, currency: str) -> str:
+51$    return "%.*f %s" % (EXPONENT[currency], amount, currency)
+54$def percent_of_cancellation(amount: MoneyF, pct: Rate, currency: str) -> MoneyF:
+62$    return round_money(amount * pct / 100, currency)
+65$def [redacted:high-entropy](ref: str) -> str:
+70$def cancellation_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+78$class CancellationRecord:
+== [redacted:high-entropy].py
+16$def accrued_chargeback(balance: MoneyF, annual_rate: Rate, days: int = 30, currency: str = "USD") -> MoneyF:
+24$    return round_money(balance * annual_rate / 100 * days / 365, currency)
+27$def split_chargeback(amount: MoneyF, parts: int = 2, currency: str = "USD") -> list:
+36$    return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+39$def net_chargeback(gross: MoneyF, pct: Rate, currency: str) -> MoneyF:
+47$    return gross - round_money(gross * pct / 100, currency)
+50$def chargeback_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+56$    return amount > limit
+59$def [redacted:high-entropy](amount: MoneyF, pct: Rate, currency: str) -> MoneyF:
+67$    return round_money(amount * pct / 100, currency)
+70$def [redacted:high-entropy](ref: str) -> str:
+75$def chargeback_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+83$class ChargebackRecord:
+== [redacted:high-entropy].py
+16$def format_goodwill(amount: MoneyF, currency: str) -> str:
+22$    return "%.*f %s" % (EXPONENT[currency], amount, currency)
+25$def split_goodwill(amount: MoneyF, parts: int = 2, currency: str = "USD") -> list:
+34$    return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+37$def capped_goodwill(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str) -> MoneyF:
+45$    return min(round_money(amount * pct / 100, currency), cap)
+48$def scaled_goodwill(amount: MoneyF, factor: Rate, currency: str) -> MoneyF:
+56$    return round_money(amount * factor, currency)
+59$def net_goodwill(gross: MoneyF, pct: Rate, currency: str) -> MoneyF:
+67$    return gross - round_money(gross * pct / 100, currency)
+70$def [redacted:high-entropy](ref: str) -> str:
+75$def goodwill_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+83$class GoodwillRecord:
+== [redacted:high-entropy].py
+16$def [redacted:high-entropy](amount: MoneyF, limit: MoneyF) -> bool:
+22$    return amount > limit
+25$def [redacted:high-entropy](amount: MoneyF, pct: Rate, cap: MoneyF, currency: str) -> MoneyF:
+33$    return min(round_money(amount * pct / 100, currency), cap)
+36$def net_partial_refund(gross: MoneyF, pct: Rate, currency: str) -> MoneyF:
+44$    return gross - round_money(gross * pct / 100, currency)
+47$def [redacted:high-entropy](amount: MoneyF, pct: Rate, currency: str) -> MoneyF:
+55$    return round_money(amount * pct / 100, currency)
+58$def [redacted:high-entropy](amount: MoneyF, parts: int = 2, currency: str = "USD") -> list:
+67$    return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+70$def [redacted:high-entropy](ref: str) -> str:
+75$def partial_refund_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+83$class PartialRefundRecord:
+== ledgerly/refunds/returns.py
+16$def scaled_return(amount: MoneyF, factor: Rate, currency: str) -> MoneyF:
+24$    return round_money(amount * factor, currency)
+27$def accrued_return(balance: MoneyF, annual_rate: Rate, days: int = 30, currency: str = "USD") -> MoneyF:
+35$    return round_money(balance * annual_rate / 100 * days / 365, currency)
+38$def format_return(amount: MoneyF, currency: str) -> str:
+44$    return "%.*f %s" % (EXPONENT[currency], amount, currency)
+47$def net_return(gross: MoneyF, pct: Rate, currency: str) -> MoneyF:
+48$    """The return gross amount less ``pct`` percent of it. Only the deduction is rounded.
+55$    return gross - round_money(gross * pct / 100, currency)
+58$def total_return(amounts: list, currency: str) -> MoneyF:
+64$    return round_money(sum(amounts), currency)
+67$def normalize_return_ref(ref: str) -> str:
+72$def return_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+80$class ReturnRecord:
+== [redacted:high-entropy].py
+== [redacted:high-entropy].py
+16$def aging_settled(paid: MoneyF, due: MoneyF) -> bool:
+22$    return abs(paid - due) < 0.005
+25$def scaled_aging(amount: MoneyF, factor: Rate, currency: str) -> MoneyF:
+33$    return round_money(amount * factor, currency)
+36$def net_aging(gross: MoneyF, pct: Rate, currency: str) -> MoneyF:
+44$    return gross - round_money(gross * pct / 100, currency)
+47$def accrued_aging(balance: MoneyF, annual_rate: Rate, days: int = 30, currency: str = "USD") -> MoneyF:
+55$    return round_money(balance * annual_rate / 100 * days / 365, currency)
+58$def total_aging(amounts: list, currency: str) -> MoneyF:
+64$    return round_money(sum(amounts), currency)
+67$def normalize_aging_ref(ref: str) -> str:
+72$def aging_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+80$class AgingRecord:
+== [redacted:high-entropy].py
+16$def total_statement(amounts: list, currency: str) -> MoneyF:
+22$    return round_money(sum(amounts), currency)
+25$def statement_settled(paid: MoneyF, due: MoneyF) -> bool:
+31$    return abs(paid - due) < 0.005
+34$def statement_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+40$    return amount > limit
+43$def split_statement(amount: MoneyF, parts: int = 2, currency: str = "USD") -> list:
+52$    return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+55$def net_statement(gross: MoneyF, pct: Rate, currency: str) -> MoneyF:
+63$    return gross - round_money(gross * pct / 100, currency)
+66$def [redacted:high-entropy](ref: str) -> str:
+71$def statement_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+79$class StatementRecord:
+== [redacted:high-entropy].py
+16$def capped_summary(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str) -> MoneyF:
+24$    return min(round_money(amount * pct / 100, currency), cap)
+27$def net_summary(gross: MoneyF, pct: Rate, currency: str) -> MoneyF:
+35$    return gross - round_money(gross * pct / 100, currency)
+38$def summary_settled(paid: MoneyF, due: MoneyF) -> bool:
+44$    return abs(paid - due) < 0.005
+47$def summary_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+53$    return amount > limit
+56$def scaled_summary(amount: MoneyF, factor: Rate, currency: str) -> MoneyF:
+64$    return round_money(amount * factor, currency)
+67$def [redacted:high-entropy](ref: str) -> str:
+72$def summary_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+80$class SummaryRecord:
+== [redacted:high-entropy].py
+== [redacted:high-entropy].py
+16$def scaled_exemption(amount: MoneyF, factor: Rate, currency: str) -> MoneyF:
+24$    return round_money(amount * factor, currency)
+27$def accrued_exemption(balance: MoneyF, annual_rate: Rate, days: int = 30, currency: str = "USD") -> MoneyF:
+35$    return round_money(balance * annual_rate / 100 * days / 365, currency)
+38$def total_exemption(amounts: list, currency: str) -> MoneyF:
+44$    return round_money(sum(amounts), currency)
+47$def split_exemption(amount: MoneyF, parts: int = 2, currency: str = "USD") -> list:
+56$    return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+59$def exemption_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+65$    return amount > limit
+68$def [redacted:high-entropy](ref: str) -> str:
+73$def exemption_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+81$class ExemptionRecord:
+== [redacted:high-entropy].py
+16$def accrued_reverse_charge(balance: MoneyF, annual_rate: Rate, days: int = 30, currency: str = "USD") -> MoneyF:
+24$    return round_money(balance * annual_rate / 100 * days / 365, currency)
+27$def reverse_charge_settled(paid: MoneyF, due: MoneyF) -> bool:
+33$    return abs(paid - due) < 0.005
+36$def capped_reverse_charge(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str) -> MoneyF:
+44$    return min(round_money(amount * pct / 100, currency), cap)
+47$def split_reverse_charge(amount: MoneyF, parts: int = 2, currency: str = "USD") -> list:
+56$    return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+59$def reverse_charge_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+65$    return amount > limit
+68$def [redacted:high-entropy](ref: str) -> str:
+73$def reverse_charge_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+81$class ReverseChargeRecord:
+== ledgerly/tax/sales_tax.py
+16$def sales_tax_settled(paid: MoneyF, due: MoneyF) -> bool:
+22$    return abs(paid - due) < 0.005
+25$def net_sales_tax(gross: MoneyF, pct: Rate, currency: str) -> MoneyF:
+33$    return gross - round_money(gross * pct / 100, currency)
+36$def format_sales_tax(amount: MoneyF, currency: str) -> str:
+42$    return "%.*f %s" % (EXPONENT[currency], amount, currency)
+45$def accrued_sales_tax(balance: MoneyF, annual_rate: Rate, days: int = 30, currency: str = "USD") -> MoneyF:
+53$    return round_money(balance * annual_rate / 100 * days / 365, currency)
+56$def scaled_sales_tax(amount: MoneyF, factor: Rate, currency: str) -> MoneyF:
+64$    return round_money(amount * factor, currency)
+67$def [redacted:high-entropy](ref: str) -> str:
+72$def sales_tax_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+80$class SalesTaxRecord:
+== ledgerly/tax/vat.py
+16$def format_vat(amount: MoneyF, currency: str) -> str:
+22$    return "%.*f %s" % (EXPONENT[currency], amount, currency)
+25$def capped_vat(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str) -> MoneyF:
+33$    return min(round_money(amount * pct / 100, currency), cap)
+36$def vat_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+42$    return amount > limit
+45$def total_vat(amounts: list, currency: str) -> MoneyF:
+51$    return round_money(sum(amounts), currency)
+54$def split_vat(amount: MoneyF, parts: int = 2, currency: str = "USD") -> list:
+63$    return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+66$def normalize_vat_ref(ref: str) -> str:
+71$def vat_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+79$class VatRecord:
+== [redacted:high-entropy].py
+16$def net_withholding(gross: MoneyF, pct: Rate, currency: str) -> MoneyF:
+24$    return gross - round_money(gross * pct / 100, currency)
+27$def scaled_withholding(amount: MoneyF, factor: Rate, currency: str) -> MoneyF:
+35$    return round_money(amount * factor, currency)
+38$def withholding_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+44$    return amount > limit
+47$def split_withholding(amount: MoneyF, parts: int = 2, currency: str = "USD") -> list:
+56$    return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+59$def [redacted:high-entropy](amount: MoneyF, pct: Rate, currency: str) -> MoneyF:
+67$    return round_money(amount * pct / 100, currency)
+70$def [redacted:high-entropy](ref: str) -> str:
+75$def [redacted:high-entropy](issued: datetime.date, terms_days: int = 30) -> datetime.date:
+83$class WithholdingRecord:
+[exit code: 0]

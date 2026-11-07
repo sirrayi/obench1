@@ -1,0 +1,9 @@
+Root cause: October APAC feeds declare `# format: v2`, but the APAC reader always applied v1 parsing, stripping the decimal dot (`2641.49` became `264149`), producing exactly `178731321.00` SGD.
+
+APAC now routes through `meridian/feeds.read`, which selects parsing from the `# format:` header. Verified:
+
+- `python3 -m meridian report --region apac --month 2026-10` prints `1787313.21 SGD`.
+- September still prints `1784764.94 SGD`; EU `1774765.57 EUR`.
+- Added `test_apac_monthly_total_is_not_rescaled`; it fails on pre-fix code (`763669.00`) and passes now. All 8 tests pass.
+
+END OF REPORT

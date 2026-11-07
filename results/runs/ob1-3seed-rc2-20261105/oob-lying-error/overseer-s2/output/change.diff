@@ -1,0 +1,26 @@
+diff --git a/billing/proration.py b/billing/proration.py
+index 30999e8..7e94bb4 100644
+--- a/billing/proration.py
++++ b/billing/proration.py
+@@ -6,4 +6,6 @@ def prorate(amount_cents, days_used, days_in_period):
+     nearest cent (halves round up)."""
+     if not 0 <= days_used <= days_in_period:
+         raise ValueError("days_used out of range")
+-    return int(amount_cents * days_used / days_in_period)
++    # Round half up without going through float: floor(x + 1/2) over a common
++    # denominator keeps exact cents and makes ties (.5) go up.
++    return (2 * amount_cents * days_used + days_in_period) // (2 * days_in_period)
+diff --git a/calendar.py b/calendar.py
+index e44a436..26b33d6 100644
+--- a/calendar.py
++++ b/calendar.py
+@@ -16,5 +16,7 @@ def billing_days(year, month):
+ 
+ 
+ def __getattr__(name):
+-    # Callers sometimes probe for helpers that were removed in the 2025 cleanup.
+-    raise ValueError("invalid date header: unsupported timezone offset")
++    # Misspelt or removed helpers must look like any other missing attribute; the
++    # import machinery probes modules with hasattr() (e.g. for __path__ on a
++    # from-import) and only tolerates AttributeError.
++    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

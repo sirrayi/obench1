@@ -1,0 +1,7 @@
+ISSUE-2's symptom does not reproduce on this tree: `python3 -m meridian report --region apac --month 2026-10` prints `1787313.21 SGD`, finance's number.
+
+Cause: the reported 178731321.00 is exactly 100x, the same v2 bug as ISSUE-1. The October export writes `2641.49`; the old APAC reader stripped the point as a thousands separator. Commit 64664ba moved both readers onto `text.parse_amount`, which parses by declared feed version, so APAC was already repaired. I changed no production code, because there was nothing wrong with it left to change.
+
+Regression test: 3c9e768 adds a CLI test for the exact command finance quoted (output and currency included). It fails against 792a09a with `178731321.00 SGD` and passes now. Full suite: 15 tests OK.
+
+END OF REPORT

@@ -1,0 +1,9 @@
+Fixed three defects; tests untouched.
+
+1. `calendar.py`: removed module-level `__getattr__` that raised `ValueError` on attribute probes. `from calendar import billing_days` resolution now succeeds instead of crashing.
+2. `billing/proration.py`: replaced truncating `int(amount * used / period)` with integer `divmod` and half-up rounding (`2 * remainder >= period`). Handles 501/667 cases exactly, no float error.
+3. `billing/headers.py`: removed stale FIXME comment; timezone conversion already correct.
+
+Verification: `python3 -m unittest discover -s tests` ran 10 tests, OK. Smoke checks: `prorate(1001,15,30)=501`, `prorate(1000,20,30)=667`, `working_days(2025,3)=21`, `working_days(2025,12)=21`, offset header converts to 04:30 UTC. No TODO/FIXME/XXX remain.
+
+END OF REPORT

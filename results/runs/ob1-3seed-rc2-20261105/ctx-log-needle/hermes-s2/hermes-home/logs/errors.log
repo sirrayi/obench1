@@ -1,0 +1,18 @@
+2026-11-05 18:10:24,202 WARNING gateway.run: Another Hermes home's gateway owns this host (PID 83762 (no bound port; profiles: default)); starting this home's gateway beside it.
+2026-11-05 18:10:24,464 WARNING hermes.security_audit: Security posture audit found 1 issue(s) — review your deployment:
+2026-11-05 18:10:24,464 WARNING hermes.security_audit:   [security 1/1] SSH password authentication is ENABLED (default — no explicit directive). Password auth is brute-forceable and dangerous on an internet-facing box. Set 'PasswordAuthentication no' in sshd_config and use key-based auth.
+2026-11-05 18:10:24,746 WARNING gateway.run: No messaging platforms enabled.
+2026-11-05 18:10:24,940 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
+2026-11-05 18:10:24,940 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 18:10:24,941 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 18:10:24,952 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 18:10:24,952 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 18:10:25,607 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 18:10:25,607 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 18:10:25,616 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 18:10:25,616 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 18:10:26,240 WARNING hermes_cli.source_releases: Could not resolve the stable source release: <urlopen error [Errno 1] Operation not permitted>
+2026-11-05 18:10:26,241 WARNING hermes_cli.source_releases: Could not resolve the stable source release: <urlopen error [Errno 1] Operation not permitted>
+2026-11-05 18:10:41,463 WARNING [local-247be363a7b96c86b217ed95099c04b9e2b8819490e0ca83b228802214400703] agent.tool_executor: Tool terminal returned error (0.09s): {"output": "/bin/bash: line 4: cd: logs: No such file or directory", "exit_code": 1, "error": null}
+2026-11-05 18:10:41,556 WARNING [local-247be363a7b96c86b217ed95099c04b9e2b8819490e0ca83b228802214400703] agent.tool_executor: Tool terminal returned error (0.09s): {"output": "/bin/bash: line 4: cd: logs: No such file or directory", "exit_code": 1, "error": null}
+2026-11-05 18:22:27,835 WARNING gateway.platforms.base: [Local] send_document fallback: native file send unavailable for /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/cd80c32d5e96/INCIDENT.md

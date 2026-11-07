@@ -1,0 +1,5 @@
+Rebased feature/report onto main (3 commits replayed). Resolved the format_row-to-render_row rename across src/report.py and tests/test_report.py while keeping the totals, CSV, and header additions. Full suite passes: 6 tests, including main's schema test.
+
+Cleaned the build/ directory (object file, egg-info, copied sources); tracked dist/schema.json remains at version 2. Preserved your uncommitted locale change in src/config.py, untracked notes/ideas.md, and the stash "wip: try a markdown renderer" unchanged. That stash predates the rename, so applying it later will require resolving the same format_row/render_row conflict.
+
+END OF REPORT

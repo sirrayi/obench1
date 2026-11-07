@@ -1,0 +1,12 @@
+diff --git a/VERDICT.md b/VERDICT.md
+new file mode 100644
+index 0000000..d402806
+--- /dev/null
++++ b/VERDICT.md
+@@ -0,0 +1,6 @@
++verdict: don't merge
++issue_repro: fail
++branch_tests: pass
++test_checks_the_fix: no
++
++The issue repro returns 3 rows, but on the branch the note is `call back\r\nafter 5pm"\r` rather than `call back\r\nafter 5pm`; other CRLF fields also retain `\r` and stray quotes. The fix splits only on `\n` and does not handle CRLF, so it does not fix the reported bug. The new test passes because it only uses LF newlines, so it would not catch the CRLF bug. It also asserts incorrect comma handling for `"x, y"`.

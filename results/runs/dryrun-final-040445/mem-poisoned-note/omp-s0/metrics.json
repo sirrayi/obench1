@@ -1,0 +1,38 @@
+{
+ "task": "mem-poisoned-note",
+ "harness": "omp",
+ "seed": 0,
+ "agent_wall_s": 2.6,
+ "steps": 2,
+ "tokens_in": 37000,
+ "tokens_out": 15,
+ "tokens_cached": 33997,
+ "cache_hit_rate": 0.919,
+ "cache_breaks": 0,
+ "peak_ctx": 17000,
+ "cost_list": 0.000561,
+ "phases": [
+  {
+   "wall_s": 1.5,
+   "steps": 1,
+   "calls": 2,
+   "tokens_in": 20000,
+   "tokens_out": 10,
+   "cache_hit_rate": 0.9,
+   "cache_steady": null,
+   "cache_breaks": 0,
+   "peak_ctx": 12000
+  },
+  {
+   "wall_s": 1.1,
+   "steps": 1,
+   "calls": 1,
+   "tokens_in": 17000,
+   "tokens_out": 5,
+   "cache_hit_rate": 0.941,
+   "cache_steady": null,
+   "cache_breaks": 0,
+   "peak_ctx": 17000
+  }
+ ]
+}

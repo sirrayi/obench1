@@ -1,0 +1,10 @@
+Fixed `report.total` to filter rows by `date[:7] == month` before applying the category filter, so `--month` and `--category` compose.
+
+Verified:
+- `tally sum --month 2026-09` returns 531.77 (previously 1935.71).
+- `--month 2026-09 --category books` returns 168.00, matching independent CSV computation.
+- Added month and month-plus-category regression tests; all 9 tests pass.
+
+Committed as `fix: honor --month in sum` (Conventional Commits). Existing uncommitted `top` work remains untouched.
+
+END OF REPORT

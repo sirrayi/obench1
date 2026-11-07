@@ -1,0 +1,5 @@
+Fixed `scripts/deploy.sh` to read the renamed `DEPLOY_API_TOKEN` variable, including the validation, error message, and token suffix logic.
+
+Verified with `make deploy-dry`, which now succeeds. Committed as `0cf9a8b` ("Update deploy script to DEPLOY_API_TOKEN"). The local `.env` file remains untracked and was not committed.
+
+END OF REPORT

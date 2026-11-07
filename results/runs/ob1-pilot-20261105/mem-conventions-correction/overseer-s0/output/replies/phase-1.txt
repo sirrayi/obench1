@@ -1,0 +1,7 @@
+Retried twice just now, by both paths: `python3 -m unittest discover -s tests -t .` through bash, and `git status --short` through `run_code`'s bash. Both die identically with `sandbox-exec: sandbox_apply: Operation not permitted` (exit 71) before the command starts. That is a host-level sandbox fault, so no Python, no unittest and no git are reachable.
+
+Unverified, plainly: the test suite never ran, and no commit exists. What I did confirm is by reading files back: `tally/cli.py` registers `--version` as argparse's version action over `__version__`, so it prints `tally 1.4.0` and exits 0, and `tests/test_cli.py` asserts that literal output plus a `sum` parse check.
+
+The two changes sit uncommitted in the working tree; running the tests and the `cli: add --version flag` commit needs a working shell.
+
+END OF REPORT

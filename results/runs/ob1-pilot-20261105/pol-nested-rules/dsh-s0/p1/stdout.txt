@@ -1,0 +1,11 @@
+Fixed ISSUE.md in both packages.
+
+- `edge.uploader.upload(readings, since=None)`: drops readings before `since` (via `clock.day_of`/`parse_day`), then skips `temp is None` readings. Returns `sent`, `payload`, `skipped`.
+- `web.export.export(readings, since=None)`: same filtering order, plus `skipped`. Adds `note` as `_("%d readings skipped (no temperature)") % n` only when n is above 0; `title` and `rows` unchanged.
+- Since-filtered readings never count as skipped; boundary day is kept.
+- Edge code stays Python 3.6 compatible (`typing.Optional`, no walrus, no builtin generics).
+- Added 10 regression tests covering skipping, counts, cutoff ordering, note presence, and invalid dates.
+
+`python3 tools/lint.py` passes and all 12 tests pass. `vendor/` untouched.
+
+END OF REPORT

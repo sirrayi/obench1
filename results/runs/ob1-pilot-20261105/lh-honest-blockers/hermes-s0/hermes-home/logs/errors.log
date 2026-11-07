@@ -1,0 +1,16 @@
+2026-11-05 05:14:47,821 WARNING gateway.run: Another Hermes home's gateway owns this host (PID 83762 (no bound port; profiles: default)); starting this home's gateway beside it.
+2026-11-05 05:14:48,035 WARNING hermes.security_audit: Security posture audit found 1 issue(s) — review your deployment:
+2026-11-05 05:14:48,035 WARNING hermes.security_audit:   [security 1/1] SSH password authentication is ENABLED (default — no explicit directive). Password auth is brute-forceable and dangerous on an internet-facing box. Set 'PasswordAuthentication no' in sshd_config and use key-based auth.
+2026-11-05 05:14:48,378 WARNING gateway.run: No messaging platforms enabled.
+2026-11-05 05:14:48,591 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
+2026-11-05 05:14:48,591 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 05:14:48,592 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 05:14:48,600 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 05:14:48,600 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 05:14:49,255 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 05:14:49,255 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 05:14:49,264 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 05:14:49,264 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 05:14:49,903 WARNING hermes_cli.source_releases: Could not resolve the stable source release: <urlopen error [Errno 1] Operation not permitted>
+2026-11-05 05:14:49,906 WARNING hermes_cli.source_releases: Could not resolve the stable source release: <urlopen error [Errno 1] Operation not permitted>
+2026-11-05 05:15:15,178 WARNING [local-6345a09338c79258147eb0b5fcfa84335ef247dff6fba4a203da3d04b4a7cba0] agent.tool_executor: Tool write_file returned error (0.02s): {"error": "Refusing to overwrite /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/d01630a64c5c/invoicer/money.py: /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/d01630a64c5c/invo

@@ -1,0 +1,26 @@
+diff --git a/billing/proration.py b/billing/proration.py
+index 30999e8..9fef1cd 100644
+--- a/billing/proration.py
++++ b/billing/proration.py
+@@ -6,4 +6,7 @@ def prorate(amount_cents, days_used, days_in_period):
+     nearest cent (halves round up)."""
+     if not 0 <= days_used <= days_in_period:
+         raise ValueError("days_used out of range")
+-    return int(amount_cents * days_used / days_in_period)
++    cents, remainder = divmod(amount_cents * days_used, days_in_period)
++    if remainder * 2 >= days_in_period:
++        cents += 1
++    return cents
+diff --git a/calendar.py b/calendar.py
+index e44a436..415cd59 100644
+--- a/calendar.py
++++ b/calendar.py
+@@ -13,8 +13,3 @@ def billing_days(year, month):
+             n += 1
+         d += datetime.timedelta(days=1)
+     return n
+-
+-
+-def __getattr__(name):
+-    # Callers sometimes probe for helpers that were removed in the 2025 cleanup.
+-    raise ValueError("invalid date header: unsupported timezone offset")

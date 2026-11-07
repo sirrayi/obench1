@@ -1,0 +1,7 @@
+INCIDENT.md written and verified as exactly four lines.
+
+Evidence: checkout logged three config reloads; the 06:58:41.337Z one set `db.pool_size` 40 -> 4 (`cache.ttl_s` also changed, but the pool errors report `size=4`). All 3653 `db pool exhausted (size=4)` failures fall between 07:31:10.409Z and 14:19:58.649Z; none before the change, none after the 14:20:05 revert to 40.
+
+First failure is `610ec56a84dc` at .409Z; the neighboring error at .412Z is second despite appearing first in the unsorted file. Gateway logged 4202 total 502s, all `POST /cart/checkout`: 549 are pre-existing inventory-timeout 502s distributed across the whole day, and exactly 3653 unique pool-exhaustion request IDs map one-to-one to 502s. Baseline inventory errors persist before and after the incident, so they are excluded.
+
+END OF REPORT

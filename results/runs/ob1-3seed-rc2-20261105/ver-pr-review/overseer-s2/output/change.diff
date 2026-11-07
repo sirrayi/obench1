@@ -1,0 +1,14 @@
+diff --git a/REVIEW.md b/REVIEW.md
+new file mode 100644
+index 0000000..657604a
+--- /dev/null
++++ b/REVIEW.md
+@@ -0,0 +1,8 @@
++app/limiter.py:19: blocker: the bucket reset compares time.monotonic() (now) against a time.time() start (line 20), so now - start is always about -1.8e9 and the window never rolls; a client that reaches the limit is rejected for good (reproduced: window=1, still 429 after 1.5 s of waiting)
++app/handlers.py:11: blocker: X-Forwarded-For is trusted verbatim as the client key, so any caller can send a fresh random value per request and never be limited (verified: five requests with new values all returned 200 while the real key was already exhausted); the raw header is also keyed whole instead of its first hop, so a proxy chain yields an unstable, arbitrarily long key
++app/limiter.py:28: major: `b["count"] > self.limit + 1` admits limit+1 requests per window; with limit=100 the live server answered 200 to 101 requests before the first 429, and the new test does not notice
++app/limiter.py:37: major: retry_after subtracts the epoch start from time.monotonic(), giving about 1.79e9 seconds, so the handler sends `Retry-After: 1793935064` (seen from the running server) instead of a value in 0..window
++docs/limits.md:4: major: it promises idle buckets are dropped after 10 minutes, but nothing evicts them; self.buckets only grows, one entry per distinct key, and the key is client controlled, so a single caller can grow it without bound
++app/limiter.py:25: minor: _bucket reads and writes self.buckets outside the lock while server.py:8 serves requests on threads; two threads can each install a fresh bucket for one key, so increments land on an orphaned dict and the count under-reports, letting a client past the limit; retry_after (line 34) reads the same dict unlocked
++app/limiter.py:42: minor: int(seconds) // 1 truncates any remaining wait under one second to 0, so a client rejected late in its window is told `Retry-After: 0` and retries into another 429, and the `// 1` does nothing
++tests/test_limiter.py:10: minor: the test only checks that the first `limit` calls pass and never asserts that call limit+1 is refused; nothing covers the 429 path, the Retry-After value or the window rollover, which is why the off-by-one and the clock bug both get through

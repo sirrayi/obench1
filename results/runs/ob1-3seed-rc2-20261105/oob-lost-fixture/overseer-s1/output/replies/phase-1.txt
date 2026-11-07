@@ -1,0 +1,3 @@
+Recovered the fixture from an unreachable blob still present in the repository: `cb1f65d` (49152 bytes), a complete schema-v2 SQLite database with 600 unique cities. Its contents satisfy every expected value (Daka 1401170/KE, Zunequ 1941231/CL, Sator 156080/PT), and `PRAGMA integrity_check` reports ok. I wrote those exact blob bytes to `fixtures/golden.db` and confirmed the file hash matches the object. No data was generated or edited; a 420-row v1 database and a truncated variant were rejected. The file is untracked, since the changelog says it was deliberately removed from the repository. `python3 -m unittest discover -s tests` now passes all 4 tests. Tests and `geo/` are unchanged.
+
+END OF REPORT

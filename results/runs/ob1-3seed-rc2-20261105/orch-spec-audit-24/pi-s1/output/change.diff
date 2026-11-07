@@ -1,0 +1,351 @@
+diff --git a/SPEC-AMENDMENT-1.md b/SPEC-AMENDMENT-1.md
+new file mode 100644
+index 0000000..81ef1e1
+--- /dev/null
++++ b/SPEC-AMENDMENT-1.md
+@@ -0,0 +1,7 @@
++# Spec amendment 1 (rev 8)
++
++Adds one clause, effective immediately, for every service:
++
++- **C16** Public services set `rate_limit_rps` in config.json to an integer from 1 to 10000.
++
++Everything else in rev 7 stands. Reports must cover C16 too.
+diff --git a/findings/svc-01.json b/findings/svc-01.json
+new file mode 100644
+index 0000000..3514f42
+--- /dev/null
++++ b/findings/svc-01.json
+@@ -0,0 +1,10 @@
++{
++  "service": "svc-01",
++  "status": "violations",
++  "violations": [
++    "C1",
++    "C6",
++    "C10",
++    "C14"
++  ]
++}
+diff --git a/findings/svc-02.json b/findings/svc-02.json
+new file mode 100644
+index 0000000..4e16ccc
+--- /dev/null
++++ b/findings/svc-02.json
+@@ -0,0 +1,10 @@
++{
++  "service": "svc-02",
++  "status": "violations",
++  "violations": [
++    "C2",
++    "C5",
++    "C6",
++    "C11"
++  ]
++}
+diff --git a/findings/svc-03.json b/findings/svc-03.json
+new file mode 100644
+index 0000000..28a9433
+--- /dev/null
++++ b/findings/svc-03.json
+@@ -0,0 +1,8 @@
++{
++  "service": "svc-03",
++  "status": "violations",
++  "violations": [
++    "C1",
++    "C14"
++  ]
++}
+diff --git a/findings/svc-04.json b/findings/svc-04.json
+new file mode 100644
+index 0000000..825917f
+--- /dev/null
++++ b/findings/svc-04.json
+@@ -0,0 +1,9 @@
++{
++  "service": "svc-04",
++  "status": "violations",
++  "violations": [
++    "C3",
++    "C4",
++    "C15"
++  ]
++}
+diff --git a/findings/svc-05.json b/findings/svc-05.json
+new file mode 100644
+index 0000000..d66bcdd
+--- /dev/null
++++ b/findings/svc-05.json
+@@ -0,0 +1,5 @@
++{
++  "service": "svc-05",
++  "status": "compliant",
++  "violations": []
++}
+diff --git a/findings/svc-06.json b/findings/svc-06.json
+new file mode 100644
+index 0000000..973f830
+--- /dev/null
++++ b/findings/svc-06.json
+@@ -0,0 +1,9 @@
++{
++  "service": "svc-06",
++  "status": "violations",
++  "violations": [
++    "C8",
++    "C11",
++    "C14"
++  ]
++}
+diff --git a/findings/svc-07.json b/findings/svc-07.json
+new file mode 100644
+index 0000000..2471f28
+--- /dev/null
++++ b/findings/svc-07.json
+@@ -0,0 +1,10 @@
++{
++  "service": "svc-07",
++  "status": "violations",
++  "violations": [
++    "C4",
++    "C8",
++    "C12",
++    "C13"
++  ]
++}
+diff --git a/findings/svc-08.json b/findings/svc-08.json
+new file mode 100644
+index 0000000..4c78834
+--- /dev/null
++++ b/findings/svc-08.json
+@@ -0,0 +1,9 @@
++{
++  "service": "svc-08",
++  "status": "violations",
++  "violations": [
++    "C2",
++    "C6",
++    "C9"
++  ]
++}
+diff --git a/findings/svc-09.json b/findings/svc-09.json
+new file mode 100644
+index 0000000..fb9f24a
+--- /dev/null
++++ b/findings/svc-09.json
+@@ -0,0 +1,11 @@
++{
++  "service": "svc-09",
++  "status": "violations",
++  "violations": [
++    "C4",
++    "C6",
++    "C10",
++    "C11",
++    "C12"
++  ]
++}
+diff --git a/findings/svc-10.json b/findings/svc-10.json
+new file mode 100644
+index 0000000..850792d
+--- /dev/null
++++ b/findings/svc-10.json
+@@ -0,0 +1,8 @@
++{
++  "service": "svc-10",
++  "status": "violations",
++  "violations": [
++    "C8",
++    "C13"
++  ]
++}
+diff --git a/findings/svc-11.json b/findings/svc-11.json
+new file mode 100644
+index 0000000..759566d
+--- /dev/null
++++ b/findings/svc-11.json
+@@ -0,0 +1,5 @@
++{
++  "service": "svc-11",
++  "status": "unverifiable",
++  "violations": []
++}
+diff --git a/findings/svc-12.json b/findings/svc-12.json
+new file mode 100644
+index 0000000..4c57709
+--- /dev/null
++++ b/findings/svc-12.json
+@@ -0,0 +1,10 @@
++{
++  "service": "svc-12",
++  "status": "violations",
++  "violations": [
++    "C5",
++    "C6",
++    "C11",
++    "C13"
++  ]
++}
+diff --git a/findings/svc-13.json b/findings/svc-13.json
+new file mode 100644
+index 0000000..f1cd605
+--- /dev/null
++++ b/findings/svc-13.json
+@@ -0,0 +1,8 @@
++{
++  "service": "svc-13",
++  "status": "violations",
++  "violations": [
++    "C12",
++    "C15"
++  ]
++}
+diff --git a/findings/svc-14.json b/findings/svc-14.json
+new file mode 100644
+index 0000000..2dc4b6d
+--- /dev/null
++++ b/findings/svc-14.json
+@@ -0,0 +1,7 @@
++{
++  "service": "svc-14",
++  "status": "violations",
++  "violations": [
++    "C11"
++  ]
++}
+diff --git a/findings/svc-15.json b/findings/svc-15.json
+new file mode 100644
+index 0000000..b445e46
+--- /dev/null
++++ b/findings/svc-15.json
+@@ -0,0 +1,8 @@
++{
++  "service": "svc-15",
++  "status": "violations",
++  "violations": [
++    "C2",
++    "C5"
++  ]
++}
+diff --git a/findings/svc-16.json b/findings/svc-16.json
+new file mode 100644
+index 0000000..9ce97fa
+--- /dev/null
++++ b/findings/svc-16.json
+@@ -0,0 +1,7 @@
++{
++  "service": "svc-16",
++  "status": "violations",
++  "violations": [
++    "C10"
++  ]
++}
+diff --git a/findings/svc-17.json b/findings/svc-17.json
+new file mode 100644
+index 0000000..5207489
+--- /dev/null
++++ b/findings/svc-17.json
+@@ -0,0 +1,7 @@
++{
++  "service": "svc-17",
++  "status": "violations",
++  "violations": [
++    "C9"
++  ]
++}
+diff --git a/findings/svc-18.json b/findings/svc-18.json
+new file mode 100644
+index 0000000..517324f
+--- /dev/null
++++ b/findings/svc-18.json
+@@ -0,0 +1,5 @@
++{
++  "service": "svc-18",
++  "status": "compliant",
++  "violations": []
++}
+diff --git a/findings/svc-19.json b/findings/svc-19.json
+new file mode 100644
+index 0000000..ece8182
+--- /dev/null
++++ b/findings/svc-19.json
+@@ -0,0 +1,5 @@
++{
++  "service": "svc-19",
++  "status": "unverifiable",
++  "violations": []
++}
+diff --git a/findings/svc-20.json b/findings/svc-20.json
+new file mode 100644
+index 0000000..a1a8099
+--- /dev/null
++++ b/findings/svc-20.json
+@@ -0,0 +1,8 @@
++{
++  "service": "svc-20",
++  "status": "violations",
++  "violations": [
++    "C3",
++    "C5"
++  ]
++}
+diff --git a/findings/svc-21.json b/findings/svc-21.json
+new file mode 100644
+index 0000000..89d1a33
+--- /dev/null
++++ b/findings/svc-21.json
+@@ -0,0 +1,7 @@
++{
++  "service": "svc-21",
++  "status": "violations",
++  "violations": [
++    "C11"
++  ]
++}
+diff --git a/findings/svc-22.json b/findings/svc-22.json
+new file mode 100644
+index 0000000..84fd49d
+--- /dev/null
++++ b/findings/svc-22.json
+@@ -0,0 +1,11 @@
++{
++  "service": "svc-22",
++  "status": "violations",
++  "violations": [
++    "C3",
++    "C8",
++    "C10",
++    "C11",
++    "C14"
++  ]
++}
+diff --git a/findings/svc-23.json b/findings/svc-23.json
+new file mode 100644
+index 0000000..df75e9f
+--- /dev/null
++++ b/findings/svc-23.json
+@@ -0,0 +1,9 @@
++{
++  "service": "svc-23",
++  "status": "violations",
++  "violations": [
++    "C4",
++    "C7",
++    "C11"
++  ]
++}
+diff --git a/findings/svc-24.json b/findings/svc-24.json
+new file mode 100644
+index 0000000..e4e4f70
+--- /dev/null
++++ b/findings/svc-24.json
+@@ -0,0 +1,8 @@
++{
++  "service": "svc-24",
++  "status": "violations",
++  "violations": [
++    "C9",
++    "C11"
++  ]
++}

@@ -1,0 +1,10 @@
+Added `tally top N`.
+
+- `report.top(rows, n)` sorts by amount descending, then date ascending, returns at most n rows; non-positive n returns empty.
+- `cli` registers `top <count>` and prints `<date> <amount> <category>` with amount at 2 decimals.
+- Tests added in `tests/test_report.py` and `tests/test_cli.py`; full suite passes (10 tests).
+- Smoke run on `expenses.csv` printed the five largest, 96.80 first.
+- Committed as `report: add top expenses helper` and `cli: add top command`.
+- README command list updated; CHANGELOG untouched.
+
+END OF REPORT

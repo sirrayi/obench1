@@ -1,0 +1,12 @@
+diff --git a/VERDICT.md b/VERDICT.md
+new file mode 100644
+index 0000000..16be5be
+--- /dev/null
++++ b/VERDICT.md
+@@ -0,0 +1,6 @@
++verdict: don't merge
++issue_repro: fail
++branch_tests: pass
++test_checks_the_fix: no
++
++Why: the branch now returns 3 rows for the issue's repro, but the expected field value is still wrong. The second row's note comes back as `call back\r\nafter 5pm"\r` instead of `call back\r\nafter 5pm`, and the header and first row keep stray `\r` characters. The code splits on "\n" only, so the trailing `\r` stays attached to the last field and `strip('"')` cannot remove the closing quote. The new test uses LF-only fixtures and never the CRLF export, so it passes even though the reported Windows-line-ending case is still broken; its second assertion also codifies the incorrect quoted-comma split (four fields). The branch's unit tests do pass (2 tests), but they do not validate the fix.

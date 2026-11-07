@@ -1,0 +1,8 @@
+Fixed two root causes:
+
+- `calendar.py`: `__getattr__` raised `ValueError` during attribute probing, breaking `from calendar import billing_days`; it now raises `AttributeError`.
+- `billing/proration.py`: replaced truncation with integer half-up rounding, fixing the 500.5 and 666.67 cases.
+
+`python3 -m unittest discover -s tests` now runs 10 tests, all passing. Nothing under `tests/` was modified.
+
+END OF REPORT

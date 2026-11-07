@@ -1,0 +1,5 @@
+Fixed ISSUE.md. `edge.uploader.upload` and `web.export.export` now take `since=None`, drop readings dated before that day (not counted as skipped), skip `temp is None`, and return a `skipped` count. `upload` still returns `sent`/`payload`; `export` still returns `title`/`rows`, plus `note` only when skips exceed zero. Edge reuses `edge.clock`'s `day_of`/`parse_day` and stays 3.6-compatible; web builds the note as `_("%d readings skipped (no temperature)") % n`, per its AGENTS.md. Added five tests.
+
+One caveat: `bash` is broken in this environment (`sandbox-exec: sandbox_apply: Operation not permitted`), so `tools/lint.py` and the unittest suite did not run. I checked lint's four rules by grep instead (longest line 95, no tabs outside vendor, no trailing whitespace, trailing newlines present) and simulated both functions to confirm the five test expectations.
+
+END OF REPORT

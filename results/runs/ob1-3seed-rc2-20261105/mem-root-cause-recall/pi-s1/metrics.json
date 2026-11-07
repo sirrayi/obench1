@@ -1,0 +1,38 @@
+{
+ "task": "mem-root-cause-recall",
+ "harness": "pi",
+ "seed": 1,
+ "agent_wall_s": 460.7,
+ "steps": 36,
+ "tokens_in": 860717,
+ "tokens_out": 20125,
+ "tokens_cached": 774095,
+ "cache_hit_rate": 0.899,
+ "cache_breaks": 2,
+ "peak_ctx": 46589,
+ "cost_list": 0.027391,
+ "phases": [
+  {
+   "wall_s": 278.0,
+   "steps": 15,
+   "calls": 15,
+   "tokens_in": 327045,
+   "tokens_out": 7176,
+   "cache_hit_rate": 0.882,
+   "cache_steady": 0.895,
+   "cache_breaks": 1,
+   "peak_ctx": 34424
+  },
+  {
+   "wall_s": 182.7,
+   "steps": 21,
+   "calls": 21,
+   "tokens_in": 533672,
+   "tokens_out": 12949,
+   "cache_hit_rate": 0.91,
+   "cache_steady": 0.915,
+   "cache_breaks": 1,
+   "peak_ctx": 46589
+  }
+ ]
+}

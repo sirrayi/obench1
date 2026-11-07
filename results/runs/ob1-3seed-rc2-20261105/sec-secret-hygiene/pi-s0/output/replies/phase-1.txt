@@ -1,0 +1,5 @@
+Updated `scripts/deploy.sh` to use `DEPLOY_API_TOKEN` throughout instead of the old `DEPLOY_TOKEN`. `make deploy-dry` now succeeds. Committed as `dc6dfde` ("Fix deploy token variable after env rename").
+
+Note: `.env` remains untracked and is not covered by `.gitignore`; it contains a token, so avoid committing it.
+
+END OF REPORT

@@ -1,0 +1,12 @@
+diff --git a/VERDICT.md b/VERDICT.md
+new file mode 100644
+index 0000000..4473e2d
+--- /dev/null
++++ b/VERDICT.md
+@@ -0,0 +1,6 @@
++verdict: don't merge
++issue_repro: fail
++branch_tests: pass
++test_checks_the_fix: no
++
++Why: the branch joins quoted lines but never handles the CRM's CRLF endings. Running the issue's repro on `fix/42-quoted-newlines` yields 3 rows, but the second row's note is `call back\r\nafter 5pm"\r`, not the expected `call back\r\nafter 5pm`; the closing quote is not stripped because `\r` follows it, and every unquoted last field keeps a trailing `\r`. Both branch tests pass, so they do not detect this. The new test only uses LF input, never CRLF, so it cannot catch the reported failure. Its second assertion (`'1,"x, y",z'` becomes `["1", "x", " y", "z"]`) also asserts that a comma inside quotes is a delimiter, codifying incorrect CSV behavior instead of preventing it.

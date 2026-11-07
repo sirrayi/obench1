@@ -1,0 +1,12 @@
+syntax = "proto3";
+package harbor.billing;
+import "harbor/options.proto";
+
+service Billing {
+  rpc GetPayer (GetPayerRequest) returns (GetPayerReply) {
+    option (harbor.handler) = "harbor.accounts:fetch_user";
+  }
+  rpc ListInvoices (ListInvoicesRequest) returns (ListInvoicesReply) {
+    option (harbor.handler) = "harbor.invoices.store:list_all";
+  }
+}

@@ -1,0 +1,8 @@
+Fixed two defects:
+
+1. `calendar.py`: `__getattr__` raised `ValueError`, violating the module attribute protocol. `from calendar import billing_days` probes `__path__`, so the import failed and `test_periods` could not load. It now raises `AttributeError`, restoring correct import and `hasattr` behavior.
+2. `billing/proration.py`: replaced truncating float division with exact integer round-half-up: `(2 * amount_cents * days_used + days_in_period) // (2 * days_in_period)`.
+
+Verification: `python3 -m unittest discover -s tests -v` passes all 10 tests. Smoke checks confirmed exact-half, below-half, above-half, zero, and missing-attribute behavior. `tests/` untouched.
+
+END OF REPORT

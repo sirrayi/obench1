@@ -1,0 +1,33 @@
+{
+  "id": "pol-nested-rules",
+  "version": 1,
+  "authoring_date": "2026-10-30",
+  "track": "pol",
+  "camp": 2,
+  "categories": [
+    "policy",
+    "instructions"
+  ],
+  "pillars": [
+    11,
+    13,
+    17
+  ],
+  "instruction": "Fix ISSUE.md.",
+  "limits": {
+    "wall_s": 900,
+    "max_steps": 60
+  },
+  "grade_timeout": 300,
+  "null_max": 0.0,
+  "check_categories": [
+    [
+      "^edge: readings|^web: skipped|^since:",
+      "instructions"
+    ],
+    [
+      "^tests cover the change|lint.py passes",
+      "verification"
+    ]
+  ]
+}

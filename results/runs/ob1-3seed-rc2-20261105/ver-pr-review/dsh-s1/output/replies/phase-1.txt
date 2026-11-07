@@ -1,0 +1,9 @@
+Reviewed `feature/rate-limit` (069bc8e) and wrote REVIEW.md with six findings. The branch is untouched; only the untracked REVIEW.md was added.
+
+Key problems, all verified by running the branch code in a scratch copy:
+- Clock mix at limiter.py:20 (epoch vs monotonic) means the window never resets, so clients are blocked permanently and Retry-After reports ~1.79e9 seconds.
+- Off-by-one at limiter.py:28 admits limit+1 requests.
+- Client-supplied X-Forwarded-For keys are trusted and never evicted, so limits are trivially bypassed and buckets grow without bound.
+- Bucket lookup/creation sits outside the lock, so concurrent requests can lose counts.
+
+END OF REPORT

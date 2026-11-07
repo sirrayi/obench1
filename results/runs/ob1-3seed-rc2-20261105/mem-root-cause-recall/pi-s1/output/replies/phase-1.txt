@@ -1,0 +1,9 @@
+Root cause: the EU reader always applied v1 rules (dot as thousands separator, comma as decimal). October uses format v2 with point decimals, so `1425.01` became `142501`, a 100x overcount. APAC had the same latent bug.
+
+Fix: readers now read the `# format:` header and parse amounts through version-specific rules. Missing or unsupported versions raise an error.
+
+Results: EU 2026-10 is now 1774765.57 EUR; September is unchanged at 1734482.25 EUR; APAC 2026-10 is 1787313.21 SGD.
+
+Added `tests/test_feeds.py` for v1/v2 parsing and October totals. All 8 tests pass. Committed as `371d815`.
+
+END OF REPORT

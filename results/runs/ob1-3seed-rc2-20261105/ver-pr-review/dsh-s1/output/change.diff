@@ -1,0 +1,12 @@
+diff --git a/REVIEW.md b/REVIEW.md
+new file mode 100644
+index 0000000..1eb6da1
+--- /dev/null
++++ b/REVIEW.md
+@@ -0,0 +1,6 @@
++app/limiter.py:20: blocker: the bucket start is stored with time.time() (epoch) while line 19 compares it against time.monotonic(), so the elapsed value is always hugely negative and the window never expires; once a client passes the limit it is rejected forever, and the 429 carries a Retry-After of roughly 1.79e9 seconds (reproduced end to end against the handler: Retry-After 1793934722, still 429 one second later).
++app/limiter.py:28: major: the rejection test is "count > limit + 1", so limit + 1 requests are admitted (limit=100 served 101 requests with 200 before the first 429); the configured limit is off by one.
++app/handlers.py:11: major: the bucket key is taken verbatim from the client-supplied X-Forwarded-For header, so any caller can send a fresh value per request and never be limited (reproduced), and every forged value also creates a permanent entry in RateLimiter.buckets; the header should only be honored from a trusted proxy hop, with the peer address as fallback.
++app/limiter.py:12: major: self.buckets is never pruned anywhere, yet docs/limits.md:4 states idle buckets are dropped after 10 minutes; memory therefore grows with every distinct key, and the keys are attacker-controlled through X-Forwarded-For, so this is an unbounded-growth path.
++app/limiter.py:25: major: the lookup and creation of a bucket in _bucket (lines 16-22) happen outside self.lock, and retry_after (line 34) reads self.buckets without the lock, so the lock only guards the increment; under ThreadingHTTPServer concurrent requests for one key can each create their own bucket or increment a bucket that another thread already replaced, losing counts and letting traffic past the limit.
++tests/test_limiter.py:7: minor: the test only asserts that the first limit calls succeed and never asserts that call limit + 1 is rejected, which is why the off-by-one in allow() passes; neither window expiry nor the Retry-After value is covered.

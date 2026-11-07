@@ -1,0 +1,18 @@
+2026-11-05 19:58:02,534 WARNING gateway.run: Another Hermes home's gateway owns this host (PID 83762 (no bound port; profiles: default)); starting this home's gateway beside it.
+2026-11-05 19:58:02,748 WARNING hermes.security_audit: Security posture audit found 1 issue(s) — review your deployment:
+2026-11-05 19:58:02,748 WARNING hermes.security_audit:   [security 1/1] SSH password authentication is ENABLED (default — no explicit directive). Password auth is brute-forceable and dangerous on an internet-facing box. Set 'PasswordAuthentication no' in sshd_config and use key-based auth.
+2026-11-05 19:58:03,088 WARNING gateway.run: No messaging platforms enabled.
+2026-11-05 19:58:03,294 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
+2026-11-05 19:58:03,294 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 19:58:03,294 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 19:58:03,303 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 19:58:03,303 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 19:58:03,931 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 19:58:03,931 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 19:58:03,940 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 19:58:03,940 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 19:58:04,508 WARNING hermes_cli.source_releases: Could not resolve the stable source release: <urlopen error [Errno 1] Operation not permitted>
+2026-11-05 19:58:14,550 WARNING [local-41f2f560d15652d71c06dbc106e55cf9b1b49b8b69d32fc2cb87f0da2bdcdac0] agent.tool_executor: Tool read_file returned error (0.17s): {"content": "", "total_lines": 0, "file_size": 0, "truncated": false, "is_binary": false, "is_image": false, "error": "File not found: /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/cd8025
+2026-11-05 19:58:33,232 WARNING [local-41f2f560d15652d71c06dbc106e55cf9b1b49b8b69d32fc2cb87f0da2bdcdac0] agent.tool_executor: Tool terminal returned error (0.15s): {"output": "test_half_up (tests.test_money.TestMoney) ... FAIL\ntest_total_is_sum_of_rounded_lines (tests.test_money.TestMoney) ... FAIL\n\n============================================================
+2026-11-05 19:59:06,677 WARNING [local-41f2f560d15652d71c06dbc106e55cf9b1b49b8b69d32fc2cb87f0da2bdcdac0] agent.tool_executor: Tool write_file returned error (0.02s): {"error": "Refusing to overwrite /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/cd802501da81/pyproject.toml: /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/cd802501da81/pyproje
+2026-11-05 19:59:06,680 WARNING [local-41f2f560d15652d71c06dbc106e55cf9b1b49b8b69d32fc2cb87f0da2bdcdac0] agent.tool_executor: Tool write_file returned error (0.02s): {"error": "Refusing to overwrite /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/cd802501da81/CHANGELOG.md: /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/cd802501da81/CHANGELOG

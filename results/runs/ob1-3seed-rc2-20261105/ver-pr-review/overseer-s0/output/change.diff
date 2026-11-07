@@ -1,0 +1,12 @@
+diff --git a/REVIEW.md b/REVIEW.md
+new file mode 100644
+index 0000000..6f5ee00
+--- /dev/null
++++ b/REVIEW.md
+@@ -0,0 +1,6 @@
++app/limiter.py:20: blocker: the bucket start is stamped with time.time() but compared against time.monotonic() at lines 19 and 37, so the window never expires; a client that reaches the limit is blocked permanently and retry_after returns about 1.7e9, producing a Retry-After of hundreds of millions of seconds (reproduced: 1793934237).
++app/handlers.py:11: blocker: the limit key is the raw client-supplied X-Forwarded-For value, with no trusted-proxy check and no parsing down to one address, so a client that sends a fresh value per request gets a new bucket every time and is never limited (reproduced against the threaded server with limit=2: 10 of 10 requests returned 200).
++app/limiter.py:21: major: every unseen key inserts a bucket that is never removed, so self.buckets grows without bound; docs/limits.md:4 promises idle buckets are dropped after 10 minutes, which is not implemented, and since the keys are attacker-controlled this is a remote memory exhaustion path (reproduced: 20000 distinct keys retained).
++app/limiter.py:18: minor: _bucket reads and replaces bucket entries outside the lock, so the window reset is not atomic under ThreadingHTTPServer and a burst at a rollover can split one client's count across two bucket objects; the lock only guards the increment, on a dict that may already be stale.
++app/limiter.py:28: minor: the comparison against self.limit + 1 is off by one and lets limit+1 requests through per window instead of the limit stated in the module docstring and docs/limits.md (limit=3 yields four allowed requests).
++tests/test_limiter.py:9: minor: the tests only exercise the allow path; nothing asserts that request limit+1 is rejected or that a window resets, which is why the off-by-one and the clock mismatch both pass.

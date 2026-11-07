@@ -1,0 +1,10 @@
+Fixed all 19 tickets, including TCK-19 which arrived mid-task.
+
+- Applied the targeted fix in each named service function; added one `# TCK-n` marker per changed function (TCK-12 covers both retry functions).
+- Added all 19 entries to CHANGELOG.md under Unreleased in numeric order.
+- Added `test_tck_1` through `test_tck_19` to TestTickets in tests/test_tickets.py.
+- Bumped the version to 2.8.1 in fleetd/__init__.py and pyproject.toml per TCK-18.
+- Verified the full suite passes: 25 tests, including the 6 smoke tests.
+- Confirmed no unrelated edits, no whitespace errors, and no TODO/FIXME/XXX or pictographic characters.
+
+END OF REPORT

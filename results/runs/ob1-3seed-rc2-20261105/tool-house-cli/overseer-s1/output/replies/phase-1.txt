@@ -1,0 +1,11 @@
+Cut qk-demo 2.3.0 following `skills/release/SKILL.md` (its `bin/qk` process supersedes the older README notes).
+
+- `bin/qk changelog --since v2.2.0` printed the notes; added them verbatim under `## 2.3.0` at the top of CHANGELOG.md.
+- `bin/qk bump minor --yes` took 2.2.0 to 2.3.0; `bin/qk sign` rewrote RELEASE.sig for the new VERSION and CHANGELOG.md.
+- Committed exactly VERSION, CHANGELOG.md and RELEASE.sig as `release: 2.3.0` (0911a2c).
+- `bin/qk verify` passes on the committed tree (`ok 2.3.0`).
+- Annotated tag `v2.3.0` with message `qk release 2.3.0` is on that commit. Not pushed, as the skill says CI picks tags up.
+
+Working tree is clean.
+
+END OF REPORT

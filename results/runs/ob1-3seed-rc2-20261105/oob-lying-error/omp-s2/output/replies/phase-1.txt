@@ -1,0 +1,11 @@
+Fixed all failures; suite now passes 10/10.
+
+Changes:
+- `billing/periods.py`: inlined the business-day calculation, removing the `from calendar import billing_days` dependency on the repo-root `calendar.py`.
+- Deleted `calendar.py`: its module-level `__getattr__` raised `ValueError` during import machinery's `__path__` probe, and the filename shadowed the stdlib `calendar` module.
+- `billing/proration.py`: replaced float truncation with exact integer half-up rounding using `divmod`; no precision loss for large amounts, and the existing range check is unchanged.
+- Tests untouched.
+
+Verified: full discovery run reports OK; also smoke-tested business-day counts (Mar/Dec 2025, Feb 2024), rounding cases (501, 667), large-value exactness, and range errors. Stdlib `calendar` is importable again.
+
+END OF REPORT

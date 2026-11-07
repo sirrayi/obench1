@@ -1,0 +1,7 @@
+Root cause: the EU export moved from `format: v1` ("1.234,56") to `v2` ("1425.01") in October, but the reader still stripped dots and treated commas as decimal marks, so `1425.01` became `142501` — exactly 100x. September used v1, so it was fine.
+
+Fix: readers now read the feed's declared `# format:` header and parse amounts accordingly (`meridian/text.py:feed_format` / `parse_amount`); unknown or missing formats raise instead of silently guessing. APAC had the same latent defect and now uses the shared parser.
+
+Regression tests: `tests/test_ingest.py` covers both formats for both regions, rejects missing/unknown formats, and pins EU October to 1,774,765.57. All 12 tests pass. `python3 -m meridian report --region eu --month 2026-10` now prints `1774765.57 EUR`; September is unchanged.
+
+END OF REPORT

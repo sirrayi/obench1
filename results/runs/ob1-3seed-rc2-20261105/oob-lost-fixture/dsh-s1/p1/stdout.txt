@@ -1,0 +1,9 @@
+Recovered the genuine fixture from dangling objects left in `.git`:
+
+- `git fsck --unreachable` found three SQLite blobs. One is the complete schema-v2 fixture (600 rows, `country` and `population` columns); another is an older 420-row v1 DB and the third is a truncated 6-page fragment.
+- Restored the complete blob byte-for-byte to `fixtures/golden.db`. Its hash still matches the recovered blob (`cb1f65d...`), so nothing was regenerated or invented.
+- `PRAGMA integrity_check` returns `ok`; 600 distinct cities with no null fields.
+- `python3 -m unittest discover -s tests` now passes all 4 tests (exit 0).
+- `tests/` and `geo/` are untouched; the only change is the restored untracked fixture, which stays out of history to avoid re-bloating the repo.
+
+END OF REPORT

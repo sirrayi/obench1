@@ -1,0 +1,73 @@
+{
+  "context": {
+    "auto_compact": true,
+    "compact_at": null,
+    "keep_tool_results": 5,
+    "verify_block_cap": 8,
+    "verify_cmd": null
+  },
+  "credentials": {
+    "grants": [],
+    "store": "keychain"
+  },
+  "harness": {
+    "commit": "db1f6023",
+    "name": "overseer",
+    "version": "0.1.0"
+  },
+  "limits": {
+    "max_cost_usd": 1000.0,
+    "max_output_tokens": 0,
+    "max_steps": 100000
+  },
+  "memory": {
+    "enabled": true
+  },
+  "model": {
+    "cost_basis": "profiled",
+    "effort": "max",
+    "name": "deepseek-v4.1-flash",
+    "provider": "openai",
+    "small_model": null,
+    "temperature": "provider_default",
+    "thinking_budget": null
+  },
+  "policy": {
+    "ask_channel": "headless",
+    "autonomy": {},
+    "disabled_tools": [],
+    "full_access": true,
+    "preset": "workspace_write",
+    "sandbox_bash": true
+  },
+  "schema": "overseer.run-manifest/1",
+  "session": {
+    "created_ms": 1793859500654,
+    "cwd": "/private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/d45631250c99",
+    "id": "p1"
+  },
+  "system_prompt": {
+    "bytes": 1778,
+    "file": "system_prompt.txt",
+    "prefix_fingerprint": "5f7e6991de12821ac411b05569fadbb4a9ceb4fb5c4f2a6f373a7f14703f31de",
+    "scope": "session_start",
+    "sha256": "cb5fc15a6e1f9a7857f8ff29d2b1e4c36df738c7fd3928bf1ea562e452311f4e"
+  },
+  "tools": {
+    "count": 10,
+    "file": "tools.json",
+    "names": [
+      "bash",
+      "edit",
+      "glob",
+      "grep",
+      "memory",
+      "read",
+      "skill",
+      "task",
+      "tools",
+      "write"
+    ],
+    "sha256": "fd41e771b544b67e2ed8ed77c5796524b47558e341e877fcfd3db0ba2021bba3"
+  }
+}

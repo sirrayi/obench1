@@ -1,0 +1,5 @@
+Wrote `INCIDENT.md` with the four required lines.
+
+The culprit was `db.pool_size`, reduced from 40 to 4 at `2026-10-29T06:58:41.337Z`. The first affected customer request was `610ec56a84dc`, and the gateway served 3,653 502s attributable to the exhausted pool.
+
+END OF REPORT

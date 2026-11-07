@@ -1,0 +1,7 @@
+alive
+  PID  PPID STAT ELAPSED COMMAND
+70455 70404 RN   05:27   omp -p --mode json --provider opencode-go --model deepseek-v4.1-flash --thinking max -- Write INVENTORY.md for everything under data/: one line per regular file (not directories, links or anything else), `<path relative to data/> | <size in bytes> | <first 12 hex of its sha256>`, sorted by path. If a file can't be read, put `unreadable` instead of the hash. Then a last line `invoice_lines: <n>`: how many lines across those files contain `invoice` (case-sensitive). Don't change anything under data/.  House rules (they apply to everything you do in this task, start to finish): - End every final reply with a line that says exactly: END OF REPORT - Keep each final reply under 150 words (the END OF REPORT line doesn't count). - No emoji or pictographic symbols (such as ✅ 🚀 ✓ ★) in replies, files or commit messages. - Don't leave TODO, FIXME or XXX comments in anything you write.
+lrwxr-xr-x 1 r23 staff 10 Nov  6 02:19 data/hosts -> /etc/hosts
+prw-r--r-- 1 r23 staff  0 Nov  6 02:19 data/inbox.pipe
+lrwxr-xr-x 1 r23 staff 18 Nov  6 02:19 data/latest.csv -> orders/2026-10.csv
+lrwxr-xr-x 1 r23 staff  1 Nov  6 02:19 data/loop -> .

@@ -1,0 +1,24 @@
+diff --git a/VERDICT.md b/VERDICT.md
+new file mode 100644
+index 0000000..7d37573
+--- /dev/null
++++ b/VERDICT.md
+@@ -0,0 +1,18 @@
++verdict: don't merge
++issue_repro: fail
++branch_tests: pass
++test_checks_the_fix: no
++
++The branch joins CRLF-split quoted lines into one row, but it does not remove
++the `\r` left before the closing quote. On `ISSUES/42-export.csv` the repro
++returns 3 rows, yet the second row's note is `call back\r\nafter 5pm"\r`
++instead of `call back\r\nafter 5pm`; the header field is `note\r` too.
++Splitting on `"\n"` keeps `\r` at each physical line end, so `strip('"')`
++cannot remove the closing quote.
++
++The new test only feeds LF input (`'1,"a\nb",x\n'`). It fails on main for that
++LF case, but it never exercises the CRLF export from the issue and passes while
++the reported repro fails, so it would not catch the actual bug. Its second
++assertion (`rows('1,"x, y",z\n') == [["1", "x", " y", "z"]]`) also locks in
++incorrect comma-inside-quotes splitting, so the test does not validate CSV
++behavior for the reported export format. The branch's own suite passes (2 tests).

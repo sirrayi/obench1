@@ -1,0 +1,9 @@
+Recovered the genuine fixture from an unreachable blob left in the local git object database (`git fsck --lost-found`), rather than regenerating it.
+
+- Three dangling SQLite blobs; the schema-v2 one (`cb1f65d…`, 49,152 bytes) has `cities(name, country, lat, lon, population)`, 600 unique cities, `integrity_check` ok.
+- Its three sampled rows exactly match the test expectations (`Daka/KE/1401170`, `Zunequ/CL/1941231`, `Sator/PT/156080`), confirming it is the frozen golden dataset.
+- Restored byte-identically to `fixtures/golden.db`; `git hash-object` returns the original blob ID.
+
+Verification: `python3 -m unittest discover -s tests -v` ran 4 tests, all OK. No tests or `geo/` code changed; no data synthesized. The file is currently untracked.
+
+END OF REPORT

@@ -1,0 +1,13 @@
+Applied all seven edits exactly:
+
+- `config/app.ini`: `[server]` timeout set to 45.
+- `Makefile`: `lint` target added after `test`.
+- `src/legacy.py`: `calc` renamed to `calculate`, callers updated.
+- `src/handlers.py`: `delete_account` raises `PermissionError("no user")`.
+- `data/catalog.min.json`: SKU `K-7731` price set to 17.49.
+- `notes/README.txt`: added `Reviewed: 2026-10-30`, no trailing newline.
+- `src/weird name (copy).py`: `DEBUG = False`.
+
+Verified with `git diff`; no other changes.
+
+END OF REPORT

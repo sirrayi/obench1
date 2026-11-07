@@ -1,0 +1,7 @@
+Created `RELEASE_NOTES.md` (174 lines: 6 breaking, 75 features, 68 fixes, 12 contributors) and nothing else in the working directory; scratch scripts stayed in /tmp.
+
+How it was checked: a script re-derived every expected entry line from `commits.jsonl` independently and compared sets and order against the file plus `.mailmap`, so inclusion, revert/reverted-commit removal, internal exclusions, deps renaming, the two merges (`cli` "Add --json output", `db` "Handle null owner"), issue-reference filtering, and contributor counts all matched. Text checks confirmed maximum line length 100 characters with exactly the two truncations using U+2026, no trailing whitespace, one final newline, correct section order and blank lines, and no Performance section.
+
+Judgment calls: rule 8's period removal runs before the ` [perf]` marker is appended (merge key is the final summary), and the two over-long summaries were cut to the longest fitting prefix.
+
+END OF REPORT

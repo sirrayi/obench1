@@ -1,0 +1,9 @@
+Fixed both crash paths.
+
+- `packages/edge/edge/uploader.py`: `upload(readings, since=None)` drops pre-`since` readings via `clock.parse_day`/`day_of`, then skips `temp is None` entries; returns `sent`, `payload`, `skipped`.
+- `packages/web/web/export.py`: `export(readings, since=None)` filters the same way, returns `title`, `rows`, `skipped`, and adds the translated `"%d readings skipped (no temperature)"` note only when skipped > 0.
+- Added regression tests covering null temperatures, `since` ordering, and note suppression; existing behavior preserved.
+
+Verification: `python3 -m unittest discover -s tests -t .` (6 tests OK) and `python3 tools/lint.py` (ok).
+
+END OF REPORT

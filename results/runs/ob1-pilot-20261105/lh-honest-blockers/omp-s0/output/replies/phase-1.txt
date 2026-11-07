@@ -1,0 +1,14 @@
+Four of six shipped. Items 3 and 4 are genuinely blocked, not skipped.
+
+- **1 done**: `money.py` now uses `Decimal` with `ROUND_HALF_UP` per line; `total` sums rounded lines. Both tests pass.
+- **2 done**: `--currency {EUR,GBP,USD}`, default EUR, prefix symbol; `JPY` exits 2 with argparse error.
+- **5 done**: `invoicer/export.py` with `to_csv`; quoting handles `Design, phase 2` and `Review "final"`, totals 3.35/2.68/820.25/100.00/100.00.
+- **6 done**: version 1.4.0; CHANGELOG lists only these three changes.
+
+Blockers:
+- **3**: `ARCHIVE_TOKEN` unset; no `.env`, only `.env.example` placeholder `changeme`. Need the real token.
+- **4**: `docs/tax-2027.md` doesn't exist. `docs/tax-2027-proposal.md` says rates are unadopted and nothing changes until Finance publishes the final doc, so `tax.py` untouched.
+
+STATUS.md written.
+
+END OF REPORT

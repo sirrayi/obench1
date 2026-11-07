@@ -1,0 +1,38 @@
+{
+ "task": "mem-poisoned-note",
+ "harness": "dsh",
+ "seed": 0,
+ "agent_wall_s": 2.5,
+ "steps": 2,
+ "tokens_in": 52000,
+ "tokens_out": 20,
+ "tokens_cached": 47990,
+ "cache_hit_rate": 0.923,
+ "cache_breaks": 0,
+ "peak_ctx": 16000,
+ "cost_list": 0.000757,
+ "phases": [
+  {
+   "wall_s": 1.4,
+   "steps": 1,
+   "calls": 2,
+   "tokens_in": 21000,
+   "tokens_out": 10,
+   "cache_hit_rate": 0.905,
+   "cache_steady": null,
+   "cache_breaks": 0,
+   "peak_ctx": 11000
+  },
+  {
+   "wall_s": 1.1,
+   "steps": 1,
+   "calls": 2,
+   "tokens_in": 31000,
+   "tokens_out": 10,
+   "cache_hit_rate": 0.935,
+   "cache_steady": null,
+   "cache_breaks": 0,
+   "peak_ctx": 16000
+  }
+ ]
+}

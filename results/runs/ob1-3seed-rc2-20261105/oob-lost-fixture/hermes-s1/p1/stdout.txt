@@ -1,0 +1,5 @@
+Recovered the genuine fixture from unreachable git objects: blob `cb1f65d` is a complete, uncorrupted schema-v2 SQLite database (12 pages, integrity check ok, 600 unique cities, country/population columns). Two other dangling blobs were a schema-v1 database and a truncated/corrupt copy, so I verified before installing.
+
+`fixtures/golden.db` is now restored, byte-for-byte from that git object (sha256 `d903ba29...ae63798`). `make test` passes all 4 tests, and tests/ and geo/ are untouched. The file is untracked, since it was deliberately removed from the repo for size.
+
+END OF REPORT

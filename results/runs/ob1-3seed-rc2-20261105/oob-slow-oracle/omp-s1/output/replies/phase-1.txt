@@ -1,0 +1,7 @@
+Wrote `answers.csv`: header `part,code` plus 2000 rows in exact queries.txt order (1801 unique parts).
+
+Method: `tools/lookup --batch` (its documented bulk mode, one paced call) because 2000 serialized lookups at 1.5s each would exceed the 25-minute limit. Verified result count, part alignment, duplicate-part consistency, and numeric codes. 60 unknown parts written as `NA`.
+
+Spot-checked four parts (including unknown `Q929-2511`, which exits 1 with "unknown part") via single-mode lookups; CSV matches. `tools/` and `data/` unchanged; temp files and the tool-created zero-byte lock removed.
+
+END OF REPORT

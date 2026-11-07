@@ -1,0 +1,5 @@
+Implemented `parse_range` in `daterange.py`: a `_term` helper resolves one term to its inclusive first/last day (full ISO date, `YYYY-MM` via calendar month length, `YYYY-Www` via `date.fromisocalendar`, or `YYYY`), and `parse_range` splits on the first `..` and joins the left span's start to the right span's end, allowing open sides and rejecting `..`, unknown terms, and reversed ranges with `ValueError`. tests/test_daterange.py covers every spec clause: dates, months with leap February, ISO weeks including a year-crossing week and 2026-W53, years, open ends, spaces, malformed input and backwards ranges.
+
+Verification caveat: this sandbox cannot execute any process (`sandbox-exec: Operation not permitted`), so I could not run `python -m unittest`. Instead I ported the same logic to JS and ran every test input through it, and independently confirmed all expected dates; syntax was reviewed by reading, not executed.
+
+END OF REPORT

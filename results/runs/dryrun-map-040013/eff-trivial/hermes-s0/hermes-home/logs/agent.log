@@ -1,0 +1,102 @@
+2026-10-30 04:00:18,015 INFO hermes_cli.plugins: Plugin 'browser-browser-use' registered browser provider: browser-use
+2026-10-30 04:00:18,018 INFO hermes_cli.plugins: Plugin 'browser-browserbase' registered browser provider: browserbase
+2026-10-30 04:00:18,022 INFO hermes_cli.plugins: Plugin 'browser-firecrawl' registered browser provider: firecrawl
+2026-10-30 04:00:18,141 INFO hermes_cli.plugins: Plugin 'default' registered delegation provider: default
+2026-10-30 04:00:18,148 INFO hermes_cli.plugins: Plugin 'deepinfra' registered image_gen provider: deepinfra
+2026-10-30 04:00:18,151 INFO hermes_cli.plugins: Plugin 'fal' registered image_gen provider: fal
+2026-10-30 04:00:18,154 INFO hermes_cli.plugins: Plugin 'krea' registered image_gen provider: krea
+2026-10-30 04:00:18,157 INFO hermes_cli.plugins: Plugin 'meta-ai-image-gen' registered image_gen provider: meta-ai
+2026-10-30 04:00:18,161 INFO hermes_cli.plugins: Plugin 'openai' registered image_gen provider: openai
+2026-10-30 04:00:18,163 INFO hermes_cli.plugins: Plugin 'openai-codex' registered image_gen provider: openai-codex
+2026-10-30 04:00:18,165 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: openrouter
+2026-10-30 04:00:18,166 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: nous
+2026-10-30 04:00:18,171 INFO hermes_cli.plugins: Plugin 'xai' registered image_gen provider: xai
+2026-10-30 04:00:18,181 INFO hermes_cli.plugins: Plugin 'deepinfra' registered video_gen provider: deepinfra
+2026-10-30 04:00:18,183 INFO hermes_cli.plugins: Plugin 'fal' registered video_gen provider: fal
+2026-10-30 04:00:18,187 INFO hermes_cli.plugins: Plugin 'openrouter' registered video_gen provider: openrouter
+2026-10-30 04:00:18,193 INFO hermes_cli.plugins: Plugin 'xai' registered video_gen provider: xai
+2026-10-30 04:00:18,202 INFO hermes_cli.plugins: Plugin 'web-brave-free' registered web provider: brave-free
+2026-10-30 04:00:18,205 INFO hermes_cli.plugins: Plugin 'web-ddgs' registered web provider: ddgs
+2026-10-30 04:00:18,211 INFO hermes_cli.plugins: Plugin 'web-exa' registered web provider: exa
+2026-10-30 04:00:18,216 INFO hermes_cli.plugins: Plugin 'web-firecrawl' registered web provider: firecrawl
+2026-10-30 04:00:18,222 INFO hermes_cli.plugins: Plugin 'web-keenable' registered web provider: keenable
+2026-10-30 04:00:18,225 INFO hermes_cli.plugins: Plugin 'web-openai-native' registered web provider: openai-native
+2026-10-30 04:00:18,227 INFO hermes_cli.plugins: Plugin 'web-parallel' registered web provider: parallel
+2026-10-30 04:00:18,231 INFO hermes_cli.plugins: Plugin 'web-perplexity' registered web provider: perplexity
+2026-10-30 04:00:18,236 INFO hermes_cli.plugins: Plugin 'web-searxng' registered web provider: searxng
+2026-10-30 04:00:18,240 INFO hermes_cli.plugins: Plugin 'web-tavily' registered web provider: tavily
+2026-10-30 04:00:18,243 INFO hermes_cli.plugins: Plugin 'web-xai' registered web provider: xai
+2026-10-30 04:00:18,246 INFO hermes_cli.plugins: Plugin discovery complete: 62 found, 58 enabled
+2026-10-30 04:00:18,272 INFO hermes_cli.gateway_multiplex_mode: Single-profile install: gateway.multiplex_profiles unset, serving the default profile only.
+2026-10-30 04:00:18,289 WARNING gateway.run: Another Hermes home's gateway owns this host (PID 87033 (no bound port; profiles: default)); starting this home's gateway beside it.
+2026-10-30 04:00:18,544 WARNING hermes.security_audit: Security posture audit found 1 issue(s) — review your deployment:
+2026-10-30 04:00:18,544 WARNING hermes.security_audit:   [security 1/1] SSH password authentication is ENABLED (default — no explicit directive). Password auth is brute-forceable and dangerous on an internet-facing box. Set 'PasswordAuthentication no' in sshd_config and use key-based auth.
+2026-10-30 04:00:18,713 INFO gateway.control_socket: Gateway control socket listening at /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/6e3ce12e9731/hermes-home/gateway.sock
+2026-10-30 04:00:18,867 INFO gateway.run: Starting Hermes Gateway...
+2026-10-30 04:00:18,868 INFO gateway.run: Session storage: /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/6e3ce12e9731/hermes-home/sessions
+2026-10-30 04:00:18,870 INFO gateway.run: Agent budget: max_iterations=unlimited (agent.max_turns from config.yaml, else the HERMES_MAX_ITERATIONS bridge)
+2026-10-30 04:00:18,870 INFO gateway.run: Secret redaction: ENABLED (tool output, logs, and chat responses are scrubbed before delivery)
+2026-10-30 04:00:18,892 WARNING gateway.run: No messaging platforms enabled.
+2026-10-30 04:00:18,892 INFO gateway.run: Gateway will continue running for cron job execution.
+2026-10-30 04:00:18,915 INFO run_agent: No .env file found. Using system environment variables.
+2026-10-30 04:00:18,934 INFO gateway.run: Channel directory built: 0 target(s)
+2026-10-30 04:00:19,062 INFO tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-10-30 04:00:19,062 INFO tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-10-30 04:00:19,063 INFO tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-10-30 04:00:19,064 INFO tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-10-30 04:00:19,065 INFO tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-10-30 04:00:19,070 INFO tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-10-30 04:00:19,071 INFO tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-10-30 04:00:19,072 INFO tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-10-30 04:00:19,074 INFO tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-10-30 04:00:19,075 INFO tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-10-30 04:00:19,076 INFO tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-10-30 04:00:19,090 INFO tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-10-30 04:00:19,113 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
+2026-10-30 04:00:19,113 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-10-30 04:00:19,114 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-10-30 04:00:19,122 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-10-30 04:00:19,123 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-10-30 04:00:19,123 INFO tools.registry: check_fn check_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-10-30 04:00:19,234 INFO tools.tool_search: tool_search activated (tier 1): 17 core/visible tools kept, 6 deferred (~5232 tokens), listing full (budget ~4000 tokens)
+2026-10-30 04:00:19,249 INFO agent.model_metadata: No model id provided for context length resolution — defaulting to 256,000 tokens.
+2026-10-30 04:00:19,249 INFO gateway.run: Model context warmed:  -> 256000 tokens (default)
+2026-10-30 04:00:19,249 INFO gateway.run: Turn machinery warmed in 0.3s (20 tool schema(s) materialized)
+2026-10-30 04:00:19,260 INFO gateway.run: Press Ctrl+C to stop
+2026-10-30 04:00:19,263 INFO gateway.run: kanban dispatcher: holding singleton dispatcher lock (/private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/6e3ce12e9731/hermes-home/kanban/.dispatcher.lock)
+2026-10-30 04:00:19,265 INFO gateway.run: Cron scheduler will tick 1 profile(s): ['default']
+2026-10-30 04:00:19,265 INFO cron.scheduler_provider: In-process cron scheduler started (interval=60s)
+2026-10-30 04:00:19,267 INFO gateway.run: Auto-started gateway: exits after 600s with no clients, adapters, cron/kanban work or admissions (gateway.unmanaged_idle_exit_seconds)
+2026-10-30 04:00:19,268 INFO gateway.run: Gateway housekeeping started (interval=60s)
+2026-10-30 04:00:19,269 INFO cron.scheduler_provider: Multiplex cron scheduler started for 1 profile(s): ['default'] (re-enumerated every cycle)
+2026-10-30 04:00:19,673 INFO tui_gateway.ws: ws accepted peer=127.0.0.1:62560
+2026-10-30 04:00:19,823 INFO tools.tool_search: tool_search activated (tier 1): 17 core/visible tools kept, 6 deferred (~5232 tokens), listing full (budget ~4000 tokens)
+2026-10-30 04:00:19,824 INFO tools.registry: check_fn _a2a_tools_available returned False; dependent tools will be unavailable this turn
+2026-10-30 04:00:19,825 INFO tools.registry: check_fn check_discord_tool_requirements returned False; dependent tools will be unavailable this turn
+2026-10-30 04:00:19,825 INFO tools.registry: check_fn _check_feishu returned False; dependent tools will be unavailable this turn
+2026-10-30 04:00:19,832 INFO tools.registry: check_fn _check_yuanbao returned False; dependent tools will be unavailable this turn
+2026-10-30 04:00:19,845 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-10-30 04:00:19,845 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-10-30 04:00:19,855 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-10-30 04:00:19,855 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-10-30 04:00:19,855 INFO tools.registry: check_fn check_video_requirements returned False; dependent tools will be unavailable this turn
+2026-10-30 04:00:19,866 INFO agent.credential_pool: credential pool: no available entries (all exhausted or empty)
+2026-10-30 04:00:19,871 INFO tools.registry: check_fn check_video_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-10-30 04:00:19,872 INFO tools.registry: check_fn _check_xai_video_requirements returned False; dependent tools will be unavailable this turn
+2026-10-30 04:00:19,873 INFO agent.credential_pool: credential pool: no available entries (all exhausted or empty)
+2026-10-30 04:00:19,877 INFO tools.registry: check_fn check_x_search_requirements returned False; dependent tools will be unavailable this turn
+2026-10-30 04:00:20,435 INFO gateway.run: inbound message: platform=local user=uid:502 chat=local-2373b5105f21a0682f406875c51c17ed00aaefc51ad6aa2401f059dd93ead58a msg='Write the exact product of 48271 and 69621 to a file named answer.txt in the cur' reply_to_id=None reply_to_text=''
+2026-10-30 04:00:20,518 WARNING hermes_cli.source_releases: Could not resolve the stable source release: <urlopen error [Errno 1] Operation not permitted>
+2026-10-30 04:00:20,520 WARNING hermes_cli.source_releases: Could not resolve the stable source release: <urlopen error [Errno 1] Operation not permitted>
+2026-10-30 04:00:20,711 INFO run_agent: OpenAI client created (agent_init, shared=True) thread=hermes-gateway_3:481086795776 provider=opencode-go base_url=http://127.0.0.1:62554/v1 model=deepseek-v4.1-flash
+2026-10-30 04:00:20,749 INFO agent.model_metadata: Could not detect context length for model 'deepseek-v4.1-flash' at http://127.0.0.1:62554/v1 — defaulting to 256,000 tokens (probe-down). Set model.context_length in config.yaml to override.
+2026-10-30 04:00:20,749 INFO agent.model_metadata: Using hardcoded context length 1,000,000 for model 'deepseek-v4.1-flash' (custom endpoint, catalog match on 'deepseek-v4.1-flash')
+2026-10-30 04:00:20,828 INFO [local-2373b5105f21a0682f406875c51c17ed00aaefc51ad6aa2401f059dd93ead58a] agent.turn_context: conversation turn: session=local-2373b5105f21a0682f406875c51c17ed00aaefc51ad6aa2401f059dd93ead58a model=deepseek-v4.1-flash provider=opencode-go platform=cli history=0 msg='Write the exact product of 48271 and 69621 to a file named answer.txt in the cur...'
+2026-10-30 04:00:20,900 INFO agent.auxiliary_client: Auxiliary auto-detect: using main provider opencode-go (deepseek-v4.1-flash)
+2026-10-30 04:00:20,901 INFO agent.auxiliary_client: Auxiliary title_generation: using opencode-go (deepseek-v4.1-flash) at http://127.0.0.1:62554/v1/
+2026-10-30 04:00:20,953 INFO run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=Thread-9 (<lambda>):481137274880 provider=opencode-go base_url=http://127.0.0.1:62554/v1 model=deepseek-v4.1-flash
+2026-10-30 04:00:21,108 INFO [local-2373b5105f21a0682f406875c51c17ed00aaefc51ad6aa2401f059dd93ead58a] agent.conversation_loop: API call #1: model=deepseek-v4.1-flash provider=opencode-go in=9000 out=5 total=9005 latency=0.2s cache=8000/9000 (89%) id=fake-9
+2026-10-30 04:00:21,116 INFO [local-2373b5105f21a0682f406875c51c17ed00aaefc51ad6aa2401f059dd93ead58a] agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash api_calls=1/9223372036854775807 budget=1/9223372036854775807 tool_turns=0 last_msg_role=assistant response_len=19 session=local-2373b5105f21a0682f406875c51c17ed00aaefc51ad6aa2401f059dd93ead58a
+2026-10-30 04:00:21,126 INFO gateway.run: response ready: platform=local chat=local-2373b5105f21a0682f406875c51c17ed00aaefc51ad6aa2401f059dd93ead58a session=agent:main:local:dm:local-2373b5105f21a0682f406875c51c17ed00aaefc51ad6aa2401f059dd93ead58a time=0.7s api_calls=1 response=19 chars
+2026-10-30 04:00:21,136 INFO gateway.platforms.base: [Local] Sending response (19 chars) to local-2373b5105f21a0682f406875c51c17ed00aaefc51ad6aa2401f059dd93ead58a
+2026-10-30 04:00:21,142 INFO tui_gateway.ws: ws closed peer=127.0.0.1:62560 reason=client_disconnect(code=1000,reason=) messages=4 parse_errors=0 dispatch_crashes=0 send_failures=0 reaped_sessions=0 detached_sessions=0

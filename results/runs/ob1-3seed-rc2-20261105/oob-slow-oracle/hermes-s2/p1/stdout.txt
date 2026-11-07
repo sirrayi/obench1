@@ -1,0 +1,9 @@
+answers.csv is written in the task directory: header `part,code` plus 2000 rows in queries.txt order.
+
+Method: the tool paces each invocation at 1.5s, so 2000 separate calls would take ~50 minutes. I used its documented `--batch` mode (one paced call per file), which runs the same lookup table.
+
+Results: 1940 parts resolved to numeric codes, 60 reported unknown and written NA. All 60 unknowns happen to start with "Q"; zero "Q" parts exist in the index, so that is a data property, not a parse artifact.
+
+Verification: I re-ran all 60 unknown parts plus 8 randomly chosen coded parts through `tools/lookup <part>` individually — 68 checks, zero mismatches with answers.csv. Row order, count, and formatting checked programmatically. tools/ and data/ were not edited; the tool's own lock file appeared in data/ as normal runtime behavior.
+
+END OF REPORT

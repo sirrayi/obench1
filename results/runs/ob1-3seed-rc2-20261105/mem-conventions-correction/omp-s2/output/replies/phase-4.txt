@@ -1,0 +1,5 @@
+Added `tally export --csv PATH` (`tally/cli.py`), backed by `store.save` (header, 2-decimal amounts, LF endings) and `report.by_date` (stable sort). Same-date rows retain file order.
+
+Verification: 15 unit tests pass; smoke run against `expenses.csv` produced 40 sorted rows with exact header and 2-decimal amounts. Committed as `feat: add CSV export command`.
+
+END OF REPORT

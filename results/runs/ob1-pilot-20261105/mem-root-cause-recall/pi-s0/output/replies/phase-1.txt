@@ -1,0 +1,7 @@
+Root cause: EU October feeds switched to format v2 (plain decimals such as `1425.01`), but the reader still used v1 logic that treated dots as thousands separators, multiplying totals by 100. APAC v2 had the same bug.
+
+Fixed both readers to read the declared `# format:` header and parse v1 localized amounts or v2 plain decimals correctly. Unsupported formats now raise an error instead of producing bad totals.
+
+Added regression tests for EU/APAC v1 and v2 feeds and monthly report totals. All 10 tests pass, and EU October now reports `1774765.57 EUR`. Committed as `5969fcc`.
+
+END OF REPORT

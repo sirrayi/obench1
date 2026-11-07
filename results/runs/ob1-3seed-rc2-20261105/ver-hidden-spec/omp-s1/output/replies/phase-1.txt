@@ -1,0 +1,5 @@
+Implemented `parse_range` in `daterange.py` with strict ISO date, month, week, and year parsing; unit expansion; open ends; reversed-range rejection; separator whitespace handling; and `ValueError` for malformed input. Added 15 tests in `tests/test_daterange.py` covering all SPEC.md forms and error cases.
+
+Verified: `python3 -m unittest discover -s tests` passes all 15 tests. Generated caches removed.
+
+END OF REPORT

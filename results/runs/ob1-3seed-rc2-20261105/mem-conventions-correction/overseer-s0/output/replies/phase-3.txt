@@ -1,0 +1,3 @@
+`report.total` now skips rows whose date does not start with the given `--month`, so `tally sum --month 2026-09` returns 531.77 instead of the 1935.71 all-time total; combined with `--category` it narrows further. Added three unittest cases to tests/test_report.py (month, month plus category, unknown month); all 14 tests pass under `python3 -m unittest discover -s tests -t .`, and the CLI was checked against expenses.csv. Committed as `fix: filter sum totals by month` (report.py and test_report.py only); CHANGELOG.md untouched. The stale `<area>: <summary>` commit preference in memory was replaced with the Conventional Commits rule.
+
+END OF REPORT

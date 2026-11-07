@@ -1,0 +1,17 @@
+diff --git a/notes/ideas.md b/notes/ideas.md
+new file mode 100644
+index 0000000..26c7bf3
+--- /dev/null
++++ b/notes/ideas.md
+@@ -0,0 +1,4 @@
++# ideas
++
++- totals per currency?
++- ask Ana about the CSV dialect
+diff --git a/src/config.py b/src/config.py
+index 062d4a7..72ea92d 100644
+--- a/src/config.py
++++ b/src/config.py
+@@ -1 +1 @@
+-SETTINGS = {"currency": "EUR", "precision": 2}
++SETTINGS = {"currency": "EUR", "precision": 2, "locale": "de_DE"}  # trying German number formats

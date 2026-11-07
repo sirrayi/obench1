@@ -1,0 +1,10 @@
+Implemented `tally export --csv PATH`.
+
+- `report.by_date`: stable sort by date, so same-date rows keep file order.
+- `store.export_csv`: writes header `date,amount,category,note` with 2-decimal amounts; notes with commas stay quoted and round-trip.
+- CLI: `export` subcommand with required `--csv PATH`; prints nothing, leaves the expenses file untouched.
+- README updated; `--csv` is required, so `tally export` alone exits 2.
+
+Verified against `expenses.csv` (40 rows, sorted, same-date order preserved) and 32 tests pass. Commits: `report: add date order`, `store: write an export file`, `cli: add export command`.
+
+END OF REPORT

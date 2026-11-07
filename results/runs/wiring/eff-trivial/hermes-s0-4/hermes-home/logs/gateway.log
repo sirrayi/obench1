@@ -1,0 +1,18 @@
+2026-11-05 15:02:26,366 INFO gateway.control_socket: Gateway control socket listening at /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/e49d5a6019e9/hermes-home/gateway.sock
+2026-11-05 15:02:26,504 INFO gateway.run: Starting Hermes Gateway...
+2026-11-05 15:02:26,505 INFO gateway.run: Session storage: /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/e49d5a6019e9/hermes-home/sessions
+2026-11-05 15:02:26,506 INFO gateway.run: Agent budget: max_iterations=unlimited (agent.max_turns from config.yaml, else the HERMES_MAX_ITERATIONS bridge)
+2026-11-05 15:02:26,506 INFO gateway.run: Secret redaction: ENABLED (tool output, logs, and chat responses are scrubbed before delivery)
+2026-11-05 15:02:26,525 WARNING gateway.run: No messaging platforms enabled.
+2026-11-05 15:02:26,525 INFO gateway.run: Gateway will continue running for cron job execution.
+2026-11-05 15:02:26,561 INFO gateway.run: Channel directory built: 0 target(s)
+2026-11-05 15:02:26,833 INFO gateway.run: Model context warmed:  -> 256000 tokens (default)
+2026-11-05 15:02:26,834 INFO gateway.run: Turn machinery warmed in 0.3s (20 tool schema(s) materialized)
+2026-11-05 15:02:26,844 INFO gateway.run: Press Ctrl+C to stop
+2026-11-05 15:02:26,846 INFO gateway.run: kanban dispatcher: holding singleton dispatcher lock (/private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/e49d5a6019e9/hermes-home/kanban/.dispatcher.lock)
+2026-11-05 15:02:26,848 INFO gateway.run: Cron scheduler will tick 1 profile(s): ['default']
+2026-11-05 15:02:26,850 INFO gateway.run: Auto-started gateway: exits after 600s with no clients, adapters, cron/kanban work or admissions (gateway.unmanaged_idle_exit_seconds)
+2026-11-05 15:02:26,851 INFO gateway.run: Gateway housekeeping started (interval=60s)
+2026-11-05 15:02:27,858 INFO gateway.run: inbound message: platform=local user=uid:502 chat=local-98e5db0c5987442428df38e90089067dbe7046368cba2506625abfb89c55ee84 msg='Write the exact product of 48271 and 69621 to a file named answer.txt in the cur' reply_to_id=None reply_to_text=''
+2026-11-05 15:02:29,242 INFO gateway.run: response ready: platform=local chat=local-98e5db0c5987442428df38e90089067dbe7046368cba2506625abfb89c55ee84 session=agent:main:local:dm:local-98e5db0c5987442428df38e90089067dbe7046368cba2506625abfb89c55ee84 time=1.4s api_calls=2 response=19 chars
+2026-11-05 15:02:29,251 INFO gateway.platforms.base: [Local] Sending response (19 chars) to local-98e5db0c5987442428df38e90089067dbe7046368cba2506625abfb89c55ee84

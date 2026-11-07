@@ -1,0 +1,8 @@
+Implemented all eight normalizers under `clients/`:
+
+- `accounts.py`, `billing.py`, `contacts.py`, `customers.py`
+- `invoices.py`, `payments.py`, `returns.py`, `shipments.py`
+
+Shared rule logic is in `clients/_rules.py`, including dependencies, half-up cents rounding, booleans, dates, splitting, renames, and defaults. All provided examples pass with exact output types and values. No TODO/FIXME/XXX comments remain.
+
+END OF REPORT

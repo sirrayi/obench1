@@ -1,0 +1,13 @@
+All 10 tests pass; `tests/` is unmodified.
+
+Three defects fixed:
+
+1. **Import error (periods).** The top-level `calendar.py` shadowed the stdlib `calendar` module. Its module-level `__getattr__` raised `ValueError` instead of `AttributeError`, so the import machinery's `hasattr(module, "__path__")` probe crashed during `from calendar import billing_days`. I moved the helper to `billing/business_days.py`, dropped the bogus shim, deleted the shadowing file, and updated `billing/periods.py`. Stdlib `calendar` now resolves correctly.
+
+2. **Rounding (proration).** `int()` truncated the float, so exact halves fell down (500.5 to 500, 666.67 to 666). Replaced with integer `divmod` and a half-up tie-break.
+
+3. Added a non-positive `days_in_period` guard.
+
+Files: `billing/business_days.py` (new), `billing/periods.py`, `billing/proration.py`, `calendar.py` (removed).
+
+END OF REPORT

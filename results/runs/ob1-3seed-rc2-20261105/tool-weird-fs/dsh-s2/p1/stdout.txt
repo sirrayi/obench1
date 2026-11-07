@@ -1,0 +1,9 @@
+INVENTORY.md is written at the workspace root (data/ untouched, read-only access throughout).
+
+- 13 regular files listed, one line each, sorted bytewise by path. Excluded: 3 symlinks (`hosts`, `latest.csv`, `loop`) and the FIFO `inbox.pipe`.
+- Hidden `.hidden/settings.txt`, the 30-level `deep/` path, and filenames with spaces, glob characters, and a leading dash are included verbatim; the NFD name `café/menü.txt` is preserved as raw bytes.
+- `locked/payroll.bin` (mode 000) is marked `unreadable`.
+- `invoice_lines: 683`, cross-checked by two independent counting methods; `big.sparse` (2 GiB, zero newlines) adds none.
+- Sizes and SHA-256 prefixes were verified against `stat` and `shasum`.
+
+END OF REPORT

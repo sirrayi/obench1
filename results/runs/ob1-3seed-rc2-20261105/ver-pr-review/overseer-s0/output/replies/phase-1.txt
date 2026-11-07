@@ -1,0 +1,9 @@
+Wrote `REVIEW.md` (untracked, on main); `feature/rate-limit` is still at 069bc8e, untouched. Each finding was reproduced by running the branch code exported to /tmp, since deleted.
+
+Six findings: two blockers (mismatched `time.time`/`time.monotonic` causing permanent lockout and a ~57-year Retry-After; `X-Forwarded-For` keying that a client bypasses by rotating the header), one major (buckets never evicted, contradicting docs/limits.md:4), three minors (unlocked bucket reset, limit+1 off-by-one, allow-path-only tests).
+
+Not looked at: the repo contains no load-balancer configuration, so whether the forwarded header is trustworthy in deployment could not be checked; no integration tests exist beyond the two unit tests.
+
+Checklist: every finding names file and line plus how it fails, all reproduced (done); scope not covered stated (done).
+
+END OF REPORT

@@ -1,0 +1,3 @@
+Fixed the typo in `sync.py`: the argument parser description now reads "Sync a directory tree into another." Added a matching top-of-list entry to `CHANGELOG.md` ending in `[OPS-30]`. The test suite passed before committing, and the commit went through the pre-commit hook normally (no bypass), confirming with a `pass` line in the hook log. `python3 sync.py --help` now prints the corrected text, and the working tree is clean at commit b2cb944. The only remaining occurrence of the misspelling is the intentional quote in the changelog entry describing the fix. I also saved the two repo rules (test-before-commit, no hook bypass; bracketed ticket at the end of every changelog entry) to memory for later sessions.
+
+END OF REPORT

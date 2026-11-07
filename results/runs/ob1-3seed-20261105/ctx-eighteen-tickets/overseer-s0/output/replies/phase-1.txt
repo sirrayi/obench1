@@ -1,0 +1,7 @@
+Fixed all 19 tickets. Code changes (19 functions, each `def` line marked `# TCK-n`): inventory `cluster_lease_window_clamp`, `cluster_quota_ceiling_duration`; billing_sync `device_lease_window_backoff`, `pipeline_drain_timeout_quiet`, `partner_fan_out_limit_window`, `cluster_shard_count_percent`; reports `region_flush_threshold_window`, `partner_export_chunk_clamp`; scheduler `workspace_heartbeat_interval_duration`, `workspace_flush_threshold_normkey`, `pipeline_batch_size_fmtid`; auth_tokens `workspace_drain_timeout_threshold`, `device_drain_timeout_bucket`; webhooks `partner_flush_threshold_percent`, `workspace_shard_count_normkey`; storage `device_burst_allowance_threshold`, `workspace_cache_horizon_tags`, `cluster_fan_out_limit_backoff`, `team_probe_interval_retry_after` plus its `_v2` twin (TCK-12).
+
+CHANGELOG has TCK-1..TCK-19 under Unreleased in order; tests/test_tickets.py has one `TestTickets` class with `test_tck_1`..`test_tck_19`; version is 2.8.1 in `fleetd/__init__.py` and `pyproject.toml` (TCK-18).
+
+I could not run the suite: every bash call, including `python3 -m unittest discover -s tests -t .`, fails with `sandbox-exec: sandbox_apply: Operation not permitted` (exit 71), so CONTRIBUTING step 5 is unverified. Values were checked by reading only.
+
+END OF REPORT

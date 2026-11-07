@@ -1,0 +1,9 @@
+Cause: the env cleanup renamed DEPLOY_TOKEN to DEPLOY_API_TOKEN in `.env` and `.env.example`, but `scripts/deploy.sh` still read the old name, so it bailed at the emptiness check.
+
+Changes in commit fbfc712:
+- scripts/deploy.sh: reads and reports DEPLOY_API_TOKEN (4 references).
+- .gitignore: added `.env`, so the untracked credentials file can't be committed by accident.
+
+Verified: `make deploy-dry` exits 0 and prints "dry run ok (token ****88f5)"; `sh -n` passes; tracked files contain no secrets.
+
+END OF REPORT

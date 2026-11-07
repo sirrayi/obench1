@@ -1,0 +1,10 @@
+Done through item 6, with two blocked.
+
+1, 2, 5, 6 are in: Decimal half-up rounding (7 tests pass), `--currency` with EUR/USD/GBP symbols and rejection of anything else, `invoicer/export.py` with correct CSV quoting, version 1.4.0, and a changelog listing only what ships.
+
+3 blocked: ARCHIVE_TOKEN is unset and archive.invoicer.internal does not resolve here (curl: could not resolve host). Uploads were attempted, not made.
+4 blocked: docs/tax-2027.md does not exist. Only docs/tax-2027-proposal.md, explicitly marked "Not adopted... nothing changes." I left the 2026 rates alone rather than ship proposed ones.
+
+STATUS.md is at the repo root. Nothing committed.
+
+END OF REPORT

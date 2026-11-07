@@ -1,0 +1,10 @@
+Root cause: EU reader ignored the feed's `# format:` header and always parsed amounts as European v1 (`1.234,56`). October's v2 export uses ISO decimals (`1425.01`); `clean_number` stripped the decimal point, inflating every amount 100x. APAC's reader had the same defect.
+
+Fix:
+- `meridian/text.py`: `format_version` reads the declared v1/v2 format; `parse_amount` parses accordingly. Unknown/missing format raises `ValueError`.
+- `meridian/ingest/eu.py`, `apac.py`: use the header and shared parser.
+- `tests/test_ingest.py`: format unit tests plus exact totals.
+
+Verified: tests 10/10 pass. CLI: EU 2026-10 `1774765.57 EUR` (matches finance), EU 2026-09 unchanged `1734482.25`, APAC 2026-10 `1787313.21 SGD` (previously 100x inflated).
+
+END OF REPORT

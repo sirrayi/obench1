@@ -1,0 +1,101 @@
+ tests/test_accounts.py   | 10 +++++-----
+ tests/test_analytics.py  |  4 ++--
+ tests/test_audit.py      |  2 +-
+ tests/test_export.py     |  4 ++--
+ tests/test_feeds.py      |  4 ++--
+ tests/test_imports.py    |  4 ++--
+ tests/test_insights.py   |  4 ++--
+ tests/test_invoices.py   |  4 ++--
+ tests/test_jobs.py       |  6 +++---
+ tests/test_late_fees.py  |  2 +-
+ tests/test_ledger.py     |  2 +-
+ tests/test_mail.py       |  4 ++--
+ tests/test_notify.py     |  2 +-
+ tests/test_onboarding.py |  4 ++--
+ tests/test_orgs.py       |  6 +++---
+ tests/test_payments.py   |  2 +-
+ tests/test_plans.py      |  2 +-
+ tests/test_presence.py   |  4 ++--
+ tests/test_profiles.py   |  8 ++++----
+ tests/test_proto.py      |  4 ++--
+ tests/test_push.py       |  2 +-
+ tests/test_quotas.py     |  4 ++--
+ tests/test_reports.py    |  8 ++++----
+ tests/test_routes.py     |  2 +-
+ tests/test_search.py     |  2 +-
+ tests/test_sessions.py   |  6 +++---
+ tests/test_sso.py        |  4 ++--
+ tests/test_support.py    |  6 +++---
+ tests/test_teams.py      |  4 ++--
+ tests/test_uploads.py    |  6 +++---
+ tests/test_webhooks.py   |  2 +-
+ 31 files changed, 64 insertions(+), 64 deletions(-)
+diff --git a/tests/test_accounts.py b/tests/test_accounts.py
+index af02d54..cb9e89a 100644
+--- a/tests/test_accounts.py
++++ b/tests/test_accounts.py
+@@ -1,21 +1,21 @@
+ import unittest
+ 
+-from harbor.accounts import fetch_user_count, fetch_user
++from harbor.accounts import fetch_user_count, load_account
+ 
+ 
+ class TestAccounts(unittest.TestCase):
+     def test_get(self):
+-        self.assertEqual(fetch_user(5)["name"], "user5")
++        self.assertEqual(load_account(5)["name"], "user5")
+ 
+     def test_deleted_hidden(self):
+-        self.assertIsNone(fetch_user(14))
++        self.assertIsNone(load_account(14))
+ 
+     def test_deleted_on_request(self):
+-        self.assertTrue(fetch_user(14, include_deleted=True)["deleted"])
++        self.assertTrue(load_account(14, with_deleted=True)["deleted"])
+ 
+     def test_bad_id(self):
+         with self.assertRaises(ValueError):
+-            fetch_user(0)
++            load_account(0)
+ 
+     def test_count(self):
+         self.assertEqual(fetch_user_count(), 4242)
+diff --git a/tests/test_proto.py b/tests/test_proto.py
+index 863ca8c..16e89be 100644
+--- a/tests/test_proto.py
++++ b/tests/test_proto.py
+@@ -7,8 +7,8 @@ from tools.genproto import render
+ 
+ class TestProto(unittest.TestCase):
+     def test_handlers(self):
+-        self.assertEqual(accounts_pb2.HANDLERS["GetUser"], "harbor.accounts:fetch_user")
+-        self.assertEqual(billing_pb2.HANDLERS["GetPayer"], "harbor.accounts:fetch_user")
++        self.assertEqual(accounts_pb2.HANDLERS["GetUser"], "harbor.accounts:load_account")
++        self.assertEqual(billing_pb2.HANDLERS["GetPayer"], "harbor.accounts:load_account")
+ 
+     def test_generated_code_is_fresh(self):
+         for p in sorted(Path("proto").glob("*.proto")):
+diff --git a/tests/test_routes.py b/tests/test_routes.py
+index 6c8a745..d03324f 100644
+--- a/tests/test_routes.py
++++ b/tests/test_routes.py
+@@ -7,7 +7,7 @@ from harbor.rpc.routes import resolve
+ 
+ class TestRoutes(unittest.TestCase):
+     def test_user_get(self):
+-        self.assertIs(resolve("user.get"), accounts.fetch_user)
++        self.assertIs(resolve("user.get"), accounts.load_account)
+ 
+     def test_github_user(self):
+         self.assertIs(resolve("github.user"), GitHubClient.fetch_user)
+tests/test_onboarding.py:7
+tests/test_orgs.py:7
+tests/test_presence.py:7
+tests/test_quotas.py:7
+tests/test_sessions.py:7
+tests/test_support.py:7
+tests/test_plans.py:8
+tests/test_profiles.py:8
+tests/test_reports.py:8
+tests/test_uploads.py:8

@@ -1,0 +1,115 @@
+{
+  "id": "lh-money-migration",
+  "version": 1,
+  "authoring_date": "2026-10-30",
+  "track": "lh",
+  "scale": "long",
+  "token_target": 1000000,
+  "pillars": [
+    5,
+    8,
+    9,
+    10
+  ],
+  "instruction": "ledgerly keeps money amounts in floats and is moving to an exact Money type. Do the whole migration described in MIGRATION.md, across every package. The visible suite is `python3 -m unittest discover -s tests -t .`; there are far more hidden checks than visible tests, and the rules in MIGRATION.md are what they check. Others keep working while you do: teammates may commit to this branch, and finance may add decisions under AMENDMENTS/, which override MIGRATION.md. The repo as it stands when you finish is what gets checked.",
+  "limits": {
+    "wall_s": 5400,
+    "max_steps": 400
+  },
+  "grade_timeout": 1800,
+  "null_max": 0.0,
+  "camp": 5,
+  "categories": [
+    "long-horizon",
+    "context",
+    "resilience",
+    "instructions"
+  ],
+  "avalanches": [
+    {
+      "id": "amend-payouts",
+      "after_calls": 6,
+      "after_s": 240,
+      "action": "drop",
+      "src": "avalanche/001-payouts-rounding.md",
+      "dst": "AMENDMENTS/001-payouts-rounding.md"
+    },
+    {
+      "id": "storm-1",
+      "after_calls": 20,
+      "after_s": 900,
+      "action": "storm",
+      "calls": 10,
+      "kinds": [
+        "429",
+        "503",
+        "cut",
+        "429",
+        "trickle",
+        "500",
+        "error200",
+        "429",
+        "garbage",
+        "503"
+      ]
+    },
+    {
+      "id": "teammate-instant",
+      "after_calls": 40,
+      "after_s": 1500,
+      "action": "commit",
+      "files": {
+        "ledgerly/payouts/instant.py": "avalanche/instant.py",
+        "tests/test_payouts_instant.py": "avalanche/test_payouts_instant.py"
+      },
+      "message": "payouts: instant payouts\n\nStill on floats; it needs the Money migration like the rest.",
+      "author": [
+        "Ari Tan",
+        "ari@example.com"
+      ]
+    },
+    {
+      "id": "flood",
+      "after_calls": 60,
+      "after_s": 2000,
+      "action": "flood",
+      "dst": "logs/batch-2026-10-30.log",
+      "mb": 40
+    },
+    {
+      "id": "storm-2",
+      "after_calls": 110,
+      "after_s": 3000,
+      "action": "storm",
+      "calls": 24,
+      "kinds": [
+        "429",
+        "429",
+        "503",
+        "cut",
+        "stall",
+        "429",
+        "500",
+        "trickle"
+      ]
+    }
+  ],
+  "check_categories": [
+    [
+      "teammate's mid-climb commit",
+      "resilience"
+    ],
+    [
+      "^legacy/ unchanged",
+      "policy"
+    ],
+    [
+      "function names and parameter lists|gen_rates.py regenerates|MoneyF and Rate are gone|ledgerly/money.py unchanged",
+      "instructions"
+    ],
+    [
+      "visible suite passes",
+      "verification"
+    ]
+  ]
+}

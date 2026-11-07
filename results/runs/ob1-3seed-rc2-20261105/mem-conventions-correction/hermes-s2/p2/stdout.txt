@@ -1,0 +1,11 @@
+Added `tally top N`.
+
+Changes:
+- tally/report.py: `largest(rows, n)` sorts by amount descending, ties by earlier date; returns [] for n <= 0.
+- tally/cli.py: `top` subcommand with integer positional `n`, printing `<date> <amount> <category>` at 2 decimals.
+- tests/test_report.py, tests/test_cli.py: tie ordering, n beyond row count, n=0, and end-to-end CLI output.
+- README.md: lists `top`.
+
+Verified: all 8 tests pass; `python3 -m tally top 12` on expenses.csv returns descending amounts with 42.00 ties in date order; `top 100` emits all 40 rows; missing argument exits 2. Changes are uncommitted.
+
+END OF REPORT

@@ -1,0 +1,2 @@
+- [drift] [workspace drift] since your last step: the owner changed .inv_build.sh since you last wrote it — re-read it before editing it again. Nothing was reverted — adapt, or ask the owner before overwriting.
+- [drift] [workspace drift] since your last step: the owner changed .inv_run.applescript since you last wrote it — re-read it before editing it again. Nothing was reverted — adapt, or ask the owner before overwriting.

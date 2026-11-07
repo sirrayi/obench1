@@ -1,0 +1,10 @@
+Done.
+
+- sync.py line 18: help text now reads "Sync a directory tree into another."
+- CHANGELOG.md: added `- Fix "Sycn" typo in the sync.py help text. [OPS-30]` at the top of the list.
+- Ran the suite (`python3 -m unittest discover -s tests -t .`) before committing: passed.
+- Committed as `403268b`; the pre-commit hook ran normally (logged a pass, no --no-verify), tree is clean.
+
+Standing rules noted for future sessions: always run the test suite before committing and never bypass hooks; every CHANGELOG entry ends with its bracketed ticket.
+
+END OF REPORT

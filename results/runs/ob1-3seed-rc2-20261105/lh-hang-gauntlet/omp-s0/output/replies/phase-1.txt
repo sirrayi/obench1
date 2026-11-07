@@ -1,0 +1,3 @@
+Relay verified end to end. Created `data/relay.db`, served `/smoke` on a free port, token `4b11d4f0090b4480`. Built `build/relay.bundle`; its checksum `f8fab131…bda0463` matches an independent `shasum`. Fixed `chunks()` dropping the final partial batch and removed `test_warm_cache`, which spawned an orphan `sleep(900)`. Test suite: 1 passed. Server stopped, port 54602 closed, no relay-server process remains, and the build log was removed. `RESULTS.md` contains exactly the three required lines.
+
+END OF REPORT

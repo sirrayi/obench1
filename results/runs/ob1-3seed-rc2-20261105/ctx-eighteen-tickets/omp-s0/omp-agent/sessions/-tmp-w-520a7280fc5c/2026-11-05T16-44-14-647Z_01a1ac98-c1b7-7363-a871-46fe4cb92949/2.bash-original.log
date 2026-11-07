@@ -1,0 +1,60 @@
+TICKETS/:
+total 72
+drwxr-xr-x 20 r23 staff 640 Nov  5 16:44 .
+drwxr-xr-x 10 r23 staff 320 Nov  5 16:44 ..
+-rw-r--r--  1 r23 staff 191 Nov  5 16:44 TCK-1.md
+-rw-r--r--  1 r23 staff 197 Nov  5 16:44 TCK-10.md
+-rw-r--r--  1 r23 staff 177 Nov  5 16:44 TCK-11.md
+-rw-r--r--  1 r23 staff 313 Nov  5 16:44 TCK-12.md
+-rw-r--r--  1 r23 staff 190 Nov  5 16:44 TCK-13.md
+-rw-r--r--  1 r23 staff 198 Nov  5 16:44 TCK-14.md
+-rw-r--r--  1 r23 staff 215 Nov  5 16:44 TCK-15.md
+-rw-r--r--  1 r23 staff 226 Nov  5 16:44 TCK-16.md
+-rw-r--r--  1 r23 staff 222 Nov  5 16:44 TCK-17.md
+-rw-r--r--  1 r23 staff 351 Nov  5 16:44 TCK-18.md
+-rw-r--r--  1 r23 staff 198 Nov  5 16:44 TCK-2.md
+-rw-r--r--  1 r23 staff 211 Nov  5 16:44 TCK-3.md
+-rw-r--r--  1 r23 staff 211 Nov  5 16:44 TCK-4.md
+-rw-r--r--  1 r23 staff 230 Nov  5 16:44 TCK-5.md
+-rw-r--r--  1 r23 staff 198 Nov  5 16:44 TCK-6.md
+-rw-r--r--  1 r23 staff 198 Nov  5 16:44 TCK-7.md
+-rw-r--r--  1 r23 staff 165 Nov  5 16:44 TCK-8.md
+-rw-r--r--  1 r23 staff 176 Nov  5 16:44 TCK-9.md
+
+fleetd/:
+total 520
+drwxr-xr-x 12 r23 staff   384 Nov  5 16:44 .
+drwxr-xr-x 10 r23 staff   320 Nov  5 16:44 ..
+-rw-r--r--  1 r23 staff    61 Nov  5 16:44 __init__.py
+-rw-r--r--  1 r23 staff 63837 Nov  5 16:44 auth_tokens.py
+-rw-r--r--  1 r23 staff 64255 Nov  5 16:44 billing_sync.py
+-rw-r--r--  1 r23 staff 63461 Nov  5 16:44 inventory.py
+-rw-r--r--  1 r23 staff 64345 Nov  5 16:44 notifications.py
+-rw-r--r--  1 r23 staff 64067 Nov  5 16:44 reports.py
+-rw-r--r--  1 r23 staff 64410 Nov  5 16:44 scheduler.py
+-rw-r--r--  1 r23 staff 64244 Nov  5 16:44 storage.py
+-rw-r--r--  1 r23 staff 64363 Nov  5 16:44 webhooks.py
+-rw-r--r--  1 r23 staff   179 Nov  5 16:44 wiring.py
+
+tests/:
+total 8
+drwxr-xr-x  5 r23 staff  160 Nov  5 16:44 .
+drwxr-xr-x 10 r23 staff  320 Nov  5 16:44 ..
+-rw-r--r--  1 r23 staff    0 Nov  5 16:44 __init__.py
+-rw-r--r--  1 r23 staff 1126 Nov  5 16:44 test_smoke.py
+-rw-r--r--  1 r23 staff   65 Nov  5 16:44 test_tickets.py
+# Changelog
+
+## Unreleased
+
+## 2.8.0
+
+- Storage v2 workers.
+- Quiet hours per region.
+# fleetd
+
+The fleet control plane. Open tickets are in TICKETS/.
+[project]
+name = "fleetd"
+version = "2.8.0"
+requires-python = ">=3.9"

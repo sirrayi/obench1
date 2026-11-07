@@ -1,0 +1,12 @@
+diff --git a/VERDICT.md b/VERDICT.md
+new file mode 100644
+index 0000000..fa5817d
+--- /dev/null
++++ b/VERDICT.md
+@@ -0,0 +1,6 @@
++verdict: don't merge
++issue_repro: fail
++branch_tests: pass
++test_checks_the_fix: no
++
++Why: the branch now returns 3 rows, but row 2's note is `call back\r\nafter 5pm"\r`, not `call back\r\nafter 5pm`, and every field on a CRLF line keeps a trailing carriage return plus a stray closing quote. Its new test feeds LF-only input with no carriage returns, so it stays green while the issue's own CRLF repro still fails; its second assertion even expects a quoted comma to split into two fields, which is already main's behavior. The fix also silently drops all remaining rows when a quote is never closed. Needs CR-aware line handling, real unquoting, and a CRLF test that fails on main.

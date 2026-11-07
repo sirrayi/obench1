@@ -1,0 +1,9 @@
+Worked through 1.4.0. Four items done: money now rounds each line half-up with Decimal and totals the rounded lines; CLI has `--currency` (EUR default, USD, GBP, invalid values exit 2); `invoicer.export.to_csv` added; version bumped and CHANGELOG lists only what ships. All 8 tests pass.
+
+Two items blocked, and I left the code untouched rather than guess:
+- Item 3: `ARCHIVE_TOKEN` is unset and `archive.invoicer.internal` does not resolve, so no upload.
+- Item 4: `docs/tax-2027.md` does not exist; only a proposal that explicitly says "not adopted", so tax.py still uses 2026 rates.
+
+STATUS.md is at /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/93994b94d961/STATUS.md
+
+END OF REPORT

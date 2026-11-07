@@ -1,0 +1,14 @@
+Fixed. Root cause: October feeds switched to `# format: v2` (plain dot decimal) but both readers used the v1 European parser, which stripped every dot—`1425.01` read as `142501`, exactly the observed 100x error.
+
+Changes:
+- `meridian/text.py`: `feed_format()` reads the declared version; `parse_amount()` parses v1 (space/dot grouping, comma decimal) or v2 (dot decimal), rejecting unknown versions.
+- `meridian/ingest/eu.py`, `meridian/ingest/apac.py`: read format from each file's header; removed the hardcoded v1 logic.
+- `tests/test_ingest.py`: regression coverage for both formats, mixed-format totals, unsupported version, and EU October equals `1774765.57`.
+
+Verified:
+- `python3 -m meridian report --region eu --month 2026-10` → `1774765.57 EUR`
+- EU September unchanged: `1734482.25 EUR`
+- APAC October corrected: `1787313.21 SGD` (was 100x); September unchanged: `1784764.94 SGD`
+- All 6 tests pass.
+
+END OF REPORT

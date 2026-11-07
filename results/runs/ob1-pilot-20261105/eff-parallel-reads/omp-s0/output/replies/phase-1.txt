@@ -1,0 +1,12 @@
+Wrote `answers.json`; no other files changed.
+
+- q1: 23,295 — SKU-A9 summed over all 48 reports (repeat count of 48 confirmed two ways).
+- q2: W39 — 891 units of SKU-C3, unique maximum.
+- q3: 14 — north-region sites.
+- q4: Dalia Haddad — W06, commissioned 1971, earliest year (all years unique).
+- q5: W03, W13, W21, W23, W24, W33, W34, W39, W45.
+- q6: 496.4 — 3,971 across 8 east-region sites.
+
+Verification: regex parse of every stock line matched the report count exactly (zero unmatched/dropped lines); totals recomputed independently in shell after stripping SKU codes, which otherwise inject spurious digits (e.g. the "9" in SKU-A9). JSON reloaded and type-checked against the required schema.
+
+END OF REPORT

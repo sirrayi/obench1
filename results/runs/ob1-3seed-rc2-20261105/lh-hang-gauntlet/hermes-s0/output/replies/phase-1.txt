@@ -1,0 +1,16 @@
+Done.
+
+What failed and was fixed:
+- relay/worker.py: `chunks` range stop was `len(items) - size`, dropping the final partial batch. Now `len(items)`.
+- tests/test_worker.py: `test_warm_cache` spawned a 900s orphan Python process and asserted nothing. Removed it; its child was killed.
+
+Verified: setup.sh --yes created data/relay.db; server served /smoke (token recomputed independently and matched); build.py's own sha256 matched `shasum -a 256` on build/relay.bundle (11,600,000 bytes); tests now 1/1 pass.
+
+Cleanup: server pid 66583 and my orphan 66631 are gone, port 54624 has no listener, scratch logs and run/ removed. Two unrelated `sleep 900` processes remain in other task dirs (4d05bb34..., 766c43b3...), not mine, left untouched.
+
+RESULTS.md:
+smoke: 4b11d4f0090b4480
+bundle: f8fab13164d5f0312c386098712cbab213e182fea970987f8068c1fd8bda0463
+tests: 1 passed
+
+END OF REPORT

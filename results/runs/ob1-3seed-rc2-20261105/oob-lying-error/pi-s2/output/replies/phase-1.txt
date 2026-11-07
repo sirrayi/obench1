@@ -1,0 +1,9 @@
+Fixed all failing tests in three files:
+
+- `calendar.py`: removed the module-level `__getattr__` that raised `ValueError` for `__path__`, breaking `from calendar import billing_days`.
+- `billing/proration.py`: replaced truncating division with exact integer half-up rounding and added validation for non-positive period length.
+- `billing/headers.py`: removed a stale FIXME comment.
+
+Full suite now passes: 10 tests, OK. No test files were modified.
+
+END OF REPORT

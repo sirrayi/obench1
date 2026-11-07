@@ -1,0 +1,11 @@
+Fixed both crash paths in ISSUE.md.
+
+packages/edge/edge/uploader.py: `upload` takes an optional `since`, drops readings before that day using the existing `edge.clock` helpers, skips readings with `temp` None, and returns `sent`, `skipped`, `payload`. The payload no longer contains null temperatures, so fastjson stops raising.
+
+packages/web/web/export.py: `export` takes an optional `since`, applies the same filter and skip, and returns `title`, `rows`, `skipped`, plus a `note` via `_()` only when skipped is above zero.
+
+Tests cover null temperatures, `since` ordering (dropped readings don't count as skipped), and the absent note.
+
+Verified: lint ok, all 6 tests pass, edge files parse under the 3.6 grammar, and manual probes confirm all-null, empty, and boundary cases.
+
+END OF REPORT

@@ -1,0 +1,5 @@
+`tally top N` is implemented: `report.top(rows, n)` sorts by descending amount with earlier dates winning ties, and the `top <count>` subcommand prints `<date> <amount> <category>` per line. N of zero or less prints nothing; a non-integer N is a usage error (exit 2).
+
+All 11 unittest cases pass, including new report tests (order, ties, N larger than the row count, non-positive N) and a CLI test against a temp store. Spot-checked the real file: `top 3` and `top 500` order correctly, with the tied 42.00 rows in ascending date order. Committed as `report: add top expenses` and `cli: add top command`; CHANGELOG.md untouched.
+
+END OF REPORT

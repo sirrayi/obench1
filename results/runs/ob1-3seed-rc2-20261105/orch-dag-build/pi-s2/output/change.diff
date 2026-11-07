@@ -1,0 +1,384 @@
+diff --git a/clients/_rules.py b/clients/_rules.py
+new file mode 100644
+index 0000000..e53ae7e
+--- /dev/null
++++ b/clients/_rules.py
+@@ -0,0 +1,66 @@
++from decimal import Decimal, ROUND_HALF_UP
++from datetime import datetime
++
++_TRUE = {"yes", "true", "1"}
++_FALSE = {"no", "false", "0"}
++
++
++def _has(record, field):
++    return field in record
++
++
++def apply_rules(record, rules):
++    result = dict(record)
++    for rule in rules:
++        op = rule[0]
++        if op == "require":
++            field = rule[1]
++            if not _has(result, field):
++                raise ValueError("missing required field: " + field)
++        elif op == "default":
++            field, value = rule[1], rule[2]
++            if not _has(result, field):
++                result[field] = value
++        elif op in ("strip", "lower", "upper"):
++            field = rule[1]
++            if _has(result, field):
++                result[field] = getattr(result[field], op)()
++        elif op == "rename":
++            source, target = rule[1], rule[2]
++            if _has(result, source):
++                result[target] = result.pop(source)
++        elif op == "drop":
++            field = rule[1]
++            if _has(result, field):
++                del result[field]
++        elif op == "cents":
++            field = rule[1]
++            if _has(result, field):
++                value = Decimal("".join(str(result[field]).split()))
++                result[field] = int((value * 100).quantize(Decimal("1"), rounding=ROUND_HALF_UP))
++        elif op == "bool":
++            field = rule[1]
++            if _has(result, field):
++                value = "".join(str(result[field]).split()).lower()
++                if value in _TRUE:
++                    result[field] = True
++                elif value in _FALSE:
++                    result[field] = False
++                else:
++                    raise ValueError("invalid boolean: " + field)
++        elif op == "iso-date":
++            field = rule[1]
++            if _has(result, field):
++                value = "".join(str(result[field]).split())
++                try:
++                    result[field] = datetime.strptime(value, "%d/%m/%Y").strftime("%Y-%m-%d")
++                except ValueError:
++                    raise ValueError("invalid date: " + field)
++        elif op == "split":
++            field, separator = rule[1], rule[2]
++            if _has(result, field):
++                pieces = [piece.strip() for piece in str(result[field]).split(separator)]
++                result[field] = [piece for piece in pieces if piece]
++        else:
++            raise ValueError("unknown rule: " + op)
++    return result
+diff --git a/clients/accounts.py b/clients/accounts.py
+new file mode 100644
+index 0000000..6e80433
+--- /dev/null
++++ b/clients/accounts.py
+@@ -0,0 +1,33 @@
++from ._rules import apply_rules
++
++RULES = [
++    ("require", "acc_ref"),
++    ("rename", "acc_vip", "accounts_vip"),
++    ("strip", "acc_owner"),
++    ("default", "acc_label", "unknown"),
++    ("rename", "acc_fee", "accounts_fee"),
++    ("lower", "acc_label"),
++    ("default", "acc_region", "unknown"),
++    ("default", "acc_tier", "unknown"),
++    ("default", "acc_amount", "0.00"),
++    ("bool", "accounts_vip"),
++    ("cents", "accounts_fee"),
++    ("lower", "acc_tier"),
++    ("upper", "acc_ref"),
++    ("lower", "acc_city"),
++    ("rename", "acc_city", "accounts_city"),
++    ("strip", "acc_tier"),
++    ("strip", "accounts_city"),
++    ("upper", "accounts_city"),
++    ("cents", "acc_amount"),
++    ("strip", "acc_region"),
++    ("rename", "acc_region", "accounts_region"),
++    ("upper", "accounts_region"),
++    ("strip", "acc_ref"),
++    ("rename", "acc_amount", "accounts_amount"),
++    ("drop", "acc_ref"),
++]
++
++
++def normalize(record: dict) -> dict:
++    return apply_rules(record, RULES)
+diff --git a/clients/billing.py b/clients/billing.py
+new file mode 100644
+index 0000000..af508e0
+--- /dev/null
++++ b/clients/billing.py
+@@ -0,0 +1,33 @@
++from ._rules import apply_rules
++
++RULES = [
++    ("cents", "bil_fee"),
++    ("require", "bil_email"),
++    ("require", "bil_due"),
++    ("lower", "bil_tier"),
++    ("require", "bil_amount"),
++    ("iso-date", "bil_due"),
++    ("require", "bil_city"),
++    ("strip", "bil_country"),
++    ("lower", "bil_city"),
++    ("cents", "bil_amount"),
++    ("drop", "bil_due"),
++    ("lower", "bil_email"),
++    ("upper", "bil_email"),
++    ("upper", "bil_tier"),
++    ("default", "bil_tags", ""),
++    ("rename", "bil_amount", "billing_amount"),
++    ("strip", "bil_tier"),
++    ("split", "bil_tags", "|"),
++    ("default", "bil_code", "unknown"),
++    ("lower", "bil_code"),
++    ("strip", "bil_code"),
++    ("drop", "bil_tags"),
++    ("upper", "bil_country"),
++    ("rename", "bil_country", "billing_country"),
++    ("lower", "billing_country"),
++]
++
++
++def normalize(record: dict) -> dict:
++    return apply_rules(record, RULES)
+diff --git a/clients/contacts.py b/clients/contacts.py
+new file mode 100644
+index 0000000..69f96cd
+--- /dev/null
++++ b/clients/contacts.py
+@@ -0,0 +1,34 @@
++from ._rules import apply_rules
++from .customers import normalize as normalize_customers
++
++RULES = [
++    ("require", "con_code"),
++    ("require", "con_tags"),
++    ("iso-date", "con_due"),
++    ("upper", "con_code"),
++    ("default", "con_country", "unknown"),
++    ("strip", "con_name"),
++    ("upper", "con_country"),
++    ("rename", "con_due", "contacts_due"),
++    ("default", "con_vip", "no"),
++    ("strip", "con_code"),
++    ("lower", "con_name"),
++    ("require", "con_email"),
++    ("split", "con_tags", ";"),
++    ("default", "con_amount", "0.00"),
++    ("rename", "con_amount", "contacts_amount"),
++    ("upper", "con_name"),
++    ("cents", "contacts_amount"),
++    ("strip", "con_email"),
++    ("bool", "con_vip"),
++    ("rename", "con_name", "contacts_name"),
++    ("require", "con_city"),
++    ("upper", "con_city"),
++    ("lower", "con_city"),
++    ("rename", "con_city", "contacts_city"),
++    ("strip", "contacts_city"),
++]
++
++
++def normalize(record: dict) -> dict:
++    return apply_rules(normalize_customers(record), RULES)
+diff --git a/clients/customers.py b/clients/customers.py
+new file mode 100644
+index 0000000..6726937
+--- /dev/null
++++ b/clients/customers.py
+@@ -0,0 +1,34 @@
++from ._rules import apply_rules
++from .accounts import normalize as normalize_accounts
++
++RULES = [
++    ("require", "cus_amount"),
++    ("default", "cus_due", "01/01/2000"),
++    ("require", "cus_tags"),
++    ("cents", "cus_amount"),
++    ("upper", "cus_city"),
++    ("require", "cus_fee"),
++    ("upper", "cus_owner"),
++    ("require", "cus_status"),
++    ("strip", "cus_status"),
++    ("iso-date", "cus_due"),
++    ("rename", "cus_fee", "customers_fee"),
++    ("split", "cus_tags", "|"),
++    ("strip", "cus_code"),
++    ("lower", "cus_code"),
++    ("upper", "cus_status"),
++    ("rename", "cus_tags", "customers_tags"),
++    ("strip", "cus_owner"),
++    ("cents", "customers_fee"),
++    ("lower", "cus_city"),
++    ("strip", "cus_city"),
++    ("require", "cus_email"),
++    ("lower", "cus_email"),
++    ("upper", "cus_email"),
++    ("strip", "cus_email"),
++    ("drop", "cus_email"),
++]
++
++
++def normalize(record: dict) -> dict:
++    return apply_rules(normalize_accounts(record), RULES)
+diff --git a/clients/invoices.py b/clients/invoices.py
+new file mode 100644
+index 0000000..86319f0
+--- /dev/null
++++ b/clients/invoices.py
+@@ -0,0 +1,34 @@
++from ._rules import apply_rules
++from .billing import normalize as normalize_billing
++
++RULES = [
++    ("strip", "inv_code"),
++    ("require", "inv_active"),
++    ("iso-date", "inv_due"),
++    ("strip", "inv_name"),
++    ("upper", "inv_tier"),
++    ("upper", "inv_code"),
++    ("lower", "inv_name"),
++    ("require", "inv_status"),
++    ("require", "inv_region"),
++    ("upper", "inv_name"),
++    ("default", "inv_owner", "unknown"),
++    ("drop", "inv_name"),
++    ("bool", "inv_active"),
++    ("require", "inv_tags"),
++    ("split", "inv_tags", ";"),
++    ("upper", "inv_region"),
++    ("lower", "inv_tier"),
++    ("upper", "inv_status"),
++    ("upper", "inv_owner"),
++    ("strip", "inv_owner"),
++    ("rename", "inv_region", "invoices_region"),
++    ("lower", "inv_status"),
++    ("rename", "inv_status", "invoices_status"),
++    ("strip", "invoices_status"),
++    ("strip", "invoices_region"),
++]
++
++
++def normalize(record: dict) -> dict:
++    return apply_rules(normalize_billing(record), RULES)
+diff --git a/clients/payments.py b/clients/payments.py
+new file mode 100644
+index 0000000..bd6d07b
+--- /dev/null
++++ b/clients/payments.py
+@@ -0,0 +1,33 @@
++from ._rules import apply_rules
++from .invoices import normalize as normalize_invoices
++
++RULES = [
++    ("lower", "pay_label"),
++    ("default", "pay_city", "unknown"),
++    ("default", "pay_code", "unknown"),
++    ("default", "pay_status", "unknown"),
++    ("default", "pay_tier", "unknown"),
++    ("lower", "pay_status"),
++    ("lower", "pay_note"),
++    ("lower", "pay_city"),
++    ("upper", "pay_tier"),
++    ("rename", "pay_tags", "payments_tags"),
++    ("rename", "pay_status", "payments_status"),
++    ("strip", "pay_code"),
++    ("default", "pay_due", "01/01/2000"),
++    ("upper", "pay_note"),
++    ("strip", "pay_tier"),
++    ("upper", "pay_code"),
++    ("upper", "pay_city"),
++    ("iso-date", "pay_due"),
++    ("strip", "pay_note"),
++    ("strip", "pay_city"),
++    ("require", "pay_amount"),
++    ("cents", "pay_amount"),
++    ("drop", "pay_code"),
++    ("split", "payments_tags", ","),
++]
++
++
++def normalize(record: dict) -> dict:
++    return apply_rules(normalize_invoices(record), RULES)
+diff --git a/clients/returns.py b/clients/returns.py
+new file mode 100644
+index 0000000..1c34cce
+--- /dev/null
++++ b/clients/returns.py
+@@ -0,0 +1,31 @@
++from ._rules import apply_rules
++from .shipments import normalize as normalize_shipments
++
++RULES = [
++    ("strip", "ret_tier"),
++    ("require", "ret_fee"),
++    ("lower", "ret_note"),
++    ("upper", "ret_city"),
++    ("bool", "ret_active"),
++    ("default", "ret_owner", "unknown"),
++    ("lower", "ret_name"),
++    ("rename", "ret_name", "returns_name"),
++    ("require", "ret_ref"),
++    ("upper", "ret_ref"),
++    ("lower", "ret_owner"),
++    ("strip", "ret_note"),
++    ("upper", "returns_name"),
++    ("strip", "ret_ref"),
++    ("strip", "ret_owner"),
++    ("strip", "returns_name"),
++    ("lower", "ret_country"),
++    ("lower", "ret_ref"),
++    ("upper", "ret_note"),
++    ("rename", "ret_fee", "returns_fee"),
++    ("upper", "ret_country"),
++    ("cents", "returns_fee"),
++]
++
++
++def normalize(record: dict) -> dict:
++    return apply_rules(normalize_shipments(record), RULES)
+diff --git a/clients/shipments.py b/clients/shipments.py
+new file mode 100644
+index 0000000..cd2dbb6
+--- /dev/null
++++ b/clients/shipments.py
+@@ -0,0 +1,32 @@
++from ._rules import apply_rules
++
++RULES = [
++    ("default", "shi_name", "unknown"),
++    ("require", "shi_due"),
++    ("default", "shi_since", "01/01/2000"),
++    ("upper", "shi_owner"),
++    ("default", "shi_tags", ""),
++    ("upper", "shi_status"),
++    ("rename", "shi_since", "shipments_since"),
++    ("split", "shi_tags", ","),
++    ("rename", "shi_due", "shipments_due"),
++    ("require", "shi_email"),
++    ("iso-date", "shipments_since"),
++    ("iso-date", "shipments_due"),
++    ("require", "shi_label"),
++    ("drop", "shi_status"),
++    ("rename", "shi_tier", "shipments_tier"),
++    ("upper", "shipments_tier"),
++    ("strip", "shi_name"),
++    ("upper", "shi_email"),
++    ("rename", "shi_label", "shipments_label"),
++    ("lower", "shi_name"),
++    ("strip", "shipments_label"),
++    ("strip", "shipments_tier"),
++    ("upper", "shi_name"),
++    ("lower", "shipments_tier"),
++]
++
++
++def normalize(record: dict) -> dict:
++    return apply_rules(record, RULES)

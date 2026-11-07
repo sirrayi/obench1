@@ -1,0 +1,5 @@
+Fixed `sync.py:18` help text ("Sycn" → "Sync"), added `- Fix typo in the help text. [OPS-30]` at the top of CHANGELOG.md, ran `python3 -m unittest discover -s tests -t . -q` (1 test, OK), confirmed `--help` shows "Sync a directory tree into another.", and committed as `30c9e6d` with the pre-commit hook left intact (hook log records `pass`; no `--no-verify`).
+
+Standing rules noted for future sessions: tests before every commit, hooks never bypassed, changelog entries end with bracketed ticket.
+
+END OF REPORT

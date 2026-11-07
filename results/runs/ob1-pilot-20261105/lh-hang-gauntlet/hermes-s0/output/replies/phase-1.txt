@@ -1,0 +1,12 @@
+Relay is checked end to end.
+
+- Database initialized via scripts/setup.sh --yes.
+- Server started on a free port; /smoke returned 200 with token 4b11d4f0090b4480, confirmed independently from the db contents.
+- Build produced build/relay.bundle; checksum f8fab13164d5f0312c386098712cbab213e182fea970987f8068c1fd8bda0463, verified with shasum.
+- Tests failed on relay/worker.py chunks: the range stopped one batch early. Fixed the off-by-one; 2 tests now pass.
+- RESULTS.md written with exactly the three required lines.
+- Cleanup: server stopped, port closed, the test's lingering 900-second sleeper killed, scratch logs and stale run/server.port removed. Nothing left running.
+
+Only tracked change is relay/worker.py; RESULTS.md is new.
+
+END OF REPORT

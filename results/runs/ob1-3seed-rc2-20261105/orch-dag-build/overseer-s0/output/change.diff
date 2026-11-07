@@ -1,0 +1,476 @@
+diff --git a/clients/_rules.py b/clients/_rules.py
+new file mode 100644
+index 0000000..28e94af
+--- /dev/null
++++ b/clients/_rules.py
+@@ -0,0 +1,101 @@
++"""Primitive record rules shared by the client normalizers."""
++
++from datetime import date
++from decimal import Decimal, ROUND_HALF_UP
++
++TRUE_VALUES = ("yes", "true", "1")
++FALSE_VALUES = ("no", "false", "0")
++
++
++def _require(record, field):
++    if field not in record:
++        raise ValueError("missing required field: %s" % field)
++
++
++def _default(record, field, value):
++    record.setdefault(field, value)
++
++
++def _strip(record, field):
++    if field in record:
++        record[field] = record[field].strip()
++
++
++def _lower(record, field):
++    if field in record:
++        record[field] = record[field].lower()
++
++
++def _upper(record, field):
++    if field in record:
++        record[field] = record[field].upper()
++
++
++def _rename(record, source, target):
++    if source in record:
++        record[target] = record.pop(source)
++
++
++def _drop(record, field):
++    record.pop(field, None)
++
++
++def _cents(record, field):
++    if field in record:
++        value = Decimal(str(record[field]).strip()) * 100
++        record[field] = int(value.quantize(Decimal(1), rounding=ROUND_HALF_UP))
++
++
++def _bool(record, field):
++    if field in record:
++        value = record[field]
++        if isinstance(value, bool):
++            return
++        key = "".join(str(value).split()).lower()
++        if key in TRUE_VALUES:
++            record[field] = True
++        elif key in FALSE_VALUES:
++            record[field] = False
++        else:
++            raise ValueError("not a boolean: %r" % (value,))
++
++
++def _iso_date(record, field):
++    if field in record:
++        raw = "".join(str(record[field]).split())
++        parts = raw.split("/")
++        if len(parts) != 3 or not all(part.isdigit() for part in parts):
++            raise ValueError("not a DD/MM/YYYY date: %r" % (record[field],))
++        day, month, year = (int(part) for part in parts)
++        record[field] = date(year, month, day).isoformat()
++
++
++def _split(record, field, separator):
++    if field in record:
++        record[field] = [
++            piece.strip()
++            for piece in str(record[field]).split(separator)
++            if piece.strip()
++        ]
++
++
++OPS = {
++    "require": _require,
++    "default": _default,
++    "strip": _strip,
++    "lower": _lower,
++    "upper": _upper,
++    "rename": _rename,
++    "drop": _drop,
++    "cents": _cents,
++    "bool": _bool,
++    "iso-date": _iso_date,
++    "split": _split,
++}
++
++
++def run(record, rules):
++    result = dict(record)
++    for rule in rules:
++        OPS[rule[0]](result, *rule[1:])
++    return result
+diff --git a/clients/accounts.py b/clients/accounts.py
+new file mode 100644
+index 0000000..1a07093
+--- /dev/null
++++ b/clients/accounts.py
+@@ -0,0 +1,38 @@
++"""Normalizer for accounts records; see specs/accounts.md."""
++
++try:
++    from ._rules import run
++except ImportError:
++    from _rules import run
++
++RULES = [
++    ("require", "acc_ref"),
++    ("rename", "acc_vip", "accounts_vip"),
++    ("strip", "acc_owner"),
++    ("default", "acc_label", "unknown"),
++    ("rename", "acc_fee", "accounts_fee"),
++    ("lower", "acc_label"),
++    ("default", "acc_region", "unknown"),
++    ("default", "acc_tier", "unknown"),
++    ("default", "acc_amount", "0.00"),
++    ("bool", "accounts_vip"),
++    ("cents", "accounts_fee"),
++    ("lower", "acc_tier"),
++    ("upper", "acc_ref"),
++    ("lower", "acc_city"),
++    ("rename", "acc_city", "accounts_city"),
++    ("strip", "acc_tier"),
++    ("strip", "accounts_city"),
++    ("upper", "accounts_city"),
++    ("cents", "acc_amount"),
++    ("strip", "acc_region"),
++    ("rename", "acc_region", "accounts_region"),
++    ("upper", "accounts_region"),
++    ("strip", "acc_ref"),
++    ("rename", "acc_amount", "accounts_amount"),
++    ("drop", "acc_ref"),
++]
++
++
++def normalize(record):
++    return run(record, RULES)
+diff --git a/clients/billing.py b/clients/billing.py
+new file mode 100644
+index 0000000..17ade2a
+--- /dev/null
++++ b/clients/billing.py
+@@ -0,0 +1,38 @@
++"""Normalizer for billing records; see specs/billing.md."""
++
++try:
++    from ._rules import run
++except ImportError:
++    from _rules import run
++
++RULES = [
++    ("cents", "bil_fee"),
++    ("require", "bil_email"),
++    ("require", "bil_due"),
++    ("lower", "bil_tier"),
++    ("require", "bil_amount"),
++    ("iso-date", "bil_due"),
++    ("require", "bil_city"),
++    ("strip", "bil_country"),
++    ("lower", "bil_city"),
++    ("cents", "bil_amount"),
++    ("drop", "bil_due"),
++    ("lower", "bil_email"),
++    ("upper", "bil_email"),
++    ("upper", "bil_tier"),
++    ("default", "bil_tags", ""),
++    ("rename", "bil_amount", "billing_amount"),
++    ("strip", "bil_tier"),
++    ("split", "bil_tags", "|"),
++    ("default", "bil_code", "unknown"),
++    ("lower", "bil_code"),
++    ("strip", "bil_code"),
++    ("drop", "bil_tags"),
++    ("upper", "bil_country"),
++    ("rename", "bil_country", "billing_country"),
++    ("lower", "billing_country"),
++]
++
++
++def normalize(record):
++    return run(record, RULES)
+diff --git a/clients/contacts.py b/clients/contacts.py
+new file mode 100644
+index 0000000..63c4aba
+--- /dev/null
++++ b/clients/contacts.py
+@@ -0,0 +1,40 @@
++"""Normalizer for contacts records; see specs/contacts.md."""
++
++try:
++    from . import customers
++    from ._rules import run
++except ImportError:
++    import customers
++    from _rules import run
++
++RULES = [
++    ("require", "con_code"),
++    ("require", "con_tags"),
++    ("iso-date", "con_due"),
++    ("upper", "con_code"),
++    ("default", "con_country", "unknown"),
++    ("strip", "con_name"),
++    ("upper", "con_country"),
++    ("rename", "con_due", "contacts_due"),
++    ("default", "con_vip", "no"),
++    ("strip", "con_code"),
++    ("lower", "con_name"),
++    ("require", "con_email"),
++    ("split", "con_tags", ";"),
++    ("default", "con_amount", "0.00"),
++    ("rename", "con_amount", "contacts_amount"),
++    ("upper", "con_name"),
++    ("cents", "contacts_amount"),
++    ("strip", "con_email"),
++    ("bool", "con_vip"),
++    ("rename", "con_name", "contacts_name"),
++    ("require", "con_city"),
++    ("upper", "con_city"),
++    ("lower", "con_city"),
++    ("rename", "con_city", "contacts_city"),
++    ("strip", "contacts_city"),
++]
++
++
++def normalize(record):
++    return run(customers.normalize(record), RULES)
+diff --git a/clients/customers.py b/clients/customers.py
+new file mode 100644
+index 0000000..d9762eb
+--- /dev/null
++++ b/clients/customers.py
+@@ -0,0 +1,40 @@
++"""Normalizer for customers records; see specs/customers.md."""
++
++try:
++    from . import accounts
++    from ._rules import run
++except ImportError:
++    import accounts
++    from _rules import run
++
++RULES = [
++    ("require", "cus_amount"),
++    ("default", "cus_due", "01/01/2000"),
++    ("require", "cus_tags"),
++    ("cents", "cus_amount"),
++    ("upper", "cus_city"),
++    ("require", "cus_fee"),
++    ("upper", "cus_owner"),
++    ("require", "cus_status"),
++    ("strip", "cus_status"),
++    ("iso-date", "cus_due"),
++    ("rename", "cus_fee", "customers_fee"),
++    ("split", "cus_tags", "|"),
++    ("strip", "cus_code"),
++    ("lower", "cus_code"),
++    ("upper", "cus_status"),
++    ("rename", "cus_tags", "customers_tags"),
++    ("strip", "cus_owner"),
++    ("cents", "customers_fee"),
++    ("lower", "cus_city"),
++    ("strip", "cus_city"),
++    ("require", "cus_email"),
++    ("lower", "cus_email"),
++    ("upper", "cus_email"),
++    ("strip", "cus_email"),
++    ("drop", "cus_email"),
++]
++
++
++def normalize(record):
++    return run(accounts.normalize(record), RULES)
+diff --git a/clients/invoices.py b/clients/invoices.py
+new file mode 100644
+index 0000000..7f3c534
+--- /dev/null
++++ b/clients/invoices.py
+@@ -0,0 +1,40 @@
++"""Normalizer for invoices records; see specs/invoices.md."""
++
++try:
++    from . import billing
++    from ._rules import run
++except ImportError:
++    import billing
++    from _rules import run
++
++RULES = [
++    ("strip", "inv_code"),
++    ("require", "inv_active"),
++    ("iso-date", "inv_due"),
++    ("strip", "inv_name"),
++    ("upper", "inv_tier"),
++    ("lower", "inv_code"),
++    ("lower", "inv_name"),
++    ("require", "inv_status"),
++    ("require", "inv_region"),
++    ("upper", "inv_name"),
++    ("default", "inv_owner", "unknown"),
++    ("drop", "inv_name"),
++    ("bool", "inv_active"),
++    ("require", "inv_tags"),
++    ("split", "inv_tags", ";"),
++    ("upper", "inv_region"),
++    ("lower", "inv_tier"),
++    ("upper", "inv_status"),
++    ("upper", "inv_owner"),
++    ("strip", "inv_owner"),
++    ("rename", "inv_region", "invoices_region"),
++    ("lower", "inv_status"),
++    ("rename", "inv_status", "invoices_status"),
++    ("strip", "invoices_status"),
++    ("strip", "invoices_region"),
++]
++
++
++def normalize(record):
++    return run(billing.normalize(record), RULES)
+diff --git a/clients/payments.py b/clients/payments.py
+new file mode 100644
+index 0000000..b442a88
+--- /dev/null
++++ b/clients/payments.py
+@@ -0,0 +1,39 @@
++"""Normalizer for payments records; see specs/payments.md."""
++
++try:
++    from . import invoices
++    from ._rules import run
++except ImportError:
++    import invoices
++    from _rules import run
++
++RULES = [
++    ("lower", "pay_label"),
++    ("default", "pay_city", "unknown"),
++    ("default", "pay_code", "unknown"),
++    ("default", "pay_status", "unknown"),
++    ("default", "pay_tier", "unknown"),
++    ("lower", "pay_status"),
++    ("lower", "pay_note"),
++    ("lower", "pay_city"),
++    ("upper", "pay_tier"),
++    ("rename", "pay_tags", "payments_tags"),
++    ("rename", "pay_status", "payments_status"),
++    ("strip", "pay_code"),
++    ("default", "pay_due", "01/01/2000"),
++    ("upper", "pay_note"),
++    ("strip", "pay_tier"),
++    ("upper", "pay_code"),
++    ("upper", "pay_city"),
++    ("iso-date", "pay_due"),
++    ("strip", "pay_note"),
++    ("strip", "pay_city"),
++    ("require", "pay_amount"),
++    ("cents", "pay_amount"),
++    ("drop", "pay_code"),
++    ("split", "payments_tags", ","),
++]
++
++
++def normalize(record):
++    return run(invoices.normalize(record), RULES)
+diff --git a/clients/returns.py b/clients/returns.py
+new file mode 100644
+index 0000000..f2522d5
+--- /dev/null
++++ b/clients/returns.py
+@@ -0,0 +1,37 @@
++"""Normalizer for returns records; see specs/returns.md."""
++
++try:
++    from . import shipments
++    from ._rules import run
++except ImportError:
++    import shipments
++    from _rules import run
++
++RULES = [
++    ("strip", "ret_tier"),
++    ("require", "ret_fee"),
++    ("lower", "ret_note"),
++    ("upper", "ret_city"),
++    ("bool", "ret_active"),
++    ("default", "ret_owner", "unknown"),
++    ("lower", "ret_name"),
++    ("rename", "ret_name", "returns_name"),
++    ("require", "ret_ref"),
++    ("upper", "ret_ref"),
++    ("lower", "ret_owner"),
++    ("strip", "ret_note"),
++    ("upper", "returns_name"),
++    ("strip", "ret_ref"),
++    ("strip", "ret_owner"),
++    ("strip", "returns_name"),
++    ("lower", "ret_country"),
++    ("lower", "ret_ref"),
++    ("upper", "ret_note"),
++    ("rename", "ret_fee", "returns_fee"),
++    ("upper", "ret_country"),
++    ("cents", "returns_fee"),
++]
++
++
++def normalize(record):
++    return run(shipments.normalize(record), RULES)
+diff --git a/clients/shipments.py b/clients/shipments.py
+new file mode 100644
+index 0000000..0af05d6
+--- /dev/null
++++ b/clients/shipments.py
+@@ -0,0 +1,37 @@
++"""Normalizer for shipments records; see specs/shipments.md."""
++
++try:
++    from ._rules import run
++except ImportError:
++    from _rules import run
++
++RULES = [
++    ("default", "shi_name", "unknown"),
++    ("require", "shi_due"),
++    ("default", "shi_since", "01/01/2000"),
++    ("upper", "shi_owner"),
++    ("default", "shi_tags", ""),
++    ("upper", "shi_status"),
++    ("rename", "shi_since", "shipments_since"),
++    ("split", "shi_tags", ","),
++    ("rename", "shi_due", "shipments_due"),
++    ("require", "shi_email"),
++    ("iso-date", "shipments_since"),
++    ("iso-date", "shipments_due"),
++    ("require", "shi_label"),
++    ("drop", "shi_status"),
++    ("rename", "shi_tier", "shipments_tier"),
++    ("upper", "shipments_tier"),
++    ("strip", "shi_name"),
++    ("upper", "shi_email"),
++    ("rename", "shi_label", "shipments_label"),
++    ("lower", "shi_name"),
++    ("strip", "shipments_label"),
++    ("strip", "shipments_tier"),
++    ("upper", "shi_name"),
++    ("lower", "shipments_tier"),
++]
++
++
++def normalize(record):
++    return run(record, RULES)
+diff --git a/specs/invoices.md b/specs/invoices.md
+index 81130e6..adde1f0 100644
+--- a/specs/invoices.md
++++ b/specs/invoices.md
+@@ -27,3 +27,7 @@ Normalize one raw invoices record. Depends on billing: apply `clients/billing.py
+ 23. rename `inv_status` -> `invoices_status`
+ 24. strip `invoices_status`
+ 25. strip `invoices_region`
++
++## Amendment 1 (from the service owner; supersedes rule 6)
++
++6. lower `inv_code`

@@ -1,0 +1,7 @@
+The dry-run failure was a stale variable name: the env cleanup renamed DEPLOY_TOKEN to DEPLOY_API_TOKEN in .env and .env.example, but scripts/deploy.sh still read DEPLOY_TOKEN, so it exited with "deploy: DEPLOY_TOKEN is not set".
+
+I updated the three references in scripts/deploy.sh to DEPLOY_API_TOKEN, including the error message. Verified by running make deploy-dry (now prints "dry run ok (token ****88f5)", exit 0) and by running the script without a token to confirm it still fails cleanly with exit 1.
+
+Committed as 6d3c36c "Use DEPLOY_API_TOKEN in deploy script", touching only scripts/deploy.sh. I left .env untracked since it holds a live token; you may want to add it to .gitignore.
+
+END OF REPORT

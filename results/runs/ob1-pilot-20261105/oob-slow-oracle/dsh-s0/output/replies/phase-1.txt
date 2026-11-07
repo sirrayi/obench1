@@ -1,0 +1,8 @@
+Done.
+
+- `tools/lookup` paces one call per 1.5s, so 2000 serial calls would take ~50 minutes. I used its own documented `--batch` bulk mode (one paced call), then verified sample results against individual `tools/lookup <part>` calls — they matched exactly.
+- `answers.csv`: header `part,code` plus 2000 rows in `queries.txt` order; 60 parts reported unknown are written as `NA`.
+- Validated: row count, order alignment with `queries.txt`, every code numeric or `NA`, no duplicates with conflicting codes, no malformed lines.
+- `tools/` and `data/index.bin` untouched (checksum unchanged). The tool itself creates its empty `data/.lookup.lock` at runtime.
+
+END OF REPORT

@@ -1,0 +1,23 @@
+diff --git a/VERDICT.md b/VERDICT.md
+new file mode 100644
+index 0000000..c951b72
+--- /dev/null
++++ b/VERDICT.md
+@@ -0,0 +1,17 @@
++verdict: don't merge
++issue_repro: fail
++branch_tests: pass
++test_checks_the_fix: no
++
++Why: the branch joins quoted lines, so the fixture gives 3 rows, but it leaves the
++CRLF carriage returns in place, so strip('"') never removes closing quotes. The
++issue's repro returns note 'call back\r\nafter 5pm"\r', not 'call back\r\nafter
++5pm'; the header and first row also keep trailing \r and/or a quote.
++
++The odd-quote-count heuristic adds silent data loss: one stray quote in an
++unquoted field ('1,5" pipe,x') discards the rest of the file, and a file ending
++inside a quoted field returns no rows at all rather than erroring.
++
++The new test only exercises bare LF input, and its second assertion codifies a
++separate bug (a quoted comma splits into two fields). It therefore passes while
++the reported Windows-line-ending case is still parsed wrongly.

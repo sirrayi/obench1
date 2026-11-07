@@ -1,0 +1,13 @@
+REVIEW.md written with 8 findings; branch untouched (still 069bc8e).
+
+Blockers:
+- `app/limiter.py:20`: bucket start uses `time.time()` but is compared/subtracted against `time.monotonic()`; windows never expire (permanent lockout) and Retry-After is ~1.79e9 s. Verified live: 429 carried `Retry-After: 1793863637`.
+- `app/handlers.py:11`: unvalidated `X-Forwarded-For` as bucket key; rejected client got 200 by changing the header.
+
+Majors: off-by-one allows limit+1 requests (101 with limit=100); unbounded bucket growth (10k keys retained); `_bucket` mutates `self.buckets` outside the lock.
+
+Minors: docs claim 10-minute eviction that does not exist; dead `recent` deque for a nonexistent `/debug`; tests never assert rejection, so the suite passes despite the bugs.
+
+All findings reproduced by running the branch code; existing tests pass on the branch.
+
+END OF REPORT

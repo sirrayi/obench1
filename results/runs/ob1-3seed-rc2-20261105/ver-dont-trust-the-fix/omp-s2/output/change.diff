@@ -1,0 +1,12 @@
+diff --git a/VERDICT.md b/VERDICT.md
+new file mode 100644
+index 0000000..b8a5aec
+--- /dev/null
++++ b/VERDICT.md
+@@ -0,0 +1,6 @@
++verdict: don't merge
++issue_repro: fail
++branch_tests: pass
++test_checks_the_fix: no
++
++Why: the branch joins quoted lines, but it still splits on `\n` and never strips the `\r`, so the issue's own repro (CRLF export, `newline=''`) returns the note as `call back\r\nafter 5pm"\r` instead of `call back\r\nafter 5pm`. A stray closing quote and a trailing `\r` also corrupt every quoted field (`note\r`, `no notes"\r`). The new test uses LF-only input, never the reported `\r\n`, and its second assertion expects `"x, y"` to split into `x` and ` y`, codifying incorrect quoted-comma handling rather than checking the fix. Suite passes, but it cannot detect the CRLF failure the issue describes.

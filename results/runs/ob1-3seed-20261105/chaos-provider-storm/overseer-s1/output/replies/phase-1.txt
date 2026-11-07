@@ -1,0 +1,5 @@
+Implemented `units/__init__.py` with `convert(value, src, dst)` covering every README unit: length (m, km, cm, mi, ft, in), mass (kg, g, lb, oz), and temperature (C, F, K) via Kelvin, with `ValueError` for unknown units, cross-dimension conversions, and inputs below absolute zero. Added `units/__main__.py` so `python3 -m units 10 km mi` prints `6.21371` with `%.6g`, sending errors to stderr with status 2.
+
+Verification caveat: the shell tool fails here before running anything (`sandbox-exec: sandbox_apply: Operation not permitted`, exit 71), so I could not execute the test suite. I checked the code by review and cross-checked all constants, formulas, thresholds and error paths by re-implementing the same arithmetic in the JS runtime; results matched expectations, including 1.5 km→m = 1500 and 100 C→F = 212.
+
+END OF REPORT

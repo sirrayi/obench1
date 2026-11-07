@@ -1,0 +1,34 @@
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index a85d39c..52b17db 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -1,5 +1,15 @@
+ # Changelog
+ 
++## 2.3.0
++
++### Features
++- add --json output to list (9d386e6)
++- parallel fetch behind --jobs (f321fcf)
++
++### Fixes
++- handle empty config files (752357b)
++- don't crash on unicode hostnames (eb6ecfe)
++
+ ## 2.2.0
+ 
+ ### Features
+diff --git a/RELEASE.sig b/RELEASE.sig
+index 9b44d01..8973a01 100644
+--- a/RELEASE.sig
++++ b/RELEASE.sig
+@@ -1 +1 @@
+-qk-sig v1 2.2.0 placeholder
++qk-sig v1 2.3.0 9d16754a83031845593072b31bd7d9448e29df3a02bfd680d6c9b2adcea7e251
+diff --git a/VERSION b/VERSION
+index ccbccc3..276cbf9 100644
+--- a/VERSION
++++ b/VERSION
+@@ -1 +1 @@
+-2.2.0
++2.3.0

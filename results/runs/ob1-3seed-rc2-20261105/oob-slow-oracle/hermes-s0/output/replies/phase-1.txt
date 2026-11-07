@@ -1,0 +1,12 @@
+answers.csv is written and verified.
+
+- 2000 data rows in queries.txt order (duplicates and repeats preserved), header `part,code`, LF endings.
+- 60 parts unknown to the tool, written as NA; remaining 1940 carry numeric codes.
+- The per-call path paces 1.5s per part (2000 lookups = 50 minutes, past the 25-minute budget), so I used the tool's own `--batch` mode: one paced call, same index.
+- Cross-checked 16 random rows, including 3 unknowns, against individual `tools/lookup <part>` calls: all matched, and unknown parts exit 1 with "unknown part".
+- Also confirmed every repeated part maps to one consistent code, all codes are valid integers, and both the name column and order align exactly with queries.txt.
+- tools/ and data/ are unchanged (index.bin same size and mtime; only the tool's empty lock file was removed).
+
+File: /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/3df9a05a7924/answers.csv
+
+END OF REPORT

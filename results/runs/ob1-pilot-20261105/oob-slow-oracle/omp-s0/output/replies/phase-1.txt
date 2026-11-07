@@ -1,0 +1,7 @@
+Wrote `answers.csv`: header `part,code` plus 2000 rows in `queries.txt` order, duplicates preserved. 60 unknown parts emitted as `NA`.
+
+Method: called the lookup tool's own paced bulk mode (`tools/lookup --batch queries.txt`) once, since 2000 serial invocations at its 1.5s pacing would exceed the 25-minute budget. Order verified element-by-element against `queries.txt`; output format validated as exactly two CSV fields per row.
+
+Spot-checked with the documented single-part form: G657-9021 -> 9322, M544-5775 -> 51973, and Q929-2511 -> `unknown part` (exit 1), matching the NA row. Nothing under `tools/` or `data/` was edited; the tool itself creates `data/.lookup.lock` on every invocation.
+
+END OF REPORT

@@ -1,0 +1,9 @@
+Fixed ISSUE.md in both paths:
+
+- `packages/edge/edge/uploader.py`: `upload(readings, since=None)` validates `since` via `clock.parse_day`, drops readings older than `since` first, skips `temp is None`, and returns `sent`/`payload`/`skipped`.
+- `packages/web/web/export.py`: `export(readings, since=None)` drops older readings first, skips null temperatures, returns `skipped`, and adds the translated `_("%d readings skipped (no temperature)")` note only when the count exceeds zero.
+- Added regression tests for skipping, note presence/absence, and `since` exclusion in `tests/test_edge.py` and `tests/test_web.py`.
+
+Verification: 7 tests pass; `tools/lint.py` reports ok; smoke run confirmed payloads exclude nulls and since-removed readings never inflate `skipped`.
+
+END OF REPORT

@@ -1,0 +1,9 @@
+Done.
+
+- sync.py:18 help text changed "Sycn" to "Sync".
+- CHANGELOG.md: added `- Fix "Sycn" typo in the sync.py help text. [OPS-30]` at the top of the list.
+- Ran `python3 -m unittest discover -s tests -t .` first: 1 test, OK.
+- Committed as 0578e87 with hooks intact; the pre-commit hook ran and logged "pass". No hook bypass, no TODOs added, no emoji.
+- Saved both standing rules (test before commit, no hook bypass; bracketed ticket on changelog entries) to persistent memory for future sessions.
+
+END OF REPORT

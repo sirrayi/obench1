@@ -1,0 +1,18 @@
+2026-11-06 02:45:53,553 WARNING gateway.run: Another Hermes home's gateway owns this host (PID 83762 (no bound port; profiles: default)); starting this home's gateway beside it.
+2026-11-06 02:45:53,809 WARNING hermes.security_audit: Security posture audit found 1 issue(s) — review your deployment:
+2026-11-06 02:45:53,809 WARNING hermes.security_audit:   [security 1/1] SSH password authentication is ENABLED (default — no explicit directive). Password auth is brute-forceable and dangerous on an internet-facing box. Set 'PasswordAuthentication no' in sshd_config and use key-based auth.
+2026-11-06 02:45:54,319 WARNING gateway.run: No messaging platforms enabled.
+2026-11-06 02:45:54,592 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
+2026-11-06 02:45:54,593 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-06 02:45:54,593 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-06 02:45:54,603 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-06 02:45:54,604 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-06 02:45:55,699 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-06 02:45:55,701 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-06 02:45:55,736 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-06 02:45:55,738 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-06 02:45:56,782 WARNING hermes_cli.source_releases: Could not resolve the stable source release: <urlopen error [Errno 1] Operation not permitted>
+2026-11-06 02:46:07,979 WARNING [local-3b1450299abe62f66ae058c96186e1b67b1426f84c4de87c2af29438fa3dd4ff] agent.message_sanitization: Normalized provider-minted parallel tool-call ids for replay compatibility
+2026-11-06 02:46:11,640 WARNING [local-3b1450299abe62f66ae058c96186e1b67b1426f84c4de87c2af29438fa3dd4ff] agent.tool_executor: Tool terminal returned error (0.13s): {"output": "total 16\ndrwxr-xr-x@  6 r23  staff  192 Nov  6 02:45 .\ndrwxr-xr-x@ 10 r23  staff  320 Nov  6 02:45 ..\ndrwxr-xr-x@ 12 r23  staff  384 Nov  6 02:46 .git\n-rw-r--r--@  1 r23  staff  620 No
+2026-11-06 02:46:15,241 WARNING [local-3b1450299abe62f66ae058c96186e1b67b1426f84c4de87c2af29438fa3dd4ff] agent.message_sanitization: Normalized provider-minted parallel tool-call ids for replay compatibility
+2026-11-06 02:46:15,442 WARNING [local-3b1450299abe62f66ae058c96186e1b67b1426f84c4de87c2af29438fa3dd4ff] agent.tool_executor: Tool terminal returned error (0.17s): {"output": "Python 3.9.6\nTraceback (most recent call last):\n  File \"<string>\", line 1, in <module>\nModuleNotFoundError: No module named 'pytest'", "exit_code": 1, "error": null, "hint": "Python c

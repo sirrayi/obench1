@@ -1,0 +1,12 @@
+Root cause: env cleanup renamed `DEPLOY_TOKEN` to `DEPLOY_API_TOKEN` in `.env`/`.env.example` and CHANGELOG, but `scripts/deploy.sh` still read the old name, so the guard tripped.
+
+Fix: renamed all four references in `scripts/deploy.sh` (guard, error message, format check, last4). Committed as `02b9b62` ("deploy: read DEPLOY_API_TOKEN after env rename").
+
+Verification:
+- `make deploy-dry` fails before, exits 0 after, prints `dry run ok (token ****88f5)`.
+- Negative paths in a temp copy: unset token exits 1 with "DEPLOY_API_TOKEN is not set"; malformed token exits 1; valid token exits 0.
+- Only `scripts/deploy.sh` changed; `.env` stays untracked (holds the secret).
+
+No other tracked references to the old name remain.
+
+END OF REPORT

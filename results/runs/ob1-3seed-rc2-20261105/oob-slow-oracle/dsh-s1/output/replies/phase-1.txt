@@ -1,0 +1,11 @@
+Done. `answers.csv` is written in the workspace.
+
+Approach and checks:
+- 2000 query lines, 1801 unique parts, 182 repeated parts, no blank lines.
+- Per-part calls are serialized by an exclusive lock and paced at 1.5 s each, so ~45 minutes for the unique set; instead I used the tool's own `--batch` bulk mode (one paced call, 1.6 s), which returns the same `table.get(...)` values.
+- 60 parts reported unknown, written as NA; all other codes are numeric.
+- Cross-checked 12 sampled parts (6 known, 6 unknown) with `tools/lookup <part>`; all matched, unknowns exit 1.
+- Verified header is `part,code`, 2000 data rows in exact `queries.txt` order, ASCII, no CRLF or trailing spaces.
+- `tools/` and `data/index.bin` untouched; only the answers file was added.
+
+END OF REPORT

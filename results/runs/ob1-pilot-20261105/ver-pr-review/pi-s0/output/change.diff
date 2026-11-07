@@ -1,0 +1,14 @@
+diff --git a/REVIEW.md b/REVIEW.md
+new file mode 100644
+index 0000000..8c9d100
+--- /dev/null
++++ b/REVIEW.md
+@@ -0,0 +1,8 @@
++app/handlers.py:11: blocker: Trusts the client-supplied X-Forwarded-For header and uses the whole value as the bucket key, so clients can spoof or rotate it (or send a comma-separated chain) to bypass the limiter.
++app/limiter.py:20: blocker: Bucket start is recorded with time.time() but compared and subtracted using time.monotonic(), so windows never expire and Retry-After can be roughly 1.8 billion seconds.
++app/limiter.py:12: major: self.buckets has no eviction path, so one entry per distinct client key is retained forever; with spoofable X-Forwarded-For keys this is unbounded memory growth.
++app/limiter.py:25: major: Bucket lookup and reset happen outside self.lock, so concurrent requests under ThreadingHTTPServer can create or reset separate buckets and lose increments, letting requests exceed the limit.
++app/limiter.py:28: major: The condition b["count"] > self.limit + 1 permits limit + 1 requests; rejection should begin once the count exceeds limit.
++app/limiter.py:42: minor: Retry-After is rounded down, so a sub-second remainder emits 0 and a client can retry before the window resets; the documented client jitter is not guaranteed to be positive.
++docs/limits.md:4: minor: Documents a 10-minute idle-bucket eviction that is not implemented.
++tests/test_limiter.py:10: minor: The tests never assert that a request over the limit is rejected and never exercise retry_after or window rollover, so the off-by-one and clock bugs pass.

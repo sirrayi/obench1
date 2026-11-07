@@ -1,0 +1,7 @@
+Created `answers.csv`: header `part,code`, 2000 data rows, same order as `queries.txt`, all 1801 unique parts covered, 60 unknown parts written as `NA`.
+
+Because serial lookups pace at 1.5s (2000 calls would exceed the time limit), I used the tool's documented `--batch` mode, then verified its output against single-part `tools/lookup <part>` calls on four known parts (G657-9021, U714-8994, B941-8911, Z351-1070) and one unknown (Q929-2511); results matched. Checked duplicate parts agree (e.g. N808-6300, Z351-1070), row order matches input exactly, and no row deviates from `\d+|NA`.
+
+No files under `tools/` or `data/` were modified.
+
+END OF REPORT

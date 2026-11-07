@@ -1,0 +1,15 @@
+Implemented `parse_range` in `daterange.py` and a 57-test suite in `tests/test_daterange.py`, committed as `9fe68e7`.
+
+Coverage:
+- `A..B` ISO dates, including spaces/tabs around text and `..`
+- `YYYY-MM` (month end via `calendar.monthrange`, leap February)
+- `YYYY-Www` (validated ISO weeks, year-crossing weeks like 2026-W53)
+- `YYYY` whole year
+- Open ends `..B`, `A..`; `..` alone rejected
+- Reversed ranges rejected
+- Malformed input rejected: `2026-13`, `2026-W54`, `2025-W53`, `2026-02-30`, unpadded parts, extra separators, junk, empties, non-text
+- All errors raise `ValueError`; cross-checked week/month expansion against stdlib across many years
+
+`git status` is clean; no TODO/FIXME markers, no non-ASCII characters.
+
+END OF REPORT

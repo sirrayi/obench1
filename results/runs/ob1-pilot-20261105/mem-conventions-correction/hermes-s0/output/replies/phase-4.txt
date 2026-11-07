@@ -1,0 +1,10 @@
+Implemented `tally export --csv PATH`.
+
+- tally/report.py: new `export_csv(rows, path)` writes the exact header `date,amount,category,note`, sorts by date with a stable sort so same-date rows keep file order, and formats amounts to 2 decimals.
+- tally/cli.py: new `export` subcommand with required `--csv PATH`.
+- tests/test_report.py and tests/test_cli.py: tests for sorting, tie order, formatting, quoting, header-only output, and the CLI path.
+- README.md: added `export` to the command list.
+
+All 17 tests pass, and a manual run confirmed ordering and output. No commit made.
+
+END OF REPORT

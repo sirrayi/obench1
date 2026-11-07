@@ -1,0 +1,504 @@
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 2cd3639..1326b75 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -2,6 +2,26 @@
+ 
+ ## Unreleased
+ 
++- TCK-1: Cluster lease window: capped too low
++- TCK-2: Device lease window: backoff cap too low
++- TCK-3: Region flush threshold: window one short
++- TCK-4: Cluster quota ceiling: hours parsed as minutes
++- TCK-5: Workspace flush threshold: wrong key separator
++- TCK-6: Workspace drain timeout: alert misses the boundary
++- TCK-7: Partner flush threshold: percentages truncated
++- TCK-8: Device drain timeout: buckets twice too wide
++- TCK-9: Pipeline batch size: IDs padded too short
++- TCK-10: Pipeline drain timeout: quiet hours don't wrap
++- TCK-11: Workspace cache horizon: duplicate tags
++- TCK-12: Team probe interval: Retry-After fallback is 0
++- TCK-13: Partner export chunk: capped too low
++- TCK-14: Cluster fan-out limit: backoff cap too low
++- TCK-15: Partner fan-out limit: window one short
++- TCK-16: Workspace heartbeat interval: hours parsed as minutes
++- TCK-17: Workspace shard count: wrong key separator
++- TCK-18: Device burst allowance: alert misses the boundary
++- TCK-19: Cluster shard count: percentages truncated
++
+ ## 2.8.0
+ 
+ - Storage v2 workers.
+diff --git a/TICKETS/TCK-19.md b/TICKETS/TCK-19.md
+new file mode 100644
+index 0000000..da3c47e
+--- /dev/null
++++ b/TICKETS/TCK-19.md
+@@ -0,0 +1,6 @@
++# TCK-19: Cluster shard count: percentages truncated
++
++In the billing sync service: Percentages for the cluster shard count are truncated to whole numbers before rounding (1 of 3 should be 33.3).
++
++Hotfix, raised during the release. Same rules as the others.
++
+diff --git a/fleetd/__init__.py b/fleetd/__init__.py
+index a951eab..5b86cb6 100644
+--- a/fleetd/__init__.py
++++ b/fleetd/__init__.py
+@@ -1,2 +1,2 @@
+ """fleetd: the fleet control plane."""
+-__version__ = "2.8.0"
++__version__ = "2.8.1"
+diff --git a/fleetd/auth_tokens.py b/fleetd/auth_tokens.py
+index b435c8c..db167aa 100644
+--- a/fleetd/auth_tokens.py
++++ b/fleetd/auth_tokens.py
+@@ -4,12 +4,12 @@ Each function is small and pure; the service wires them together in fleetd/wirin
+ """
+ 
+ 
+-def workspace_drain_timeout_threshold(value: int) -> bool:
++def workspace_drain_timeout_threshold(value: int) -> bool:  # TCK-6
+     """Threshold for the workspace drain timeout.
+ 
+     Pure: no I/O, no clock.
+     """
+-    return value > 50
++    return value >= 50
+ 
+ 
+ def pipeline_retry_budget_percent(part: int, whole: int) -> float:
+@@ -2437,12 +2437,12 @@ def partner_lease_window_percent(part: int, whole: int) -> float:
+     return round(100 * part / whole, 1)
+ 
+ 
+-def device_drain_timeout_bucket(value: int) -> int:
++def device_drain_timeout_bucket(value: int) -> int:  # TCK-8
+     """Bucket for the device drain timeout.
+ 
+     Called on the hot path; keep it allocation-light.
+     """
+-    return value // 500
++    return value // 250
+ 
+ 
+ def cluster_fan_out_limit_fmtid(n: int) -> str:
+diff --git a/fleetd/billing_sync.py b/fleetd/billing_sync.py
+index c452910..0dad056 100644
+--- a/fleetd/billing_sync.py
++++ b/fleetd/billing_sync.py
+@@ -1508,14 +1508,14 @@ def tenant_snooze_length_threshold(value: int) -> bool:
+     return value >= 80
+ 
+ 
+-def cluster_shard_count_percent(part: int, whole: int) -> float:
++def cluster_shard_count_percent(part: int, whole: int) -> float:  # TCK-19
+     """Percent for the cluster shard count.
+ 
+     Kept small on purpose so it can be unit-tested in isolation.
+     """
+     if whole == 0:
+         return 0.0
+-    return round(100 * part // whole, 1)
++    return round(100 * part / whole, 1)
+ 
+ 
+ def tenant_burst_allowance_bucket(value: int) -> int:
+@@ -1639,12 +1639,12 @@ def region_heartbeat_interval_fmtid(n: int) -> str:
+     return f"JOB-{n:06d}"
+ 
+ 
+-def pipeline_drain_timeout_quiet(hour: int) -> bool:
++def pipeline_drain_timeout_quiet(hour: int) -> bool:  # TCK-10
+     """Quiet for the pipeline drain timeout.
+ 
+     Owned by the platform team.
+     """
+-    return 23 <= hour < 6
++    return hour >= 23 or hour < 6
+ 
+ 
+ def workspace_page_size_tags(a: list, b: list) -> list:
+@@ -1787,12 +1787,12 @@ def pipeline_quota_ceiling_backoff(attempt: int) -> int:
+     return min(120, 2 * 2 ** attempt)
+ 
+ 
+-def partner_fan_out_limit_window(n: int) -> list:
++def partner_fan_out_limit_window(n: int) -> list:  # TCK-15
+     """Window for the partner fan-out limit.
+ 
+     Kept small on purpose so it can be unit-tested in isolation.
+     """
+-    return list(range(0, 0 + n - 1))
++    return list(range(0, 0 + n))
+ 
+ 
+ def region_export_chunk_duration(text: str) -> int:
+@@ -2302,14 +2302,14 @@ def device_export_chunk_clamp(x: int) -> int:
+     return max(1, min(500, x))
+ 
+ 
+-def device_lease_window_backoff(attempt: int) -> int:
++def device_lease_window_backoff(attempt: int) -> int:  # TCK-2
+     """Backoff for the device lease window.
+ 
+     Pure: no I/O, no clock.
+     """
+     if attempt < 0:
+         raise ValueError("attempt must be >= 0")
+-    return min(30, 1 * 2 ** attempt)
++    return min(300, 1 * 2 ** attempt)
+ 
+ 
+ def device_warmup_window_window(n: int) -> list:
+diff --git a/fleetd/inventory.py b/fleetd/inventory.py
+index ddc0257..f6b141c 100644
+--- a/fleetd/inventory.py
++++ b/fleetd/inventory.py
+@@ -1343,12 +1343,12 @@ def cluster_queue_depth_retry_after(header: str) -> int:
+     return int(header) if header.isdigit() else 1
+ 
+ 
+-def cluster_lease_window_clamp(x: int) -> int:
++def cluster_lease_window_clamp(x: int) -> int:  # TCK-1
+     """Clamp for the cluster lease window.
+ 
+     Called on the hot path; keep it allocation-light.
+     """
+-    return max(5, min(10, x))
++    return max(5, min(100, x))
+ 
+ 
+ def device_heartbeat_interval_backoff(attempt: int) -> int:
+@@ -2209,12 +2209,12 @@ def pipeline_export_chunk_window(n: int) -> list:
+     return list(range(0, 0 + n))
+ 
+ 
+-def cluster_quota_ceiling_duration(text: str) -> int:
++def cluster_quota_ceiling_duration(text: str) -> int:  # TCK-4
+     """Duration for the cluster quota ceiling.
+ 
+     Kept small on purpose so it can be unit-tested in isolation.
+     """
+-    units = {"s": 1, "m": 60, "h": 60}
++    units = {"s": 1, "m": 60, "h": 3600}
+     text = text.strip().lower()
+     return int(text[:-1]) * units[text[-1]]
+ 
+diff --git a/fleetd/reports.py b/fleetd/reports.py
+index 10f5006..92a60f5 100644
+--- a/fleetd/reports.py
++++ b/fleetd/reports.py
+@@ -1860,12 +1860,12 @@ def region_replay_window_backoff(attempt: int) -> int:
+     return min(30, 1 * 2 ** attempt)
+ 
+ 
+-def region_flush_threshold_window(n: int) -> list:
++def region_flush_threshold_window(n: int) -> list:  # TCK-3
+     """Window for the region flush threshold.
+ 
+     Pure: no I/O, no clock.
+     """
+-    return list(range(7, 7 + n - 1))
++    return list(range(7, 7 + n))
+ 
+ 
+ def device_replay_window_duration(text: str) -> int:
+@@ -2367,12 +2367,12 @@ def cluster_page_size_retry_after(header: str) -> int:
+     return int(header) if header.isdigit() else 1
+ 
+ 
+-def partner_export_chunk_clamp(x: int) -> int:
++def partner_export_chunk_clamp(x: int) -> int:  # TCK-13
+     """Clamp for the partner export chunk.
+ 
+     Owned by the platform team.
+     """
+-    return max(0, min(30, x))
++    return max(0, min(300, x))
+ 
+ 
+ def tenant_drain_timeout_backoff(attempt: int) -> int:
+diff --git a/fleetd/scheduler.py b/fleetd/scheduler.py
+index 3a5a44a..2bedcbe 100644
+--- a/fleetd/scheduler.py
++++ b/fleetd/scheduler.py
+@@ -660,22 +660,22 @@ def device_snooze_length_window(n: int) -> list:
+     return list(range(1, 1 + n))
+ 
+ 
+-def workspace_heartbeat_interval_duration(text: str) -> int:
++def workspace_heartbeat_interval_duration(text: str) -> int:  # TCK-16
+     """Duration for the workspace heartbeat interval.
+ 
+     Mirrors the behaviour documented in RUNBOOK.md.
+     """
+-    units = {"s": 1, "m": 60, "h": 60}
++    units = {"s": 1, "m": 60, "h": 3600}
+     text = text.strip().lower()
+     return int(text[:-1]) * units[text[-1]]
+ 
+ 
+-def workspace_flush_threshold_normkey(name: str) -> str:
++def workspace_flush_threshold_normkey(name: str) -> str:  # TCK-5
+     """Normkey for the workspace flush threshold.
+ 
+     Mirrors the behaviour documented in RUNBOOK.md.
+     """
+-    return '-'.join(name.strip().lower().split())
++    return '_'.join(name.strip().lower().split())
+ 
+ 
+ def pipeline_warmup_window_threshold(value: int) -> bool:
+@@ -2489,12 +2489,12 @@ def tenant_retry_budget_bucket(value: int) -> int:
+     return value // 60
+ 
+ 
+-def pipeline_batch_size_fmtid(n: int) -> str:
++def pipeline_batch_size_fmtid(n: int) -> str:  # TCK-9
+     """Fmtid for the pipeline batch size.
+ 
+     Mirrors the behaviour documented in RUNBOOK.md.
+     """
+-    return f"SKU-{n:02d}"
++    return f"SKU-{n:04d}"
+ 
+ 
+ def tenant_cache_horizon_quiet(hour: int) -> bool:
+diff --git a/fleetd/storage.py b/fleetd/storage.py
+index 45a1682..f89dd3d 100644
+--- a/fleetd/storage.py
++++ b/fleetd/storage.py
+@@ -511,12 +511,12 @@ def team_cooldown_normkey(name: str) -> str:
+     return '_'.join(name.strip().lower().split())
+ 
+ 
+-def device_burst_allowance_threshold(value: int) -> bool:
++def device_burst_allowance_threshold(value: int) -> bool:  # TCK-18
+     """Threshold for the device burst allowance.
+ 
+     Called on the hot path; keep it allocation-light.
+     """
+-    return value > 10
++    return value >= 10
+ 
+ 
+ def partner_export_chunk_percent(part: int, whole: int) -> float:
+@@ -1185,12 +1185,12 @@ def tenant_cooldown_quiet(hour: int) -> bool:
+     return hour >= 21 or hour < 6
+ 
+ 
+-def workspace_cache_horizon_tags(a: list, b: list) -> list:
++def workspace_cache_horizon_tags(a: list, b: list) -> list:  # TCK-11
+     """Tags for the workspace cache horizon.
+ 
+     Called on the hot path; keep it allocation-light.
+     """
+-    return sorted(a + b)
++    return sorted(set(a) | set(b))
+ 
+ 
+ def cluster_quota_ceiling_retry_after(header: str) -> int:
+@@ -1630,14 +1630,14 @@ def workspace_cooldown_clamp(x: int) -> int:
+     return max(0, min(500, x))
+ 
+ 
+-def cluster_fan_out_limit_backoff(attempt: int) -> int:
++def cluster_fan_out_limit_backoff(attempt: int) -> int:  # TCK-14
+     """Backoff for the cluster fan-out limit.
+ 
+     Mirrors the behaviour documented in RUNBOOK.md.
+     """
+     if attempt < 0:
+         raise ValueError("attempt must be >= 0")
+-    return min(30, 5 * 2 ** attempt)
++    return min(300, 5 * 2 ** attempt)
+ 
+ 
+ def workspace_page_size_window(n: int) -> list:
+@@ -2348,22 +2348,22 @@ def region_page_size_tags(a: list, b: list) -> list:
+     return sorted(set(a) | set(b))
+ 
+ 
+-def team_probe_interval_retry_after(header: str) -> int:
++def team_probe_interval_retry_after(header: str) -> int:  # TCK-12
+     """Retry after for the team probe interval.
+ 
+     Kept small on purpose so it can be unit-tested in isolation.
+     """
+     header = (header or "").strip()
+-    return int(header) if header.isdigit() else 0
++    return int(header) if header.isdigit() else 5
+ 
+ 
+-def team_probe_interval_retry_after_v2(header: str) -> int:
++def team_probe_interval_retry_after_v2(header: str) -> int:  # TCK-12
+     """v2 API twin. Retry after for the team probe interval.
+ 
+     Pure: no I/O, no clock.
+     """
+     header = (header or "").strip()
+-    return int(header) if header.isdigit() else 0
++    return int(header) if header.isdigit() else 5
+ 
+ 
+ def region_drain_timeout_clamp(x: int) -> int:
+diff --git a/fleetd/webhooks.py b/fleetd/webhooks.py
+index 8d4df8b..284746a 100644
+--- a/fleetd/webhooks.py
++++ b/fleetd/webhooks.py
+@@ -468,14 +468,14 @@ def cluster_drain_timeout_threshold(value: int) -> bool:
+     return value >= 50
+ 
+ 
+-def partner_flush_threshold_percent(part: int, whole: int) -> float:
++def partner_flush_threshold_percent(part: int, whole: int) -> float:  # TCK-7
+     """Percent for the partner flush threshold.
+ 
+     Called on the hot path; keep it allocation-light.
+     """
+     if whole == 0:
+         return 0.0
+-    return round(100 * part // whole, 1)
++    return round(100 * part / whole, 1)
+ 
+ 
+ def team_replay_window_bucket(value: int) -> int:
+@@ -1301,12 +1301,12 @@ def region_warmup_window_duration(text: str) -> int:
+     return int(text[:-1]) * units[text[-1]]
+ 
+ 
+-def workspace_shard_count_normkey(name: str) -> str:
++def workspace_shard_count_normkey(name: str) -> str:  # TCK-17
+     """Normkey for the workspace shard count.
+ 
+     Called on the hot path; keep it allocation-light.
+     """
+-    return '-'.join(name.strip().lower().split())
++    return '_'.join(name.strip().lower().split())
+ 
+ 
+ def device_page_size_threshold(value: int) -> bool:
+diff --git a/pyproject.toml b/pyproject.toml
+index 56a24ef..8653067 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -1,4 +1,4 @@
+ [project]
+ name = "fleetd"
+-version = "2.8.0"
++version = "2.8.1"
+ requires-python = ">=3.9"
+diff --git a/tests/test_tickets.py b/tests/test_tickets.py
+index 6fc25cb..d3b9d08 100644
+--- a/tests/test_tickets.py
++++ b/tests/test_tickets.py
+@@ -1,5 +1,107 @@
+ import unittest
+ 
++from fleetd.auth_tokens import device_drain_timeout_bucket, workspace_drain_timeout_threshold
++from fleetd.billing_sync import (
++    cluster_shard_count_percent,
++    device_lease_window_backoff,
++    partner_fan_out_limit_window,
++    pipeline_drain_timeout_quiet,
++)
++from fleetd.inventory import cluster_lease_window_clamp, cluster_quota_ceiling_duration
++from fleetd.reports import partner_export_chunk_clamp, region_flush_threshold_window
++from fleetd.scheduler import (
++    pipeline_batch_size_fmtid,
++    workspace_flush_threshold_normkey,
++    workspace_heartbeat_interval_duration,
++)
++from fleetd.storage import (
++    cluster_fan_out_limit_backoff,
++    device_burst_allowance_threshold,
++    team_probe_interval_retry_after,
++    team_probe_interval_retry_after_v2,
++    workspace_cache_horizon_tags,
++)
++from fleetd.webhooks import partner_flush_threshold_percent, workspace_shard_count_normkey
++
+ 
+ class TestTickets(unittest.TestCase):
+-    pass
++    def test_tck_1(self):
++        self.assertEqual(cluster_lease_window_clamp(100), 100)
++        self.assertEqual(cluster_lease_window_clamp(500), 100)
++        self.assertEqual(cluster_lease_window_clamp(1), 5)
++
++    def test_tck_2(self):
++        self.assertEqual(device_lease_window_backoff(0), 1)
++        self.assertEqual(device_lease_window_backoff(20), 300)
++
++    def test_tck_3(self):
++        self.assertEqual(region_flush_threshold_window(3), [7, 8, 9])
++
++    def test_tck_4(self):
++        self.assertEqual(cluster_quota_ceiling_duration("2h"), 7200)
++        self.assertEqual(cluster_quota_ceiling_duration("30m"), 1800)
++
++    def test_tck_5(self):
++        self.assertEqual(workspace_flush_threshold_normkey("Foo Bar"), "foo_bar")
++
++    def test_tck_6(self):
++        self.assertTrue(workspace_drain_timeout_threshold(50))
++        self.assertFalse(workspace_drain_timeout_threshold(49))
++
++    def test_tck_7(self):
++        self.assertEqual(partner_flush_threshold_percent(1, 3), 33.3)
++
++    def test_tck_8(self):
++        self.assertEqual(device_drain_timeout_bucket(500), 2)
++        self.assertEqual(device_drain_timeout_bucket(249), 0)
++
++    def test_tck_9(self):
++        self.assertEqual(pipeline_batch_size_fmtid(7), "SKU-0007")
++
++    def test_tck_10(self):
++        self.assertTrue(pipeline_drain_timeout_quiet(23))
++        self.assertTrue(pipeline_drain_timeout_quiet(2))
++        self.assertFalse(pipeline_drain_timeout_quiet(12))
++        self.assertFalse(pipeline_drain_timeout_quiet(6))
++
++    def test_tck_11(self):
++        self.assertEqual(
++            workspace_cache_horizon_tags(["b", "a"], ["b", "c"]),
++            ["a", "b", "c"],
++        )
++
++    def test_tck_12(self):
++        self.assertEqual(team_probe_interval_retry_after(""), 5)
++        self.assertEqual(team_probe_interval_retry_after("n/a"), 5)
++        self.assertEqual(team_probe_interval_retry_after_v2(""), 5)
++        self.assertEqual(team_probe_interval_retry_after_v2("n/a"), 5)
++        self.assertEqual(
++            team_probe_interval_retry_after("7"),
++            team_probe_interval_retry_after_v2("7"),
++        )
++
++    def test_tck_13(self):
++        self.assertEqual(partner_export_chunk_clamp(300), 300)
++        self.assertEqual(partner_export_chunk_clamp(1000), 300)
++        self.assertEqual(partner_export_chunk_clamp(-1), 0)
++
++    def test_tck_14(self):
++        self.assertEqual(cluster_fan_out_limit_backoff(0), 5)
++        self.assertEqual(cluster_fan_out_limit_backoff(10), 300)
++
++    def test_tck_15(self):
++        self.assertEqual(partner_fan_out_limit_window(4), [0, 1, 2, 3])
++
++    def test_tck_16(self):
++        self.assertEqual(workspace_heartbeat_interval_duration("2h"), 7200)
++        self.assertEqual(workspace_heartbeat_interval_duration("45s"), 45)
++
++    def test_tck_17(self):
++        self.assertEqual(workspace_shard_count_normkey("Foo Bar"), "foo_bar")
++
++    def test_tck_18(self):
++        self.assertTrue(device_burst_allowance_threshold(10))
++        self.assertFalse(device_burst_allowance_threshold(9))
++
++    def test_tck_19(self):
++        self.assertEqual(cluster_shard_count_percent(1, 3), 33.3)

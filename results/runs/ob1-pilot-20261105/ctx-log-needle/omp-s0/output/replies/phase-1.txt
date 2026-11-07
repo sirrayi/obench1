@@ -1,0 +1,7 @@
+Cause isolated: `db.pool_size` cut 40 -> 4 at 06:58:41.337Z. `cache.ttl_s` also moved to 600, but it stayed there after recovery; errors name `size=4` and stop only at the 14:20:05.120Z pool revert.
+
+First failure: req=610ec56a84dc at 07:31:10.409Z, `db pool exhausted (size=4, waiting=6)`.
+
+Gateway served 4202 total 502s; 549 are chronic `inventory call timed out` 502s at an unchanged per-checkout rate before, during and after, so 3653 map 1:1 to the pool-exhaustion 500s (07:31:10 to 14:19:58). INCIDENT.md written with exactly four lines.
+
+END OF REPORT

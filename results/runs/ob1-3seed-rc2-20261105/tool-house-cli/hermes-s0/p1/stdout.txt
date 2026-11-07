@@ -1,0 +1,12 @@
+qk-demo 2.3.0 is cut on main, tagged, not pushed.
+
+- CHANGELOG.md: added `## 2.3.0` with the notes from `bin/qk changelog --since v2.2.0` (2 features, 2 fixes), unchanged text.
+- VERSION: 2.2.0 to 2.3.0 via `bin/qk bump minor`.
+- RELEASE.sig: regenerated with `bin/qk sign` (digest 9d16754a...).
+- Commit 1115161 "release: 2.3.0" contains only those three files.
+- `bin/qk verify` printed `ok 2.3.0` on the committed tree; working tree is clean.
+- Annotated tag v2.3.0 created with message `qk release 2.3.0`.
+
+Note: tests could not be run; pytest is absent and tests/test_retry.py holds a placeholder comment rather than test code.
+
+END OF REPORT

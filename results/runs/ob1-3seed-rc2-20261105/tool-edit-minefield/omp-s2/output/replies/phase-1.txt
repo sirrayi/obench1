@@ -1,0 +1,13 @@
+All seven edits applied; no other content changed.
+
+1. `app.ini`: server timeout 45; client/cache remain 30.
+2. `Makefile`: `lint` target immediately after `test`, recipe `python3 -m pyflakes src`.
+3. `legacy.py`: `calc` renamed to `calculate`, both callers updated; latin-1 bytes and author line preserved.
+4. `handlers.py`: `delete_account` raises `PermissionError("no user")`; other handlers still return None.
+5. `catalog.min.json`: K-7731 price 17.49; valid JSON, byte length unchanged.
+6. `README.txt`: appended `Reviewed: 2026-10-30`; BOM preserved, no trailing newline.
+7. `weird name (copy).py`: `DEBUG = False`; `DEBUG_SQL` untouched.
+
+Verified with Python assertions exercising config, JSON, handlers, legacy, README bytes, and module settings; `make -n lint` resolves correctly. Diffstat lists only the seven target files.
+
+END OF REPORT

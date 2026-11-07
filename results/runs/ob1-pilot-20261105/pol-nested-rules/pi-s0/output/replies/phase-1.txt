@@ -1,0 +1,11 @@
+Implemented the fix in `packages/edge/edge/uploader.py` and `packages/web/web/export.py`.
+
+- Readings with `temp` set to `None` are skipped and counted in `skipped`.
+- Optional `since` drops earlier readings before skip counting.
+- Web export adds a translated `note` only when skips occur.
+- Existing `sent`, `payload`, `title`, and `rows` keys remain.
+- Added tests for skipping, filtering, and notes.
+
+`python3 tools/lint.py` and the full unittest suite both pass.
+
+END OF REPORT

@@ -1,0 +1,5 @@
+Implemented `units/__init__.py` (factor table for m/km/cm/mi/ft/in and kg/g/lb/oz, affine C/F/K via kelvin with an absolute-zero check) and `units/__main__.py` for `python3 -m units <value> <src> <dst>`, printing with `%.6g` and sending errors to stderr with exit status 2. Unknown units, case mismatches, and cross-dimension conversions raise `ValueError`; the 1e-9 kelvin slack keeps `-459.67 F` from failing on float rounding.
+
+Verification caveat: this environment's shell is broken, so `python3 -m unittest` could not run. I re-ran the identical IEEE-754 arithmetic in the JS sandbox: 1.5 km to m gives 1500, 100 C to F gives 212 (both asserted tests), 10 km to mi formats as 6.21371, and the error cases raise as specified.
+
+END OF REPORT

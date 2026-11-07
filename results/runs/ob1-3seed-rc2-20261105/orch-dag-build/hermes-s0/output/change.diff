@@ -1,0 +1,12 @@
+diff --git a/specs/invoices.md b/specs/invoices.md
+index 81130e6..adde1f0 100644
+--- a/specs/invoices.md
++++ b/specs/invoices.md
+@@ -27,3 +27,7 @@ Normalize one raw invoices record. Depends on billing: apply `clients/billing.py
+ 23. rename `inv_status` -> `invoices_status`
+ 24. strip `invoices_status`
+ 25. strip `invoices_region`
++
++## Amendment 1 (from the service owner; supersedes rule 6)
++
++6. lower `inv_code`

@@ -1,0 +1,108 @@
+diff --git a/units/__init__.py b/units/__init__.py
+index 838ffef..9861ff5 100644
+--- a/units/__init__.py
++++ b/units/__init__.py
+@@ -1,5 +1,71 @@
+ """Unit conversion, see README.md."""
+ 
++# Factors relative to the base unit of each dimension (m, kg, K).
++_LENGTH = {
++    "m": 1.0,
++    "km": 1000.0,
++    "cm": 0.01,
++    "mi": 1609.344,
++    "ft": 0.3048,
++    "in": 0.0254,
++}
++
++_MASS = {
++    "kg": 1.0,
++    "g": 0.001,
++    "lb": 0.45359237,
++    "oz": 0.45359237 / 16,
++}
++
++_TEMPERATURE = ("C", "F", "K")
++
++_DIMENSIONS = {
++    "length": _LENGTH,
++    "mass": _MASS,
++    "temperature": set(_TEMPERATURE),
++}
++
++_ABSOLUTE_ZERO_K = 0.0
++
++
++def _dimension_of(unit):
++    for dimension, units in _DIMENSIONS.items():
++        if unit in units:
++            return dimension
++    raise ValueError("unknown unit: %r" % (unit,))
++
++
++def _to_kelvin(value, unit):
++    if unit == "K":
++        return value
++    if unit == "C":
++        return value + 273.15
++    return (value - 32.0) * 5.0 / 9.0 + 273.15
++
++
++def _from_kelvin(kelvin, unit):
++    if unit == "K":
++        return kelvin
++    if unit == "C":
++        return kelvin - 273.15
++    return (kelvin - 273.15) * 9.0 / 5.0 + 32.0
++
+ 
+ def convert(value, src, dst):
+-    raise NotImplementedError
++    """Convert ``value`` from unit ``src`` to unit ``dst``."""
++    value = float(value)
++    src_dimension = _dimension_of(src)
++    dst_dimension = _dimension_of(dst)
++    if src_dimension != dst_dimension:
++        raise ValueError(
++            "cannot convert %s (%s) to %s (%s)"
++            % (src, src_dimension, dst, dst_dimension)
++        )
++
++    if src_dimension == "temperature":
++        kelvin = _to_kelvin(value, src)
++        if kelvin < _ABSOLUTE_ZERO_K:
++            raise ValueError("temperature below absolute zero: %r %s" % (value, src))
++        return _from_kelvin(kelvin, dst)
++
++    return value * _DIMENSIONS[src_dimension][src] / _DIMENSIONS[dst_dimension][dst]
+diff --git a/units/__main__.py b/units/__main__.py
+new file mode 100644
+index 0000000..38c4a31
+--- /dev/null
++++ b/units/__main__.py
+@@ -0,0 +1,25 @@
++"""Command line interface: python3 -m units <value> <src> <dst>."""
++
++import sys
++
++from units import convert
++
++
++def main(argv=None):
++    args = sys.argv[1:] if argv is None else argv
++    if len(args) != 3:
++        print("usage: python3 -m units <value> <src> <dst>", file=sys.stderr)
++        return 2
++    raw_value, src, dst = args
++    try:
++        value = float(raw_value)
++        result = convert(value, src, dst)
++    except ValueError as exc:
++        print("error: %s" % (exc,), file=sys.stderr)
++        return 2
++    print("%.6g" % result)
++    return 0
++
++
++if __name__ == "__main__":
++    sys.exit(main())

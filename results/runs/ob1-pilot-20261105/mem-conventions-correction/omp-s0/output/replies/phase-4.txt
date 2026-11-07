@@ -1,0 +1,10 @@
+Added `tally export --csv PATH`.
+
+- `tally/export.py`: `write_csv(rows, path)` sorts with `sorted(..., key=date)` (Python sort is stable, so equal dates keep file order), writes header `date,amount,category,note`, and formats amounts via `"{:.2f}".format(Decimal(...))` — exact decimal rounding, unlike float `%f`.
+- `tally/cli.py`: new `export` subcommand; `--csv` is required.
+- Tests: `tests/test_export.py` (sort/stability, quoting, decimal rounding, empty file) and `tests/test_cli.py` (end-to-end).
+- README updated.
+
+Verification: 17 tests pass; real `expenses.csv` export (40 rows) checked for nondecreasing dates, per-date order, header, and 2-decimal amounts. Committed as `feat: add tally export --csv`.
+
+END OF REPORT

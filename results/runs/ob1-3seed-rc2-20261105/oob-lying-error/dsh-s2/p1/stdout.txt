@@ -1,0 +1,9 @@
+Fixed three defects; all 10 tests pass.
+
+1. Repo-root `calendar.py` shadowed the stdlib module, so `from calendar import billing_days` triggered a bogus module-level `__getattr__` and raised `ValueError` on import. Moved it to `billing/calendar.py`, removed the `__getattr__` trap, and updated `billing/periods.py` to import `billing.calendar.billing_days`. Stdlib `calendar` is no longer shadowed.
+2. `prorate` used `int(...)`, truncating instead of rounding half up. Replaced with exact integer arithmetic that rounds halves up (501 and 667 now correct) and rejects non-positive period lengths.
+3. Dropped the stale `FIXME(ops-412)` comment in `billing/headers.py`; its timezone tests pass.
+
+No files under `tests/` were touched.
+
+END OF REPORT

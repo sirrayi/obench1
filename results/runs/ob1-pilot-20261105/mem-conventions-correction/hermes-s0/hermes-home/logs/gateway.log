@@ -1,0 +1,28 @@
+2026-11-05 05:29:56,172 INFO gateway.control_socket: Gateway control socket listening at /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/f036e90da291/hermes-home/gateway.sock
+2026-11-05 05:29:56,290 INFO gateway.run: Starting Hermes Gateway...
+2026-11-05 05:29:56,290 INFO gateway.run: Session storage: /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/f036e90da291/hermes-home/sessions
+2026-11-05 05:29:56,291 INFO gateway.run: Agent budget: max_iterations=unlimited (agent.max_turns from config.yaml, else the HERMES_MAX_ITERATIONS bridge)
+2026-11-05 05:29:56,291 INFO gateway.run: Secret redaction: ENABLED (tool output, logs, and chat responses are scrubbed before delivery)
+2026-11-05 05:29:56,310 WARNING gateway.run: No messaging platforms enabled.
+2026-11-05 05:29:56,310 INFO gateway.run: Gateway will continue running for cron job execution.
+2026-11-05 05:29:56,346 INFO gateway.run: Channel directory built: 0 target(s)
+2026-11-05 05:29:56,609 INFO gateway.run: Model context warmed:  -> 256000 tokens (default)
+2026-11-05 05:29:56,610 INFO gateway.run: Turn machinery warmed in 0.3s (20 tool schema(s) materialized)
+2026-11-05 05:29:56,619 INFO gateway.run: Press Ctrl+C to stop
+2026-11-05 05:29:56,622 INFO gateway.run: kanban dispatcher: holding singleton dispatcher lock (/private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/f036e90da291/hermes-home/kanban/.dispatcher.lock)
+2026-11-05 05:29:56,624 INFO gateway.run: Cron scheduler will tick 1 profile(s): ['default']
+2026-11-05 05:29:56,625 INFO gateway.run: Auto-started gateway: exits after 600s with no clients, adapters, cron/kanban work or admissions (gateway.unmanaged_idle_exit_seconds)
+2026-11-05 05:29:56,626 INFO gateway.run: Gateway housekeeping started (interval=60s)
+2026-11-05 05:29:57,732 INFO gateway.run: inbound message: platform=local user=uid:502 chat=local-0d159a43d2b6098e67f40d1c8540d736c6f85caec0a694bb5faf458168771e99 msg='Add a `--version` flag to tally that prints `tally 1.4.0`.  Also, standing prefe' reply_to_id=None reply_to_text=''
+2026-11-05 05:30:01,624 INFO gateway.run: kanban dispatcher: embedded in gateway (interval=60.0s)
+2026-11-05 05:30:35,296 INFO gateway.run: response ready: platform=local chat=local-0d159a43d2b6098e67f40d1c8540d736c6f85caec0a694bb5faf458168771e99 session=agent:main:local:dm:local-0d159a43d2b6098e67f40d1c8540d736c6f85caec0a694bb5faf458168771e99 time=37.6s api_calls=9 response=460 chars
+2026-11-05 05:30:35,322 INFO gateway.platforms.base: [Local] Sending response (460 chars) to local-0d159a43d2b6098e67f40d1c8540d736c6f85caec0a694bb5faf458168771e99
+2026-11-05 05:30:36,299 INFO gateway.run: inbound message: platform=local user=uid:502 chat=local-4aeff64942001bb29ccd75de294de6d296def3d403bcbe800a6477099b3dda22 msg='Add `tally top N`: print the N largest expenses, largest first, one per line as ' reply_to_id=None reply_to_text=''
+2026-11-05 05:31:15,693 INFO gateway.run: response ready: platform=local chat=local-4aeff64942001bb29ccd75de294de6d296def3d403bcbe800a6477099b3dda22 session=agent:main:local:dm:local-4aeff64942001bb29ccd75de294de6d296def3d403bcbe800a6477099b3dda22 time=39.4s api_calls=13 response=601 chars
+2026-11-05 05:31:15,711 INFO gateway.platforms.base: [Local] Sending response (601 chars) to local-4aeff64942001bb29ccd75de294de6d296def3d403bcbe800a6477099b3dda22
+2026-11-05 05:31:16,884 INFO gateway.run: inbound message: platform=local user=uid:502 chat=local-2e5c6b98437a4ceafcd8b5304a61b4f44f566cf9cfb3a3e3f721af779689a04d msg='A correction to the standing preferences, from now on: commit messages follow Co' reply_to_id=None reply_to_text=''
+2026-11-05 05:31:51,433 INFO gateway.run: response ready: platform=local chat=local-2e5c6b98437a4ceafcd8b5304a61b4f44f566cf9cfb3a3e3f721af779689a04d session=agent:main:local:dm:local-2e5c6b98437a4ceafcd8b5304a61b4f44f566cf9cfb3a3e3f721af779689a04d time=34.5s api_calls=9 response=667 chars
+2026-11-05 05:31:51,464 INFO gateway.platforms.base: [Local] Sending response (667 chars) to local-2e5c6b98437a4ceafcd8b5304a61b4f44f566cf9cfb3a3e3f721af779689a04d
+2026-11-05 05:31:52,385 INFO gateway.run: inbound message: platform=local user=uid:502 chat=local-9cc09f4bb94f4c34c4c403654af06375bac79eda510f1d9f89daf8ce69ceea1b msg='Add `tally export --csv PATH`: write the expenses to PATH sorted by date (same-d' reply_to_id=None reply_to_text=''
+2026-11-05 05:32:33,638 INFO gateway.run: response ready: platform=local chat=local-9cc09f4bb94f4c34c4c403654af06375bac79eda510f1d9f89daf8ce69ceea1b session=agent:main:local:dm:local-9cc09f4bb94f4c34c4c403654af06375bac79eda510f1d9f89daf8ce69ceea1b time=41.3s api_calls=12 response=594 chars
+2026-11-05 05:32:33,673 INFO gateway.platforms.base: [Local] Sending response (594 chars) to local-9cc09f4bb94f4c34c4c403654af06375bac79eda510f1d9f89daf8ce69ceea1b

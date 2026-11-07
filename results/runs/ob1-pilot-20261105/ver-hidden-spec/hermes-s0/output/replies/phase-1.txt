@@ -1,0 +1,9 @@
+Implemented `parse_range` in daterange.py (97 lines): full-date ranges, month, ISO week (including week 53 and cross-year weeks), year, open ends, whitespace tolerance, reversed-range rejection, `ValueError` for all malformed input. Expanded tests/test_daterange.py to 57 tests across closed dates, months (leap and December), ISO weeks, years, open ends, composite bounds, whitespace, and malformed inputs.
+
+Verification: `python3 -m unittest discover -s tests -t .` runs 57 tests, all OK. No TODO/FIXME/XXX markers and no non-ASCII characters in either file.
+
+Note: forms not listed in the spec (e.g. a bare `2026-05-01`) are rejected with ValueError; `2026-W53` is valid because 2026 is a 53-week ISO year.
+
+Changes are unstaged; nothing committed.
+
+END OF REPORT

@@ -1,0 +1,5 @@
+answers.csv now has all 2000 lookups in queries.txt order, header `part,code`, with 60 NA entries.
+
+I ran the lookups through `tools/lookup` using its built-in bulk mode (one paced call for the whole file) since 2000 serial calls at 1.5 s each would exceed the time budget. I confirmed the output has 2000 rows in the exact queries.txt order and spot-checked known and unknown parts against single `tools/lookup <part>` calls, which agreed. All 60 unknown parts are Q-series; everything else resolved. tools/ and data/ are untouched, and the CSV re-parses cleanly as two columns per row.
+
+END OF REPORT

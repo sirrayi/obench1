@@ -1,0 +1,5 @@
+Implemented all eight normalizers in `clients/`: `accounts`, `billing`, `contacts`, `customers`, `invoices`, `payments`, `returns`, `shipments`, each exposing `normalize(record)`. They share the rule primitives in `clients/_rules.py` (require, default, strip, lower, upper, rename, drop, cents with half-up rounding via Decimal, bool, iso-date, split), and dependency specs are chained by calling the upstream normalize first, so records are never mutated.
+
+Checked with a harness in /tmp against every worked example: all 24 cases match exactly, including the expected ValueError cases (all raised as ValueError). A mid-task spec change to `specs/invoices.md` (amendment superseding rule 6 with `lower inv_code`) is applied and verified.
+
+END OF REPORT

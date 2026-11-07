@@ -1,0 +1,108 @@
+diff --git a/units/__init__.py b/units/__init__.py
+index 838ffef..4834b2c 100644
+--- a/units/__init__.py
++++ b/units/__init__.py
+@@ -1,5 +1,65 @@
+ """Unit conversion, see README.md."""
+ 
++_LENGTH = {
++    "m": 1.0,
++    "km": 1000.0,
++    "cm": 0.01,
++    "mi": 1609.344,
++    "ft": 0.3048,
++    "in": 0.0254,
++}
++
++_MASS = {
++    "kg": 1.0,
++    "g": 0.001,
++    "lb": 0.45359237,
++    "oz": 0.45359237 / 16,
++}
++
++# Lowest temperature each scale can express, expressed in that scale.
++_ABSOLUTE_ZERO = {"C": -273.15, "F": -459.67, "K": 0.0}
++
++_SCALE_FACTORS = {"length": _LENGTH, "mass": _MASS}
++
++
++def _lookup(unit):
++    """Return the dimension of `unit` and its factor table, if any."""
++    for dimension, table in _SCALE_FACTORS.items():
++        if unit in table:
++            return dimension, table
++    if unit in _ABSOLUTE_ZERO:
++        return "temperature", None
++    raise ValueError("unknown unit: %r" % (unit,))
++
++
++def _to_kelvin(value, unit):
++    if unit == "K":
++        return value
++    if unit == "C":
++        return value + 273.15
++    return (value + 459.67) * 5 / 9
++
++
++def _from_kelvin(kelvin, unit):
++    if unit == "K":
++        return kelvin
++    if unit == "C":
++        return kelvin - 273.15
++    return kelvin * 9 / 5 - 459.67
++
++
++def _convert_temperature(value, src, dst):
++    if value < _ABSOLUTE_ZERO[src]:
++        raise ValueError("%r %s is below absolute zero" % (value, src))
++    return _from_kelvin(_to_kelvin(value, src), dst)
++
+ 
+ def convert(value, src, dst):
+-    raise NotImplementedError
++    """Convert `value` from unit `src` to unit `dst`."""
++    src_dimension, src_table = _lookup(src)
++    dst_dimension, dst_table = _lookup(dst)
++    if src_dimension != dst_dimension:
++        raise ValueError("cannot convert %s to %s: different dimensions" % (src, dst))
++    if src_dimension == "temperature":
++        return float(_convert_temperature(value, src, dst))
++    return value * src_table[src] / dst_table[dst]
+diff --git a/units/__main__.py b/units/__main__.py
+new file mode 100644
+index 0000000..3c25c99
+--- /dev/null
++++ b/units/__main__.py
+@@ -0,0 +1,31 @@
++"""Command line entry point: python3 -m units <value> <src> <dst>."""
++
++import sys
++
++from . import convert
++
++_USAGE = "usage: python3 -m units <value> <src> <dst>"
++
++
++def main(argv=None):
++    args = sys.argv[1:] if argv is None else list(argv)
++    if len(args) != 3:
++        print(_USAGE, file=sys.stderr)
++        return 2
++    raw_value, src, dst = args
++    try:
++        value = float(raw_value)
++    except ValueError:
++        print("units: not a number: %s" % raw_value, file=sys.stderr)
++        return 2
++    try:
++        result = convert(value, src, dst)
++    except ValueError as exc:
++        print("units: %s" % exc, file=sys.stderr)
++        return 2
++    print("%.6g" % result)
++    return 0
++
++
++if __name__ == "__main__":
++    sys.exit(main())

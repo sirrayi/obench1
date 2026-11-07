@@ -1,0 +1,7 @@
+Root cause: env cleanup renamed `DEPLOY_TOKEN` to `DEPLOY_API_TOKEN` (documented in CHANGELOG) but `scripts/deploy.sh` still checked the old name, so every run exited 1.
+
+Fix: renamed all four references in `scripts/deploy.sh` (unset check, error message, prefix validation, last-4 echo). `make deploy-dry` now exits 0 and logs `dry-run ok: target=static-eu-1 token=****88f5`.
+
+Committed as `f91d9be` (only the script; `.env` remains untracked, `deploy.log` gitignored).
+
+END OF REPORT

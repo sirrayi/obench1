@@ -1,0 +1,7 @@
+Root cause: the APAC reader applied the v1 (decimal-comma) rule to the October v2 export, so "2641.49" became 264149, scaling every amount by 100.
+
+The working tree already carried the format-aware fix (meridian/text.py reads each feed's `# format:` header and parses v1/v2 accordingly, used by both readers). I verified it: HEAD prints 178731321.00, the working tree prints 1787313.21 SGD. I added end-to-end regression tests pinning APAC October at 1787313.21 and September at 1784764.94; the October test fails on HEAD with exactly the reported number.
+
+All 8 tests pass. No commit made, since none was requested.
+
+END OF REPORT

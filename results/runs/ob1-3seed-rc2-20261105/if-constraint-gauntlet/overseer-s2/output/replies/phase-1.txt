@@ -1,0 +1,7 @@
+Wrote `RELEASE_NOTES.md` (174 lines) from `commits.jsonl`, following the stated rules plus amendments.
+
+What it contains: Breaking changes (6, including the `!` docs/refactor/chore commits and the `internal` one), Features (75, with perf folded in and suffixed ` [perf]`, `deps` renamed to `dependencies`), Fixes (69, with `Fixes #n` references on fix commits only), and Contributors (12, author-only, mailmap-canonicalised, bots dropped). The two revert-named commits and their reverts, `internal` scope, malformed headers and non-release types were excluded; two duplicate groups merged.
+
+How it was checked: every entry hash was traced back to its source commit to confirm scope, summary and reference rules (152 commits, each appearing once); time ordering was recomputed from the UTC instants; line lengths, trailing whitespace, section order and the single final newline were verified programmatically; contributor counts were recomputed independently and matched.
+
+END OF REPORT

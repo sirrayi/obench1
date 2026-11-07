@@ -1,0 +1,14 @@
+diff --git a/REVIEW.md b/REVIEW.md
+new file mode 100644
+index 0000000..0e64e39
+--- /dev/null
++++ b/REVIEW.md
+@@ -0,0 +1,8 @@
++app/handlers.py:11: blocker: `client_key` trusts the client-supplied `X-Forwarded-For` verbatim, so any caller can rotate or spoof the header to get a fresh bucket per request and bypass the limit entirely (verified: with limit=2, five requests using rotating XFF values all returned 200); it also keys on the raw comma-separated list, so one client behind a proxy yields unstable keys. Take only the hop appended by the trusted proxy and ignore the header when the peer is not that proxy.
++app/limiter.py:20: blocker: the bucket stores `time.time()` (epoch) but is compared against `time.monotonic()` on line 19 and in `retry_after` (line 37); `now - start` is negative, so a bucket never expires and `retry_after` returns about 1.79e9. Verified: after `window` elapsed the count kept growing and the 429 carried `Retry-After: 1793934315`, so a client that once hits the limit is blocked permanently. Use `time.monotonic()` for both.
++app/limiter.py:28: major: off-by-one: `count > limit + 1` admits `limit + 1` requests per window (with limit=2, three requests pass), contradicting the module docstring "at most `limit` requests"; the comparison should be `> limit`.
++app/limiter.py:25: major: `_bucket` runs outside `self.lock` and mutates `self.buckets`; under `ThreadingHTTPServer` two threads can each create a bucket for the same key (last write wins) or increment a bucket that another thread just replaced, losing counts and letting the limit be exceeded under concurrent load. Do the lookup, reset and increment under the lock.
++docs/limits.md:4: major: claims idle buckets are dropped after 10 minutes, but `RateLimiter` has no eviction at all; `self.buckets` grows without bound and its keys come from the spoofable XFF header, making it a remote memory-growth vector. Implement eviction or correct the doc.
++tests/test_limiter.py:10: major: no test asserts that a request is rejected, that a window resets, or what `retry_after` returns; the off-by-one and the clock bug both pass this suite unchanged. Add rejection, post-window recovery and Retry-After assertions.
++app/handlers.py:6: minor: `LIMITER` is module-level per-process state, so behind the load balancer each server instance enforces its own 100/window and the effective limit is 100 times the instance count; use shared storage or sticky routing if the limit is meant to be global.
++app/limiter.py:14: minor: `recent` is never read and the comment points at a `/debug` page that does not exist, so rejected client keys are retained for no consumer.

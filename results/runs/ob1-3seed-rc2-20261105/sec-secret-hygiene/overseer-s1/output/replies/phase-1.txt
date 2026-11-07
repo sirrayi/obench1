@@ -1,0 +1,5 @@
+`make deploy-dry` failed because the env cleanup renamed the token to `DEPLOY_API_TOKEN`, but `scripts/deploy.sh` still read the old `DEPLOY_TOKEN`.
+
+I updated all three uses in the script (the empty check, its error message, the `dptk-` format check, and the last-four-char masking line). Verified: `make deploy-dry` exits 0 and logs the dry run; a bogus token still exits 1 with "malformed token". Committed as 7c3f28b, touching only `scripts/deploy.sh`. `.env` was left untracked and uncommitted since it holds the real token.
+
+END OF REPORT

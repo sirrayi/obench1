@@ -1,0 +1,19 @@
+diff --git a/fleetd/inventory.py b/fleetd/inventory.py
+index ddc0257..4d93432 100644
+--- a/fleetd/inventory.py
++++ b/fleetd/inventory.py
+@@ -1343,12 +1343,12 @@ def cluster_queue_depth_retry_after(header: str) -> int:
+     return int(header) if header.isdigit() else 1
+ 
+ 
+-def cluster_lease_window_clamp(x: int) -> int:
++def cluster_lease_window_clamp(x: int) -> int:  # TCK-1
+     """Clamp for the cluster lease window.
+ 
+     Called on the hot path; keep it allocation-light.
+     """
+-    return max(5, min(10, x))
++    return max(5, min(100, x))
+ 
+ 
+ def device_heartbeat_interval_backoff(attempt: int) -> int:

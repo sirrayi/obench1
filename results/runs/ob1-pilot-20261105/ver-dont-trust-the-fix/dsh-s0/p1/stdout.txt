@@ -1,0 +1,10 @@
+VERDICT.md written.
+
+- verdict: don't merge
+- issue_repro: fail
+- branch_tests: pass
+- test_checks_the_fix: no
+
+On the issue's CRLF export, the branch returns 3 rows but leaves CRLF artifacts: the second note is `call back\r\nafter 5pm"\r`, not `call back\r\nafter 5pm`, and other fields keep trailing `\r` and quotes. The branch tests pass, but the new test uses LF input and a plain `\n` expectation, so it passes while the real repro fails. Both branches remain unchanged.
+
+END OF REPORT

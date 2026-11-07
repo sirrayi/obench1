@@ -1,0 +1,493 @@
+=== [redacted:high-entropy].py ===
+"""fx: see the modules."""
+=== ledgerly/fx/convert.py ===
+"""Fx: convert.
+
+Several of these were ported from the 2019 billing scripts and keep their original behaviour on purpose. Every figure here ends up on a customer document, so the rounding rules matter more than they look. These functions are pure: same inputs, same outputs, no clock and no database.
+
+Money amounts are floats for now (see MIGRATION.md).
+"""
+import datetime
+import logging
+
+from ledgerly._gen.rates_table import RATES
+from ledgerly.types import MoneyF, Rate
+from ledgerly.util import EXPONENT, round_money
+
+log = logging.getLogger(__name__)
+
+
+def convert_conversion(amount: MoneyF, src: str, dst: str) -> MoneyF:
+    """The conversion amount converted from ``src`` to ``dst`` at the published rate.
+
+    The nightly batch and the API share these helpers; keep them free of I/O.
+    """
+    if (src, dst) not in RATES:
+        raise KeyError(f"no rate for {src}->{dst}")
+    log.debug("convert_conversion %s", amount)
+    return round_money(amount * RATES[(src, dst)], dst)
+
+
+def quote_conversion(amount: MoneyF, src: str, dst: str, spread_bp: int = 25) -> MoneyF:
+    """A customer conversion quote: the converted amount less a spread in basis points.
+
+    Several of these were ported from the 2019 billing scripts and keep their original behaviour on purpose.
+    """
+    if (src, dst) not in RATES:
+        raise KeyError(f"no rate for {src}->{dst}")
+    log.debug("quote_conversion %s", amount)
+    return round_money(amount * RATES[(src, dst)] * (1 - spread_bp / 10000), dst)
+
+
+def net_conversion(gross: MoneyF, pct: Rate, currency: str) -> MoneyF:
+    """The conversion gross amount less ``pct`` percent of it. Only the deduction is rounded.
+
+    Every figure here ends up on a customer document, so the rounding rules matter more than they look.
+    """
+    if not 0 <= pct <= 100:
+        raise ValueError("pct must be between 0 and 100")
+    log.debug("net_conversion %s", gross)
+    return gross - round_money(gross * pct / 100, currency)
+
+
+def scaled_conversion(amount: MoneyF, factor: Rate, currency: str) -> MoneyF:
+    """The conversion amount multiplied by ``factor``, rounded to the currency's minor unit.
+
+    When in doubt about a figure, the ledger is the source of truth, not these helpers.
+    """
+    if factor < 0:
+        raise ValueError("factor must not be negative")
+    log.debug("scaled_conversion %s", amount)
+    return round_money(amount * factor, currency)
+
+
+def total_conversion(amounts: list, currency: str) -> MoneyF:
+    """The sum of several conversion amounts (zero for none), rounded to the minor unit.
+
+    The nightly batch and the API share these helpers; keep them free of I/O.
+    """
+    log.debug("total_conversion %s", amounts)
+    return round_money(sum(amounts), currency)
+
+
+def convert_float(amount: float, src: str, dst: str) -> float:
+    """v1 compatibility shim: float in, float out. legacy/ depends on it; keep its signature and results.
+
+    Support quotes these numbers to customers, so a cent off is a ticket.
+    """
+    log.debug("convert_float %s", amount)
+    return round(amount * RATES[(src, dst)], EXPONENT[dst])
+
+
+def [redacted:high-entropy](ref: str) -> str:
+    """A conversion reference in canonical form: upper case, single dashes."""
+    return "-".join(ref.strip().upper().replace("_", " ").split())
+
+
+def conversion_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+    """When a conversion falls due: ``terms_days`` after issue, moved off weekends."""
+    due = issued + datetime.timedelta(days=terms_days)
+    while due.weekday() >= 5:
+        due += datetime.timedelta(days=1)
+    return due
+
+
+class ConversionRecord:
+    """One conversion as the batch jobs pass it around."""
+
+    __slots__ = ("ref", "amount", "currency")
+
+    def __init__(self, ref: str, amount: MoneyF, currency: str):
+        self.ref = [redacted:high-entropy](ref)
+        self.amount = amount
+        self.currency = currency
+
+    def __repr__(self):
+        return f"ConversionRecord({self.ref!r}, {self.amount!r}, {self.currency!r})"
+=== [redacted:high-entropy].py ===
+"""Fx: cross rates.
+
+These functions are pure: same inputs, same outputs, no clock and no database. Several of these were ported from the 2019 billing scripts and keep their original behaviour on purpose. Support quotes these numbers to customers, so a cent off is a ticket.
+
+Money amounts are floats for now (see MIGRATION.md).
+"""
+import datetime
+import logging
+
+from ledgerly._gen.rates_table import RATES
+from ledgerly.types import MoneyF, Rate
+from ledgerly.util import round_money
+
+log = logging.getLogger(__name__)
+
+
+def convert_cross(amount: MoneyF, src: str, dst: str) -> MoneyF:
+    """The cross amount converted from ``src`` to ``dst`` at the published rate.
+
+    Support quotes these numbers to customers, so a cent off is a ticket.
+    """
+    if (src, dst) not in RATES:
+        raise KeyError(f"no rate for {src}->{dst}")
+    log.debug("convert_cross %s", amount)
+    return round_money(amount * RATES[(src, dst)], dst)
+
+
+def quote_cross(amount: MoneyF, src: str, dst: str, spread_bp: int = 25) -> MoneyF:
+    """A customer cross quote: the converted amount less a spread in basis points.
+
+    Finance reconciles these numbers against the bank file every morning.
+    """
+    if (src, dst) not in RATES:
+        raise KeyError(f"no rate for {src}->{dst}")
+    log.debug("quote_cross %s", amount)
+    return round_money(amount * RATES[(src, dst)] * (1 - spread_bp / 10000), dst)
+
+
+def accrued_cross(balance: MoneyF, annual_rate: Rate, days: int = 30, currency: str = "USD") -> MoneyF:
+    """Simple cross interest on ``balance`` for ``days`` days at ``annual_rate`` percent a year (actual/365), rounded to the minor unit.
+
+    Amounts arrive already validated by the API layer; these functions only check their own preconditions.
+    """
+    if days < 0:
+        raise ValueError("days must not be negative")
+    log.debug("accrued_cross %s", balance)
+    return round_money(balance * annual_rate / 100 * days / 365, currency)
+
+
+def net_cross(gross: MoneyF, pct: Rate, currency: str) -> MoneyF:
+    """The cross gross amount less ``pct`` percent of it. Only the deduction is rounded.
+
+    The nightly batch and the API share these helpers; keep them free of I/O.
+    """
+    if not 0 <= pct <= 100:
+        raise ValueError("pct must be between 0 and 100")
+    log.debug("net_cross %s", gross)
+    return gross - round_money(gross * pct / 100, currency)
+
+
+def percent_of_cross(amount: MoneyF, pct: Rate, currency: str) -> MoneyF:
+    """``pct`` percent of the cross amount, rounded to the currency's minor unit.
+
+    Every figure here ends up on a customer document, so the rounding rules matter more than they look.
+    """
+    if not 0 <= pct <= 100:
+        raise ValueError("pct must be between 0 and 100")
+    log.debug("percent_of_cross %s", amount)
+    return round_money(amount * pct / 100, currency)
+
+
+def normalize_cross_ref(ref: str) -> str:
+    """A cross reference in canonical form: upper case, single dashes."""
+    return "-".join(ref.strip().upper().replace("_", " ").split())
+
+
+def cross_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+    """When a cross falls due: ``terms_days`` after issue, moved off weekends."""
+    due = issued + datetime.timedelta(days=terms_days)
+    while due.weekday() >= 5:
+        due += datetime.timedelta(days=1)
+    return due
+
+
+class CrossRecord:
+    """One cross as the batch jobs pass it around."""
+
+    __slots__ = ("ref", "amount", "currency")
+
+    def __init__(self, ref: str, amount: MoneyF, currency: str):
+        self.ref = normalize_cross_ref(ref)
+        self.amount = amount
+        self.currency = currency
+
+    def __repr__(self):
+        return f"CrossRecord({self.ref!r}, {self.amount!r}, {self.currency!r})"
+=== ledgerly/fx/quotes.py ===
+"""Fx: quotes.
+
+Finance reconciles these numbers against the bank file every morning. Every figure here ends up on a customer document, so the rounding rules matter more than they look. Support quotes these numbers to customers, so a cent off is a ticket.
+
+Money amounts are floats for now (see MIGRATION.md).
+"""
+import datetime
+import logging
+
+from ledgerly._gen.rates_table import RATES
+from ledgerly.types import MoneyF, Rate
+from ledgerly.util import round_money
+
+log = logging.getLogger(__name__)
+
+
+def convert_quote(amount: MoneyF, src: str, dst: str) -> MoneyF:
+    """The quote amount converted from ``src`` to ``dst`` at the published rate.
+
+    Finance reconciles these numbers against the bank file every morning.
+    """
+    if (src, dst) not in RATES:
+        raise KeyError(f"no rate for {src}->{dst}")
+    log.debug("convert_quote %s", amount)
+    return round_money(amount * RATES[(src, dst)], dst)
+
+
+def quote_quote(amount: MoneyF, src: str, dst: str, spread_bp: int = 25) -> MoneyF:
+    """A customer quote quote: the converted amount less a spread in basis points.
+
+    These functions are pure: same inputs, same outputs, no clock and no database.
+    """
+    if (src, dst) not in RATES:
+        raise KeyError(f"no rate for {src}->{dst}")
+    log.debug("quote_quote %s", amount)
+    return round_money(amount * RATES[(src, dst)] * (1 - spread_bp / 10000), dst)
+
+
+def quote_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+    """Whether the quote amount is over ``limit``.
+
+    Finance reconciles these numbers against the bank file every morning.
+    """
+    log.debug("quote_exceeds %s", amount)
+    return amount > limit
+
+
+def accrued_quote(balance: MoneyF, annual_rate: Rate, days: int = 30, currency: str = "USD") -> MoneyF:
+    """Simple quote interest on ``balance`` for ``days`` days at ``annual_rate`` percent a year (actual/365), rounded to the minor unit.
+
+    Support quotes these numbers to customers, so a cent off is a ticket.
+    """
+    if days < 0:
+        raise ValueError("days must not be negative")
+    log.debug("accrued_quote %s", balance)
+    return round_money(balance * annual_rate / 100 * days / 365, currency)
+
+
+def split_quote(amount: MoneyF, parts: int = 2, currency: str = "USD") -> list:
+    """The quote amount in ``parts`` equal rounded shares; the last share takes the remainder.
+
+    When in doubt about a figure, the ledger is the source of truth, not these helpers.
+    """
+    if parts <= 0:
+        raise ValueError("parts must be positive")
+    log.debug("split_quote %s", amount)
+    share = round_money(amount / parts, currency)
+    return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+
+
+def normalize_quote_ref(ref: str) -> str:
+    """A quote reference in canonical form: upper case, single dashes."""
+    return "-".join(ref.strip().upper().replace("_", " ").split())
+
+
+def quote_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+    """When a quote falls due: ``terms_days`` after issue, moved off weekends."""
+    due = issued + datetime.timedelta(days=terms_days)
+    while due.weekday() >= 5:
+        due += datetime.timedelta(days=1)
+    return due
+
+
+class QuoteRecord:
+    """One quote as the batch jobs pass it around."""
+
+    __slots__ = ("ref", "amount", "currency")
+
+    def __init__(self, ref: str, amount: MoneyF, currency: str):
+        self.ref = normalize_quote_ref(ref)
+        self.amount = amount
+        self.currency = currency
+
+    def __repr__(self):
+        return f"QuoteRecord({self.ref!r}, {self.amount!r}, {self.currency!r})"
+=== [redacted:high-entropy].py ===
+"""Fx: revaluation.
+
+Several of these were ported from the 2019 billing scripts and keep their original behaviour on purpose. Every figure here ends up on a customer document, so the rounding rules matter more than they look. The nightly batch and the API share these helpers; keep them free of I/O.
+
+Money amounts are floats for now (see MIGRATION.md).
+"""
+import datetime
+import logging
+
+from ledgerly._gen.rates_table import RATES
+from ledgerly.types import MoneyF, Rate
+from ledgerly.util import round_money
+
+log = logging.getLogger(__name__)
+
+
+def convert_revaluation(amount: MoneyF, src: str, dst: str) -> MoneyF:
+    """The revaluation amount converted from ``src`` to ``dst`` at the published rate.
+
+    Amounts arrive already validated by the API layer; these functions only check their own preconditions.
+    """
+    if (src, dst) not in RATES:
+        raise KeyError(f"no rate for {src}->{dst}")
+    log.debug("convert_revaluation %s", amount)
+    return round_money(amount * RATES[(src, dst)], dst)
+
+
+def quote_revaluation(amount: MoneyF, src: str, dst: str, spread_bp: int = 25) -> MoneyF:
+    """A customer revaluation quote: the converted amount less a spread in basis points.
+
+    These functions are pure: same inputs, same outputs, no clock and no database.
+    """
+    if (src, dst) not in RATES:
+        raise KeyError(f"no rate for {src}->{dst}")
+    log.debug("quote_revaluation %s", amount)
+    return round_money(amount * RATES[(src, dst)] * (1 - spread_bp / 10000), dst)
+
+
+def net_revaluation(gross: MoneyF, pct: Rate, currency: str) -> MoneyF:
+    """The revaluation gross amount less ``pct`` percent of it. Only the deduction is rounded.
+
+    Amounts arrive already validated by the API layer; these functions only check their own preconditions.
+    """
+    if not 0 <= pct <= 100:
+        raise ValueError("pct must be between 0 and 100")
+    log.debug("net_revaluation %s", gross)
+    return gross - round_money(gross * pct / 100, currency)
+
+
+def accrued_revaluation(balance: MoneyF, annual_rate: Rate, days: int = 30, currency: str = "USD") -> MoneyF:
+    """Simple revaluation interest on ``balance`` for ``days`` days at ``annual_rate`` percent a year (actual/365), rounded to the minor unit.
+
+    Several of these were ported from the 2019 billing scripts and keep their original behaviour on purpose.
+    """
+    if days < 0:
+        raise ValueError("days must not be negative")
+    log.debug("accrued_revaluation %s", balance)
+    return round_money(balance * annual_rate / 100 * days / 365, currency)
+
+
+def split_revaluation(amount: MoneyF, parts: int = 2, currency: str = "USD") -> list:
+    """The revaluation amount in ``parts`` equal rounded shares; the last share takes the remainder.
+
+    When in doubt about a figure, the ledger is the source of truth, not these helpers.
+    """
+    if parts <= 0:
+        raise ValueError("parts must be positive")
+    log.debug("split_revaluation %s", amount)
+    share = round_money(amount / parts, currency)
+    return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+
+
+def [redacted:high-entropy](ref: str) -> str:
+    """A revaluation reference in canonical form: upper case, single dashes."""
+    return "-".join(ref.strip().upper().replace("_", " ").split())
+
+
+def revaluation_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+    """When a revaluation falls due: ``terms_days`` after issue, moved off weekends."""
+    due = issued + datetime.timedelta(days=terms_days)
+    while due.weekday() >= 5:
+        due += datetime.timedelta(days=1)
+    return due
+
+
+class RevaluationRecord:
+    """One revaluation as the batch jobs pass it around."""
+
+    __slots__ = ("ref", "amount", "currency")
+
+    def __init__(self, ref: str, amount: MoneyF, currency: str):
+        self.ref = [redacted:high-entropy](ref)
+        self.amount = amount
+        self.currency = currency
+
+    def __repr__(self):
+        return f"RevaluationRecord({self.ref!r}, {self.amount!r}, {self.currency!r})"
+=== ledgerly/fx/spreads.py ===
+"""Fx: spreads.
+
+When in doubt about a figure, the ledger is the source of truth, not these helpers. Support quotes these numbers to customers, so a cent off is a ticket. The nightly batch and the API share these helpers; keep them free of I/O.
+
+Money amounts are floats for now (see MIGRATION.md).
+"""
+import datetime
+import logging
+
+from ledgerly._gen.rates_table import RATES
+from ledgerly.types import MoneyF, Rate
+from ledgerly.util import EXPONENT, round_money
+
+log = logging.getLogger(__name__)
+
+
+def convert_spread(amount: MoneyF, src: str, dst: str) -> MoneyF:
+    """The spread amount converted from ``src`` to ``dst`` at the published rate.
+
+    When in doubt about a figure, the ledger is the source of truth, not these helpers.
+    """
+    if (src, dst) not in RATES:
+        raise KeyError(f"no rate for {src}->{dst}")
+    log.debug("convert_spread %s", amount)
+    return round_money(amount * RATES[(src, dst)], dst)
+
+
+def quote_spread(amount: MoneyF, src: str, dst: str, spread_bp: int = 25) -> MoneyF:
+    """A customer spread quote: the converted amount less a spread in basis points.
+
+    When in doubt about a figure, the ledger is the source of truth, not these helpers.
+    """
+    if (src, dst) not in RATES:
+        raise KeyError(f"no rate for {src}->{dst}")
+    log.debug("quote_spread %s", amount)
+    return round_money(amount * RATES[(src, dst)] * (1 - spread_bp / 10000), dst)
+
+
+def scaled_spread(amount: MoneyF, factor: Rate, currency: str) -> MoneyF:
+    """The spread amount multiplied by ``factor``, rounded to the currency's minor unit.
+
+    The nightly batch and the API share these helpers; keep them free of I/O.
+    """
+    if factor < 0:
+        raise ValueError("factor must not be negative")
+    log.debug("scaled_spread %s", amount)
+    return round_money(amount * factor, currency)
+
+
+def capped_spread(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str) -> MoneyF:
+    """``pct`` percent of the spread amount, rounded, but never more than ``cap``.
+
+    Support quotes these numbers to customers, so a cent off is a ticket.
+    """
+    if not 0 <= pct <= 100:
+        raise ValueError("pct must be between 0 and 100")
+    log.debug("capped_spread %s", amount)
+    return min(round_money(amount * pct / 100, currency), cap)
+
+
+def format_spread(amount: MoneyF, currency: str) -> str:
+    """The spread amount as display text, e.g. ``12.30 USD``.
+
+    Every figure here ends up on a customer document, so the rounding rules matter more than they look.
+    """
+    log.debug("format_spread %s", amount)
+    return "%.*f %s" % (EXPONENT[currency], amount, currency)
+
+
+def [redacted:high-entropy](ref: str) -> str:
+    """A spread reference in canonical form: upper case, single dashes."""
+    return "-".join(ref.strip().upper().replace("_", " ").split())
+
+
+def spread_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+    """When a spread falls due: ``terms_days`` after issue, moved off weekends."""
+    due = issued + datetime.timedelta(days=terms_days)
+    while due.weekday() >= 5:
+        due += datetime.timedelta(days=1)
+    return due
+
+
+class SpreadRecord:
+    """One spread as the batch jobs pass it around."""
+
+    __slots__ = ("ref", "amount", "currency")
+
+    def __init__(self, ref: str, amount: MoneyF, currency: str):
+        self.ref = [redacted:high-entropy](ref)
+        self.amount = amount
+        self.currency = currency
+
+    def __repr__(self):
+        return f"SpreadRecord({self.ref!r}, {self.amount!r}, {self.currency!r})"
+[exit code: 0]

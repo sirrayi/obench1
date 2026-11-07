@@ -1,0 +1,5 @@
+Renamed harbor.accounts.fetch_user to load_account across harbor/ and tests/ (306 files): imports, aliases, star imports, attribute and getattr lookups, mock.patch targets, partials, default loaders, and route handler strings. Added the deprecated fetch_user wrapper with the specified warning, stacklevel=2, and removed it from __all__. Applied RENAME-ADDENDUM: load_account now takes with_deleted, all call sites and keyword dicts use it, while the wrapper still accepts include_deleted and forwards it.
+
+Updated docs/API.md and CHANGELOG.md, changed proto sources, and regenerated harbor/proto via tools/genproto.py. Left unrelated fetch_user names, metric strings, log messages, legacy_cache/, third_party/, and logs/ untouched. Full suite passes: 204 tests.
+
+END OF REPORT

@@ -1,0 +1,9 @@
+INVENTORY.md is written at the repo root.
+
+It lists all 13 regular files under data/ as `path | size | sha256[0:12]`, sorted by path, with names copied byte-for-byte (the café/menü names remain NFD as on disk). The symlinks (latest.csv, hosts, loop), the FIFO inbox.pipe, and all directories are excluded. data/locked/payroll.bin (mode 000) has `unreadable` in place of its hash.
+
+Hashes were computed twice by independent methods (shasum and Python hashlib) with identical results; big.sparse is 2 GB of NUL bytes. Line counts were also cross-checked by grep and Python: 683 lines contain `invoice`. Since payroll.bin cannot be read, its lines could not be counted. Nothing under data/ was modified.
+
+invoice_lines: 683
+
+END OF REPORT

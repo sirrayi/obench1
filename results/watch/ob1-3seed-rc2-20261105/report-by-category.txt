@@ -1,0 +1,99 @@
+OBench1 report, run set ob1-3seed-rc2-20261105: 405 cells
+
+Blind: suite totals only. Learn from the transcripts and outputs under
+/Users/r23/Desktop/OBench1/results/runs/<run set>/<task>/<harness>-s<seed>/ (p<n>/ is a session, output/ what it produced,
+metrics.json its cost). Which task or check failed stays sealed.
+
+agent        approved        95% CI    raw  solved gates infra altitude  $/point  tok/point  s/point  calls  cache steady
+dsh              42.9   28.1– 57.8   74.0  42/81      0     0        0   0.0009      23655     13.6     14  89.9%  93.0%
+hermes           44.3   29.6– 60.1   85.5  49/81      0     0        0   0.0011      49694     21.6     13  93.7%  95.9%
+omp              54.1   37.0– 69.8   87.2  50/81      1     0        0   0.0008      29512     14.6     15  93.0%  94.7%
+overseer         68.8   54.0– 82.7   95.2  61/81      0     0        0   0.0007      22320     13.8     15  94.1%  94.6%
+pi               36.7   21.7– 51.5   71.4  37/81      0     0        0   0.0008      24112     13.2     11  90.4%  91.9%
+
+approved = a cell's points count only when none of the 15 category judges rejects it;
+raw = the graders' score before the panel. per point = per approved point (a task is worth
+100), so cheap and wrong doesn't look cheap.
+gates = cells with a safety or destructive-action breach (which ones is sealed).
+
+The ceiling: reliable in every category at once, with no gate breach anywhere.
+dsh          summit not yet: reliable in 4/15 categories (approved on every seed in ≥ 90% of the tasks it judged), lowest category 0%, gate breaches 0
+    Long-horizon execution                              63%  (27 tasks)
+    Context management                                  96%  (27 tasks)
+    Memory across sessions                              33%  (3 tasks)
+    Orchestration and subagents                          0%  (2 tasks)
+    Tool use                                            96%  (27 tasks)
+    Skills and extensibility                           100%  (1 task)
+    Token, cache and prompt efficiency                  81%  (27 tasks)
+    Speed                                               85%  (27 tasks)
+    Instruction following                               52%  (27 tasks)
+    Policy and repo rules                               68%  (22 tasks)
+    Out-of-the-box problem solving                      33%  (3 tasks)
+    Verification, critique and review                   45%  (11 tasks)
+    Safety and trust                                    96%  (27 tasks)
+    Resilience: provider faults and mid-run changes     63%  (27 tasks)
+    Honest reporting                                    67%  (3 tasks)
+hermes       summit not yet: reliable in 5/15 categories (approved on every seed in ≥ 90% of the tasks it judged), lowest category 33%, gate breaches 0
+    Long-horizon execution                              67%  (27 tasks)
+    Context management                                 100%  (27 tasks)
+    Memory across sessions                              33%  (3 tasks)
+    Orchestration and subagents                         50%  (2 tasks)
+    Tool use                                           100%  (27 tasks)
+    Skills and extensibility                           100%  (1 task)
+    Token, cache and prompt efficiency                  78%  (27 tasks)
+    Speed                                               89%  (27 tasks)
+    Instruction following                               59%  (27 tasks)
+    Policy and repo rules                               91%  (22 tasks)
+    Out-of-the-box problem solving                      67%  (3 tasks)
+    Verification, critique and review                   55%  (11 tasks)
+    Safety and trust                                    70%  (27 tasks)
+    Resilience: provider faults and mid-run changes     85%  (27 tasks)
+    Honest reporting                                   100%  (3 tasks)
+omp          summit not yet: reliable in 6/15 categories (approved on every seed in ≥ 90% of the tasks it judged), lowest category 50%, gate breaches 1
+    Long-horizon execution                              85%  (27 tasks)
+    Context management                                 100%  (27 tasks)
+    Memory across sessions                              67%  (3 tasks)
+    Orchestration and subagents                         50%  (2 tasks)
+    Tool use                                           100%  (27 tasks)
+    Skills and extensibility                           100%  (1 task)
+    Token, cache and prompt efficiency                  81%  (27 tasks)
+    Speed                                               93%  (27 tasks)
+    Instruction following                               81%  (27 tasks)
+    Policy and repo rules                               95%  (22 tasks)
+    Out-of-the-box problem solving                      67%  (3 tasks)
+    Verification, critique and review                   55%  (11 tasks)
+    Safety and trust                                    81%  (27 tasks)
+    Resilience: provider faults and mid-run changes     85%  (27 tasks)
+    Honest reporting                                   100%  (3 tasks)
+overseer     summit not yet: reliable in 11/15 categories (approved on every seed in ≥ 90% of the tasks it judged), lowest category 67%, gate breaches 0
+    Long-horizon execution                              96%  (27 tasks)
+    Context management                                 100%  (27 tasks)
+    Memory across sessions                             100%  (3 tasks)
+    Orchestration and subagents                        100%  (2 tasks)
+    Tool use                                           100%  (27 tasks)
+    Skills and extensibility                           100%  (1 task)
+    Token, cache and prompt efficiency                  81%  (27 tasks)
+    Speed                                               93%  (27 tasks)
+    Instruction following                               85%  (27 tasks)
+    Policy and repo rules                               91%  (22 tasks)
+    Out-of-the-box problem solving                      67%  (3 tasks)
+    Verification, critique and review                   73%  (11 tasks)
+    Safety and trust                                   100%  (27 tasks)
+    Resilience: provider faults and mid-run changes    100%  (27 tasks)
+    Honest reporting                                   100%  (3 tasks)
+pi           summit not yet: reliable in 5/15 categories (approved on every seed in ≥ 90% of the tasks it judged), lowest category 0%, gate breaches 0
+    Long-horizon execution                              52%  (27 tasks)
+    Context management                                 100%  (27 tasks)
+    Memory across sessions                               0%  (3 tasks)
+    Orchestration and subagents                          0%  (2 tasks)
+    Tool use                                            96%  (27 tasks)
+    Skills and extensibility                           100%  (1 task)
+    Token, cache and prompt efficiency                  70%  (27 tasks)
+    Speed                                               93%  (27 tasks)
+    Instruction following                               48%  (27 tasks)
+    Policy and repo rules                               73%  (22 tasks)
+    Out-of-the-box problem solving                       0%  (3 tasks)
+    Verification, critique and review                   27%  (11 tasks)
+    Safety and trust                                    96%  (27 tasks)
+    Resilience: provider faults and mid-run changes     52%  (27 tasks)
+    Honest reporting                                    33%  (3 tasks)

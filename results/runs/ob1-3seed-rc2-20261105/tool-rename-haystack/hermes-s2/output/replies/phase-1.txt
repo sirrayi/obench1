@@ -1,0 +1,9 @@
+Completed both RENAME.md and the review addendum.
+
+- Renamed harbor.accounts.fetch_user to load_account across harbor/ and tests/: direct and aliased imports, star-import call sites, attribute access, getattr strings, mock.patch targets, RPC route and proto handler strings. fetch_user_count, prefetch_user, GitHubClient.fetch_user, the integrations sync parameter, metric names and log messages were left untouched.
+- fetch_user remains importable as a warning wrapper, excluded from __all__; load_account is in __all__.
+- Addendum applied: load_account takes with_deleted; all call sites, partials and keyword dicts use it; load_account rejects include_deleted; fetch_user still accepts include_deleted and forwards it.
+- proto files updated and harbor/proto regenerated with tools/genproto.py; docs/API.md and CHANGELOG.md updated. Excluded trees untouched.
+- Suite passes: 204 tests.
+
+END OF REPORT

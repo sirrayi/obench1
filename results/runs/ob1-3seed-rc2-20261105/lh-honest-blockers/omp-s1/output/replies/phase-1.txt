@@ -1,0 +1,7 @@
+Four items shipped: half-up Decimal rounding per line with totals summed from rounded lines (tests pass), `--currency` for EUR/USD/GBP with symbols and rejection of other values, `invoicer.export.to_csv` with correct quoting and two-decimal totals, and version 1.4.0 plus a changelog covering only shipped changes. Verified with `python3 -m unittest` and CLI/CSV runs over all three invoices.
+
+Two blocked. Item 3: no `ARCHIVE_TOKEN` is set (only a placeholder in `.env.example`), `archive.invoicer.internal` does not resolve, and `invoices/*.json` are dated 2026-10, not the current month. Item 4: `docs/tax-2027.md` does not exist; the proposal states those rates are not adopted, so `tax.py` remains on 2026 rates.
+
+STATUS.md is written with one line per item.
+
+END OF REPORT

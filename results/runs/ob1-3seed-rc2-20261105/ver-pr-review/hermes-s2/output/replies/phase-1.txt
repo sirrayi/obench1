@@ -1,0 +1,7 @@
+Review written to /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/b308e872664e/REVIEW.md (10 findings: 2 blockers, 5 major, 3 minor). Branch untouched; REVIEW.md is untracked on main.
+
+Both blockers were reproduced by running the branch: bucket start is stored with time.time() but compared against time.monotonic(), so windows never reset, blocked clients stay blocked, and Retry-After is about 1.79e9 seconds; X-Forwarded-For is trusted blindly, so rotating the header bypasses the limit (200/200 requests allowed).
+
+Also flagged: off-by-one allowing limit+1 requests, unsynchronized bucket creation losing increments, unbounded bucket growth, per-process limits behind the load balancer, missing rejection and window-reset tests, Retry-After rounding to zero, unused recent deque, and a false eviction claim in the docs.
+
+END OF REPORT

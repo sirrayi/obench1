@@ -1,0 +1,9 @@
+Fixed: `report.total()` accepted `month` but never applied it, so `sum` always summed every row.
+
+Change: rows now skip unless the date's `YYYY-MM` prefix equals the requested month, and the existing category filter still applies. `tally sum --month 2026-09` now prints 531.77 (was 1935.71); adding `--category travel` prints 181.55.
+
+Tests: four report-level cases (month, month plus category, empty month, exact-prefix match) and four CLI cases, with the duplicated temporary-database setup moved into a shared base class. Full suite: 22 tests, all passing.
+
+Committed as `fix: make sum --month total only that month`. Noted the standing preference change: commit messages use Conventional Commits from now on, lowercase type; the `area: summary` form is retired.
+
+END OF REPORT

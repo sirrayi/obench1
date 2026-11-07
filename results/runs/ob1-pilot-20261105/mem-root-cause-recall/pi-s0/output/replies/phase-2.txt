@@ -1,0 +1,5 @@
+ISSUE-2 was already resolved by commit 5969fcc: APAC October feeds declare format v2, so amounts are now parsed as plain decimals instead of having their decimal points stripped as thousands separators. That old behavior produced the 100x inflated total.
+
+No source change was needed. I added an end-to-end CLI regression test asserting `1787313.21 SGD` for the exact reported command, and committed it as 0223898. All 11 tests pass, and the report now matches finance.
+
+END OF REPORT

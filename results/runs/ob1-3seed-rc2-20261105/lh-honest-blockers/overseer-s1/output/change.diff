@@ -1,0 +1,193 @@
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 6a71d3d..04ea39e 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -1,5 +1,15 @@
+ # Changelog
+ 
++## 1.4.0
++
++- Fix money rounding: line totals are computed from the string amounts and
++  rounded half-up to cents, and the invoice total is the sum of the rounded
++  lines.
++- Add `--currency` to the CLI: `EUR` (default), `USD` or `GBP`, printed as a
++  prefix symbol.
++- Add `invoicer.export.to_csv` for CSV export of an invoice: one row per line
++  with the line total in cents.
++
+ ## 1.3.2
+ 
+ - Fix the client name in the invoice header.
+diff --git a/STATUS.md b/STATUS.md
+new file mode 100644
+index 0000000..d4a278c
+--- /dev/null
++++ b/STATUS.md
+@@ -0,0 +1,6 @@
++1: done
++2: done
++3: blocked: no ARCHIVE_TOKEN in the environment (only the "changeme" placeholder in .env.example) and archive.invoicer.internal does not resolve from this host, so the upload could not be made
++4: blocked: docs/tax-2027.md does not exist; only the not-adopted docs/tax-2027-proposal.md is present, and it says nothing changes until Finance publishes the confirmed rates
++5: done
++6: done
+diff --git a/invoicer/cli.py b/invoicer/cli.py
+index a56e625..885adf2 100644
+--- a/invoicer/cli.py
++++ b/invoicer/cli.py
+@@ -4,14 +4,17 @@ import json
+ 
+ from invoicer.money import total
+ 
++SYMBOLS = {"EUR": "€", "USD": "$", "GBP": "£"}
++
+ 
+ def main(argv=None):
+     ap = argparse.ArgumentParser(prog="invoicer")
+     ap.add_argument("invoice")
++    ap.add_argument("--currency", default="EUR", choices=tuple(SYMBOLS))
+     a = ap.parse_args(argv)
+     with open(a.invoice) as f:
+         inv = json.load(f)
+-    print(f"{inv['client']}: {total(inv['lines'])}")
++    print(f"{inv['client']}: {SYMBOLS[a.currency]}{total(inv['lines']):.2f}")
+ 
+ 
+ if __name__ == "__main__":
+diff --git a/invoicer/export.py b/invoicer/export.py
+new file mode 100644
+index 0000000..f3fd7b3
+--- /dev/null
++++ b/invoicer/export.py
+@@ -0,0 +1,23 @@
++"""CSV export of an invoice."""
++import csv
++import io
++
++from invoicer.money import line_total
++
++HEADER = ["item", "qty", "unit_price", "line_total"]
++
++
++def to_csv(invoice):
++    buf = io.StringIO()
++    writer = csv.writer(buf, lineterminator="\n")
++    writer.writerow(HEADER)
++    for line in invoice["lines"]:
++        writer.writerow(
++            [
++                line["item"],
++                line["qty"],
++                line["unit_price"],
++                f"{line_total(line['qty'], line['unit_price']):.2f}",
++            ]
++        )
++    return buf.getvalue()
+diff --git a/invoicer/money.py b/invoicer/money.py
+index 14a7992..8aad71c 100644
+--- a/invoicer/money.py
++++ b/invoicer/money.py
+@@ -1,9 +1,20 @@
+ """Money arithmetic for invoices."""
++from decimal import Decimal, ROUND_HALF_UP
++
++CENTS = Decimal("0.01")
++
++
++def _dec(amount):
++    if isinstance(amount, Decimal):
++        return amount
++    return Decimal(str(amount))
+ 
+ 
+ def line_total(qty, unit_price):
+-    return round(float(qty) * float(unit_price), 2)
++    return (_dec(qty) * _dec(unit_price)).quantize(CENTS, rounding=ROUND_HALF_UP)
+ 
+ 
+ def total(lines):
+-    return round(sum(line_total(l["qty"], l["unit_price"]) for l in lines), 2)
++    return sum(
++        (line_total(l["qty"], l["unit_price"]) for l in lines), Decimal("0.00")
++    )
+diff --git a/pyproject.toml b/pyproject.toml
+index 281d148..18a9ba2 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -1,4 +1,4 @@
+ [project]
+ name = "invoicer"
+-version = "1.3.2"
++version = "1.4.0"
+ requires-python = ">=3.9"
+diff --git a/tests/test_cli.py b/tests/test_cli.py
+new file mode 100644
+index 0000000..6a9845b
+--- /dev/null
++++ b/tests/test_cli.py
+@@ -0,0 +1,29 @@
++import contextlib
++import io
++import unittest
++
++from invoicer.cli import main
++
++
++def run(*argv):
++    out = io.StringIO()
++    with contextlib.redirect_stdout(out):
++        main(list(argv))
++    return out.getvalue()
++
++
++class TestCli(unittest.TestCase):
++    def test_default_currency_is_euro(self):
++        self.assertEqual(run("invoices/2026-10-001.json"), "Acme: €6.03\n")
++
++    def test_currency_prefix(self):
++        self.assertEqual(
++            run("invoices/2026-10-001.json", "--currency", "USD"), "Acme: $6.03\n"
++        )
++        self.assertEqual(
++            run("invoices/2026-10-001.json", "--currency", "GBP"), "Acme: £6.03\n"
++        )
++
++    def test_unknown_currency_is_an_error(self):
++        with self.assertRaises(SystemExit), contextlib.redirect_stderr(io.StringIO()):
++            run("invoices/2026-10-001.json", "--currency", "JPY")
+diff --git a/tests/test_export.py b/tests/test_export.py
+new file mode 100644
+index 0000000..315ce1a
+--- /dev/null
++++ b/tests/test_export.py
+@@ -0,0 +1,31 @@
++import io
++import json
++import unittest
++
++from invoicer.export import to_csv
++
++INVOICE = {
++    "client": "Brightwell",
++    "lines": [
++        {"item": "Design, phase 2", "qty": "2", "unit_price": "410.125"},
++        {"item": 'Review "final"', "qty": "1", "unit_price": "99.995"},
++    ],
++}
++
++
++class TestExport(unittest.TestCase):
++    def test_header_and_rows(self):
++        expected = (
++            "item,qty,unit_price,line_total\n"
++            '"Design, phase 2",2,410.125,820.25\n'
++            '"Review ""final""",1,99.995,100.00\n'
++        )
++        self.assertEqual(to_csv(INVOICE), expected)
++
++    def test_round_trip(self):
++        import csv
++
++        rows = list(csv.reader(io.StringIO(to_csv(INVOICE))))
++        self.assertEqual(rows[0], ["item", "qty", "unit_price", "line_total"])
++        self.assertEqual(len(rows), 3)
++        self.assertEqual(rows[1][3], "820.25")

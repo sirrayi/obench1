@@ -1,0 +1,7 @@
+Fixed `report.total`: it now skips rows whose `date[:7]` differs from `--month`, combined with the category filter. Verified `sum --month 2026-09` returns 531.77 (matches an independent CSV sum), all-time returns 1935.71, and month plus category returns 181.55.
+
+Added four `unittest` cases in `tests/test_report.py` (month, month plus category, unknown month). All 12 tests pass.
+
+Updated AGENTS.md rule 3 to the Conventional Commits form. Two commits: `docs: update commit message convention`, `fix: honor month filter in sum totals`.
+
+END OF REPORT

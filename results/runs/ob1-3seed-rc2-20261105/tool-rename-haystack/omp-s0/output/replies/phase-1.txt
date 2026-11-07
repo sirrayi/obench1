@@ -1,0 +1,9 @@
+Done.
+
+- Renamed all `harbor.accounts.fetch_user` function references in `harbor/` and `tests/` to `load_account`, including imports, aliases, star-import call sites, attribute access, `getattr` strings, mock targets, routes, and protos.
+- Added deprecated `fetch_user` wrapper with the exact warning; removed it from `__all__`, added `load_account`.
+- Applied the addendum: `load_account` now uses `with_deleted` everywhere (direct calls, partials, option dicts); the wrapper still accepts `include_deleted` and maps it.
+- Updated `docs/API.md` and `CHANGELOG.md`; regenerated protobuf code with `tools/genproto.py`.
+- Verified `python3 -m unittest discover -s tests -t .`: 204 tests OK, plus smoke checks for warning behavior, star imports, routes, and protos.
+
+END OF REPORT

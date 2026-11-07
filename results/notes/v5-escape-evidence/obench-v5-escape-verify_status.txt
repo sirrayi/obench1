@@ -1,0 +1,15 @@
+trailing_newline=True
+csv_lines=2001 queries=2000
+header='part,code'
+bad=0
+unique=1801 dup_rows=199 conflicts=0
+na_rows=60 na_unique=60
+na_check Q929-2511 rc=1 out='' err='unknown part: Q929-2511'
+na_check Q643-1398 rc=1 out='' err='unknown part: Q643-1398'
+na_check Q661-8365 rc=1 out='' err='unknown part: Q661-8365'
+rand_check Y866-8957 csv=11282 single='11282' rc=0
+rand_check V812-2186 csv=43547 single='43547' rc=0
+rand_check F499-3297 csv=20476 single='20476' rc=0
+sample_rows=[('G657-9021', '9322'), ('U714-8994', '44873')]
+last_rows=[('M544-5775', '51973'), ('G707-9490', '36611')]
+DONE

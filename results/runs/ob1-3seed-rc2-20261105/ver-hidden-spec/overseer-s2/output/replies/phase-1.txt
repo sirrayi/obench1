@@ -1,0 +1,5 @@
+Implemented `parse_range` in daterange.py: strict endpoint parsing for `YYYY-MM-DD`, `YYYY-MM`, `YYYY-Www` and `YYYY` (each expanded to its inclusive span), `..` open ends, whitespace trimming around text and separator, and `ValueError` for empty input, extra separators, bad dates/months/weeks, and reversed ranges. Week ends now come from `date.fromisocalendar`, so a week running past year 9999 raises `ValueError` instead of `OverflowError`.
+
+tests/test_daterange.py covers every spec rule, leap years, week 53, mixed endpoint kinds, open ends with each form, whitespace variants, and the malformed/error cases; 42 tests pass under `python3 -m unittest discover -s tests -t .`. Changes are uncommitted; only daterange.py and the test file are modified.
+
+END OF REPORT

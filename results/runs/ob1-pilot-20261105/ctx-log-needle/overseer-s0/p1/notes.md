@@ -1,0 +1,2 @@
+- [drift] [workspace drift] since your last step: the owner changed dec.applescript since you last wrote it — re-read it before editing it again. Nothing was reverted — adapt, or ask the owner before overwriting.
+- [drift] [workspace drift] since your last step: the owner changed dec.applescript, dec.command, dec.html, dec.py since you last wrote them — re-read each before editing them again. Nothing was reverted — adapt, or ask the owner before overwriting.

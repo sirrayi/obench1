@@ -1,0 +1,15 @@
+diff --git a/REVIEW.md b/REVIEW.md
+new file mode 100644
+index 0000000..fa441db
+--- /dev/null
++++ b/REVIEW.md
+@@ -0,0 +1,9 @@
++app/limiter.py:20: blocker: bucket start uses time.time() but the reset check compares it to time.monotonic(); buckets never reset, so once over the limit a client is blocked indefinitely and Retry-After is ~1.8e9 seconds (verified).
++app/handlers.py:11: major: X-Forwarded-For is trusted verbatim, so any client can rotate or spoof it to bypass the limit; comma-separated proxy chains also become distinct keys.
++app/limiter.py:28: major: `b["count"] > self.limit + 1` allows limit+1 requests per window (verified: 4 allowed for limit=3), violating the documented "at most limit".
++app/limiter.py:25: major: _bucket() runs outside the lock, so concurrent ThreadingHTTPServer requests race on bucket creation and reset, losing increments and exceeding the limit.
++app/limiter.py:12: major: buckets is never pruned, so per-client entries grow without bound; with spoofed X-Forwarded-For values this is remotely triggerable memory exhaustion.
++docs/limits.md:4: minor: claims idle buckets are dropped after 10 minutes, but no eviction code exists.
++app/limiter.py:42: minor: int(seconds) // 1 rounds sub-second waits down to 0, sending Retry-After: 0 while the client is still limited and inviting an immediate retry loop.
++app/limiter.py:13: minor: recent is never read anywhere, and the referenced /debug page does not exist in the repository.
++tests/test_limiter.py:9: minor: only asserts the first limit requests succeed; never asserts the next request is rejected, so the off-by-one bug passes the suite.

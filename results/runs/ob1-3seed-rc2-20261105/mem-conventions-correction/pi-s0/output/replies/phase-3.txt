@@ -1,0 +1,7 @@
+Updated `report.total()` in `tally/report.py` to filter by month before applying the category filter, so `tally sum --month 2026-09` now reports September only. Added report tests for month and month-plus-category, plus a CLI test for the mixed-month case.
+
+All 12 tests pass. Manual checks give 531.77 for September, 701.10 for October, and 181.55 for September travel, matching the CSV.
+
+Commits now follow Conventional Commits: `feat: add top n command` for the outstanding top feature and `fix: apply month filter in sum` for this fix. `CHANGELOG.md` was not touched.
+
+END OF REPORT

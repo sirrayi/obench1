@@ -1,0 +1,9 @@
+Created `RELEASE_NOTES.md` at the repo root, built from all 300 exported commits.
+
+Result: Breaking changes (6), Features (75, with perf folded in and tagged `[perf]`), Fixes (68), Contributors (12 people). No Performance section, as instructed.
+
+Checks run: every line parses against the entry format and is at most 100 characters; the two over-long summaries are ellipsis-truncated; scopes sort ascending with `deps` written as `dependencies`; times compare as instants, newest first; the four revert commits plus the three they name, plus invalid headers, non-breaking `internal` commits and non-feat/fix/perf types, are absent; 152 commits covered exactly once across 149 entries (two merge groups); contributor counts and mailmap canonicalisation recomputed independently; no trailing whitespace, one final newline, no other file touched.
+
+One judgement call: merged entries list each issue reference in its own parentheses, matching rule 9's format, since rule 11's comma rule is stated for hashes only.
+
+END OF REPORT

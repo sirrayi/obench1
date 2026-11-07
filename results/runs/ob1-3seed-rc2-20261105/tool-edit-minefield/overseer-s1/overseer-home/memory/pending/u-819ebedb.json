@@ -1,0 +1,22 @@
+{
+  "id": "u-819ebedb",
+  "op": "add",
+  "target": "profile/strict-scope-edits.md",
+  "target_sha256": null,
+  "payload": {
+    "added": "2026-11-06",
+    "cues": [
+      "change nothing else",
+      "only this function",
+      "minimal diff",
+      "scoped change"
+    ],
+    "layer": "profile",
+    "slug": "strict-scope-edits",
+    "source": "overseer:session/p1#e136",
+    "text": "Expects surgical edits: change only what was requested and nothing else in any file — no reformatting, no incidental fixes, no extra files or functions touched. Scope qualifiers (\"in X only\") are hard requirements, not hints. Expects a precise report of what changed per file and confirmation that untouched content stayed untouched."
+  },
+  "origin": "review:session:p1",
+  "reason": "review add",
+  "created": "2026-11-06T00:39:21Z"
+}

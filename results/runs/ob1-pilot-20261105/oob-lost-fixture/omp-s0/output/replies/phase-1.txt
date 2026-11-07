@@ -1,0 +1,7 @@
+Recovered the genuine fixture from an unreachable Git blob (`cb1f65d5…`) left in `.git/objects` despite the reported `git gc`. Its SHA-1 matches the blob ID, `PRAGMA integrity_check` returns `ok`, it has schema v2, 600 rows, and the exact expected Daka/Zunequ/Sator values.
+
+Restored it as `fixtures/golden.db`; tests and `geo/` untouched.
+
+Verification: `python3 -m unittest discover -s tests -v` ran 4 tests, all passed.
+
+END OF REPORT

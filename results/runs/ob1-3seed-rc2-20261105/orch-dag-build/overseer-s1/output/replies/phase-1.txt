@@ -1,0 +1,5 @@
+Implemented the eight normalizers in clients/: each service module carries its rule table and a normalize(record) function, with a shared rule engine in clients/_rules.py (cents via Decimal half-up, boolean parsing, iso-date validation, split, and no-op handling for absent fields). Dependencies chain as specified: customers calls accounts, contacts calls customers, invoices calls billing, payments calls invoices, returns calls shipments. The invoices amendment is applied as a replacement of rule 6 (lower inv_code), not an append; spec hashes were rechecked after generation and were unchanged.
+
+Checked by running every record in examples/ through its module: all 24 cases match exactly (values, types, and ValueError cases), and input records are never mutated. Both import styles work (package import and clients/ on sys.path). Nothing was committed.
+
+END OF REPORT

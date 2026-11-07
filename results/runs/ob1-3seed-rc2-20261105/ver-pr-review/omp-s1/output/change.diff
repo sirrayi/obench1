@@ -1,0 +1,14 @@
+diff --git a/REVIEW.md b/REVIEW.md
+new file mode 100644
+index 0000000..3734607
+--- /dev/null
++++ b/REVIEW.md
+@@ -0,0 +1,8 @@
++app/limiter.py:20: blocker: bucket start is stored with `time.time()` but compared against `time.monotonic()` (also at line 37), so elapsed time is negative and buckets never expire; a client that trips the limit is rejected forever and `Retry-After` was observed as 1793934828 seconds. Use one clock for both.
++app/limiter.py:28: major: `count > self.limit + 1` admits `limit + 1` requests instead of `limit`, contradicting the module docstring; verified limit=3 allowed 4 and limit=2 allowed 3.
++app/handlers.py:11: major: client-supplied `X-Forwarded-For` is trusted verbatim, so any client can rotate the header for a fresh bucket and bypass the limit; verified a rejected client got 200 with a spoofed value. Read only a hop written by a trusted proxy.
++app/limiter.py:12: major: buckets are never evicted anywhere, although docs/limits.md:4 states idle buckets are dropped after 10 minutes; with attacker-controlled keys the dict grows without bound.
++app/limiter.py:25: major: bucket lookup and reset run outside `self.lock`, so concurrent requests under ThreadingHTTPServer can each create or replace a bucket and lose increments at a window rollover, allowing more than the limit; `retry_after` also reads the dict unlocked.
++tests/test_limiter.py:7: minor: the suite never asserts a rejection, so the off-by-one at line 28 passes; window reset, `retry_after`, and the handler path are untested.
++app/limiter.py:42: minor: `int(seconds) // 1` truncates the delay, so `Retry-After: 0` is sent while the client is still inside the window and will be rejected again immediately.
++app/limiter.py:13: minor: `self.recent` is never read and no /debug endpoint exists, so it retains client keys with no consumer.

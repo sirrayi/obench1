@@ -1,0 +1,12 @@
+diff --git a/VERDICT.md b/VERDICT.md
+new file mode 100644
+index 0000000..bd107cc
+--- /dev/null
++++ b/VERDICT.md
+@@ -0,0 +1,6 @@
++verdict: don't merge
++issue_repro: fail
++branch_tests: pass
++test_checks_the_fix: no
++
++Why: the repro now returns 3 rows, but Ben's note is `call back\r\nafter 5pm"\r`, not the expected `call back\r\nafter 5pm`; the trailing quote and CR survive because fields are still split naively on commas and stripped only at the ends. The branch's tests pass, yet the issue's own repro still produces the wrong value, so the new test does not catch the actual bug. It uses LF-only input, never exercises CRLF, and its second assertion expects `1,"x, y",z` to produce four fields, codifying the broken quoted-comma behavior instead of correct CSV parsing.

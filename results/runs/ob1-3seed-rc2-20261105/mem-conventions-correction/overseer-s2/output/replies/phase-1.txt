@@ -1,0 +1,3 @@
+Added `--version` to the top-level parser in `tally/cli.py`, sourced from `tally.__version__`, so `python3 -m tally --version` prints `tally 1.4.0` and exits 0. New `tests/test_cli.py` asserts the exact output and exit status with plain unittest; the full suite passes (5 tests), and `list` and `--help` still work. Committed as `cli: add --version flag` in `9ef6dea`, leaving `CHANGELOG.md` untouched.
+
+END OF REPORT

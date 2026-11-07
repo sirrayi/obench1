@@ -1,0 +1,12 @@
+diff --git a/VERDICT.md b/VERDICT.md
+new file mode 100644
+index 0000000..11be55b
+--- /dev/null
++++ b/VERDICT.md
+@@ -0,0 +1,6 @@
++verdict: don't merge
++issue_repro: fail
++branch_tests: pass
++test_checks_the_fix: yes
++
++The new test fails on main and passes on the branch, so it catches the basic quoted-newline splitting bug. However, the issue's own Windows-CRLF repro still fails: the branch leaves trailing carriage returns and closing quotes on fields. It yields note `call back\r\nafter 5pm"\r` instead of the expected `call back\r\nafter 5pm`, and the header and other quoted fields are also polluted. The test also asserts incorrect splitting of a quoted comma.

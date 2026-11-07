@@ -1,0 +1,5 @@
+Wrote findings/svc-01.json through findings/svc-24.json. Statuses: svc-11 and svc-19 unverifiable (Git LFS pointer sources), svc-05 and svc-18 compliant, the rest carry violations; C16 from SPEC-AMENDMENT-1.md is included. Nothing under services/ was touched.
+
+Every report was recomputed against the checkout after writing: config, Dockerfile, README, CODEOWNERS, requirements, all src/*.py tokenized for print calls and secret literals, tests listing and LFS detection. All 24 matched; SPEC.md was re-read and is unchanged.
+
+END OF REPORT

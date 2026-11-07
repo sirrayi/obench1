@@ -1,0 +1,16 @@
+diff --git a/REVIEW.md b/REVIEW.md
+new file mode 100644
+index 0000000..a8e7a9c
+--- /dev/null
++++ b/REVIEW.md
+@@ -0,0 +1,10 @@
++app/limiter.py:20: blocker: bucket start is stored with time.time() but compared and subtracted against time.monotonic() (lines 17, 19, 37), so elapsed time is about -1.79e9 s: buckets never roll over, a client that hits the cap stays blocked for the life of the process, and retry_after returns about 1.79e9 s, which ships as a Retry-After of roughly 57 years.
++app/handlers.py:11: blocker: client identity is taken from the client-supplied X-Forwarded-For header with no trusted-proxy check, so any caller can send a fresh value per request and never be limited (200/200 forged requests allowed over HTTP in a probe); a comma-separated list is also used verbatim as the key.
++app/limiter.py:28: major: off-by-one, the check "count > limit + 1" admits limit + 1 requests per window (101 for the configured 100) before the first 429.
++app/limiter.py:12: major: self.buckets is never pruned, so every distinct client key is retained for the process lifetime; the key comes from a request header, so an attacker can grow the dict without bound (5000 keys retained in a probe).
++app/limiter.py:25: major: _bucket() creates, replaces and resets bucket entries before the lock is acquired on line 26, and retry_after() reads self.buckets unlocked, so concurrent requests under ThreadingHTTPServer can count into a discarded dict and lose increments (2 concurrent requests recorded as 1 in a forced interleaving).
++app/handlers.py:6: major: the limiter is a module-level per-process object, so behind the load balancer referenced on line 10 each instance enforces its own 100 per 60 s and the effective allowance is 100 times the number of processes.
++tests/test_limiter.py:10: major: only the allow path is asserted; no test covers the first rejection, a window rolling over, or Retry-After, which is why the off-by-one and the mixed-clock bug pass.
++app/limiter.py:42: minor: rounding down returns 0 whenever less than a second remains, so Retry-After: 0 tells the client to retry immediately into another 429 (the docs assume client-side jitter); "int(seconds) // 1" is also a no-op.
++app/limiter.py:13: minor: self.recent is appended to on every rejection but never read anywhere, and the comment cites a /debug page that does not exist, so it only retains client identifiers.
++docs/limits.md:4: minor: documents that idle buckets are dropped after 10 minutes, which no code does; bucket entries live until the process exits.

@@ -1,0 +1,5 @@
+`report.total` now filters by month: `month_key()` reads the YYYY-MM part of each date, so `tally sum --month 2026-09` totals only September, and `--category` still composes with it. `cli.py` validates `--month` through argparse, so a malformed value like `2026-13` exits 2 instead of silently summing everything. New unittest cases in `tests/test_report.py` and `tests/test_cli.py` cover month, month plus category, unpadded month, no match, and rejection; new public functions have verb-first docstrings. By hand from `expenses.csv`, September comes to 573.77.
+
+I could not run the suite or commit: every shell call here dies with `sandbox-exec: sandbox_apply: Operation not permitted` (exit 71), so python and git never start. The intended message is `fix: honor --month when summing expenses`. `CHANGELOG.md` untouched; stored preferences now record the Conventional Commits rule.
+
+END OF REPORT

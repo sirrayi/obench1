@@ -1,0 +1,19 @@
+diff --git a/VERDICT.md b/VERDICT.md
+new file mode 100644
+index 0000000..820de31
+--- /dev/null
++++ b/VERDICT.md
+@@ -0,0 +1,13 @@
++verdict: don't merge
++issue_repro: fail
++branch_tests: pass
++test_checks_the_fix: no
++
++Why: The issue's own repro on fix/42-quoted-newlines still gives the wrong note
++field: `'call back\r\nafter 5pm"\r'` instead of `call back\r\nafter 5pm` (the
++row count happens to be 3, but every field keeps a stray trailing quote and
++`\r`). The fix splits on `"\n"` only, so CRLF leaves `\r` at the end of each
++line; `strip('"')` cannot remove a quote that is followed by `\r`. The new test
++uses bare LF, so it never exercises the CRM's Windows line endings and passes on
++the still-broken branch. Its second assertion also asserts the wrong behaviour,
++expecting a quoted comma to split into two fields. Branch tests: 2 run, OK.

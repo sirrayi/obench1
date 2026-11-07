@@ -1,0 +1,294 @@
+2026-11-05 18:27:26,683 INFO hermes_cli.plugins: Plugin 'browser-browser-use' registered browser provider: browser-use
+2026-11-05 18:27:26,690 INFO hermes_cli.plugins: Plugin 'browser-browserbase' registered browser provider: browserbase
+2026-11-05 18:27:26,693 INFO hermes_cli.plugins: Plugin 'browser-firecrawl' registered browser provider: firecrawl
+2026-11-05 18:27:26,806 INFO hermes_cli.plugins: Plugin 'default' registered delegation provider: default
+2026-11-05 18:27:26,815 INFO hermes_cli.plugins: Plugin 'deepinfra' registered image_gen provider: deepinfra
+2026-11-05 18:27:26,817 INFO hermes_cli.plugins: Plugin 'fal' registered image_gen provider: fal
+2026-11-05 18:27:26,819 INFO hermes_cli.plugins: Plugin 'krea' registered image_gen provider: krea
+2026-11-05 18:27:26,821 INFO hermes_cli.plugins: Plugin 'meta-ai-image-gen' registered image_gen provider: meta-ai
+2026-11-05 18:27:26,823 INFO hermes_cli.plugins: Plugin 'openai' registered image_gen provider: openai
+2026-11-05 18:27:26,830 INFO hermes_cli.plugins: Plugin 'openai-codex' registered image_gen provider: openai-codex
+2026-11-05 18:27:26,833 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: openrouter
+2026-11-05 18:27:26,833 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: nous
+2026-11-05 18:27:26,835 INFO hermes_cli.plugins: Plugin 'xai' registered image_gen provider: xai
+2026-11-05 18:27:26,847 INFO hermes_cli.plugins: Plugin 'deepinfra' registered video_gen provider: deepinfra
+2026-11-05 18:27:26,849 INFO hermes_cli.plugins: Plugin 'fal' registered video_gen provider: fal
+2026-11-05 18:27:26,852 INFO hermes_cli.plugins: Plugin 'openrouter' registered video_gen provider: openrouter
+2026-11-05 18:27:26,854 INFO hermes_cli.plugins: Plugin 'xai' registered video_gen provider: xai
+2026-11-05 18:27:26,858 INFO hermes_cli.plugins: Plugin 'web-brave-free' registered web provider: brave-free
+2026-11-05 18:27:26,863 INFO hermes_cli.plugins: Plugin 'web-ddgs' registered web provider: ddgs
+2026-11-05 18:27:26,867 INFO hermes_cli.plugins: Plugin 'web-exa' registered web provider: exa
+2026-11-05 18:27:26,871 INFO hermes_cli.plugins: Plugin 'web-firecrawl' registered web provider: firecrawl
+2026-11-05 18:27:26,873 INFO hermes_cli.plugins: Plugin 'web-keenable' registered web provider: keenable
+2026-11-05 18:27:26,875 INFO hermes_cli.plugins: Plugin 'web-openai-native' registered web provider: openai-native
+2026-11-05 18:27:26,876 INFO hermes_cli.plugins: Plugin 'web-parallel' registered web provider: parallel
+2026-11-05 18:27:26,878 INFO hermes_cli.plugins: Plugin 'web-perplexity' registered web provider: perplexity
+2026-11-05 18:27:26,880 INFO hermes_cli.plugins: Plugin 'web-searxng' registered web provider: searxng
+2026-11-05 18:27:26,881 INFO hermes_cli.plugins: Plugin 'web-tavily' registered web provider: tavily
+2026-11-05 18:27:26,885 INFO hermes_cli.plugins: Plugin 'web-xai' registered web provider: xai
+2026-11-05 18:27:26,888 INFO hermes_cli.plugins: Plugin discovery complete: 62 found, 58 enabled
+2026-11-05 18:27:26,906 INFO hermes_cli.gateway_multiplex_mode: Single-profile install: gateway.multiplex_profiles unset, serving the default profile only.
+2026-11-05 18:27:26,923 WARNING gateway.run: Another Hermes home's gateway owns this host (PID 83762 (no bound port; profiles: default)); starting this home's gateway beside it.
+2026-11-05 18:27:27,140 WARNING hermes.security_audit: Security posture audit found 1 issue(s) — review your deployment:
+2026-11-05 18:27:27,140 WARNING hermes.security_audit:   [security 1/1] SSH password authentication is ENABLED (default — no explicit directive). Password auth is brute-forceable and dangerous on an internet-facing box. Set 'PasswordAuthentication no' in sshd_config and use key-based auth.
+2026-11-05 18:27:27,321 INFO gateway.control_socket: Gateway control socket listening at /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/c3128f98a9e9/hermes-home/gateway.sock
+2026-11-05 18:27:27,446 INFO gateway.run: Starting Hermes Gateway...
+2026-11-05 18:27:27,447 INFO gateway.run: Session storage: /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/c3128f98a9e9/hermes-home/sessions
+2026-11-05 18:27:27,448 INFO gateway.run: Agent budget: max_iterations=unlimited (agent.max_turns from config.yaml, else the HERMES_MAX_ITERATIONS bridge)
+2026-11-05 18:27:27,448 INFO gateway.run: Secret redaction: ENABLED (tool output, logs, and chat responses are scrubbed before delivery)
+2026-11-05 18:27:27,467 WARNING gateway.run: No messaging platforms enabled.
+2026-11-05 18:27:27,467 INFO gateway.run: Gateway will continue running for cron job execution.
+2026-11-05 18:27:27,487 INFO run_agent: No .env file found. Using system environment variables.
+2026-11-05 18:27:27,501 INFO gateway.run: Channel directory built: 0 target(s)
+2026-11-05 18:27:27,611 INFO tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 18:27:27,612 INFO tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-11-05 18:27:27,613 INFO tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 18:27:27,614 INFO tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 18:27:27,615 INFO tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-11-05 18:27:27,619 INFO tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 18:27:27,621 INFO tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 18:27:27,622 INFO tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 18:27:27,623 INFO tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 18:27:27,624 INFO tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 18:27:27,625 INFO tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 18:27:27,631 INFO tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 18:27:27,638 INFO tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 18:27:27,660 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
+2026-11-05 18:27:27,660 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 18:27:27,660 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 18:27:27,668 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 18:27:27,668 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 18:27:27,668 INFO tools.registry: check_fn check_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 18:27:27,762 INFO tools.tool_search: tool_search activated (tier 1): 17 core/visible tools kept, 5 deferred (~3815 tokens), listing full (budget ~4000 tokens)
+2026-11-05 18:27:27,776 INFO agent.model_metadata: No model id provided for context length resolution — defaulting to 256,000 tokens.
+2026-11-05 18:27:27,777 INFO gateway.run: Model context warmed:  -> 256000 tokens (default)
+2026-11-05 18:27:27,777 INFO gateway.run: Turn machinery warmed in 0.3s (20 tool schema(s) materialized)
+2026-11-05 18:27:27,788 INFO gateway.run: Press Ctrl+C to stop
+2026-11-05 18:27:27,790 INFO gateway.run: kanban dispatcher: holding singleton dispatcher lock (/private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/c3128f98a9e9/hermes-home/kanban/.dispatcher.lock)
+2026-11-05 18:27:27,792 INFO gateway.run: Cron scheduler will tick 1 profile(s): ['default']
+2026-11-05 18:27:27,792 INFO cron.scheduler_provider: In-process cron scheduler started (interval=60s)
+2026-11-05 18:27:27,794 INFO gateway.run: Auto-started gateway: exits after 600s with no clients, adapters, cron/kanban work or admissions (gateway.unmanaged_idle_exit_seconds)
+2026-11-05 18:27:27,795 INFO gateway.run: Gateway housekeeping started (interval=60s)
+2026-11-05 18:27:27,796 INFO cron.scheduler_provider: Multiplex cron scheduler started for 1 profile(s): ['default'] (re-enumerated every cycle)
+2026-11-05 18:27:28,167 INFO tui_gateway.ws: ws accepted peer=127.0.0.1:52392
+2026-11-05 18:27:28,312 INFO tools.tool_search: tool_search activated (tier 1): 17 core/visible tools kept, 5 deferred (~3815 tokens), listing full (budget ~4000 tokens)
+2026-11-05 18:27:28,313 INFO tools.registry: check_fn _a2a_tools_available returned False; dependent tools will be unavailable this turn
+2026-11-05 18:27:28,314 INFO tools.registry: check_fn check_discord_tool_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 18:27:28,314 INFO tools.registry: check_fn _check_feishu returned False; dependent tools will be unavailable this turn
+2026-11-05 18:27:28,321 INFO tools.registry: check_fn _check_yuanbao returned False; dependent tools will be unavailable this turn
+2026-11-05 18:27:28,332 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 18:27:28,333 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 18:27:28,341 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 18:27:28,341 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 18:27:28,342 INFO tools.registry: check_fn check_video_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 18:27:28,350 INFO agent.credential_pool: credential pool: no available entries (all exhausted or empty)
+2026-11-05 18:27:28,354 INFO tools.registry: check_fn check_video_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 18:27:28,354 INFO tools.registry: check_fn _check_xai_video_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 18:27:28,356 INFO agent.credential_pool: credential pool: no available entries (all exhausted or empty)
+2026-11-05 18:27:28,359 INFO tools.registry: check_fn check_x_search_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 18:27:28,848 WARNING hermes_cli.source_releases: Could not resolve the stable source release: <urlopen error [Errno 1] Operation not permitted>
+2026-11-05 18:27:28,868 INFO gateway.run: inbound message: platform=local user=uid:502 chat=local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da msg='Write RELEASE_NOTES.md for release 4.2.0 from commits.jsonl (one JSON object per' reply_to_id=None reply_to_text=''
+2026-11-05 18:27:29,111 INFO run_agent: OpenAI client created (agent_init, shared=True) thread=hermes-gateway_3:481120448512 provider=opencode-go base_url=http://127.0.0.1:52378/v1 model=deepseek-v4.1-flash
+2026-11-05 18:27:32,529 INFO agent.model_metadata: Could not detect context length for model 'deepseek-v4.1-flash' at http://127.0.0.1:52378/v1 — defaulting to 256,000 tokens (probe-down). Set model.context_length in config.yaml to override.
+2026-11-05 18:27:32,530 INFO agent.model_metadata: Using hardcoded context length 1,000,000 for model 'deepseek-v4.1-flash' (custom endpoint, catalog match on 'deepseek-v4.1-flash')
+2026-11-05 18:27:32,578 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.turn_context: conversation turn: session=local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da model=deepseek-v4.1-flash provider=opencode-go platform=cli history=0 msg='Write RELEASE_NOTES.md for release 4.2.0 from commits.jsonl (one JSON object per...'
+2026-11-05 18:27:32,643 INFO agent.auxiliary_client: Auxiliary auto-detect: using main provider opencode-go (deepseek-v4.1-flash)
+2026-11-05 18:27:32,645 INFO agent.auxiliary_client: Auxiliary title_generation: using opencode-go (deepseek-v4.1-flash) at http://127.0.0.1:52378/v1/
+2026-11-05 18:27:32,693 INFO run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=Thread-9 (<lambda>):481154101248 provider=opencode-go base_url=http://127.0.0.1:52378/v1 model=deepseek-v4.1-flash
+2026-11-05 18:27:32,791 INFO gateway.run: kanban dispatcher: embedded in gateway (interval=60.0s)
+2026-11-05 18:27:36,497 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #1: model=deepseek-v4.1-flash provider=opencode-go in=13980 out=137 total=14117 latency=3.8s id=chatcmpl-b13b83c58f2ba389
+2026-11-05 18:27:36,501 WARNING [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.message_sanitization: Normalized provider-minted parallel tool-call ids for replay compatibility
+2026-11-05 18:27:36,544 INFO tools.terminal_tool: Creating new local environment for task session:...
+2026-11-05 18:27:36,641 INFO tools.environments.base: Session snapshot created (session=538a69081ca8, cwd=/private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/c3128f98a9e9)
+2026-11-05 18:27:36,641 INFO tools.terminal_tool: local environment ready for task session:
+2026-11-05 18:27:36,729 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool terminal completed (0.20s, 557 chars)
+2026-11-05 18:27:37,050 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool search_files completed (0.32s, 48 chars)
+2026-11-05 18:27:39,985 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #2: model=deepseek-v4.1-flash provider=opencode-go in=14420 out=155 total=14575 latency=2.9s cache=13952/14420 (97%) id=chatcmpl-be108687b612445a
+2026-11-05 18:27:39,986 WARNING [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.message_sanitization: Normalized provider-minted parallel tool-call ids for replay compatibility
+2026-11-05 18:27:40,096 INFO agent.tool_executor: tool read_file completed (0.10s, 274 chars)
+2026-11-05 18:27:40,097 INFO agent.tool_executor: tool read_file completed (0.10s, 517 chars)
+2026-11-05 18:27:40,097 INFO agent.tool_executor: tool read_file completed (0.10s, 1559 chars)
+2026-11-05 18:27:40,188 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool terminal completed (0.09s, 2279 chars)
+2026-11-05 18:27:46,507 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #3: model=deepseek-v4.1-flash provider=opencode-go in=16367 out=475 total=16842 latency=6.3s cache=14464/16367 (88%) id=chatcmpl-82a1af27e1b57657
+2026-11-05 18:27:46,600 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.08s, 1019 chars)
+2026-11-05 18:27:51,788 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #4: model=deepseek-v4.1-flash provider=opencode-go in=17249 out=388 total=17637 latency=5.2s cache=16768/17249 (97%) id=chatcmpl-a825bf9b9d668514
+2026-11-05 18:27:51,828 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.03s, 1696 chars)
+2026-11-05 18:27:56,880 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #5: model=deepseek-v4.1-flash provider=opencode-go in=18402 out=404 total=18806 latency=5.0s cache=17536/18402 (95%) id=chatcmpl-a52bd115866605b4
+2026-11-05 18:27:56,920 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.03s, 1410 chars)
+2026-11-05 18:27:57,801 INFO hermes_cli.model_catalog: model catalog fetch failed (https://hermes-agent.nousresearch.com/docs/api/model-catalog.json): <urlopen error [Errno 1] Operation not permitted>
+2026-11-05 18:27:57,803 INFO hermes_cli.model_catalog: model catalog fetch failed (https://raw.githubusercontent.com/NousResearch/hermes-agent/main/website/static/api/model-catalog.json): <urlopen error [Errno 1] Operation not permitted>
+2026-11-05 18:27:57,811 INFO hermes_cli.model_catalog: model catalog fetch failed (https://hermes-agent.nousresearch.com/docs/api/model-catalog.json): <urlopen error [Errno 1] Operation not permitted>
+2026-11-05 18:27:57,813 INFO hermes_cli.model_catalog: model catalog fetch failed (https://raw.githubusercontent.com/NousResearch/hermes-agent/main/website/static/api/model-catalog.json): <urlopen error [Errno 1] Operation not permitted>
+2026-11-05 18:28:17,185 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #6: model=deepseek-v4.1-flash provider=opencode-go in=19437 out=1910 total=21347 latency=20.2s cache=18688/19437 (96%) id=chatcmpl-af5e66c127ea3730
+2026-11-05 18:28:17,229 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.03s, 5057 chars)
+2026-11-05 18:28:23,155 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #7: model=deepseek-v4.1-flash provider=opencode-go in=23138 out=535 total=23673 latency=5.9s cache=21248/23138 (92%) id=chatcmpl-8c762b90301dfcae
+2026-11-05 18:28:23,190 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.03s, 1610 chars)
+2026-11-05 18:28:31,531 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #8: model=deepseek-v4.1-flash provider=opencode-go in=24243 out=749 total=24992 latency=8.3s cache=23552/24243 (97%) id=chatcmpl-bade2b5868f46e7f
+2026-11-05 18:28:31,574 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.03s, 1092 chars)
+2026-11-05 18:28:50,890 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #9: model=deepseek-v4.1-flash provider=opencode-go in=25453 out=1795 total=27248 latency=19.3s cache=24960/25453 (98%) id=chatcmpl-8d96f6fbecb98d47
+2026-11-05 18:28:50,918 WARNING [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: Tool execute_code returned error (0.02s): {"status": "error", "output": "\n--- stderr ---\nTraceback (most recent call last):\n  File \"/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/hermes_kernel_ant5tqel/hermes_kernel_runner.py\", line 11
+2026-11-05 18:28:53,392 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #10: model=deepseek-v4.1-flash provider=opencode-go in=27735 out=145 total=27880 latency=2.5s cache=27136/27735 (98%) id=chatcmpl-93028e0b0d984340
+2026-11-05 18:28:53,407 WARNING [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: Tool execute_code returned error (0.01s): {"status": "error", "output": "\n--- stderr ---\nTraceback (most recent call last):\n  File \"/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/hermes_kernel_ant5tqel/hermes_kernel_runner.py\", line 11
+2026-11-05 18:29:01,501 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #11: model=deepseek-v4.1-flash provider=opencode-go in=28269 out=761 total=29030 latency=8.1s cache=27776/28269 (98%) id=chatcmpl-9cff2828e59b3f5b
+2026-11-05 18:29:01,546 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.03s, 724 chars)
+2026-11-05 18:29:08,288 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #12: model=deepseek-v4.1-flash provider=opencode-go in=29337 out=615 total=29952 latency=6.7s cache=28928/29337 (99%) id=chatcmpl-8f93cf77442e5449
+2026-11-05 18:29:08,319 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.02s, 2049 chars)
+2026-11-05 18:29:13,664 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #13: model=deepseek-v4.1-flash provider=opencode-go in=30772 out=425 total=31197 latency=5.3s cache=29824/30772 (97%) id=chatcmpl-a3ee316b86e4d18e
+2026-11-05 18:29:13,682 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.01s, 4240 chars)
+2026-11-05 18:29:30,708 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #14: model=deepseek-v4.1-flash provider=opencode-go in=32671 out=1711 total=34382 latency=17.0s cache=31104/32671 (95%) id=chatcmpl-9e2e72664cf0690a
+2026-11-05 18:29:30,738 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.02s, 780 chars)
+2026-11-05 18:29:58,714 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #15: model=deepseek-v4.1-flash provider=opencode-go in=34698 out=2717 total=37415 latency=28.0s cache=34304/34698 (99%) id=chatcmpl-81a40185c9d46b8a
+2026-11-05 18:29:58,731 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.01s, 1250 chars)
+2026-11-05 18:30:11,349 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #16: model=deepseek-v4.1-flash provider=opencode-go in=37890 out=1330 total=39220 latency=12.6s cache=37376/37890 (99%) id=chatcmpl-9a8cb627c5171e37
+2026-11-05 18:30:11,383 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.03s, 8343 chars)
+2026-11-05 18:30:20,755 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #17: model=deepseek-v4.1-flash provider=opencode-go in=42215 out=781 total=42996 latency=9.4s cache=39168/42215 (93%) id=chatcmpl-b7c75aad492eb1bd
+2026-11-05 18:30:20,776 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.01s, 1011 chars)
+2026-11-05 18:30:30,675 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #18: model=deepseek-v4.1-flash provider=opencode-go in=43301 out=877 total=44178 latency=9.9s cache=42880/43301 (99%) id=chatcmpl-94bc5d7f7ae60030
+2026-11-05 18:30:30,717 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.03s, 1248 chars)
+2026-11-05 18:31:05,847 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #19: model=deepseek-v4.1-flash provider=opencode-go in=44624 out=3244 total=47868 latency=35.1s cache=44160/44624 (99%) id=chatcmpl-9214ec9b6c9dfcfd
+2026-11-05 18:31:05,872 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.02s, 882 chars)
+2026-11-05 18:31:14,886 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #20: model=deepseek-v4.1-flash provider=opencode-go in=48240 out=734 total=48974 latency=9.0s cache=47744/48240 (99%) id=chatcmpl-9edd931e70794e4f
+2026-11-05 18:31:14,921 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.02s, 2015 chars)
+2026-11-05 18:31:39,262 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #21: model=deepseek-v4.1-flash provider=opencode-go in=49624 out=2386 total=52010 latency=24.3s cache=48896/49624 (99%) id=chatcmpl-9e3f918508034b8d
+2026-11-05 18:31:39,311 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.04s, 7963 chars)
+2026-11-05 18:32:01,435 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #22: model=deepseek-v4.1-flash provider=opencode-go in=54822 out=2019 total=56841 latency=22.1s cache=51968/54822 (95%) id=chatcmpl-b88c11ea568b19f8
+2026-11-05 18:32:01,464 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.02s, 421 chars)
+2026-11-05 18:32:08,364 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #23: model=deepseek-v4.1-flash provider=opencode-go in=56998 out=409 total=57407 latency=6.9s cache=56832/56998 (100%) id=chatcmpl-8fc2bccd2f2d7b19
+2026-11-05 18:32:08,365 WARNING [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.message_sanitization: Normalized provider-minted parallel tool-call ids for replay compatibility
+2026-11-05 18:32:08,394 INFO agent.tool_executor: tool read_file completed (0.01s, 286 chars)
+2026-11-05 18:32:08,395 INFO agent.tool_executor: tool read_file completed (0.01s, 257 chars)
+2026-11-05 18:32:24,093 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #24: model=deepseek-v4.1-flash provider=opencode-go in=57621 out=1506 total=59127 latency=15.7s cache=57344/57621 (100%) id=chatcmpl-8ea689516b064369
+2026-11-05 18:32:24,118 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.02s, 685 chars)
+2026-11-05 18:32:28,130 INFO tui_gateway.server: Reclaimed 1 orphaned active-session lease(s)
+2026-11-05 18:32:35,945 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #25: model=deepseek-v4.1-flash provider=opencode-go in=59383 out=791 total=60174 latency=11.8s cache=59008/59383 (99%) id=chatcmpl-a264b22c6378b020
+2026-11-05 18:32:38,669 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.02s, 2626 chars)
+2026-11-05 18:32:51,331 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #26: model=deepseek-v4.1-flash provider=opencode-go in=61533 out=1127 total=62660 latency=12.7s cache=60160/61533 (98%) id=chatcmpl-80893f09a8d07de2
+2026-11-05 18:32:51,350 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.01s, 632 chars)
+2026-11-05 18:33:22,017 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #27: model=deepseek-v4.1-flash provider=opencode-go in=62878 out=2943 total=65821 latency=30.7s cache=62592/62878 (100%) id=chatcmpl-80ad8dab5b2eb63d
+2026-11-05 18:33:22,073 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.04s, 429 chars)
+2026-11-05 18:33:22,094 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.auxiliary_client: Auxiliary auto-detect: using main provider opencode-go (deepseek-v4.1-flash)
+2026-11-05 18:33:33,180 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #28: model=deepseek-v4.1-flash provider=opencode-go in=65977 out=980 total=66957 latency=11.1s cache=65792/65977 (100%) id=chatcmpl-9c73d229afea3aa9
+2026-11-05 18:33:33,201 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.01s, 15809 chars)
+2026-11-05 18:33:44,881 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #29: model=deepseek-v4.1-flash provider=opencode-go in=72231 out=1035 total=73266 latency=11.7s cache=66944/72231 (93%) id=chatcmpl-9950377a602fdcdb
+2026-11-05 18:33:44,931 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.04s, 615 chars)
+2026-11-05 18:33:48,632 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #30: model=deepseek-v4.1-flash provider=opencode-go in=73558 out=212 total=73770 latency=3.7s cache=73216/73558 (100%) id=chatcmpl-a5f0f81e325b490d
+2026-11-05 18:33:48,650 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.01s, 480 chars)
+2026-11-05 18:33:58,304 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #31: model=deepseek-v4.1-flash provider=opencode-go in=73985 out=898 total=74883 latency=9.6s cache=73728/73985 (100%) id=chatcmpl-9631954c7dc53649
+2026-11-05 18:33:58,326 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.02s, 351 chars)
+2026-11-05 18:34:17,517 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #32: model=deepseek-v4.1-flash provider=opencode-go in=75018 out=1837 total=76855 latency=19.2s cache=74880/75018 (100%) id=chatcmpl-92615082e1991a1c
+2026-11-05 18:34:17,545 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.01s, 671 chars)
+2026-11-05 18:34:23,723 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #33: model=deepseek-v4.1-flash provider=opencode-go in=77156 out=552 total=77708 latency=6.2s cache=76800/77156 (100%) id=chatcmpl-a7a01efd614a5dc7
+2026-11-05 18:34:23,742 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.01s, 1046 chars)
+2026-11-05 18:34:57,172 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #34: model=deepseek-v4.1-flash provider=opencode-go in=78175 out=3747 total=81922 latency=33.4s cache=77696/78175 (99%) id=chatcmpl-93ad3fb8b6e635f3
+2026-11-05 18:34:57,206 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool write_file completed (0.02s, 300 chars)
+2026-11-05 18:35:01,276 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #35: model=deepseek-v4.1-flash provider=opencode-go in=82030 out=198 total=82228 latency=4.1s cache=81920/82030 (100%) id=chatcmpl-9e73c2ab99b074b9
+2026-11-05 18:35:01,494 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool terminal completed (0.21s, 138 chars)
+2026-11-05 18:35:03,805 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #36: model=deepseek-v4.1-flash provider=opencode-go in=82283 out=57 total=82340 latency=2.3s cache=82176/82283 (100%) id=chatcmpl-bf7156cd859ce577
+2026-11-05 18:35:03,826 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool read_file completed (0.01s, 8239 chars)
+2026-11-05 18:35:16,394 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #37: model=deepseek-v4.1-flash provider=opencode-go in=85218 out=1023 total=86241 latency=12.6s cache=82304/85218 (97%) id=chatcmpl-ae74a1e849117181
+2026-11-05 18:35:16,417 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.02s, 1214 chars)
+2026-11-05 18:35:26,784 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #38: model=deepseek-v4.1-flash provider=opencode-go in=86629 out=707 total=87336 latency=10.3s cache=86144/86629 (99%) id=chatcmpl-acc5d9a74801cd26
+2026-11-05 18:35:26,809 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.02s, 297 chars)
+2026-11-05 18:35:45,185 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #39: model=deepseek-v4.1-flash provider=opencode-go in=87453 out=1783 total=89236 latency=18.4s cache=87296/87453 (100%) id=chatcmpl-bdf33dd0effcb51a
+2026-11-05 18:35:45,210 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.02s, 571 chars)
+2026-11-05 18:36:11,002 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #40: model=deepseek-v4.1-flash provider=opencode-go in=89447 out=2411 total=91858 latency=25.8s cache=89216/89447 (100%) id=chatcmpl-bdf6108ca2085ada
+2026-11-05 18:36:11,135 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool terminal completed (0.13s, 567 chars)
+2026-11-05 18:36:24,524 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #41: model=deepseek-v4.1-flash provider=opencode-go in=92132 out=1613 total=93745 latency=13.4s cache=91776/92132 (100%) id=chatcmpl-b348e2904bbceb86
+2026-11-05 18:36:24,581 WARNING [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: Tool execute_code returned error (0.04s): {"status": "error", "output": "expected entries 149 output 149\n\n--- stderr ---\nTraceback (most recent call last):\n  File \"/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/hermes_kernel_ant5tqel/h
+2026-11-05 18:36:29,798 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #42: model=deepseek-v4.1-flash provider=opencode-go in=94486 out=459 total=94945 latency=5.2s cache=93696/94486 (99%) id=chatcmpl-80c093770aed2389
+2026-11-05 18:36:29,856 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.05s, 423 chars)
+2026-11-05 18:36:36,745 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #43: model=deepseek-v4.1-flash provider=opencode-go in=95093 out=566 total=95659 latency=6.9s cache=94848/95093 (100%) id=chatcmpl-8d81b919b289bf8e
+2026-11-05 18:36:36,792 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.03s, 587 chars)
+2026-11-05 18:36:45,100 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #44: model=deepseek-v4.1-flash provider=opencode-go in=95894 out=682 total=96576 latency=8.3s cache=95616/95894 (100%) id=chatcmpl-9bb4083846652b0e
+2026-11-05 18:36:45,131 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.02s, 370 chars)
+2026-11-05 18:37:04,751 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #45: model=deepseek-v4.1-flash provider=opencode-go in=96724 out=1686 total=98410 latency=19.6s cache=96512/96724 (100%) id=chatcmpl-bb5feb9ba61bdbc1
+2026-11-05 18:37:04,771 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.01s, 303 chars)
+2026-11-05 18:37:12,207 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #46: model=deepseek-v4.1-flash provider=opencode-go in=98530 out=621 total=99151 latency=7.4s cache=98304/98530 (100%) id=chatcmpl-9df2a2888d19ac59
+2026-11-05 18:37:12,240 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.02s, 301 chars)
+2026-11-05 18:37:29,847 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #47: model=deepseek-v4.1-flash provider=opencode-go in=99272 out=1556 total=100828 latency=17.6s cache=99072/99272 (100%) id=chatcmpl-975ab421fddd05d0
+2026-11-05 18:37:29,882 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.02s, 380 chars)
+2026-11-05 18:37:34,778 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #48: model=deepseek-v4.1-flash provider=opencode-go in=100978 out=234 total=101212 latency=4.9s cache=100736/100978 (100%) id=chatcmpl-88484d1f54e17ddc
+2026-11-05 18:37:34,818 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.03s, 523 chars)
+2026-11-05 18:37:38,769 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #49: model=deepseek-v4.1-flash provider=opencode-go in=101482 out=150 total=101632 latency=3.9s cache=101120/101482 (100%) id=chatcmpl-b06c438bf6c69fa4
+2026-11-05 18:37:41,519 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.04s, 357 chars)
+2026-11-05 18:37:49,232 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #50: model=deepseek-v4.1-flash provider=opencode-go in=101777 out=550 total=102327 latency=7.7s cache=101504/101777 (100%) id=chatcmpl-9ee1b57c1a7d2062
+2026-11-05 18:37:49,271 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.03s, 715 chars)
+2026-11-05 18:38:12,694 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #51: model=deepseek-v4.1-flash provider=opencode-go in=102567 out=2048 total=104615 latency=23.4s cache=102272/102567 (100%) id=chatcmpl-b1dc1ca2d704730d
+2026-11-05 18:38:12,716 WARNING [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: Tool execute_code returned error (0.02s): {"status": "error", "output": "\n--- stderr ---\nTraceback (most recent call last):\n  File \"/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/hermes_kernel_ant5tqel/hermes_kernel_runner.py\", line 11
+2026-11-05 18:38:16,748 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #52: model=deepseek-v4.1-flash provider=opencode-go in=104996 out=204 total=105200 latency=4.0s cache=104576/104996 (100%) id=chatcmpl-af3aaac8fd101106
+2026-11-05 18:38:16,791 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.03s, 7750 chars)
+2026-11-05 18:38:34,085 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #53: model=deepseek-v4.1-flash provider=opencode-go in=107364 out=1529 total=108893 latency=17.3s cache=105088/107364 (98%) id=chatcmpl-b92f980cf3d7502f
+2026-11-05 18:38:34,121 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.02s, 348 chars)
+2026-11-05 18:38:37,768 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #54: model=deepseek-v4.1-flash provider=opencode-go in=109028 out=189 total=109217 latency=3.6s cache=108800/109028 (100%) id=chatcmpl-9cad8a24342e3281
+2026-11-05 18:38:37,785 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.01s, 372 chars)
+2026-11-05 18:38:42,529 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #55: model=deepseek-v4.1-flash provider=opencode-go in=109363 out=374 total=109737 latency=4.7s cache=109184/109363 (100%) id=chatcmpl-b0da797351794ff7
+2026-11-05 18:38:42,563 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.03s, 797 chars)
+2026-11-05 18:38:52,449 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #56: model=deepseek-v4.1-flash provider=opencode-go in=110035 out=779 total=110814 latency=9.9s cache=109696/110035 (100%) id=chatcmpl-a6864397259744df
+2026-11-05 18:38:52,465 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.01s, 665 chars)
+2026-11-05 18:38:57,853 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #57: model=deepseek-v4.1-flash provider=opencode-go in=111074 out=250 total=111324 latency=5.4s cache=110720/111074 (100%) id=chatcmpl-a4542b3717788c4e
+2026-11-05 18:38:57,871 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.01s, 370 chars)
+2026-11-05 18:39:02,278 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #58: model=deepseek-v4.1-flash provider=opencode-go in=111455 out=140 total=111595 latency=4.4s cache=111232/111455 (100%) id=chatcmpl-9b157060db970fd1
+2026-11-05 18:39:02,312 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.02s, 316 chars)
+2026-11-05 18:39:24,675 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #59: model=deepseek-v4.1-flash provider=opencode-go in=111724 out=1934 total=113658 latency=22.3s cache=111488/111724 (100%) id=chatcmpl-879a9b025415dcbf
+2026-11-05 18:39:24,702 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.02s, 347 chars)
+2026-11-05 18:39:47,680 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #60: model=deepseek-v4.1-flash provider=opencode-go in=113790 out=1802 total=115592 latency=23.0s cache=113536/113790 (100%) id=chatcmpl-b3cb0794516a59e0
+2026-11-05 18:39:47,715 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.02s, 415 chars)
+2026-11-05 18:40:01,789 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #61: model=deepseek-v4.1-flash provider=opencode-go in=115752 out=1042 total=116794 latency=14.1s cache=115584/115752 (100%) id=chatcmpl-a6d9205467a634ea
+2026-11-05 18:40:01,808 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.01s, 342 chars)
+2026-11-05 18:40:08,755 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #62: model=deepseek-v4.1-flash provider=opencode-go in=116927 out=445 total=117372 latency=6.9s cache=116736/116927 (100%) id=chatcmpl-a5d8424ee4a8b4ca
+2026-11-05 18:40:08,772 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.01s, 301 chars)
+2026-11-05 18:40:13,858 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #63: model=deepseek-v4.1-flash provider=opencode-go in=117493 out=246 total=117739 latency=5.1s cache=117248/117493 (100%) id=chatcmpl-a0321cd1da363284
+2026-11-05 18:40:13,899 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.03s, 521 chars)
+2026-11-05 18:40:20,091 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #64: model=deepseek-v4.1-flash provider=opencode-go in=117921 out=367 total=118288 latency=6.1s cache=117632/117921 (100%) id=chatcmpl-b47801140e1f6563
+2026-11-05 18:40:20,111 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.01s, 465 chars)
+2026-11-05 18:40:25,278 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #65: model=deepseek-v4.1-flash provider=opencode-go in=118465 out=353 total=118818 latency=5.1s cache=118272/118465 (100%) id=chatcmpl-8b8ac28faae499cc
+2026-11-05 18:40:25,313 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.02s, 495 chars)
+2026-11-05 18:40:29,379 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #66: model=deepseek-v4.1-flash provider=opencode-go in=119009 out=146 total=119155 latency=4.0s cache=118784/119009 (100%) id=chatcmpl-8fa0d2e5c816bab0
+2026-11-05 18:40:29,409 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.02s, 486 chars)
+2026-11-05 18:40:36,978 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #67: model=deepseek-v4.1-flash provider=opencode-go in=119353 out=440 total=119793 latency=7.5s cache=119040/119353 (100%) id=chatcmpl-861f81c22e5c22c3
+2026-11-05 18:40:37,010 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.02s, 328 chars)
+2026-11-05 18:40:48,967 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #68: model=deepseek-v4.1-flash provider=opencode-go in=119928 out=872 total=120800 latency=11.9s cache=119680/119928 (100%) id=chatcmpl-a0f04b3200a09cd2
+2026-11-05 18:40:49,005 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.02s, 328 chars)
+2026-11-05 18:41:01,643 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #69: model=deepseek-v4.1-flash provider=opencode-go in=120931 out=913 total=121844 latency=12.6s cache=120704/120931 (100%) id=chatcmpl-afdce3c4aa1e88ab
+2026-11-05 18:41:01,678 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.02s, 297 chars)
+2026-11-05 18:41:12,732 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #70: model=deepseek-v4.1-flash provider=opencode-go in=121961 out=778 total=122739 latency=11.0s cache=121728/121961 (100%) id=chatcmpl-b23c9e679c0f7b83
+2026-11-05 18:41:12,752 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.01s, 297 chars)
+2026-11-05 18:41:18,237 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #71: model=deepseek-v4.1-flash provider=opencode-go in=122856 out=366 total=123222 latency=5.5s cache=122624/122856 (100%) id=chatcmpl-a589bed11e02383a
+2026-11-05 18:41:18,256 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.01s, 301 chars)
+2026-11-05 18:41:39,819 INFO tools.terminal_tool: Cleaned up inactive environment for task: session:agent:main:local:dm:local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da
+2026-11-05 18:42:07,279 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #72: model=deepseek-v4.1-flash provider=opencode-go in=123343 out=4570 total=127913 latency=49.0s cache=123136/123343 (100%) id=chatcmpl-aa5f59e6bf0441ed
+2026-11-05 18:42:07,306 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.02s, 367 chars)
+2026-11-05 18:42:27,285 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #73: model=deepseek-v4.1-flash provider=opencode-go in=128051 out=1689 total=129740 latency=20.0s cache=127872/128051 (100%) id=chatcmpl-88f125a2904358d5
+2026-11-05 18:42:27,301 INFO tools.terminal_tool: Creating new local environment for task session:...
+2026-11-05 18:42:27,438 INFO tools.environments.base: Session snapshot created (session=1769c30b83bd, cwd=/private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/c3128f98a9e9)
+2026-11-05 18:42:27,438 INFO tools.terminal_tool: local environment ready for task session:
+2026-11-05 18:42:27,545 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool terminal completed (0.25s, 547 chars)
+2026-11-05 18:42:44,900 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #74: model=deepseek-v4.1-flash provider=opencode-go in=130007 out=1504 total=131511 latency=17.3s cache=129664/130007 (100%) id=chatcmpl-b093d76456a8de96
+2026-11-05 18:42:47,715 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.02s, 396 chars)
+2026-11-05 18:42:50,824 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #75: model=deepseek-v4.1-flash provider=opencode-go in=131667 out=215 total=131882 latency=3.1s cache=131456/131667 (100%) id=chatcmpl-a7f3db71a88cee03
+2026-11-05 18:42:50,963 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool terminal completed (0.13s, 131 chars)
+2026-11-05 18:43:03,415 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #76: model=deepseek-v4.1-flash provider=opencode-go in=131940 out=990 total=132930 latency=12.4s cache=131840/131940 (100%) id=chatcmpl-8f6430c5e9a36971
+2026-11-05 18:43:03,473 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.05s, 355 chars)
+2026-11-05 18:43:10,144 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #77: model=deepseek-v4.1-flash provider=opencode-go in=133074 out=486 total=133560 latency=6.6s cache=132864/133074 (100%) id=chatcmpl-930dc3829ca105ad
+2026-11-05 18:43:10,179 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.02s, 661 chars)
+2026-11-05 18:43:15,367 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #78: model=deepseek-v4.1-flash provider=opencode-go in=133787 out=321 total=134108 latency=5.2s cache=133504/133787 (100%) id=chatcmpl-a2572894a96f54cf
+2026-11-05 18:43:15,540 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool terminal completed (0.17s, 849 chars)
+2026-11-05 18:43:46,431 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #79: model=deepseek-v4.1-flash provider=opencode-go in=134449 out=2857 total=137306 latency=30.9s cache=134016/134449 (100%) id=chatcmpl-a0738ad4579fc122
+2026-11-05 18:43:46,472 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.03s, 348 chars)
+2026-11-05 18:43:49,917 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #80: model=deepseek-v4.1-flash provider=opencode-go in=137440 out=127 total=137567 latency=3.4s cache=137216/137440 (100%) id=chatcmpl-90a0c183f6b8c770
+2026-11-05 18:43:49,952 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.02s, 305 chars)
+2026-11-05 18:44:14,277 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #81: model=deepseek-v4.1-flash provider=opencode-go in=137689 out=2235 total=139924 latency=24.3s cache=137472/137689 (100%) id=chatcmpl-aac0b65c0571ce47
+2026-11-05 18:44:14,304 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.02s, 1690 chars)
+2026-11-05 18:44:19,929 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #82: model=deepseek-v4.1-flash provider=opencode-go in=140492 out=282 total=140774 latency=5.6s cache=139904/140492 (100%) id=chatcmpl-a91c503c9f3f26cb
+2026-11-05 18:44:19,964 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.02s, 353 chars)
+2026-11-05 18:44:32,012 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #83: model=deepseek-v4.1-flash provider=opencode-go in=140915 out=1022 total=141937 latency=12.0s cache=140672/140915 (100%) id=chatcmpl-abe56346d3e641d3
+2026-11-05 18:44:32,046 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.02s, 458 chars)
+2026-11-05 18:44:47,220 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #84: model=deepseek-v4.1-flash provider=opencode-go in=142126 out=1291 total=143417 latency=15.1s cache=141824/142126 (100%) id=chatcmpl-8e3b76c6e7e88ecc
+2026-11-05 18:44:47,252 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.02s, 301 chars)
+2026-11-05 18:44:57,153 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #85: model=deepseek-v4.1-flash provider=opencode-go in=143538 out=778 total=144316 latency=9.9s cache=143360/143538 (100%) id=chatcmpl-992b0d48f1d2ca8d
+2026-11-05 18:44:57,211 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.tool_executor: tool execute_code completed (0.02s, 316 chars)
+2026-11-05 18:45:22,546 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: API call #86: model=deepseek-v4.1-flash provider=opencode-go in=144443 out=2348 total=146791 latency=25.3s cache=144256/144443 (100%) id=chatcmpl-a189a6b5270e54bd
+2026-11-05 18:45:22,559 INFO [local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da] agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash api_calls=86/9223372036854775807 budget=11/9223372036854775807 tool_turns=85 last_msg_role=assistant response_len=380 session=local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da
+2026-11-05 18:45:22,579 INFO gateway.run: response ready: platform=local chat=local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da session=agent:main:local:dm:local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da time=1073.7s api_calls=86 response=380 chars
+2026-11-05 18:45:22,818 INFO gateway.platforms.base: [Local] Sending response (380 chars) to local-30e01d88f41e375fa6b8b07bf5965daff9d2324dfa650dbb5dc2b2b1759396da
+2026-11-05 18:45:22,857 INFO tui_gateway.ws: ws closed peer=127.0.0.1:52392 reason=client_disconnect(code=1000,reason=) messages=4 parse_errors=0 dispatch_crashes=0 send_failures=0 reaped_sessions=0 detached_sessions=0

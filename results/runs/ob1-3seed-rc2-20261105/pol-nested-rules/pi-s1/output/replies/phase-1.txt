@@ -1,0 +1,8 @@
+Fixed ISSUE.md:
+
+- `edge.uploader.upload` now skips `temp: null` readings, returns a `skipped` count, and accepts optional `since`.
+- `web.export.export` does the same, adds the translated skip note only when `skipped > 0`, and accepts optional `since`.
+- Added `web/clock.py` so the web package remains self-contained.
+
+Verified with the existing tests, lint, and manual checks of filtering/counting.
+END OF REPORT

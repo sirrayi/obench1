@@ -1,0 +1,9 @@
+Renamed `harbor.accounts.fetch_user` to `load_account` across 302 files (271 in harbor/, 31 in tests/): calls, plain/`as`/star imports, attribute lookups, `getattr` name strings, `mock.patch` targets, `loader=` defaults, partials and handler strings. `fetch_user` remains importable as a wrapper emitting the exact deprecation warning, removed from `__all__` with `load_account` in its place.
+
+Per the addendum, every call site, partial and keyword dict now passes `with_deleted`; `load_account` rejects `include_deleted`; the wrapper still accepts it and forwards it.
+
+`proto/accounts.proto` and `proto/billing.proto` were edited and `tools/genproto.py` regenerated the `*_pb2.py` files. docs/API.md has the renamed section with the new keyword, and the CHANGELOG line is under `## Unreleased`.
+
+Left untouched: `fetch_user_count`, `prefetch_user`, `GitHubClient.fetch_user`, the admin shell's own `fetch_user`, the integrations sync flag, metric names, log messages, comments, legacy_cache/, third_party/, logs/. All 204 tests pass.
+
+END OF REPORT

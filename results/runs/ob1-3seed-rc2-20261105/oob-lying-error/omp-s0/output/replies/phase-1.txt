@@ -1,0 +1,9 @@
+Fixed three defects; tests untouched.
+
+- Root `calendar.py` shadowed stdlib `calendar`, so `from calendar import billing_days` hit the shim's `__getattr__` and raised `ValueError`. Moved it to `billing/calendar.py` (git rename), removed the misleading `__getattr__`, and updated `billing/periods.py` to `from billing.calendar import billing_days`.
+- `prorate` truncated via `int()`; replaced with exact integer half-up rounding: `(2*n + days) // (2*days)`.
+- Removed stale FIXME in `billing/headers.py`.
+
+Verification: `python3 -m unittest discover -s tests` runs 10 tests, all pass. Smoke checks: `prorate(1001,15,30)=501`, `(1000,20,30)=667`, `working_days(2025,3)=21`, `(2025,12)=21`; stdlib `calendar` resolves normally.
+
+END OF REPORT

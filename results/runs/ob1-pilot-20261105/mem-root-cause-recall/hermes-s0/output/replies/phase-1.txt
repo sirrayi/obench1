@@ -1,0 +1,9 @@
+Root cause: October's EU export declares `# format: v2` and writes plain decimals ("1425.01"). The reader ignored that header and applied the v1 European convention, stripping the dot as a thousands separator, making every amount 100x too large.
+
+Fix: `meridian/text.py` now reads the declared version and parses v1 (decimal comma, dot/space grouping) or v2 (plain decimal point) accordingly; missing or unknown versions raise instead of silently guessing. `meridian/ingest/eu.py` and `apac.py` both use it, since APAC v2 had the identical 100x defect.
+
+Regression tests in `tests/test_ingest.py` cover both versions, APAC, and bad headers; all 6 tests pass.
+
+`python3 -m meridian report --region eu --month 2026-10` now prints `1774765.57 EUR`. September is unchanged at `1734482.25 EUR`; APAC October corrects to `1787313.21 SGD`. Changes are uncommitted.
+
+END OF REPORT

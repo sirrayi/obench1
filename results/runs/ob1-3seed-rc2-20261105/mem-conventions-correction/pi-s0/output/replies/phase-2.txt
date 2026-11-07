@@ -1,0 +1,3 @@
+Added `tally top N`, backed by `report.top()` in `tally/report.py`. Output is `<date> <amount> <category>`, largest first with amounts to 2 decimals; ties use the earlier date. Updated `README.md` and added CLI/report tests covering ordering, ties, and zero counts. All 9 tests pass.
+
+END OF REPORT

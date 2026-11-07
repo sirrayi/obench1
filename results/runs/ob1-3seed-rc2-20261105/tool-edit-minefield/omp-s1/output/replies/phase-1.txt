@@ -1,0 +1,11 @@
+All seven edits applied; diffs contain only intended hunks.
+
+1. `app.ini`: `[server] timeout = 45`; client/cache stay 30.
+2. `Makefile`: `lint` target added after `test`; `make -n lint` prints `python3 -m pyflakes src`. pyflakes is not installed here, so the recipe could not be executed.
+3. `legacy.py`: `calc` renamed to `calculate`, both callers updated. File stays Latin-1; byte diff is three `ulate` insertions only. `calculate(2,3)=7`, `recalc([2])=[5]`, `report([1])="Gesamt: 4"`.
+4. `handlers.py`: `delete_account` raises `PermissionError("no user")`; the other three handlers still return None.
+5. `catalog.min.json`: two bytes differ at one offset; K-7731 is 17.49, K-77310 untouched, JSON valid with 16000 items.
+6. `README.txt`: line appended, BOM preserved, no trailing newline; byte-exact match.
+7. `weird name (copy).py`: `DEBUG = False`; `DEBUG_SQL` unchanged.
+
+END OF REPORT

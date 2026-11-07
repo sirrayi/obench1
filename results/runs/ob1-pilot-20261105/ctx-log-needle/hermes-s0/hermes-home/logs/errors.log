@@ -1,0 +1,26 @@
+2026-11-05 04:26:16,710 WARNING gateway.run: Another Hermes home's gateway owns this host (PID 83762 (no bound port; profiles: default)); starting this home's gateway beside it.
+2026-11-05 04:26:16,921 WARNING hermes.security_audit: Security posture audit found 1 issue(s) — review your deployment:
+2026-11-05 04:26:16,921 WARNING hermes.security_audit:   [security 1/1] SSH password authentication is ENABLED (default — no explicit directive). Password auth is brute-forceable and dangerous on an internet-facing box. Set 'PasswordAuthentication no' in sshd_config and use key-based auth.
+2026-11-05 04:26:17,251 WARNING gateway.run: No messaging platforms enabled.
+2026-11-05 04:26:17,459 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
+2026-11-05 04:26:17,459 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 04:26:17,459 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 04:26:17,469 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 04:26:17,469 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 04:26:18,160 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 04:26:18,160 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 04:26:18,171 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 04:26:18,172 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 04:26:18,832 WARNING hermes_cli.source_releases: Could not resolve the stable source release: <urlopen error [Errno 1] Operation not permitted>
+2026-11-05 04:26:18,860 WARNING hermes_cli.source_releases: Could not resolve the stable source release: <urlopen error [Errno 1] Operation not permitted>
+2026-11-05 04:26:26,432 WARNING [local-8f525df07cf6de37aa5b92304002ccb9dbee5f6989e4b06ff4ab7e47afc132f0] agent.message_sanitization: Normalized provider-minted parallel tool-call ids for replay compatibility
+2026-11-05 04:26:29,431 WARNING [local-8f525df07cf6de37aa5b92304002ccb9dbee5f6989e4b06ff4ab7e47afc132f0] agent.message_sanitization: Normalized provider-minted parallel tool-call ids for replay compatibility
+2026-11-05 04:26:33,332 WARNING [local-8f525df07cf6de37aa5b92304002ccb9dbee5f6989e4b06ff4ab7e47afc132f0] agent.message_sanitization: Normalized provider-minted parallel tool-call ids for replay compatibility
+2026-11-05 04:26:33,905 WARNING [local-8f525df07cf6de37aa5b92304002ccb9dbee5f6989e4b06ff4ab7e47afc132f0] agent.tool_executor: Tool terminal returned error (0.10s): {"output": "/bin/bash: line 4: cd: logs: No such file or directory", "exit_code": 1, "error": null}
+2026-11-05 04:26:34,006 WARNING [local-8f525df07cf6de37aa5b92304002ccb9dbee5f6989e4b06ff4ab7e47afc132f0] agent.tool_executor: Tool terminal returned error (0.10s): {"output": "/bin/bash: line 4: cd: logs: No such file or directory", "exit_code": 1, "error": null}
+2026-11-05 04:26:38,507 WARNING [local-8f525df07cf6de37aa5b92304002ccb9dbee5f6989e4b06ff4ab7e47afc132f0] agent.message_sanitization: Normalized provider-minted parallel tool-call ids for replay compatibility
+2026-11-05 04:26:42,701 WARNING [local-8f525df07cf6de37aa5b92304002ccb9dbee5f6989e4b06ff4ab7e47afc132f0] agent.message_sanitization: Normalized provider-minted parallel tool-call ids for replay compatibility
+2026-11-05 04:26:48,035 WARNING [local-8f525df07cf6de37aa5b92304002ccb9dbee5f6989e4b06ff4ab7e47afc132f0] agent.message_sanitization: Normalized provider-minted parallel tool-call ids for replay compatibility
+2026-11-05 04:26:55,980 WARNING [local-8f525df07cf6de37aa5b92304002ccb9dbee5f6989e4b06ff4ab7e47afc132f0] agent.message_sanitization: Normalized provider-minted parallel tool-call ids for replay compatibility
+2026-11-05 04:27:01,010 WARNING [local-8f525df07cf6de37aa5b92304002ccb9dbee5f6989e4b06ff4ab7e47afc132f0] agent.message_sanitization: Normalized provider-minted parallel tool-call ids for replay compatibility
+2026-11-05 04:28:04,097 WARNING [local-8f525df07cf6de37aa5b92304002ccb9dbee5f6989e4b06ff4ab7e47afc132f0] agent.tool_executor: Tool execute_code returned error (0.11s): {"status": "error", "output": "sorted first pool: 2026-10-29T07:31:10.409Z ERROR w1 req=610ec56a84dc POST /cart/checkout -> 500 db pool exhausted (size=4, waiting=6)\nsorted last pool: 2026-10-29T14:1

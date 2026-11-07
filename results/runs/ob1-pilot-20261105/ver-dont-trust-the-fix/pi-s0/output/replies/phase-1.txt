@@ -1,0 +1,3 @@
+Wrote `VERDICT.md`. Verdict: don't merge. The branch's new test passes and catches the basic LF newline bug, but the issue's Windows-CRLF repro fails: fields retain trailing `\r` characters and closing quotes. The expected note is not produced, and the test also asserts incorrect quoted-comma splitting.
+
+END OF REPORT

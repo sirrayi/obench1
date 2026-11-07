@@ -1,0 +1,5 @@
+Verified with the pre-fix code (792a09a checked out): `report --region apac --month 2026-10` printed exactly `178731321.00 SGD`. Cause is the 100x one: October exports declare `# format: v2` (plain decimal point), and the old readers stripped dots as thousands separators, so `2641.49` became `264149`. That parsing fix already landed in 9674218, so at HEAD the command prints `1787313.21 SGD`, matching finance; September is unchanged at `1784764.94 SGD`.
+
+The gap was test coverage over the real exports, so I added tests/test_report.py, which totals feeds/apac for both months and pins those two figures. It fails on the pre-fix code with `Decimal('178731321.00')` and passes now; full suite is 14 tests, all OK. Committed as a2054a6. No production code change was needed.
+
+END OF REPORT

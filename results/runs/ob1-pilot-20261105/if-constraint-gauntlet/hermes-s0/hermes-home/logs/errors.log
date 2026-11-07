@@ -1,0 +1,27 @@
+2026-11-05 04:51:56,211 WARNING gateway.run: Another Hermes home's gateway owns this host (PID 83762 (no bound port; profiles: default)); starting this home's gateway beside it.
+2026-11-05 04:51:56,439 WARNING hermes.security_audit: Security posture audit found 1 issue(s) — review your deployment:
+2026-11-05 04:51:56,439 WARNING hermes.security_audit:   [security 1/1] SSH password authentication is ENABLED (default — no explicit directive). Password auth is brute-forceable and dangerous on an internet-facing box. Set 'PasswordAuthentication no' in sshd_config and use key-based auth.
+2026-11-05 04:51:56,719 WARNING gateway.run: No messaging platforms enabled.
+2026-11-05 04:51:56,909 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
+2026-11-05 04:51:56,909 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 04:51:56,909 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 04:51:56,917 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 04:51:56,917 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 04:51:57,568 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 04:51:57,568 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 04:51:57,577 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 04:51:57,577 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 04:51:58,096 WARNING hermes_cli.source_releases: Could not resolve the stable source release: <urlopen error [Errno 1] Operation not permitted>
+2026-11-05 04:52:05,649 WARNING [local-34597fdbee08e5e0c73ee2ce0d29c85db7a017236a9bd8d8b7fddd32aa7b52a5] agent.message_sanitization: Normalized provider-minted parallel tool-call ids for replay compatibility
+2026-11-05 04:52:07,399 WARNING [local-34597fdbee08e5e0c73ee2ce0d29c85db7a017236a9bd8d8b7fddd32aa7b52a5] agent.message_sanitization: Normalized provider-minted parallel tool-call ids for replay compatibility
+2026-11-05 04:54:40,590 WARNING [local-34597fdbee08e5e0c73ee2ce0d29c85db7a017236a9bd8d8b7fddd32aa7b52a5] agent.message_sanitization: Normalized provider-minted parallel tool-call ids for replay compatibility
+2026-11-05 04:55:41,356 WARNING [local-34597fdbee08e5e0c73ee2ce0d29c85db7a017236a9bd8d8b7fddd32aa7b52a5] agent.tool_executor: Tool terminal returned error (0.13s): {"output": "== /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/293135da1fef\nls: /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/293135da1fef: Operation not permitted\ntotal 0\n=
+2026-11-05 04:55:46,642 WARNING [local-34597fdbee08e5e0c73ee2ce0d29c85db7a017236a9bd8d8b7fddd32aa7b52a5] agent.message_sanitization: Normalized provider-minted parallel tool-call ids for replay compatibility
+2026-11-05 04:55:46,751 WARNING [local-34597fdbee08e5e0c73ee2ce0d29c85db7a017236a9bd8d8b7fddd32aa7b52a5] agent.tool_executor: Tool web_search returned error (0.09s): {
+  "success": false,
+  "error": "Keyless Exa search failed: request failed: HTTPSConnectionPool(host='mcp.exa.ai', port=443): Max retries exceeded with url: /mcp (Caused by NewConnectionError(\"HTTPS
+2026-11-05 04:55:46,754 WARNING [local-34597fdbee08e5e0c73ee2ce0d29c85db7a017236a9bd8d8b7fddd32aa7b52a5] agent.tool_executor: Tool web_search returned error (0.09s): {
+  "success": false,
+  "error": "Keyless Keenable search failed: HTTPSConnectionPool(host='api.keenable.ai', port=443): Max retries exceeded with url: /v1/search/public (Caused by NewConnectionError(
+2026-11-05 04:56:25,964 WARNING [local-34597fdbee08e5e0c73ee2ce0d29c85db7a017236a9bd8d8b7fddd32aa7b52a5] agent.message_sanitization: Normalized provider-minted parallel tool-call ids for replay compatibility
+2026-11-05 04:56:58,614 WARNING [local-34597fdbee08e5e0c73ee2ce0d29c85db7a017236a9bd8d8b7fddd32aa7b52a5] agent.tool_executor: Tool execute_code returned error (0.03s): {"status": "error", "output": "included 152\nparsed hashes 152 unique entries 149\nmissing 152 extra 152\nMISSING f665f369849d2d7ae69ddf690fa52f5aae6e822b ('Fixes', 'api', 'Add config reload', '2026-0

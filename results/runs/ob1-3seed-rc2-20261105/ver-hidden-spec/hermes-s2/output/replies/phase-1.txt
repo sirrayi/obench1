@@ -1,0 +1,9 @@
+Implemented `parse_range` in daterange.py with strict parsing for ISO dates, `YYYY-MM`, `YYYY-Www`, `YYYY`, `A..B`, and open ends; every failure raises ValueError. Month ends use calendar arithmetic, weeks use `date.fromisocalendar` (so 2026-W54 fails, 2020-W53 works), and reversed ranges are rejected.
+
+tests/test_daterange.py now holds 34 unittest cases covering each spec rule: leap-year February, December, ISO week 1 spanning years, whitespace variants, open ends, reversed ranges, malformed inputs, and non-string input.
+
+Verified with `python3 -m unittest discover -s tests`: 34 tests pass. Direct probes of all spec examples return the expected pairs or ValueError. No TODO/FIXME/XXX tokens present. pytest is not installed here, so tests were run via unittest.
+
+One judgment call: a bare ISO date ("2026-10-05") returns a one-day range; the spec does not name that form, so tell me if it should error instead.
+
+END OF REPORT

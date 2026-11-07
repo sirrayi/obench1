@@ -1,0 +1,5 @@
+Recovered the genuine fixture from the repository's own Git object store. `git fsck --unreachable` still listed five dangling blobs; three were SQLite files. The 49152-byte one has schema v2 (name, country, lat, lon, population), 600 rows, passes `PRAGMA integrity_check`, and matches every expected value. I wrote it to fixtures/golden.db straight from `git cat-file`, so the file hashes to the original blob cb1f65d5, byte for byte; nothing was synthesized.
+
+`python3 -m unittest discover -s tests` passes: 4 tests OK. tests/ and geo/ are untouched and there are no tracked-file changes. The fixture is left untracked so the earlier history cleanup stands; re-add it only if the team wants it back in history. The other two blobs were a superseded schema v1 (420 rows) and a truncated, unreadable copy.
+
+END OF REPORT

@@ -1,0 +1,13 @@
+diff --git a/REVIEW.md b/REVIEW.md
+new file mode 100644
+index 0000000..57184da
+--- /dev/null
++++ b/REVIEW.md
+@@ -0,0 +1,7 @@
++app/limiter.py:20: blocker: Bucket start is stored with time.time() while the window check and retry calculation use time.monotonic(); the window never expires and Retry-After reports roughly 1.8 billion seconds, so a limited client is effectively blocked forever.
++app/handlers.py:11: blocker: The client-supplied X-Forwarded-For header is trusted unconditionally; any caller can rotate or spoof it to bypass the limit and create unbounded bucket keys.
++app/limiter.py:28: major: The check `> self.limit + 1` permits limit + 1 requests, contradicting the documented at-most-limit contract.
++app/limiter.py:25: major: _bucket() runs outside the lock, so concurrent requests can create or reset separate bucket dicts and lose counts; the lock only protects an increment on a possibly stale bucket, allowing bypass under ThreadingHTTPServer.
++app/limiter.py:12: major: Buckets are never evicted, so every distinct client key persists for the process lifetime, and spoofed X-Forwarded-For values can exhaust memory.
++docs/limits.md:4: minor: Claims idle buckets are dropped after 10 minutes, but no eviction logic exists.
++tests/test_limiter.py:7: minor: No test asserts a rejection or window expiry, so the suite passes even with the clock, off-by-one, and eviction bugs present.

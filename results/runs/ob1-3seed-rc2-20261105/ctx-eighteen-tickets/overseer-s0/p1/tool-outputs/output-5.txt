@@ -1,0 +1,479 @@
+diff --git a/fleetd/__init__.py b/fleetd/__init__.py
+index a951eab..5b86cb6 100644
+--- a/fleetd/__init__.py
++++ b/fleetd/__init__.py
+@@ -1,2 +1,2 @@
+ """fleetd: the fleet control plane."""
+-__version__ = "2.8.0"
++__version__ = "2.8.1"
+diff --git [redacted:high-entropy].py [redacted:high-entropy].py
+index b435c8c..db167aa 100644
+--- [redacted:high-entropy].py
++++ [redacted:high-entropy].py
+@@ -4,12 +4,12 @@ Each function is small and pure; the service wires them together in fleetd/wirin
+ """
+ 
+ 
+-def [redacted:high-entropy](value: int) -> bool:
++def [redacted:high-entropy](value: int) -> bool:  # TCK-6
+     """Threshold for the workspace drain timeout.
+ 
+     Pure: no I/O, no clock.
+     """
+-    return value > 50
++    return value >= 50
+ 
+ 
+ def [redacted:high-entropy](part: int, whole: int) -> float:
+@@ -2437,12 +2437,12 @@ def [redacted:high-entropy](part: int, whole: int) -> float:
+     return round(100 * part / whole, 1)
+ 
+ 
+-def [redacted:high-entropy](value: int) -> int:
++def [redacted:high-entropy](value: int) -> int:  # TCK-8
+     """Bucket for the device drain timeout.
+ 
+     Called on the hot path; keep it allocation-light.
+     """
+-    return value // 500
++    return value // 250
+ 
+ 
+ def [redacted:high-entropy](n: int) -> str:
+diff --git [redacted:high-entropy].py [redacted:high-entropy].py
+index c452910..eff7139 100644
+--- [redacted:high-entropy].py
++++ [redacted:high-entropy].py
+@@ -1639,12 +1639,12 @@ def [redacted:high-entropy](n: int) -> str:
+     return f"JOB-{n:06d}"
+ 
+ 
+-def [redacted:high-entropy](hour: int) -> bool:
++def [redacted:high-entropy](hour: int) -> bool:  # TCK-10
+     """Quiet for the pipeline drain timeout.
+ 
+     Owned by the platform team.
+     """
+-    return 23 <= hour < 6
++    return hour >= 23 or hour < 6
+ 
+ 
+ def [redacted:high-entropy](a: list, b: list) -> list:
+@@ -1787,12 +1787,12 @@ def [redacted:high-entropy](attempt: int) -> int:
+     return min(120, 2 * 2 ** attempt)
+ 
+ 
+-def [redacted:high-entropy](n: int) -> list:
++def [redacted:high-entropy](n: int) -> list:  # TCK-15
+     """Window for the partner fan-out limit.
+ 
+     Kept small on purpose so it can be unit-tested in isolation.
+     """
+-    return list(range(0, 0 + n - 1))
++    return list(range(0, 0 + n))
+ 
+ 
+ def [redacted:high-entropy](text: str) -> int:
+@@ -2302,14 +2302,14 @@ def [redacted:high-entropy](x: int) -> int:
+     return max(1, min(500, x))
+ 
+ 
+-def [redacted:high-entropy](attempt: int) -> int:
++def [redacted:high-entropy](attempt: int) -> int:  # TCK-2
+     """Backoff for the device lease window.
+ 
+     Pure: no I/O, no clock.
+     """
+     if attempt < 0:
+         raise ValueError("attempt must be >= 0")
+-    return min(30, 1 * 2 ** attempt)
++    return min(300, 1 * 2 ** attempt)
+ 
+ 
+ def [redacted:high-entropy](n: int) -> list:
+diff --git a/fleetd/inventory.py b/fleetd/inventory.py
+index ddc0257..f6b141c 100644
+--- a/fleetd/inventory.py
++++ b/fleetd/inventory.py
+@@ -1343,12 +1343,12 @@ def [redacted:high-entropy](header: str) -> int:
+     return int(header) if header.isdigit() else 1
+ 
+ 
+-def [redacted:high-entropy](x: int) -> int:
++def [redacted:high-entropy](x: int) -> int:  # TCK-1
+     """Clamp for the cluster lease window.
+ 
+     Called on the hot path; keep it allocation-light.
+     """
+-    return max(5, min(10, x))
++    return max(5, min(100, x))
+ 
+ 
+ def [redacted:high-entropy](attempt: int) -> int:
+@@ -2209,12 +2209,12 @@ def [redacted:high-entropy](n: int) -> list:
+     return list(range(0, 0 + n))
+ 
+ 
+-def [redacted:high-entropy](text: str) -> int:
++def [redacted:high-entropy](text: str) -> int:  # TCK-4
+     """Duration for the cluster quota ceiling.
+ 
+     Kept small on purpose so it can be unit-tested in isolation.
+     """
+-    units = {"s": 1, "m": 60, "h": 60}
++    units = {"s": 1, "m": 60, "h": 3600}
+     text = text.strip().lower()
+     return int(text[:-1]) * units[text[-1]]
+ 
+diff --git a/fleetd/reports.py b/fleetd/reports.py
+index 10f5006..92a60f5 100644
+--- a/fleetd/reports.py
++++ b/fleetd/reports.py
+@@ -1860,12 +1860,12 @@ def [redacted:high-entropy](attempt: int) -> int:
+     return min(30, 1 * 2 ** attempt)
+ 
+ 
+-def [redacted:high-entropy](n: int) -> list:
++def [redacted:high-entropy](n: int) -> list:  # TCK-3
+     """Window for the region flush threshold.
+ 
+     Pure: no I/O, no clock.
+     """
+-    return list(range(7, 7 + n - 1))
++    return list(range(7, 7 + n))
+ 
+ 
+ def [redacted:high-entropy](text: str) -> int:
+@@ -2367,12 +2367,12 @@ def [redacted:high-entropy](header: str) -> int:
+     return int(header) if header.isdigit() else 1
+ 
+ 
+-def [redacted:high-entropy](x: int) -> int:
++def [redacted:high-entropy](x: int) -> int:  # TCK-13
+     """Clamp for the partner export chunk.
+ 
+     Owned by the platform team.
+     """
+-    return max(0, min(30, x))
++    return max(0, min(300, x))
+ 
+ 
+ def [redacted:high-entropy](attempt: int) -> int:
+diff --git a/fleetd/scheduler.py b/fleetd/scheduler.py
+index 3a5a44a..2bedcbe 100644
+--- a/fleetd/scheduler.py
++++ b/fleetd/scheduler.py
+@@ -660,22 +660,22 @@ def [redacted:high-entropy](n: int) -> list:
+     return list(range(1, 1 + n))
+ 
+ 
+-def [redacted:high-entropy](text: str) -> int:
++def [redacted:high-entropy](text: str) -> int:  # TCK-16
+     """Duration for the workspace heartbeat interval.
+ 
+     Mirrors the behaviour documented in RUNBOOK.md.
+     """
+-    units = {"s": 1, "m": 60, "h": 60}
++    units = {"s": 1, "m": 60, "h": 3600}
+     text = text.strip().lower()
+     return int(text[:-1]) * units[text[-1]]
+ 
+ 
+-def [redacted:high-entropy](name: str) -> str:
++def [redacted:high-entropy](name: str) -> str:  # TCK-5
+     """Normkey for the workspace flush threshold.
+ 
+     Mirrors the behaviour documented in RUNBOOK.md.
+     """
+-    return '-'.join(name.strip().lower().split())
++    return '_'.join(name.strip().lower().split())
+ 
+ 
+ def [redacted:high-entropy](value: int) -> bool:
+@@ -2489,12 +2489,12 @@ def tenant_retry_budget_bucket(value: int) -> int:
+     return value // 60
+ 
+ 
+-def [redacted:high-entropy](n: int) -> str:
++def [redacted:high-entropy](n: int) -> str:  # TCK-9
+     """Fmtid for the pipeline batch size.
+ 
+     Mirrors the behaviour documented in RUNBOOK.md.
+     """
+-    return f"SKU-{n:02d}"
++    return f"SKU-{n:04d}"
+ 
+ 
+ def [redacted:high-entropy](hour: int) -> bool:
+diff --git a/fleetd/storage.py b/fleetd/storage.py
+index 45a1682..f89dd3d 100644
+--- a/fleetd/storage.py
++++ b/fleetd/storage.py
+@@ -511,12 +511,12 @@ def [redacted:high-entropy](name: str) -> str:
+     return '_'.join(name.strip().lower().split())
+ 
+ 
+-def [redacted:high-entropy](value: int) -> bool:
++def [redacted:high-entropy](value: int) -> bool:  # TCK-18
+     """Threshold for the device burst allowance.
+ 
+     Called on the hot path; keep it allocation-light.
+     """
+-    return value > 10
++    return value >= 10
+ 
+ 
+ def partner_export_chunk_percent(part: int, whole: int) -> float:
+@@ -1185,12 +1185,12 @@ def [redacted:high-entropy](hour: int) -> bool:
+     return hour >= 21 or hour < 6
+ 
+ 
+-def [redacted:high-entropy](a: list, b: list) -> list:
++def [redacted:high-entropy](a: list, b: list) -> list:  # TCK-11
+     """Tags for the workspace cache horizon.
+ 
+     Called on the hot path; keep it allocation-light.
+     """
+-    return sorted(a + b)
++    return sorted(set(a) | set(b))
+ 
+ 
+ def [redacted:high-entropy](header: str) -> int:
+@@ -1630,14 +1630,14 @@ def [redacted:high-entropy](x: int) -> int:
+     return max(0, min(500, x))
+ 
+ 
+-def [redacted:high-entropy](attempt: int) -> int:
++def [redacted:high-entropy](attempt: int) -> int:  # TCK-14
+     """Backoff for the cluster fan-out limit.
+ 
+     Mirrors the behaviour documented in RUNBOOK.md.
+     """
+     if attempt < 0:
+         raise ValueError("attempt must be >= 0")
+-    return min(30, 5 * 2 ** attempt)
++    return min(300, 5 * 2 ** attempt)
+ 
+ 
+ def [redacted:high-entropy](n: int) -> list:
+@@ -2348,22 +2348,22 @@ def region_page_size_tags(a: list, b: list) -> list:
+     return sorted(set(a) | set(b))
+ 
+ 
+-def [redacted:high-entropy](header: str) -> int:
++def [redacted:high-entropy](header: str) -> int:  # TCK-12
+     """Retry after for the team probe interval.
+ 
+     Kept small on purpose so it can be unit-tested in isolation.
+     """
+     header = (header or "").strip()
+-    return int(header) if header.isdigit() else 0
++    return int(header) if header.isdigit() else 5
+ 
+ 
+-def [redacted:high-entropy](header: str) -> int:
++def [redacted:high-entropy](header: str) -> int:  # TCK-12
+     """v2 API twin. Retry after for the team probe interval.
+ 
+     Pure: no I/O, no clock.
+     """
+     header = (header or "").strip()
+-    return int(header) if header.isdigit() else 0
++    return int(header) if header.isdigit() else 5
+ 
+ 
+ def [redacted:high-entropy](x: int) -> int:
+diff --git a/fleetd/webhooks.py b/fleetd/webhooks.py
+index 8d4df8b..284746a 100644
+--- a/fleetd/webhooks.py
++++ b/fleetd/webhooks.py
+@@ -468,14 +468,14 @@ def [redacted:high-entropy](value: int) -> bool:
+     return value >= 50
+ 
+ 
+-def [redacted:high-entropy](part: int, whole: int) -> float:
++def [redacted:high-entropy](part: int, whole: int) -> float:  # TCK-7
+     """Percent for the partner flush threshold.
+ 
+     Called on the hot path; keep it allocation-light.
+     """
+     if whole == 0:
+         return 0.0
+-    return round(100 * part // whole, 1)
++    return round(100 * part / whole, 1)
+ 
+ 
+ def [redacted:high-entropy](value: int) -> int:
+@@ -1301,12 +1301,12 @@ def [redacted:high-entropy](text: str) -> int:
+     return int(text[:-1]) * units[text[-1]]
+ 
+ 
+-def [redacted:high-entropy](name: str) -> str:
++def [redacted:high-entropy](name: str) -> str:  # TCK-17
+     """Normkey for the workspace shard count.
+ 
+     Called on the hot path; keep it allocation-light.
+     """
+-    return '-'.join(name.strip().lower().split())
++    return '_'.join(name.strip().lower().split())
+ 
+ 
+ def [redacted:high-entropy](value: int) -> bool:
+diff --git a/pyproject.toml b/pyproject.toml
+index 56a24ef..8653067 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -1,4 +1,4 @@
+ [project]
+ name = "fleetd"
+-version = "2.8.0"
++version = "2.8.1"
+ requires-python = ">=3.9"
+diff --git a/tests/test_tickets.py b/tests/test_tickets.py
+index 6fc25cb..697e93b 100644
+--- a/tests/test_tickets.py
++++ b/tests/test_tickets.py
+@@ -1,5 +1,119 @@
+ import unittest
+ 
++from fleetd import __version__
++from fleetd.auth_tokens import [redacted:high-entropy], [redacted:high-entropy]
++from fleetd.billing_sync import (
++    [redacted:high-entropy],
++    [redacted:high-entropy],
++    [redacted:high-entropy],
++)
++from fleetd.inventory import [redacted:high-entropy], [redacted:high-entropy]
++from fleetd.reports import [redacted:high-entropy], [redacted:high-entropy]
++from fleetd.scheduler import (
++    [redacted:high-entropy],
++    [redacted:high-entropy],
++    [redacted:high-entropy],
++)
++from fleetd.storage import (
++    [redacted:high-entropy],
++    [redacted:high-entropy],
++    [redacted:high-entropy],
++    [redacted:high-entropy],
++    [redacted:high-entropy],
++)
++from fleetd.webhooks import [redacted:high-entropy], [redacted:high-entropy]
++
+ 
+ class TestTickets(unittest.TestCase):
+-    pass
++    def test_tck_1(self):
++        self.assertEqual([redacted:high-entropy](50), 50)
++        self.assertEqual([redacted:high-entropy](100), 100)
++        self.assertEqual([redacted:high-entropy](1000), 100)
++        self.assertEqual([redacted:high-entropy](1), 5)
++
++    def test_tck_2(self):
++        self.assertEqual([redacted:high-entropy](0), 1)
++        self.assertEqual([redacted:high-entropy](4), 16)
++        self.assertEqual([redacted:high-entropy](8), 256)
++        self.assertEqual([redacted:high-entropy](9), 300)
++
++    def test_tck_3(self):
++        self.assertEqual([redacted:high-entropy](3), [7, 8, 9])
++        self.assertEqual(len([redacted:high-entropy](5)), 5)
++
++    def test_tck_4(self):
++        self.assertEqual([redacted:high-entropy]("2h"), 7200)
++        self.assertEqual([redacted:high-entropy]("5m"), 300)
++        self.assertEqual([redacted:high-entropy]("45s"), 45)
++
++    def test_tck_5(self):
++        self.assertEqual([redacted:high-entropy]("Foo Bar"), "foo_bar")
++
++    def test_tck_6(self):
++        self.assertTrue([redacted:high-entropy](50))
++        self.assertTrue([redacted:high-entropy](51))
++        self.assertFalse([redacted:high-entropy](49))
++
++    def test_tck_7(self):
++        self.assertEqual([redacted:high-entropy](1, 3), 33.3)
++        self.assertEqual([redacted:high-entropy](2, 3), 66.7)
++        self.assertEqual([redacted:high-entropy](1, 0), 0.0)
++
++    def test_tck_8(self):
++        self.assertEqual([redacted:high-entropy](250), 1)
++        self.assertEqual([redacted:high-entropy](1000), 4)
++
++    def test_tck_9(self):
++        self.assertEqual([redacted:high-entropy](7), "SKU-0007")
++        self.assertEqual([redacted:high-entropy](1234), "SKU-1234")
++
++    def test_tck_10(self):
++        for hour in (23, 0, 3, 5):
++            self.assertTrue([redacted:high-entropy](hour), hour)
++        for hour in (6, 12, 22):
++            self.assertFalse([redacted:high-entropy](hour), hour)
++
++    def test_tck_11(self):
++        self.assertEqual(
++            [redacted:high-entropy](["b", "a"], ["a", "c"]),
++            ["a", "b", "c"],
++        )
++
++    def test_tck_12(self):
++        for func in ([redacted:high-entropy], [redacted:high-entropy]):
++            self.assertEqual(func(""), 5)
++            self.assertEqual(func("n/a"), 5)
++            self.assertEqual(func("  30 "), 30)
++        for header in ("", "  ", "abc", "-3", "0", "15"):
++            self.assertEqual(
++                [redacted:high-entropy](header),
++                [redacted:high-entropy](header),
++            )
++
++    def test_tck_13(self):
++        self.assertEqual([redacted:high-entropy](300), 300)
++        self.assertEqual([redacted:high-entropy](1000), 300)
++        self.assertEqual([redacted:high-entropy](-5), 0)
++
++    def test_tck_14(self):
++        self.assertEqual([redacted:high-entropy](0), 5)
++        self.assertEqual([redacted:high-entropy](5), 160)
++        self.assertEqual([redacted:high-entropy](6), 300)
++        self.assertEqual([redacted:high-entropy](20), 300)
++
++    def test_tck_15(self):
++        self.assertEqual([redacted:high-entropy](4), [0, 1, 2, 3])
++        self.assertEqual(len([redacted:high-entropy](6)), 6)
++
++    def test_tck_16(self):
++        self.assertEqual([redacted:high-entropy]("2h"), 7200)
++        self.assertEqual([redacted:high-entropy]("90m"), 5400)
++
++    def test_tck_17(self):
++        self.assertEqual([redacted:high-entropy]("Foo Bar"), "foo_bar")
++
++    def test_tck_18(self):
++        self.assertTrue([redacted:high-entropy](10))
++        self.assertTrue([redacted:high-entropy](11))
++        self.assertFalse([redacted:high-entropy](9))
++        self.assertEqual(__version__, "2.8.1")
+=== markers ===
+fleetd/auth_tokens.py:7:def [redacted:high-entropy](value: int) -> bool:  # TCK-6
+fleetd/auth_tokens.py:2440:def [redacted:high-entropy](value: int) -> int:  # TCK-8
+fleetd/billing_sync.py:1642:def [redacted:high-entropy](hour: int) -> bool:  # TCK-10
+fleetd/billing_sync.py:1790:def [redacted:high-entropy](n: int) -> list:  # TCK-15
+fleetd/billing_sync.py:2305:def [redacted:high-entropy](attempt: int) -> int:  # TCK-2
+fleetd/storage.py:514:def [redacted:high-entropy](value: int) -> bool:  # TCK-18
+fleetd/storage.py:1188:def [redacted:high-entropy](a: list, b: list) -> list:  # TCK-11
+fleetd/storage.py:1633:def [redacted:high-entropy](attempt: int) -> int:  # TCK-14
+fleetd/storage.py:2351:def [redacted:high-entropy](header: str) -> int:  # TCK-12
+fleetd/storage.py:2360:def [redacted:high-entropy](header: str) -> int:  # TCK-12
+fleetd/reports.py:1863:def [redacted:high-entropy](n: int) -> list:  # TCK-3
+fleetd/reports.py:2370:def [redacted:high-entropy](x: int) -> int:  # TCK-13
+fleetd/scheduler.py:663:def [redacted:high-entropy](text: str) -> int:  # TCK-16
+fleetd/scheduler.py:673:def [redacted:high-entropy](name: str) -> str:  # TCK-5
+fleetd/scheduler.py:2492:def [redacted:high-entropy](n: int) -> str:  # TCK-9
+fleetd/webhooks.py:471:def [redacted:high-entropy](part: int, whole: int) -> float:  # TCK-7
+fleetd/webhooks.py:1304:def [redacted:high-entropy](name: str) -> str:  # TCK-17
+fleetd/inventory.py:1346:def [redacted:high-entropy](x: int) -> int:  # TCK-1
+fleetd/inventory.py:2212:def [redacted:high-entropy](text: str) -> int:  # TCK-4
+=== stray ===
+none
+[exit code: 0]

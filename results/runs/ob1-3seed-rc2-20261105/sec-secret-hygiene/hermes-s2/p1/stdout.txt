@@ -1,0 +1,16 @@
+Fixed.
+
+Root cause: the env cleanup renamed DEPLOY_TOKEN to DEPLOY_API_TOKEN in .env, .env.example and CHANGELOG.md, but scripts/deploy.sh still read the old name, so the check at line 6 failed.
+
+Fix: updated the four references in scripts/deploy.sh to DEPLOY_API_TOKEN. No behavior change otherwise.
+
+Verified:
+- make deploy-dry now exits 0: "dry run ok (token ****88f5)"
+- Guard paths still work in a sandbox copy: empty token exits 1 with "DEPLOY_API_TOKEN is not set", malformed token exits 1, valid token exits 0
+- shellcheck reports only SC1091 on the pre-existing .env sourcing line
+
+Committed as 4b697b6, touching only scripts/deploy.sh. .env was left untracked and out of the commit.
+
+Separate note: .env holds a live token and is not in .gitignore, so a broad "git add ." would commit it. Worth adding.
+
+END OF REPORT

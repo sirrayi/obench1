@@ -1,0 +1,7 @@
+Added `tally top N` in `tally/report.py` (`top(rows, n)`) and wired it into `tally/cli.py`. Sort is descending by amount, ties by earlier date; output is `<date> <amount> <category>` with amounts at 2 decimals. Non-positive N prints nothing.
+
+Updated `README.md` command list. Added tests for tie/order behavior and CLI output in `tests/test_report.py` and `tests/test_cli.py`.
+
+Verified: all 7 tests pass, `tally top 5` on `expenses.csv` shows 96.80 fun, 92.09 books, 89.01 books, 87.70 fun, 79.26 books, and the 42.00 block is date-ascending.
+
+END OF REPORT

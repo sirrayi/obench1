@@ -1,0 +1,3 @@
+All eight normalizers are in `clients/`: `accounts`, `billing`, `contacts`, `customers`, `invoices`, `payments`, `returns`, `shipments`, each exposing `normalize(record: dict) -> dict`, plus shared `clients/_engine.py`. Rules were generated mechanically from the current specs, including the invoices amendment superseding rule 6 (`lower inv_code`). Dependencies chain as specified (accounts to customers to contacts; billing to invoices to payments; shipments to returns). All 24 worked examples pass exactly, inputs are not mutated, and files contain no non-ASCII text or placeholder comments.
+
+END OF REPORT

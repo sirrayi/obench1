@@ -1,0 +1,5 @@
+All 19 tickets fixed. Each changed function carries its `# TCK-n` marker (TCK-12 covers both twin functions), CHANGELOG has entries TCK-1 through TCK-19 in numeric order, and version is 2.8.1 in `fleetd/__init__.py` and `pyproject.toml`. Added `test_tck_1` through `test_tck_19` to the single `TestTickets` class, covering each reported boundary and fallback.
+
+Verification: `python3 -m unittest discover -s tests -t .` ran 25 tests, all passing. Diff contains only the ticket functions, markers, changelog, version, and tests. No new tickets beyond TCK-19.
+
+END OF REPORT

@@ -1,0 +1,9 @@
+Relay checked end to end. Initialized the database, started the server, ran smoke and build, and ran the tests. Fixed the off-by-one slicing bug in `relay/worker.py` and made the test helper short-lived so it cannot linger. `RESULTS.md` contains exactly the three required lines.
+
+smoke: 4b11d4f0090b4480
+bundle: f8fab13164d5f0312c386098712cbab213e182fea970987f8068c1fd8bda0463
+tests: 2 passed
+
+Server and helper processes are stopped.
+
+END OF REPORT

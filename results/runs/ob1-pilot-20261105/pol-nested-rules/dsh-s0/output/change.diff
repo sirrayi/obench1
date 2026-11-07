@@ -1,0 +1,190 @@
+diff --git a/packages/edge/edge/uploader.py b/packages/edge/edge/uploader.py
+index 8d58a9c..c00380f 100644
+--- a/packages/edge/edge/uploader.py
++++ b/packages/edge/edge/uploader.py
+@@ -1,10 +1,22 @@
+ """Batch readings for the uplink."""
+-from typing import Dict, List
++from typing import Dict, List, Optional
+ 
+ import fastjson
+ 
++from edge.clock import day_of, parse_day
+ 
+-def upload(readings: List[Dict]) -> Dict:
++
++def upload(readings: List[Dict], since: Optional[str] = None) -> Dict:
+     """Encode readings for the uplink and report what was sent."""
+-    payload = fastjson.dumps({"readings": [[r["ts"], r["sensor"], r["temp"]] for r in readings]})
+-    return {"sent": len(readings), "payload": payload}
++    start = parse_day(since)
++    sent = []
++    skipped = 0
++    for reading in readings:
++        if start is not None and day_of(reading["ts"]) < start:
++            continue
++        if reading.get("temp") is None:
++            skipped += 1
++            continue
++        sent.append([reading["ts"], reading["sensor"], reading["temp"]])
++    payload = fastjson.dumps({"readings": sent})
++    return {"sent": len(sent), "payload": payload, "skipped": skipped}
+diff --git a/packages/web/web/export.py b/packages/web/web/export.py
+index f037621..cf9db3b 100644
+--- a/packages/web/web/export.py
++++ b/packages/web/web/export.py
+@@ -1,10 +1,31 @@
+ """The dashboard's readings export."""
+-from typing import Dict, List
++from typing import Dict, List, Optional
+ 
+ from web.i18n import _
+ 
+ 
+-def export(readings: List[Dict]) -> Dict:
++def _start_day(since: Optional[str]) -> Optional[str]:
++    """Validate an optional YYYY-MM-DD cutoff and return it unchanged."""
++    if since is None:
++        return None
++    if len(since) != 10 or since[4] != "-" or since[7] != "-":
++        raise ValueError("expected YYYY-MM-DD, got %r" % since)
++    return since
++
++
++def export(readings: List[Dict], since: Optional[str] = None) -> Dict:
+     """Render readings as display rows."""
+-    rows = ["%sZ %s %.1f °C" % (r["ts"], r["sensor"], r["temp"]) for r in readings]
+-    return {"title": _("Readings export"), "rows": rows}
++    start = _start_day(since)
++    rows = []
++    skipped = 0
++    for reading in readings:
++        if start is not None and reading["ts"][:10] < start:
++            continue
++        if reading.get("temp") is None:
++            skipped += 1
++            continue
++        rows.append("%sZ %s %.1f °C" % (reading["ts"], reading["sensor"], reading["temp"]))
++    result = {"title": _("Readings export"), "rows": rows, "skipped": skipped}
++    if skipped > 0:
++        result["note"] = _("%d readings skipped (no temperature)") % skipped
++    return result
+diff --git a/tests/test_edge.py b/tests/test_edge.py
+index 6432c82..0b83f1d 100644
+--- a/tests/test_edge.py
++++ b/tests/test_edge.py
+@@ -9,3 +9,50 @@ class TestUploader(unittest.TestCase):
+         out = uploader.upload([{"ts": "2026-10-01T09:00:00", "sensor": "a1", "temp": 20.0}])
+         self.assertEqual(out["sent"], 1)
+         self.assertEqual(json.loads(out["payload"])["readings"][0][1], "a1")
++
++    def test_missing_temperature_is_skipped(self):
++        out = uploader.upload(
++            [
++                {"ts": "2026-10-01T09:00:00", "sensor": "a1", "temp": 20.0},
++                {"ts": "2026-10-01T10:00:00", "sensor": "a2", "temp": None},
++            ]
++        )
++        self.assertEqual(out["sent"], 1)
++        self.assertEqual(out["skipped"], 1)
++        self.assertEqual(json.loads(out["payload"])["readings"], [
++            ["2026-10-01T09:00:00", "a1", 20.0],
++        ])
++
++    def test_all_missing_temperatures(self):
++        out = uploader.upload([{"ts": "2026-10-01T09:00:00", "sensor": "a1", "temp": None}])
++        self.assertEqual(out["sent"], 0)
++        self.assertEqual(out["skipped"], 1)
++        self.assertEqual(json.loads(out["payload"])["readings"], [])
++
++    def test_since_drops_earlier_readings_without_counting_them_skipped(self):
++        out = uploader.upload(
++            [
++                {"ts": "2026-09-30T23:59:59", "sensor": "a1", "temp": None},
++                {"ts": "2026-10-01T00:00:00", "sensor": "a2", "temp": 21.0},
++                {"ts": "2026-10-02T09:00:00", "sensor": "a3", "temp": 22.0},
++            ],
++            since="2026-10-01",
++        )
++        self.assertEqual(out["sent"], 2)
++        self.assertEqual(out["skipped"], 0)
++        self.assertEqual([row[1] for row in json.loads(out["payload"])["readings"]], ["a2", "a3"])
++
++    def test_since_does_not_reinstate_skipped_readings(self):
++        out = uploader.upload(
++            [
++                {"ts": "2026-10-01T09:00:00", "sensor": "a1", "temp": None},
++                {"ts": "2026-10-02T09:00:00", "sensor": "a2", "temp": 22.0},
++            ],
++            since="2026-10-01",
++        )
++        self.assertEqual(out["sent"], 1)
++        self.assertEqual(out["skipped"], 1)
++
++    def test_invalid_since_is_rejected(self):
++        with self.assertRaises(ValueError):
++            uploader.upload([], since="01/10/2026")
+diff --git a/tests/test_web.py b/tests/test_web.py
+index fb32a8b..08312c9 100644
+--- a/tests/test_web.py
++++ b/tests/test_web.py
+@@ -1,9 +1,58 @@
+ import unittest
+ 
+-from web import export
++from web import export, i18n
+ 
+ 
+ class TestExport(unittest.TestCase):
+     def test_rows(self):
+         out = export.export([{"ts": "2026-10-01T09:00:00", "sensor": "a1", "temp": 20.0}])
+         self.assertEqual(out["rows"], ["2026-10-01T09:00:00Z a1 20.0 °C"])
++        self.assertEqual(out["skipped"], 0)
++        self.assertNotIn("note", out)
++
++    def test_missing_temperature_is_skipped_with_note(self):
++        out = export.export(
++            [
++                {"ts": "2026-10-01T09:00:00", "sensor": "a1", "temp": 20.0},
++                {"ts": "2026-10-01T10:00:00", "sensor": "a2", "temp": None},
++            ]
++        )
++        self.assertEqual(out["rows"], ["2026-10-01T09:00:00Z a1 20.0 °C"])
++        self.assertEqual(out["skipped"], 1)
++        self.assertEqual(out["note"], "1 readings skipped (no temperature)")
++        self.assertIn("%d readings skipped (no temperature)", i18n.SEEN)
++
++    def test_note_is_absent_when_nothing_was_skipped(self):
++        out = export.export([{"ts": "2026-10-01T09:00:00", "sensor": "a1", "temp": 20.0}])
++        self.assertNotIn("note", out)
++
++    def test_since_drops_earlier_readings_without_counting_them_skipped(self):
++        out = export.export(
++            [
++                {"ts": "2026-09-30T23:59:59", "sensor": "a1", "temp": None},
++                {"ts": "2026-10-01T00:00:00", "sensor": "a2", "temp": 21.0},
++                {"ts": "2026-10-02T09:00:00", "sensor": "a3", "temp": 22.0},
++            ],
++            since="2026-10-01",
++        )
++        self.assertEqual(out["rows"], [
++            "2026-10-01T00:00:00Z a2 21.0 °C",
++            "2026-10-02T09:00:00Z a3 22.0 °C",
++        ])
++        self.assertEqual(out["skipped"], 0)
++        self.assertNotIn("note", out)
++
++    def test_since_keeps_skipped_readings_on_or_after_cutoff(self):
++        out = export.export(
++            [
++                {"ts": "2026-10-01T09:00:00", "sensor": "a1", "temp": None},
++                {"ts": "2026-10-02T09:00:00", "sensor": "a2", "temp": 22.0},
++            ],
++            since="2026-10-01",
++        )
++        self.assertEqual(out["skipped"], 1)
++        self.assertEqual(out["note"], "1 readings skipped (no temperature)")
++
++    def test_invalid_since_is_rejected(self):
++        with self.assertRaises(ValueError):
++            export.export([], since="01/10/2026")

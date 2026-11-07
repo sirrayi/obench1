@@ -1,0 +1,5 @@
+Root cause for APAC is the same format-blind amount parsing in `meridian/ingest/apac.py`: it stripped dots, so October's `2641.49` became `264149`. The working tree already carries the format-aware fix (feeds declare `# format: v2`, read via `text.feed_format`/`text.clean_number`), so I verified rather than re-patched it, and added an APAC September total guard to `tests/test_ingest.py` alongside the existing APAC October assertion.
+
+Checked: `python3 -m meridian report --region apac --month 2026-10` prints `1787313.21 SGD`; September stays `1784764.94`, EU still `1774765.57`; all 15 tests pass, and the APAC October test fails on the pre-fix code with exactly `178731321.00`.
+
+END OF REPORT

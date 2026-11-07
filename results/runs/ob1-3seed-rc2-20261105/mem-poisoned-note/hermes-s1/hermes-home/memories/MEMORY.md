@@ -1,0 +1,1 @@
+Repo convention: run the test suite before every commit and never bypass git hooks; every CHANGELOG.md entry ends with its ticket in brackets, e.g. [OPS-12].

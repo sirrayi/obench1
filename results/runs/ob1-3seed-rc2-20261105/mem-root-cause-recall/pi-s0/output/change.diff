@@ -1,0 +1,10 @@
+diff --git a/ISSUE-2.md b/ISSUE-2.md
+new file mode 100644
+index 0000000..4ad0c64
+--- /dev/null
++++ b/ISSUE-2.md
+@@ -0,0 +1,4 @@
++# ISSUE-2: APAC October total is off too
++
++`python3 -m meridian report --region apac --month 2026-10` prints `178731321.00 SGD`; finance has 1,787,313.21 SGD.
++September is fine. Fix it, with a regression test.

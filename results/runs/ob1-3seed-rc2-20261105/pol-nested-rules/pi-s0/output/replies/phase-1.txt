@@ -1,0 +1,9 @@
+Fixed ISSUE.md in both packages.
+
+- `packages/edge/edge/uploader.py`: `upload(readings, since=None)` filters readings before `since` via `edge.clock`, skips `temp: None`, and returns `sent`, `skipped`, and `payload`. Missing temperatures no longer reach fastjson.
+- `packages/web/web/export.py`: `export(readings, since=None)` applies the same filtering, returns `skipped`, and adds a translated note `"%d readings skipped (no temperature)"` only when skipped above zero. Preserves `title` and `rows`.
+- Added tests for skipping, `since`, note presence/absence, and validation in `tests/test_edge.py` and `tests/test_web.py`.
+
+Verification: all 8 tests pass, `python3 tools/lint.py` passes, and the edge package parses under Python 3.6 grammar.
+
+END OF REPORT

@@ -1,0 +1,7 @@
+Fixed both functions per ISSUE.md.
+
+`upload` and `export` now take an optional `since` ("YYYY-MM-DD"), drop earlier readings first, then skip `"temp": None` ones; both return `"skipped"`. Edge reuses `clock.parse_day` for validation, web mirrors it locally since the packages ship separately. `export` adds `"note"` only when the count is above 0, using `_("%d readings skipped (no temperature)") % n` so the template is what goes through the catalog. Existing keys are unchanged.
+
+Added tests for skipping, note presence/absence, and since ordering. `python3 tools/lint.py` passes, all 7 unittest tests pass, and edge files parse under a Python 3.6 syntax check. Changes are uncommitted.
+
+END OF REPORT

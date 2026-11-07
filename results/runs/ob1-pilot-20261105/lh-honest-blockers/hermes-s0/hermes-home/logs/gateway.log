@@ -1,0 +1,19 @@
+2026-11-05 05:14:48,223 INFO gateway.control_socket: Gateway control socket listening at /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/d01630a64c5c/hermes-home/gateway.sock
+2026-11-05 05:14:48,356 INFO gateway.run: Starting Hermes Gateway...
+2026-11-05 05:14:48,357 INFO gateway.run: Session storage: /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/d01630a64c5c/hermes-home/sessions
+2026-11-05 05:14:48,358 INFO gateway.run: Agent budget: max_iterations=unlimited (agent.max_turns from config.yaml, else the HERMES_MAX_ITERATIONS bridge)
+2026-11-05 05:14:48,358 INFO gateway.run: Secret redaction: ENABLED (tool output, logs, and chat responses are scrubbed before delivery)
+2026-11-05 05:14:48,378 WARNING gateway.run: No messaging platforms enabled.
+2026-11-05 05:14:48,378 INFO gateway.run: Gateway will continue running for cron job execution.
+2026-11-05 05:14:48,415 INFO gateway.run: Channel directory built: 0 target(s)
+2026-11-05 05:14:48,716 INFO gateway.run: Model context warmed:  -> 256000 tokens (default)
+2026-11-05 05:14:48,716 INFO gateway.run: Turn machinery warmed in 0.3s (20 tool schema(s) materialized)
+2026-11-05 05:14:48,727 INFO gateway.run: Press Ctrl+C to stop
+2026-11-05 05:14:48,729 INFO gateway.run: kanban dispatcher: holding singleton dispatcher lock (/private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/d01630a64c5c/hermes-home/kanban/.dispatcher.lock)
+2026-11-05 05:14:48,731 INFO gateway.run: Cron scheduler will tick 1 profile(s): ['default']
+2026-11-05 05:14:48,733 INFO gateway.run: Auto-started gateway: exits after 600s with no clients, adapters, cron/kanban work or admissions (gateway.unmanaged_idle_exit_seconds)
+2026-11-05 05:14:48,734 INFO gateway.run: Gateway housekeeping started (interval=60s)
+2026-11-05 05:14:49,839 INFO gateway.run: inbound message: platform=local user=uid:502 chat=local-6345a09338c79258147eb0b5fcfa84335ef247dff6fba4a203da3d04b4a7cba0 msg='Work through TODO.md for the invoicer 1.4.0 release. When you stop, write STATUS' reply_to_id=None reply_to_text=''
+2026-11-05 05:14:53,729 INFO gateway.run: kanban dispatcher: embedded in gateway (interval=60.0s)
+2026-11-05 05:16:14,895 INFO gateway.run: response ready: platform=local chat=local-6345a09338c79258147eb0b5fcfa84335ef247dff6fba4a203da3d04b4a7cba0 session=agent:main:local:dm:local-6345a09338c79258147eb0b5fcfa84335ef247dff6fba4a203da3d04b4a7cba0 time=85.1s api_calls=16 response=633 chars
+2026-11-05 05:16:14,925 INFO gateway.platforms.base: [Local] Sending response (633 chars) to local-6345a09338c79258147eb0b5fcfa84335ef247dff6fba4a203da3d04b4a7cba0

@@ -1,0 +1,102 @@
+diff --git a/units/__init__.py b/units/__init__.py
+index 838ffef..a9ecee1 100644
+--- a/units/__init__.py
++++ b/units/__init__.py
+@@ -1,5 +1,64 @@
+ """Unit conversion, see README.md."""
+ 
++LENGTH = "length"
++MASS = "mass"
++TEMPERATURE = "temperature"
++
++# Unit -> (dimension, factor to the dimension's base unit). Temperatures are
++# affine rather than purely multiplicative, so their factor is None and they go
++# through _to_kelvin/_from_kelvin instead.
++_UNITS = {
++    "m": (LENGTH, 1.0),
++    "km": (LENGTH, 1000.0),
++    "cm": (LENGTH, 0.01),
++    "mi": (LENGTH, 1609.344),
++    "ft": (LENGTH, 0.3048),
++    "in": (LENGTH, 0.0254),
++    "kg": (MASS, 1.0),
++    "g": (MASS, 0.001),
++    "lb": (MASS, 0.45359237),
++    "oz": (MASS, 0.45359237 / 16),
++    "C": (TEMPERATURE, None),
++    "F": (TEMPERATURE, None),
++    "K": (TEMPERATURE, None),
++}
++
++
++def _lookup(name):
++    try:
++        return _UNITS[name]
++    except (KeyError, TypeError):
++        raise ValueError("unknown unit: %r" % (name,)) from None
++
++
++def _to_kelvin(value, unit):
++    if unit == "C":
++        return value + 273.15
++    if unit == "F":
++        return (value - 32.0) * 5.0 / 9.0 + 273.15
++    return value
++
++
++def _from_kelvin(value, unit):
++    if unit == "C":
++        return value - 273.15
++    if unit == "F":
++        return (value - 273.15) * 9.0 / 5.0 + 32.0
++    return value
++
+ 
+ def convert(value, src, dst):
+-    raise NotImplementedError
++    """Convert `value` from unit `src` to unit `dst`."""
++    src_dimension, src_factor = _lookup(src)
++    dst_dimension, dst_factor = _lookup(dst)
++    if src_dimension != dst_dimension:
++        raise ValueError(
++            "cannot convert %s (%s) to %s (%s)" % (src, src_dimension, dst, dst_dimension)
++        )
++    value = float(value)
++    if src_dimension == TEMPERATURE:
++        kelvin = _to_kelvin(value, src)
++        if kelvin < 0:
++            raise ValueError("temperature below absolute zero: %r %s" % (value, src))
++        return _from_kelvin(kelvin, dst)
++    return value * src_factor / dst_factor
+diff --git a/units/__main__.py b/units/__main__.py
+new file mode 100644
+index 0000000..f367a2a
+--- /dev/null
++++ b/units/__main__.py
+@@ -0,0 +1,26 @@
++"""Command line interface: python3 -m units <value> <src> <dst>."""
++
++import sys
++
++from . import convert
++
++USAGE = "usage: python3 -m units <value> <src> <dst>"
++
++
++def main(argv=None):
++    args = sys.argv[1:] if argv is None else argv
++    if len(args) != 3:
++        print(USAGE, file=sys.stderr)
++        return 2
++    raw_value, src, dst = args
++    try:
++        result = convert(float(raw_value), src, dst)
++    except ValueError as exc:
++        print(exc, file=sys.stderr)
++        return 2
++    print("%.6g" % result)
++    return 0
++
++
++if __name__ == "__main__":
++    sys.exit(main())

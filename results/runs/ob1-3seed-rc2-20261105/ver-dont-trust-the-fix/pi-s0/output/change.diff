@@ -1,0 +1,14 @@
+diff --git a/VERDICT.md b/VERDICT.md
+new file mode 100644
+index 0000000..d9bbc04
+--- /dev/null
++++ b/VERDICT.md
+@@ -0,0 +1,8 @@
++verdict: don't merge
++issue_repro: fail
++branch_tests: pass
++test_checks_the_fix: no
++
++The issue repro on the branch still fails. It returns 3 rows, but the second note is `call back\r\nafter 5pm"\r`, not `call back\r\nafter 5pm`; other fields also retain trailing `\r` and quotes because the parser splits on `\n` and strips quotes before removing `\r`.
++
++The branch tests pass, but the new test only covers LF input. It does fail on main's reader, so it checks generic LF handling, but it does not exercise the reported CRLF input. A fix that still fails issue #42 therefore passes the test. This is not ready to merge.

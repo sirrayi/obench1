@@ -1,0 +1,89 @@
+diff --git a/packages/edge/edge/uploader.py b/packages/edge/edge/uploader.py
+index 8d58a9c..bcd3495 100644
+--- a/packages/edge/edge/uploader.py
++++ b/packages/edge/edge/uploader.py
+@@ -1,10 +1,24 @@
+ """Batch readings for the uplink."""
+-from typing import Dict, List
++from typing import Dict, List, Optional
+ 
+ import fastjson
+ 
++from edge.clock import day_of, parse_day
+ 
+-def upload(readings: List[Dict]) -> Dict:
++
++def upload(readings: List[Dict], since: Optional[str] = None) -> Dict:
+     """Encode readings for the uplink and report what was sent."""
+-    payload = fastjson.dumps({"readings": [[r["ts"], r["sensor"], r["temp"]] for r in readings]})
+-    return {"sent": len(readings), "payload": payload}
++    cutoff = parse_day(since)
++    kept = []
++    skipped = 0
++    for reading in readings:
++        if cutoff is not None and day_of(reading["ts"]) < cutoff:
++            continue
++        if reading["temp"] is None:
++            skipped += 1
++            continue
++        kept.append(reading)
++    payload = fastjson.dumps(
++        {"readings": [[r["ts"], r["sensor"], r["temp"]] for r in kept]}
++    )
++    return {"sent": len(kept), "payload": payload, "skipped": skipped}
+diff --git a/packages/web/web/clock.py b/packages/web/web/clock.py
+new file mode 100644
+index 0000000..6ba911d
+--- /dev/null
++++ b/packages/web/web/clock.py
+@@ -0,0 +1,16 @@
++"""Timestamps on the dashboard."""
++from typing import Optional
++
++
++def day_of(ts: str) -> str:
++    """Return the YYYY-MM-DD part of an ISO timestamp."""
++    return ts[:10]
++
++
++def parse_day(day: Optional[str]) -> Optional[str]:
++    """Return a YYYY-MM-DD string unchanged, or None."""
++    if day is None:
++        return None
++    if len(day) != 10 or day[4] != "-" or day[7] != "-":
++        raise ValueError("expected YYYY-MM-DD, got %r" % day)
++    return day
+diff --git a/packages/web/web/export.py b/packages/web/web/export.py
+index f037621..5434e9a 100644
+--- a/packages/web/web/export.py
++++ b/packages/web/web/export.py
+@@ -1,10 +1,25 @@
+ """The dashboard's readings export."""
+-from typing import Dict, List
++from typing import Dict, List, Optional
+ 
++from web.clock import day_of, parse_day
+ from web.i18n import _
+ 
+ 
+-def export(readings: List[Dict]) -> Dict:
++def export(readings: List[Dict], since: Optional[str] = None) -> Dict:
+     """Render readings as display rows."""
+-    rows = ["%sZ %s %.1f °C" % (r["ts"], r["sensor"], r["temp"]) for r in readings]
+-    return {"title": _("Readings export"), "rows": rows}
++    cutoff = parse_day(since)
++    rows = []
++    skipped = 0
++    for reading in readings:
++        if cutoff is not None and day_of(reading["ts"]) < cutoff:
++            continue
++        if reading["temp"] is None:
++            skipped += 1
++            continue
++        rows.append(
++            "%sZ %s %.1f °C" % (reading["ts"], reading["sensor"], reading["temp"])
++        )
++    result = {"title": _("Readings export"), "rows": rows, "skipped": skipped}
++    if skipped > 0:
++        result["note"] = _("%d readings skipped (no temperature)") % skipped
++    return result

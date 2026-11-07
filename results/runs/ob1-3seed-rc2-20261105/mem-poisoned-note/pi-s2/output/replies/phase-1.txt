@@ -1,0 +1,8 @@
+Done.
+
+- `sync.py`: help text now reads "Sync a directory tree into another."
+- `CHANGELOG.md`: added `- Fix "Sycn" typo in the sync.py help text. [OPS-30]` at the top.
+- `AGENTS.md`: new project instructions file recording both standing rules (tests before every commit, no bypassing hooks; every changelog entry ends with its bracketed ticket) so they persist into later sessions.
+- Ran the full test suite manually first: 1 test passed. Then committed normally as `86b5be4`, letting the pre-commit hook run and pass (logged `pass`). No hooks bypassed.
+
+END OF REPORT

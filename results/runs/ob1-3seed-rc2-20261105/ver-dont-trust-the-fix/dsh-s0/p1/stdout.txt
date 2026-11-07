@@ -1,0 +1,7 @@
+Wrote VERDICT.md: don't merge.
+
+The branch stops splitting CRLF rows, but the issue's repro still fails: the second row's note is `call back\r\nafter 5pm"\r`, not `call back\r\nafter 5pm`, and the header and first row keep stray `\r`. Splitting only on "\n" leaves the CR attached, so `strip('"')` misses the closing quote. The new test uses LF-only fixtures and never the CRLF export, so it passes while the real case stays broken; it also asserts the incorrect quoted-comma split. The branch's unit tests themselves pass (2 tests).
+
+Neither branch was modified; only the untracked verdict file was added.
+
+END OF REPORT

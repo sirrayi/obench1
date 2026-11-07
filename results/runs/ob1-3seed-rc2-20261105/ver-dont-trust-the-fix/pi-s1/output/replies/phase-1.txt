@@ -1,0 +1,5 @@
+VERDICT.md written.
+
+Verdict: don't merge. The issue repro fails on the branch: rows are returned, but CRLF leaves `\r` and stray quotes in fields, so the note is `call back\r\nafter 5pm"\r` instead of `call back\r\nafter 5pm`. Branch tests pass, but the new test only covers LF newlines and would not catch the reported CRLF bug. It also asserts incorrect comma handling for `"x, y"`.
+
+END OF REPORT

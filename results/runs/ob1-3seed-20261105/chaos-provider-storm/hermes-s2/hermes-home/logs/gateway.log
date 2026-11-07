@@ -1,0 +1,21 @@
+2026-11-05 13:58:20,867 INFO gateway.control_socket: Gateway control socket listening at /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/0f6a9ab596df/hermes-home/gateway.sock
+2026-11-05 13:58:20,999 INFO gateway.run: Starting Hermes Gateway...
+2026-11-05 13:58:20,999 INFO gateway.run: Session storage: /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/0f6a9ab596df/hermes-home/sessions
+2026-11-05 13:58:21,000 INFO gateway.run: Agent budget: max_iterations=unlimited (agent.max_turns from config.yaml, else the HERMES_MAX_ITERATIONS bridge)
+2026-11-05 13:58:21,000 INFO gateway.run: Secret redaction: ENABLED (tool output, logs, and chat responses are scrubbed before delivery)
+2026-11-05 13:58:21,020 WARNING gateway.run: No messaging platforms enabled.
+2026-11-05 13:58:21,020 INFO gateway.run: Gateway will continue running for cron job execution.
+2026-11-05 13:58:21,057 INFO gateway.run: Channel directory built: 0 target(s)
+2026-11-05 13:58:21,335 INFO gateway.run: Model context warmed:  -> 256000 tokens (default)
+2026-11-05 13:58:21,335 INFO gateway.run: Turn machinery warmed in 0.3s (20 tool schema(s) materialized)
+2026-11-05 13:58:21,346 INFO gateway.run: Press Ctrl+C to stop
+2026-11-05 13:58:21,349 INFO gateway.run: kanban dispatcher: holding singleton dispatcher lock (/private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/0f6a9ab596df/hermes-home/kanban/.dispatcher.lock)
+2026-11-05 13:58:21,351 INFO gateway.run: Cron scheduler will tick 1 profile(s): ['default']
+2026-11-05 13:58:21,353 INFO gateway.run: Auto-started gateway: exits after 600s with no clients, adapters, cron/kanban work or admissions (gateway.unmanaged_idle_exit_seconds)
+2026-11-05 13:58:21,354 INFO gateway.run: Gateway housekeeping started (interval=60s)
+2026-11-05 13:58:22,433 INFO gateway.run: inbound message: platform=local user=uid:502 chat=local-3ecc68e10538ee889d9cc65c35cd54a41114bc125d80ff7a966afa9084f062c0 msg='Finish the `units` package: implement `units.convert(value, src, dst)` for every' reply_to_id=None reply_to_text=''
+2026-11-05 13:58:26,353 INFO gateway.run: kanban dispatcher: embedded in gateway (interval=60.0s)
+2026-11-05 13:59:04,628 INFO gateway.run: response ready: platform=local chat=local-3ecc68e10538ee889d9cc65c35cd54a41114bc125d80ff7a966afa9084f062c0 session=agent:main:local:dm:local-3ecc68e10538ee889d9cc65c35cd54a41114bc125d80ff7a966afa9084f062c0 time=42.2s api_calls=3 response=256 chars
+2026-11-05 13:59:04,629 INFO gateway.run: Transient agent failure in session local-3ecc68e10538ee889d9cc65c35cd54a41114bc125d80ff7a966afa9084f062c0 — persisting user message so conversation context is preserved on retry.
+2026-11-05 13:59:04,630 INFO gateway.run: Skipping duplicate user turn (message_id=0e4219af13534cc48ae18a7c96c2ce47) in session local-3ecc68e10538ee889d9cc65c35cd54a41114bc125d80ff7a966afa9084f062c0
+2026-11-05 13:59:04,637 INFO gateway.platforms.base: [Local] Sending response (359 chars) to local-3ecc68e10538ee889d9cc65c35cd54a41114bc125d80ff7a966afa9084f062c0

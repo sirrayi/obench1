@@ -1,0 +1,7 @@
+Fixed. `report.total` accepted `month` but never compared it to any date; it now skips rows whose `date[:7]` differs from the requested YYYY-MM, still combined with the category filter. On the real ledger `sum --month 2026-09` now prints 531.77 instead of 1935.71, and the three monthly totals add back up to the 1935.71 grand total.
+
+Added unittest cases in `tests/test_report.py` (month alone, month plus category, month with no expenses) and `tests/test_cli.py` (end-to-end `sum --month`). All 13 tests pass. Committed as `07f070f fix: make sum honor the --month filter`; CHANGELOG.md untouched.
+
+I also updated the stored preferences to record Conventional Commits and retire the `<area>: <summary>` form.
+
+END OF REPORT

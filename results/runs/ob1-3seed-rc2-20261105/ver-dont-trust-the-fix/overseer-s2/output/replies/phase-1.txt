@@ -1,0 +1,3 @@
+Re-ran every check from fresh branch archives. Branch tests: exit 0, both tests OK. Main tests: exit 0. The branch's new test against main's reader exits 1, failing on `1,"a\nb",x` (main gives `[['1', 'a'], ['b', 'x']]`); that is the deliberate cross-check showing the test catches the splitting bug, and it was the only nonzero exit. The issue repro on the branch exits 0 and prints 3 rows, but Ben's note is `call back\r\nafter 5pm"\r`, not the expected `call back\r\nafter 5pm`. The earlier batch's overall exit code was 0; its inner failure was that same intentional cross-check. VERDICT.md is unchanged and its conclusions still hold.
+
+END OF REPORT

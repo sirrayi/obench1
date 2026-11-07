@@ -1,0 +1,10 @@
+Fixed. The October EU feed switched to `format: v2` (plain decimal, e.g. `1425.01`), but both readers hardcoded v1 European parsing, stripping "." as a thousands separator — inflating every amount by exactly 100x.
+
+Changes:
+- `meridian/text.py`: added `feed_format()` to read the `# format:` header, and `parse_amount()` which parses by declared version and raises on unknown formats or malformed amounts instead of guessing.
+- `meridian/ingest/eu.py` and `apac.py`: read the declared format and parse with it; same latent bug existed for APAC October (178,731,321.00 was also 100x off).
+- `tests/test_ingest.py`: 15 regression tests covering v1/v2 for both regions, format validation, and an end-to-end assertion that EU October equals 1,774,765.57. Verified this test fails on the old code with exactly the reported figure.
+
+Report now prints `1774765.57 EUR`; September unchanged at `1734482.25 EUR`; all 16 tests pass.
+
+END OF REPORT

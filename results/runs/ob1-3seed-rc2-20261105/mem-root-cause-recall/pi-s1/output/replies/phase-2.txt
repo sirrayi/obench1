@@ -1,0 +1,7 @@
+ISSUE-2 was already resolved by the shared v2 feed parser change in commit 371d815. The reported symptom came from treating point-decimal v2 amounts as v1 grouped amounts, multiplying values by 100. The command now prints `1787313.21 SGD`.
+
+I added `tests/test_report.py` to pin the fix with fixture-based regression tests for both `report.total` and the CLI output. I verified both tests fail against the pre-fix commit with the reported `178731321.00 SGD`, and all 10 tests pass at HEAD.
+
+Committed as `80cc554`.
+
+END OF REPORT

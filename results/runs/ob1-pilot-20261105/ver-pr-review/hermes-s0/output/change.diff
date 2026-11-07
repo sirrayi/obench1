@@ -1,0 +1,14 @@
+diff --git a/REVIEW.md b/REVIEW.md
+new file mode 100644
+index 0000000..a1cee69
+--- /dev/null
++++ b/REVIEW.md
+@@ -0,0 +1,8 @@
++app/handlers.py:11: blocker: X-Forwarded-For is client-controlled and used verbatim as the bucket key; any caller can rotate the header per request to get a fresh bucket and bypass the limiter (verified six consecutive requests all 200 with limit=2), or send a victim's address to exhaust that client's quota. Multi-hop values are also used whole rather than resolved to one identity. Trust only the hop appended by the load balancer and validate/parse the value.
++app/limiter.py:20: blocker: The bucket start is recorded with time.time(), but expiry (line 19) and retry_after (line 37) subtract it from time.monotonic(); the epochs differ by about -1.79e9 s on this host, so elapsed is hugely negative and buckets never reset. A client that reaches the limit stays rejected for the process lifetime, and Retry-After is emitted as 1793863760 (roughly 56 years). Use monotonic consistently for start, expiry, and retry_after.
++app/limiter.py:25: major: _bucket() runs before self.lock is acquired on line 26, so bucket lookup and creation are unsynchronized while ThreadingHTTPServer serves requests in parallel. Two threads can create separate dicts for the same key and increment different copies, losing counts (stress probe observed 11 of 16 increments). Hold the lock across lookup, reset, and increment.
++app/limiter.py:28: major: The rejection test is `count > limit + 1`, so limit + 1 requests are admitted (verified: limit=2 returns 200, 200, 200, then 429), contradicting the class contract of at most `limit` per window. Compare against `limit`, not `limit + 1`.
++app/limiter.py:21: major: Buckets are inserted here and never removed; docs/limits.md line 4 promises eviction after 10 idle minutes, but there is no pruning path anywhere in the limiter. With client-controlled keys the dict grows without bound and can exhaust memory. Add idle eviction and bound key cardinality.
++docs/limits.md:4: minor: States that idle buckets are dropped after 10 minutes, but RateLimiter never removes entries, so operators will believe memory is bounded when it is not.
++app/limiter.py:42: minor: Flooring the fractional wait lets a rejected client receive Retry-After: 0 while still over the limit, and understates the wait by up to 1 s; standard clients that honor a zero delay retry immediately and get another 429. Round up with math.ceil.
++tests/test_limiter.py:10: minor: The test only asserts that the first `limit` calls are allowed and never checks that call limit+1 is rejected, so the off-by-one in allow() passes; there is also no expiry or Retry-After test, which is why the clock mismatch is invisible. Add rejection, window-expiry, and retry_after assertions.

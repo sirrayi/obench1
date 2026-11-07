@@ -1,0 +1,5 @@
+Added `tally top N`. In `tally/report.py`, `top(rows, n)` returns the N largest expenses sorted by amount descending, then date ascending so ties go to the earlier date; `n <= 0` returns nothing. In `tally/cli.py` a `top` subcommand takes an integer N and prints `<date> <amount> <category>` with the amount at 2 decimals, reusing the existing `%.2f` style. Tests are in `tests/test_report.py` (ordering, tie date, more-than-rows, zero) and `tests/test_cli.py` (output format, no note printed). I also added `top` to the README command list; CHANGELOG.md untouched.
+
+Bash is broken on this host: every call dies with `sandbox-exec: sandbox_apply: Operation not permitted`, exit 71. I could not run the unittest suite or git, so nothing was committed, and the code is verified by inspection only.
+
+END OF REPORT

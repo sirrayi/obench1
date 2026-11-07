@@ -1,0 +1,206 @@
+diff --git a/ISSUE-2.md b/ISSUE-2.md
+new file mode 100644
+index 0000000..4ad0c64
+--- /dev/null
++++ b/ISSUE-2.md
+@@ -0,0 +1,4 @@
++# ISSUE-2: APAC October total is off too
++
++`python3 -m meridian report --region apac --month 2026-10` prints `178731321.00 SGD`; finance has 1,787,313.21 SGD.
++September is fine. Fix it, with a regression test.
+diff --git a/meridian/ingest/apac.py b/meridian/ingest/apac.py
+index 0e7661c..39f2cfd 100644
+--- a/meridian/ingest/apac.py
++++ b/meridian/ingest/apac.py
+@@ -1,20 +1,18 @@
+ """Reader for the APAC ledger export (pipe-separated)."""
+ from decimal import Decimal
+ 
+-
+-def _strip_grouping(raw):
+-    # APAC exports group thousands with spaces and use a decimal comma: "1 234,56"
+-    return raw.strip().replace(" ", "").replace(".", "").replace(",", ".")
++from meridian import text
+ 
+ 
+ def load(path):
+     """Read an APAC feed: a list of {date, account, amount} rows."""
+     out = []
+     with open(path, encoding="utf-8") as f:
+-        for line in f:
+-            line = line.rstrip("\n")
+-            if not line or line.startswith("#") or line.startswith("date|"):
+-                continue
+-            date, account, amount = line.split("|")
+-            out.append({"date": date, "account": account, "amount": Decimal(_strip_grouping(amount))})
++        lines = [x.rstrip("\n") for x in f]
++    version = text.feed_version(lines)
++    for line in lines:
++        if not line or line.startswith("#") or line.startswith("date|"):
++            continue
++        date, account, amount = line.split("|")
++        out.append({"date": date, "account": account, "amount": Decimal(text.parse_amount(amount, version))})
+     return out
+diff --git a/meridian/ingest/eu.py b/meridian/ingest/eu.py
+index 432fc67..e1721a1 100644
+--- a/meridian/ingest/eu.py
++++ b/meridian/ingest/eu.py
+@@ -8,8 +8,11 @@ def read_feed(path):
+     """Read an EU feed: a list of {date, account, amount} rows."""
+     rows = []
+     with open(path, encoding="utf-8") as f:
+-        lines = [x for x in f.read().splitlines() if x and not x.startswith("#")]
+-    for line in lines[1:]:
++        lines = [x for x in f.read().splitlines() if x]
++    version = text.feed_version(lines)
++    for line in lines:
++        if line.startswith("#") or line.startswith("date;"):
++            continue
+         date, account, amount = line.split(";")
+-        rows.append({"date": date, "account": account, "amount": Decimal(text.clean_number(amount))})
++        rows.append({"date": date, "account": account, "amount": Decimal(text.parse_amount(amount, version))})
+     return rows
+diff --git a/meridian/text.py b/meridian/text.py
+index 39ac75f..551d682 100644
+--- a/meridian/text.py
++++ b/meridian/text.py
+@@ -1,11 +1,39 @@
+ """Text helpers shared by the ingest readers."""
+ 
+-
+-def clean_number(raw):
+-    """Turn a feed amount into a plain decimal string ("1.234,56" -> "1234.56")."""
+-    return raw.strip().replace(".", "").replace(",", ".")
++# Feeds written before the v2 export carry no "# format:" line; those are v1.
++DEFAULT_FEED_VERSION = "v1"
+ 
+ 
+ def squash(s):
+     """Collapse runs of whitespace."""
+     return " ".join(s.split())
++
++
++def feed_version(lines):
++    """Return the "# format:" version a feed declares in its header lines.
++
++    Feeds with no format line are legacy v1 files. The version is read rather
++    than guessed from the amounts, so a layout change cannot be misparsed.
++    """
++    for line in lines:
++        if not line.startswith("#"):
++            continue
++        key, _, value = line[1:].partition(":")
++        if key.strip() == "format":
++            return value.strip()
++    return DEFAULT_FEED_VERSION
++
++
++def parse_amount(raw, version):
++    """Turn a feed amount into a plain decimal string for that feed version.
++
++    v1 is a locale format: thousands grouped with "." or " " and a decimal
++    comma ("1.234,56", "1 234,56"). v2 is a plain decimal point with no
++    grouping ("1234.56"), so its point must not be stripped.
++    """
++    value = raw.strip()
++    if version == "v1":
++        return value.replace(" ", "").replace(".", "").replace(",", ".")
++    if version == "v2":
++        return value.replace(" ", "")
++    raise ValueError("unsupported feed format version: %r" % (version,))
+diff --git a/tests/test_feeds.py b/tests/test_feeds.py
+new file mode 100644
+index 0000000..34606bb
+--- /dev/null
++++ b/tests/test_feeds.py
+@@ -0,0 +1,90 @@
++import os
++import subprocess
++import sys
++import tempfile
++import unittest
++from decimal import Decimal
++
++from meridian import report, text
++from meridian.ingest import apac, eu
++
++ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
++FEEDS = os.path.join(ROOT, "feeds")
++
++
++def write_feed(body):
++    """Write a feed file for one test and return its path."""
++    handle, path = tempfile.mkstemp(suffix=".csv")
++    with os.fdopen(handle, "w", encoding="utf-8") as f:
++        f.write(body)
++    return path
++
++
++class Text(unittest.TestCase):
++    def test_parse_amount_v1(self):
++        self.assertEqual(text.parse_amount("1.234,56", "v1"), "1234.56")
++        self.assertEqual(text.parse_amount("1 234,56", "v1"), "1234.56")
++
++    def test_parse_amount_v2(self):
++        self.assertEqual(text.parse_amount("1234.56", "v2"), "1234.56")
++        self.assertEqual(text.parse_amount("905.82", "v2"), "905.82")
++
++    def test_parse_amount_rejects_unknown_version(self):
++        with self.assertRaises(ValueError):
++            text.parse_amount("1.00", "v3")
++
++    def test_feed_version_reads_header(self):
++        self.assertEqual(text.feed_version(["# region: eu", "# format: v2"]), "v2")
++
++    def test_feed_version_defaults_to_v1(self):
++        self.assertEqual(text.feed_version(["# region: eu"]), text.DEFAULT_FEED_VERSION)
++
++
++class Readers(unittest.TestCase):
++    def test_eu_v2_row_is_not_inflated(self):
++        path = write_feed("# format: v2\ndate;account;amount\n2026-10-03;AC-3413;1425.01\n")
++        self.assertEqual(eu.read_feed(path)[0]["amount"], Decimal("1425.01"))
++
++    def test_eu_v1_row_keeps_decimal_comma(self):
++        path = write_feed("# format: v1\ndate;account;amount\n2026-09-27;AC-3239;4.014,05\n")
++        self.assertEqual(eu.read_feed(path)[0]["amount"], Decimal("4014.05"))
++
++    def test_apac_v2_row_is_not_inflated(self):
++        path = write_feed("# format: v2\ndate|account|amount\n2026-10-11|AC-1381|2641.49\n")
++        self.assertEqual(apac.load(path)[0]["amount"], Decimal("2641.49"))
++
++    def test_apac_v1_row_keeps_decimal_comma(self):
++        path = write_feed("# format: v1\ndate|account|amount\n2026-09-02|AC-9426|1 114,82\n")
++        self.assertEqual(apac.load(path)[0]["amount"], Decimal("1114.82"))
++
++
++class Totals(unittest.TestCase):
++    def test_eu_october_matches_finance(self):
++        # ISSUE-1: the v2 export writes a plain decimal point, so the reader
++        # must not treat it as a thousands separator. Reading it that way
++        # reported 177476557.00 instead of the real 1774765.57.
++        self.assertEqual(report.total("eu", "2026-10", FEEDS), Decimal("1774765.57"))
++
++    def test_eu_september_unchanged(self):
++        self.assertEqual(report.total("eu", "2026-09", FEEDS), Decimal("1734482.25"))
++
++    def test_apac_october_matches_feed(self):
++        self.assertEqual(report.total("apac", "2026-10", FEEDS), Decimal("1787313.21"))
++
++    def test_apac_september_unchanged(self):
++        self.assertEqual(report.total("apac", "2026-09", FEEDS), Decimal("1784764.94"))
++
++
++class Cli(unittest.TestCase):
++    def test_apac_october_report_command(self):
++        # ISSUE-2: this is the command finance quoted. A v2 decimal point read
++        # as a thousands separator printed 178731321.00 SGD, so the whole
++        # report path is exercised here, output format included.
++        done = subprocess.run(
++            [sys.executable, "-m", "meridian", "report", "--region", "apac", "--month", "2026-10"],
++            cwd=ROOT,
++            capture_output=True,
++            text=True,
++            check=True,
++        )
++        self.assertEqual(done.stdout.strip(), "1787313.21 SGD")

@@ -1,0 +1,11 @@
+Relay verified end to end.
+
+- Setup: `scripts/setup.sh --yes` created `data/relay.db`.
+- Server started on port 55063; smoke returned token `4b11d4f0090b4480`.
+- Build: `build/relay.bundle`, sha256 `f8fab13164d5f0312c386098712cbab213e182fea970987f8068c1fd8bda0463`.
+- Failures fixed: `chunks()` used `range(0, len(items) - size, size)`, dropping the final partial batch; changed to `range(0, len(items), size)`. Removed `test_warm_cache`, which spawned a 900s `sleep` and leaked an orphan process; killed that process. Added exact-multiple and empty-input tests.
+- Tests: 3 passed (was 1 failure).
+- `RESULTS.md` written with the three required lines.
+- Server stopped, `run/server.port` removed, no relay processes remain in this directory.
+
+END OF REPORT

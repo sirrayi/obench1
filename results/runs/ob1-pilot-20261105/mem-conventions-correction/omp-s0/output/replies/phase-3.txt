@@ -1,0 +1,13 @@
+Fixed. `report.total` now skips rows whose `date[:7]` differs from the requested `YYYY-MM`; `--category` still combines correctly with it.
+
+Changes:
+- `.omp/AGENTS.md`: commit rule now Conventional Commits (`feat`, `fix`, `docs`, `refactor`, `test`, `chore`), all lowercase.
+- `tally/report.py`: month filtering implemented.
+- `tests/test_report.py`: month, month+category, and unknown-month cases.
+- `tests/test_cli.py`: regression for `sum --month`.
+
+Verification: all 14 tests pass. On `expenses.csv`, `sum --month 2026-09` prints `531.77`, matching the September total from `awk`; unfiltered sum remains `1935.71`.
+
+Commits: `1ebb8a4 docs: adopt conventional commits for commit messages`, `7c3e36b fix: honor month in sum total`.
+
+END OF REPORT

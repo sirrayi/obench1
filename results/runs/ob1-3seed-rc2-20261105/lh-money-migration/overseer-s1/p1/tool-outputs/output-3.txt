@@ -1,0 +1,805 @@
+===== ledgerly/__init__.py
+  assign __version__ = '3.4.0'
+===== ledgerly/_gen/__init__.py
+===== [redacted:high-entropy].py
+  assign RATES = {('USD', 'EUR'): 0.9213, ('USD', 'GBP'): 0.7864, ('USD', 'JPY'): 151.42, ('USD', 'KWD'): 0.3071, ('USD', 'CHF'): 0.8805, ('EUR', 'USD'): 1.0854, ('EUR', 'GBP'): 0.85358, ('EUR', 'JPY'): 164.35, ('EUR', 'KWD'): 0.33333, ('EUR', 'CHF'): 0.95571, ('GBP', 'USD'): 1.2716, ('GBP', 'EUR'): 1.1715, ('GBP', 'JPY'): 192.55, ('GBP', 'KWD'): 0.39051, ('GBP', 'CHF'): 1.1197, ('JPY', 'USD'): 0.0066041, ('JPY', 'EUR'): 0.0060844, ('JPY', 'GBP'): 0.0051935, ('JPY', 'KWD'): 0.0020281, ('JPY', 'CHF'): 0.005815, ('KWD', 'USD'): 3.2563, ('KWD', 'EUR'): 3.0, ('KWD', 'GBP'): 2.5607, ('KWD', 'JPY'): 493.06, ('KWD', 'CHF'): 2.8671, ('CHF', 'USD'): 1.1357, ('CHF', 'EUR'): 1.0463, ('CHF', 'GBP'): 0.89313, ('CHF', 'JPY'): 171.97, ('CHF', 'KWD'): 0.34878}
+===== ledgerly/billing/__init__.py
+===== [redacted:high-entropy].py
+  assign log = logging.getLogger(__name__)
+  def format_coupon(amount: MoneyF, currency: str)
+      return '%.*f %s' % (EXPONENT[currency], amount, currency)
+  def coupon_settled(paid: MoneyF, due: MoneyF)
+      return abs(paid - due) < 0.005
+  def scaled_coupon(amount: MoneyF, factor: Rate, currency: str)
+      return round_money(amount * factor, currency)
+  def split_coupon(amount: MoneyF, parts: int, currency: str)
+      share = round_money(amount / parts, currency)
+      return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+  def net_coupon(gross: MoneyF, pct: Rate, currency: str)
+      return gross - round_money(gross * pct / 100, currency)
+  def [redacted:high-entropy](ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def coupon_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class CouponRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = [redacted:high-entropy](ref)     self.amount = amount     self.currency = currency
+===== ledgerly/billing/overage.py
+  assign log = logging.getLogger(__name__)
+  def overage_settled(paid: MoneyF, due: MoneyF)
+      return abs(paid - due) < 0.005
+  def split_overage(amount: MoneyF, parts: int, currency: str)
+      share = round_money(amount / parts, currency)
+      return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+  def percent_of_overage(amount: MoneyF, pct: Rate, currency: str)
+      return round_money(amount * pct / 100, currency)
+  def overage_exceeds(amount: MoneyF, limit: MoneyF)
+      return amount > limit
+  def total_overage(amounts: list, currency: str)
+      return round_money(sum(amounts), currency)
+  def normalize_overage_ref(ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def overage_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class OverageRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = normalize_overage_ref(ref)     self.amount = amount     self.currency = currency
+===== ledgerly/billing/plans.py
+  assign log = logging.getLogger(__name__)
+  def accrued_plan(balance: MoneyF, annual_rate: Rate, days: int, currency: str)
+      return round_money(balance * annual_rate / 100 * days / 365, currency)
+  def plan_settled(paid: MoneyF, due: MoneyF)
+      return abs(paid - due) < 0.005
+  def format_plan(amount: MoneyF, currency: str)
+      return '%.*f %s' % (EXPONENT[currency], amount, currency)
+  def net_plan(gross: MoneyF, pct: Rate, currency: str)
+      return gross - round_money(gross * pct / 100, currency)
+  def scaled_plan(amount: MoneyF, factor: Rate, currency: str)
+      return round_money(amount * factor, currency)
+  def normalize_plan_ref(ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def plan_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class PlanRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = normalize_plan_ref(ref)     self.amount = amount     self.currency = currency
+===== [redacted:high-entropy].py
+  assign log = logging.getLogger(__name__)
+  def format_prorated(amount: MoneyF, currency: str)
+      return '%.*f %s' % (EXPONENT[currency], amount, currency)
+  def prorated_settled(paid: MoneyF, due: MoneyF)
+      return abs(paid - due) < 0.005
+  def percent_of_prorated(amount: MoneyF, pct: Rate, currency: str)
+      return round_money(amount * pct / 100, currency)
+  def total_prorated(amounts: list, currency: str)
+      return round_money(sum(amounts), currency)
+  def net_prorated(gross: MoneyF, pct: Rate, currency: str)
+      return gross - round_money(gross * pct / 100, currency)
+  def [redacted:high-entropy](ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def prorated_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class ProratedRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = [redacted:high-entropy](ref)     self.amount = amount     self.currency = currency
+===== ledgerly/billing/usage.py
+  assign log = logging.getLogger(__name__)
+  def usage_exceeds(amount: MoneyF, limit: MoneyF)
+      return amount > limit
+  def split_usage(amount: MoneyF, parts: int, currency: str)
+      share = round_money(amount / parts, currency)
+      return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+  def scaled_usage(amount: MoneyF, factor: Rate, currency: str)
+      return round_money(amount * factor, currency)
+  def percent_of_usage(amount: MoneyF, pct: Rate, currency: str)
+      return round_money(amount * pct / 100, currency)
+  def format_usage(amount: MoneyF, currency: str)
+      return '%.*f %s' % (EXPONENT[currency], amount, currency)
+  def normalize_usage_ref(ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def usage_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class UsageRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = normalize_usage_ref(ref)     self.amount = amount     self.currency = currency
+===== [redacted:high-entropy].py
+===== [redacted:high-entropy].py
+  assign log = logging.getLogger(__name__)
+  def ledger_csv(rows: list, currency: str)
+      out = ['date,memo,amount,currency\n']
+      return ''.join(out)
+  def format_csv(amount: MoneyF, currency: str)
+      return '%.*f %s' % (EXPONENT[currency], amount, currency)
+  def total_csv(amounts: list, currency: str)
+      return round_money(sum(amounts), currency)
+  def normalize_csv_ref(ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def csv_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class CsvRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = normalize_csv_ref(ref)     self.amount = amount     self.currency = currency
+===== [redacted:high-entropy].py
+  assign log = logging.getLogger(__name__)
+  def invoice_json(lines: list, currency: str)
+      total = round_money(sum((a for (_, a) in lines)), currency)
+      doc = {'currency': currency, 'lines': [{'sku': s, 'amount': round_money(a, currency)} for (s, a) in lines], 'total': total}
+      return json.dumps(doc, separators=(',', ':'))
+  def format_json(amount: MoneyF, currency: str)
+      return '%.*f %s' % (EXPONENT[currency], amount, currency)
+  def total_json(amounts: list, currency: str)
+      return round_money(sum(amounts), currency)
+  def normalize_json_ref(ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def json_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class JsonRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = normalize_json_ref(ref)     self.amount = amount     self.currency = currency
+===== [redacted:high-entropy].py
+===== ledgerly/fx/convert.py
+  assign log = logging.getLogger(__name__)
+  def convert_conversion(amount: MoneyF, src: str, dst: str)
+      return round_money(amount * RATES[src, dst], dst)
+  def quote_conversion(amount: MoneyF, src: str, dst: str, spread_bp: int)
+      return round_money(amount * RATES[src, dst] * (1 - spread_bp / 10000), dst)
+  def net_conversion(gross: MoneyF, pct: Rate, currency: str)
+      return gross - round_money(gross * pct / 100, currency)
+  def scaled_conversion(amount: MoneyF, factor: Rate, currency: str)
+      return round_money(amount * factor, currency)
+  def total_conversion(amounts: list, currency: str)
+      return round_money(sum(amounts), currency)
+  def convert_float(amount: float, src: str, dst: str)
+      return round(amount * RATES[src, dst], EXPONENT[dst])
+  def [redacted:high-entropy](ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def conversion_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class ConversionRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = [redacted:high-entropy](ref)     self.amount = amount     self.currency = currency
+===== [redacted:high-entropy].py
+  assign log = logging.getLogger(__name__)
+  def convert_cross(amount: MoneyF, src: str, dst: str)
+      return round_money(amount * RATES[src, dst], dst)
+  def quote_cross(amount: MoneyF, src: str, dst: str, spread_bp: int)
+      return round_money(amount * RATES[src, dst] * (1 - spread_bp / 10000), dst)
+  def accrued_cross(balance: MoneyF, annual_rate: Rate, days: int, currency: str)
+      return round_money(balance * annual_rate / 100 * days / 365, currency)
+  def net_cross(gross: MoneyF, pct: Rate, currency: str)
+      return gross - round_money(gross * pct / 100, currency)
+  def percent_of_cross(amount: MoneyF, pct: Rate, currency: str)
+      return round_money(amount * pct / 100, currency)
+  def normalize_cross_ref(ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def cross_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class CrossRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = normalize_cross_ref(ref)     self.amount = amount     self.currency = currency
+===== ledgerly/fx/quotes.py
+  assign log = logging.getLogger(__name__)
+  def convert_quote(amount: MoneyF, src: str, dst: str)
+      return round_money(amount * RATES[src, dst], dst)
+  def quote_quote(amount: MoneyF, src: str, dst: str, spread_bp: int)
+      return round_money(amount * RATES[src, dst] * (1 - spread_bp / 10000), dst)
+  def quote_exceeds(amount: MoneyF, limit: MoneyF)
+      return amount > limit
+  def accrued_quote(balance: MoneyF, annual_rate: Rate, days: int, currency: str)
+      return round_money(balance * annual_rate / 100 * days / 365, currency)
+  def split_quote(amount: MoneyF, parts: int, currency: str)
+      share = round_money(amount / parts, currency)
+      return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+  def normalize_quote_ref(ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def quote_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class QuoteRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = normalize_quote_ref(ref)     self.amount = amount     self.currency = currency
+===== [redacted:high-entropy].py
+  assign log = logging.getLogger(__name__)
+  def convert_revaluation(amount: MoneyF, src: str, dst: str)
+      return round_money(amount * RATES[src, dst], dst)
+  def quote_revaluation(amount: MoneyF, src: str, dst: str, spread_bp: int)
+      return round_money(amount * RATES[src, dst] * (1 - spread_bp / 10000), dst)
+  def net_revaluation(gross: MoneyF, pct: Rate, currency: str)
+      return gross - round_money(gross * pct / 100, currency)
+  def accrued_revaluation(balance: MoneyF, annual_rate: Rate, days: int, currency: str)
+      return round_money(balance * annual_rate / 100 * days / 365, currency)
+  def split_revaluation(amount: MoneyF, parts: int, currency: str)
+      share = round_money(amount / parts, currency)
+      return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+  def [redacted:high-entropy](ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def revaluation_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class RevaluationRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = [redacted:high-entropy](ref)     self.amount = amount     self.currency = currency
+===== ledgerly/fx/spreads.py
+  assign log = logging.getLogger(__name__)
+  def convert_spread(amount: MoneyF, src: str, dst: str)
+      return round_money(amount * RATES[src, dst], dst)
+  def quote_spread(amount: MoneyF, src: str, dst: str, spread_bp: int)
+      return round_money(amount * RATES[src, dst] * (1 - spread_bp / 10000), dst)
+  def scaled_spread(amount: MoneyF, factor: Rate, currency: str)
+      return round_money(amount * factor, currency)
+  def capped_spread(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str)
+      return min(round_money(amount * pct / 100, currency), cap)
+  def format_spread(amount: MoneyF, currency: str)
+      return '%.*f %s' % (EXPONENT[currency], amount, currency)
+  def [redacted:high-entropy](ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def spread_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class SpreadRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = [redacted:high-entropy](ref)     self.amount = amount     self.currency = currency
+===== ledgerly/interest/__init__.py
+===== [redacted:high-entropy].py
+  assign log = logging.getLogger(__name__)
+  def total_accrual(amounts: list, currency: str)
+      return round_money(sum(amounts), currency)
+  def percent_of_accrual(amount: MoneyF, pct: Rate, currency: str)
+      return round_money(amount * pct / 100, currency)
+  def capped_accrual(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str)
+      return min(round_money(amount * pct / 100, currency), cap)
+  def scaled_accrual(amount: MoneyF, factor: Rate, currency: str)
+      return round_money(amount * factor, currency)
+  def accrual_settled(paid: MoneyF, due: MoneyF)
+      return abs(paid - due) < 0.005
+  def [redacted:high-entropy](ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def accrual_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class AccrualRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = [redacted:high-entropy](ref)     self.amount = amount     self.currency = currency
+===== ledgerly/interest/late_fees.py
+  assign log = logging.getLogger(__name__)
+  def percent_of_late_fee(amount: MoneyF, pct: Rate, currency: str)
+      return round_money(amount * pct / 100, currency)
+  def late_fee_exceeds(amount: MoneyF, limit: MoneyF)
+      return amount > limit
+  def late_fee_settled(paid: MoneyF, due: MoneyF)
+      return abs(paid - due) < 0.005
+  def accrued_late_fee(balance: MoneyF, annual_rate: Rate, days: int, currency: str)
+      return round_money(balance * annual_rate / 100 * days / 365, currency)
+  def capped_late_fee(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str)
+      return min(round_money(amount * pct / 100, currency), cap)
+  def normalize_late_fee_ref(ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def late_fee_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class LateFeeRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = normalize_late_fee_ref(ref)     self.amount = amount     self.currency = currency
+===== [redacted:high-entropy].py
+  assign log = logging.getLogger(__name__)
+  def percent_of_loan(amount: MoneyF, pct: Rate, currency: str)
+      return round_money(amount * pct / 100, currency)
+  def capped_loan(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str)
+      return min(round_money(amount * pct / 100, currency), cap)
+  def scaled_loan(amount: MoneyF, factor: Rate, currency: str)
+      return round_money(amount * factor, currency)
+  def loan_exceeds(amount: MoneyF, limit: MoneyF)
+      return amount > limit
+  def split_loan(amount: MoneyF, parts: int, currency: str)
+      share = round_money(amount / parts, currency)
+      return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+  def normalize_loan_ref(ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def loan_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class LoanRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = normalize_loan_ref(ref)     self.amount = amount     self.currency = currency
+===== ledgerly/interest/penalties.py
+  assign log = logging.getLogger(__name__)
+  def capped_penalty(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str)
+      return min(round_money(amount * pct / 100, currency), cap)
+  def penalty_settled(paid: MoneyF, due: MoneyF)
+      return abs(paid - due) < 0.005
+  def net_penalty(gross: MoneyF, pct: Rate, currency: str)
+      return gross - round_money(gross * pct / 100, currency)
+  def format_penalty(amount: MoneyF, currency: str)
+      return '%.*f %s' % (EXPONENT[currency], amount, currency)
+  def penalty_exceeds(amount: MoneyF, limit: MoneyF)
+      return amount > limit
+  def [redacted:high-entropy](ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def penalty_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class PenaltyRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = [redacted:high-entropy](ref)     self.amount = amount     self.currency = currency
+===== [redacted:high-entropy].py
+  assign log = logging.getLogger(__name__)
+  def capped_savings(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str)
+      return min(round_money(amount * pct / 100, currency), cap)
+  def percent_of_savings(amount: MoneyF, pct: Rate, currency: str)
+      return round_money(amount * pct / 100, currency)
+  def savings_exceeds(amount: MoneyF, limit: MoneyF)
+      return amount > limit
+  def split_savings(amount: MoneyF, parts: int, currency: str)
+      share = round_money(amount / parts, currency)
+      return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+  def accrued_savings(balance: MoneyF, annual_rate: Rate, days: int, currency: str)
+      return round_money(balance * annual_rate / 100 * days / 365, currency)
+  def [redacted:high-entropy](ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def savings_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class SavingsRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = [redacted:high-entropy](ref)     self.amount = amount     self.currency = currency
+===== [redacted:high-entropy].py
+===== [redacted:high-entropy].py
+  assign log = logging.getLogger(__name__)
+  def percent_of_credit(amount: MoneyF, pct: Rate, currency: str)
+      return round_money(amount * pct / 100, currency)
+  def credit_exceeds(amount: MoneyF, limit: MoneyF)
+      return amount > limit
+  def credit_settled(paid: MoneyF, due: MoneyF)
+      return abs(paid - due) < 0.005
+  def format_credit(amount: MoneyF, currency: str)
+      return '%.*f %s' % (EXPONENT[currency], amount, currency)
+  def net_credit(gross: MoneyF, pct: Rate, currency: str)
+      return gross - round_money(gross * pct / 100, currency)
+  def [redacted:high-entropy](ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def credit_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class CreditRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = [redacted:high-entropy](ref)     self.amount = amount     self.currency = currency
+===== [redacted:high-entropy].py
+  assign log = logging.getLogger(__name__)
+  def capped_deposit(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str)
+      return min(round_money(amount * pct / 100, currency), cap)
+  def deposit_exceeds(amount: MoneyF, limit: MoneyF)
+      return amount > limit
+  def accrued_deposit(balance: MoneyF, annual_rate: Rate, days: int, currency: str)
+      return round_money(balance * annual_rate / 100 * days / 365, currency)
+  def format_deposit(amount: MoneyF, currency: str)
+      return '%.*f %s' % (EXPONENT[currency], amount, currency)
+  def deposit_settled(paid: MoneyF, due: MoneyF)
+      return abs(paid - due) < 0.005
+  def [redacted:high-entropy](ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def deposit_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class DepositRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = [redacted:high-entropy](ref)     self.amount = amount     self.currency = currency
+===== [redacted:high-entropy].py
+  assign log = logging.getLogger(__name__)
+  def scaled_discount(amount: MoneyF, factor: Rate, currency: str)
+      return round_money(amount * factor, currency)
+  def capped_discount(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str)
+      return min(round_money(amount * pct / 100, currency), cap)
+  def discount_exceeds(amount: MoneyF, limit: MoneyF)
+      return amount > limit
+  def split_discount(amount: MoneyF, parts: int, currency: str)
+      share = round_money(amount / parts, currency)
+      return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+  def discount_settled(paid: MoneyF, due: MoneyF)
+      return abs(paid - due) < 0.005
+  def [redacted:high-entropy](ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def discount_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class DiscountRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = [redacted:high-entropy](ref)     self.amount = amount     self.currency = currency
+===== [redacted:high-entropy].py
+  assign log = logging.getLogger(__name__)
+  def net_line(gross: MoneyF, pct: Rate, currency: str)
+      return gross - round_money(gross * pct / 100, currency)
+  def line_exceeds(amount: MoneyF, limit: MoneyF)
+      return amount > limit
+  def scaled_line(amount: MoneyF, factor: Rate, currency: str)
+      return round_money(amount * factor, currency)
+  def capped_line(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str)
+      return min(round_money(amount * pct / 100, currency), cap)
+  def accrued_line(balance: MoneyF, annual_rate: Rate, days: int, currency: str)
+      return round_money(balance * annual_rate / 100 * days / 365, currency)
+  def normalize_line_ref(ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def line_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class LineRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = normalize_line_ref(ref)     self.amount = amount     self.currency = currency
+===== [redacted:high-entropy].py
+  assign log = logging.getLogger(__name__)
+  def net_subtotal(gross: MoneyF, pct: Rate, currency: str)
+      return gross - round_money(gross * pct / 100, currency)
+  def split_subtotal(amount: MoneyF, parts: int, currency: str)
+      share = round_money(amount / parts, currency)
+      return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+  def subtotal_exceeds(amount: MoneyF, limit: MoneyF)
+      return amount > limit
+  def total_subtotal(amounts: list, currency: str)
+      return round_money(sum(amounts), currency)
+  def scaled_subtotal(amount: MoneyF, factor: Rate, currency: str)
+      return round_money(amount * factor, currency)
+  def [redacted:high-entropy](ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def subtotal_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class SubtotalRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = [redacted:high-entropy](ref)     self.amount = amount     self.currency = currency
+===== [redacted:high-entropy].py
+===== [redacted:high-entropy].py
+  assign log = logging.getLogger(__name__)
+  def capped_commission(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str)
+      return min(round_money(amount * pct / 100, currency), cap)
+  def total_commission(amounts: list, currency: str)
+      return round_money(sum(amounts), currency)
+  def format_commission(amount: MoneyF, currency: str)
+      return '%.*f %s' % (EXPONENT[currency], amount, currency)
+  def accrued_commission(balance: MoneyF, annual_rate: Rate, days: int, currency: str)
+      return round_money(balance * annual_rate / 100 * days / 365, currency)
+  def commission_settled(paid: MoneyF, due: MoneyF)
+      return abs(paid - due) < 0.005
+  def [redacted:high-entropy](ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def commission_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class CommissionRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = [redacted:high-entropy](ref)     self.amount = amount     self.currency = currency
+===== [redacted:high-entropy].py
+  assign log = logging.getLogger(__name__)
+  def fee_settled(paid: MoneyF, due: MoneyF)
+      return abs(paid - due) < 0.005
+  def split_fee(amount: MoneyF, parts: int, currency: str)
+      share = round_money(amount / parts, currency)
+      return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+  def capped_fee(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str)
+      return min(round_money(amount * pct / 100, currency), cap)
+  def scaled_fee(amount: MoneyF, factor: Rate, currency: str)
+      return round_money(amount * factor, currency)
+  def net_fee(gross: MoneyF, pct: Rate, currency: str)
+      return gross - round_money(gross * pct / 100, currency)
+  def normalize_fee_ref(ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def fee_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class FeeRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = normalize_fee_ref(ref)     self.amount = amount     self.currency = currency
+===== [redacted:high-entropy].py
+  assign log = logging.getLogger(__name__)
+  def capped_holdback(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str)
+      return min(round_money(amount * pct / 100, currency), cap)
+  def scaled_holdback(amount: MoneyF, factor: Rate, currency: str)
+      return round_money(amount * factor, currency)
+  def format_holdback(amount: MoneyF, currency: str)
+      return '%.*f %s' % (EXPONENT[currency], amount, currency)
+  def net_holdback(gross: MoneyF, pct: Rate, currency: str)
+      return gross - round_money(gross * pct / 100, currency)
+  def accrued_holdback(balance: MoneyF, annual_rate: Rate, days: int, currency: str)
+      return round_money(balance * annual_rate / 100 * days / 365, currency)
+  def [redacted:high-entropy](ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def holdback_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class HoldbackRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = [redacted:high-entropy](ref)     self.amount = amount     self.currency = currency
+===== [redacted:high-entropy].py
+  assign log = logging.getLogger(__name__)
+  def scaled_split(amount: MoneyF, factor: Rate, currency: str)
+      return round_money(amount * factor, currency)
+  def accrued_split(balance: MoneyF, annual_rate: Rate, days: int, currency: str)
+      return round_money(balance * annual_rate / 100 * days / 365, currency)
+  def split_exceeds(amount: MoneyF, limit: MoneyF)
+      return amount > limit
+  def total_split(amounts: list, currency: str)
+      return round_money(sum(amounts), currency)
+  def format_split(amount: MoneyF, currency: str)
+      return '%.*f %s' % (EXPONENT[currency], amount, currency)
+  def normalize_split_ref(ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def split_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class SplitRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = normalize_split_ref(ref)     self.amount = amount     self.currency = currency
+===== [redacted:high-entropy].py
+  assign log = logging.getLogger(__name__)
+  def accrued_transfer(balance: MoneyF, annual_rate: Rate, days: int, currency: str)
+      return round_money(balance * annual_rate / 100 * days / 365, currency)
+  def split_transfer(amount: MoneyF, parts: int, currency: str)
+      share = round_money(amount / parts, currency)
+      return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+  def percent_of_transfer(amount: MoneyF, pct: Rate, currency: str)
+      return round_money(amount * pct / 100, currency)
+  def transfer_exceeds(amount: MoneyF, limit: MoneyF)
+      return amount > limit
+  def scaled_transfer(amount: MoneyF, factor: Rate, currency: str)
+      return round_money(amount * factor, currency)
+  def [redacted:high-entropy](ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def transfer_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class TransferRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = [redacted:high-entropy](ref)     self.amount = amount     self.currency = currency
+===== [redacted:high-entropy].py
+===== [redacted:high-entropy].py
+  assign log = logging.getLogger(__name__)
+  def cancellation_exceeds(amount: MoneyF, limit: MoneyF)
+      return amount > limit
+  def cancellation_settled(paid: MoneyF, due: MoneyF)
+      return abs(paid - due) < 0.005
+  def accrued_cancellation(balance: MoneyF, annual_rate: Rate, days: int, currency: str)
+      return round_money(balance * annual_rate / 100 * days / 365, currency)
+  def format_cancellation(amount: MoneyF, currency: str)
+      return '%.*f %s' % (EXPONENT[currency], amount, currency)
+  def percent_of_cancellation(amount: MoneyF, pct: Rate, currency: str)
+      return round_money(amount * pct / 100, currency)
+  def [redacted:high-entropy](ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def cancellation_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class CancellationRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = [redacted:high-entropy](ref)     self.amount = amount     self.currency = currency
+===== [redacted:high-entropy].py
+  assign log = logging.getLogger(__name__)
+  def accrued_chargeback(balance: MoneyF, annual_rate: Rate, days: int, currency: str)
+      return round_money(balance * annual_rate / 100 * days / 365, currency)
+  def split_chargeback(amount: MoneyF, parts: int, currency: str)
+      share = round_money(amount / parts, currency)
+      return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+  def net_chargeback(gross: MoneyF, pct: Rate, currency: str)
+      return gross - round_money(gross * pct / 100, currency)
+  def chargeback_exceeds(amount: MoneyF, limit: MoneyF)
+      return amount > limit
+  def [redacted:high-entropy](amount: MoneyF, pct: Rate, currency: str)
+      return round_money(amount * pct / 100, currency)
+  def [redacted:high-entropy](ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def chargeback_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class ChargebackRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = [redacted:high-entropy](ref)     self.amount = amount     self.currency = currency
+===== [redacted:high-entropy].py
+  assign log = logging.getLogger(__name__)
+  def format_goodwill(amount: MoneyF, currency: str)
+      return '%.*f %s' % (EXPONENT[currency], amount, currency)
+  def split_goodwill(amount: MoneyF, parts: int, currency: str)
+      share = round_money(amount / parts, currency)
+      return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+  def capped_goodwill(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str)
+      return min(round_money(amount * pct / 100, currency), cap)
+  def scaled_goodwill(amount: MoneyF, factor: Rate, currency: str)
+      return round_money(amount * factor, currency)
+  def net_goodwill(gross: MoneyF, pct: Rate, currency: str)
+      return gross - round_money(gross * pct / 100, currency)
+  def [redacted:high-entropy](ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def goodwill_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class GoodwillRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = [redacted:high-entropy](ref)     self.amount = amount     self.currency = currency
+===== [redacted:high-entropy].py
+  assign log = logging.getLogger(__name__)
+  def [redacted:high-entropy](amount: MoneyF, limit: MoneyF)
+      return amount > limit
+  def [redacted:high-entropy](amount: MoneyF, pct: Rate, cap: MoneyF, currency: str)
+      return min(round_money(amount * pct / 100, currency), cap)
+  def net_partial_refund(gross: MoneyF, pct: Rate, currency: str)
+      return gross - round_money(gross * pct / 100, currency)
+  def [redacted:high-entropy](amount: MoneyF, pct: Rate, currency: str)
+      return round_money(amount * pct / 100, currency)
+  def [redacted:high-entropy](amount: MoneyF, parts: int, currency: str)
+      share = round_money(amount / parts, currency)
+      return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+  def [redacted:high-entropy](ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def partial_refund_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class PartialRefundRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = [redacted:high-entropy](ref)     self.amount = amount     self.currency = currency
+===== ledgerly/refunds/returns.py
+  assign log = logging.getLogger(__name__)
+  def scaled_return(amount: MoneyF, factor: Rate, currency: str)
+      return round_money(amount * factor, currency)
+  def accrued_return(balance: MoneyF, annual_rate: Rate, days: int, currency: str)
+      return round_money(balance * annual_rate / 100 * days / 365, currency)
+  def format_return(amount: MoneyF, currency: str)
+      return '%.*f %s' % (EXPONENT[currency], amount, currency)
+  def net_return(gross: MoneyF, pct: Rate, currency: str)
+      return gross - round_money(gross * pct / 100, currency)
+  def total_return(amounts: list, currency: str)
+      return round_money(sum(amounts), currency)
+  def normalize_return_ref(ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def return_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class ReturnRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = normalize_return_ref(ref)     self.amount = amount     self.currency = currency
+===== [redacted:high-entropy].py
+===== [redacted:high-entropy].py
+  assign log = logging.getLogger(__name__)
+  def aging_settled(paid: MoneyF, due: MoneyF)
+      return abs(paid - due) < 0.005
+  def scaled_aging(amount: MoneyF, factor: Rate, currency: str)
+      return round_money(amount * factor, currency)
+  def net_aging(gross: MoneyF, pct: Rate, currency: str)
+      return gross - round_money(gross * pct / 100, currency)
+  def accrued_aging(balance: MoneyF, annual_rate: Rate, days: int, currency: str)
+      return round_money(balance * annual_rate / 100 * days / 365, currency)
+  def total_aging(amounts: list, currency: str)
+      return round_money(sum(amounts), currency)
+  def normalize_aging_ref(ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def aging_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class AgingRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = normalize_aging_ref(ref)     self.amount = amount     self.currency = currency
+===== [redacted:high-entropy].py
+  assign log = logging.getLogger(__name__)
+  def total_statement(amounts: list, currency: str)
+      return round_money(sum(amounts), currency)
+  def statement_settled(paid: MoneyF, due: MoneyF)
+      return abs(paid - due) < 0.005
+  def statement_exceeds(amount: MoneyF, limit: MoneyF)
+      return amount > limit
+  def split_statement(amount: MoneyF, parts: int, currency: str)
+      share = round_money(amount / parts, currency)
+      return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+  def net_statement(gross: MoneyF, pct: Rate, currency: str)
+      return gross - round_money(gross * pct / 100, currency)
+  def [redacted:high-entropy](ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def statement_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class StatementRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = [redacted:high-entropy](ref)     self.amount = amount     self.currency = currency
+===== [redacted:high-entropy].py
+  assign log = logging.getLogger(__name__)
+  def capped_summary(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str)
+      return min(round_money(amount * pct / 100, currency), cap)
+  def net_summary(gross: MoneyF, pct: Rate, currency: str)
+      return gross - round_money(gross * pct / 100, currency)
+  def summary_settled(paid: MoneyF, due: MoneyF)
+      return abs(paid - due) < 0.005
+  def summary_exceeds(amount: MoneyF, limit: MoneyF)
+      return amount > limit
+  def scaled_summary(amount: MoneyF, factor: Rate, currency: str)
+      return round_money(amount * factor, currency)
+  def [redacted:high-entropy](ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def summary_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class SummaryRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = [redacted:high-entropy](ref)     self.amount = amount     self.currency = currency
+===== [redacted:high-entropy].py
+===== [redacted:high-entropy].py
+  assign log = logging.getLogger(__name__)
+  def scaled_exemption(amount: MoneyF, factor: Rate, currency: str)
+      return round_money(amount * factor, currency)
+  def accrued_exemption(balance: MoneyF, annual_rate: Rate, days: int, currency: str)
+      return round_money(balance * annual_rate / 100 * days / 365, currency)
+  def total_exemption(amounts: list, currency: str)
+      return round_money(sum(amounts), currency)
+  def split_exemption(amount: MoneyF, parts: int, currency: str)
+      share = round_money(amount / parts, currency)
+      return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+  def exemption_exceeds(amount: MoneyF, limit: MoneyF)
+      return amount > limit
+  def [redacted:high-entropy](ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def exemption_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class ExemptionRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = [redacted:high-entropy](ref)     self.amount = amount     self.currency = currency
+===== [redacted:high-entropy].py
+  assign log = logging.getLogger(__name__)
+  def accrued_reverse_charge(balance: MoneyF, annual_rate: Rate, days: int, currency: str)
+      return round_money(balance * annual_rate / 100 * days / 365, currency)
+  def reverse_charge_settled(paid: MoneyF, due: MoneyF)
+      return abs(paid - due) < 0.005
+  def capped_reverse_charge(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str)
+      return min(round_money(amount * pct / 100, currency), cap)
+  def split_reverse_charge(amount: MoneyF, parts: int, currency: str)
+      share = round_money(amount / parts, currency)
+      return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+  def reverse_charge_exceeds(amount: MoneyF, limit: MoneyF)
+      return amount > limit
+  def [redacted:high-entropy](ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def reverse_charge_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class ReverseChargeRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = [redacted:high-entropy](ref)     self.amount = amount     self.currency = currency
+===== ledgerly/tax/sales_tax.py
+  assign log = logging.getLogger(__name__)
+  def sales_tax_settled(paid: MoneyF, due: MoneyF)
+      return abs(paid - due) < 0.005
+  def net_sales_tax(gross: MoneyF, pct: Rate, currency: str)
+      return gross - round_money(gross * pct / 100, currency)
+  def format_sales_tax(amount: MoneyF, currency: str)
+      return '%.*f %s' % (EXPONENT[currency], amount, currency)
+  def accrued_sales_tax(balance: MoneyF, annual_rate: Rate, days: int, currency: str)
+      return round_money(balance * annual_rate / 100 * days / 365, currency)
+  def scaled_sales_tax(amount: MoneyF, factor: Rate, currency: str)
+      return round_money(amount * factor, currency)
+  def [redacted:high-entropy](ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def sales_tax_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class SalesTaxRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = [redacted:high-entropy](ref)     self.amount = amount     self.currency = currency
+===== ledgerly/tax/vat.py
+  assign log = logging.getLogger(__name__)
+  def format_vat(amount: MoneyF, currency: str)
+      return '%.*f %s' % (EXPONENT[currency], amount, currency)
+  def capped_vat(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str)
+      return min(round_money(amount * pct / 100, currency), cap)
+  def vat_exceeds(amount: MoneyF, limit: MoneyF)
+      return amount > limit
+  def total_vat(amounts: list, currency: str)
+      return round_money(sum(amounts), currency)
+  def split_vat(amount: MoneyF, parts: int, currency: str)
+      share = round_money(amount / parts, currency)
+      return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+  def normalize_vat_ref(ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def vat_due_date(issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class VatRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = normalize_vat_ref(ref)     self.amount = amount     self.currency = currency
+===== [redacted:high-entropy].py
+  assign log = logging.getLogger(__name__)
+  def net_withholding(gross: MoneyF, pct: Rate, currency: str)
+      return gross - round_money(gross * pct / 100, currency)
+  def scaled_withholding(amount: MoneyF, factor: Rate, currency: str)
+      return round_money(amount * factor, currency)
+  def withholding_exceeds(amount: MoneyF, limit: MoneyF)
+      return amount > limit
+  def split_withholding(amount: MoneyF, parts: int, currency: str)
+      share = round_money(amount / parts, currency)
+      return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+  def [redacted:high-entropy](amount: MoneyF, pct: Rate, currency: str)
+      return round_money(amount * pct / 100, currency)
+  def [redacted:high-entropy](ref: str)
+      return '-'.join(ref.strip().upper().replace('_', ' ').split())
+  def [redacted:high-entropy](issued: datetime.date, terms_days: int)
+      due = issued + datetime.timedelta(days=terms_days)
+      return due
+  class WithholdingRecord
+     init def __init__(self, ref: str, amount: MoneyF, currency: str):     self.ref = [redacted:high-entropy](ref)     self.amount = amount     self.currency = currency
+===== ledgerly/types.py
+  assign MoneyF = float
+  assign Rate = float
+  assign Ref = str
+===== ledgerly/util.py
+  assign EXPONENT = {'USD': 2, 'EUR': 2, 'GBP': 2, 'CHF': 2, 'JPY': 0, 'KWD': 3}
+  def round_money(x: float, currency: str)
+      return round(x, EXPONENT[currency])
+===== legacy/__init__.py
+===== legacy/v1_api.py
+  def quote_v1(amount, src, dst)
+      return {'amount': convert_float(amount, src, dst), 'currency': dst}
+  def batch_quote_v1(amounts, src, dst)
+      return [quote_v1(a, src, dst) for a in amounts]
+[exit code: 0]

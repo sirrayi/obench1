@@ -1,0 +1,3 @@
+Wrote findings/svc-01.json through findings/svc-24.json, covering clauses C1-C16 including amendment 1's new C16. svc-05 is compliant; svc-11 and svc-19 are unverifiable because their src files are Git LFS pointers; the other services list clause ids in clause order. The audit was run with an AST and regex checker against the checkout at commit 5dedbcd, repeated until the tree and both spec files were unchanged during the run and after writing, then each report was re-validated for schema and clause order. Nothing under services/ was modified; the only new files are the reports.
+
+END OF REPORT

@@ -1,0 +1,120 @@
+diff --git a/units/__init__.py b/units/__init__.py
+index 838ffef..b98a7dd 100644
+--- a/units/__init__.py
++++ b/units/__init__.py
+@@ -1,5 +1,79 @@
+ """Unit conversion, see README.md."""
+ 
++__all__ = ["convert"]
++
++# Unit name -> (dimension, factor to the dimension's base unit).
++_FACTORS = {
++    # length, base unit: metre
++    "m": ("length", 1.0),
++    "km": ("length", 1000.0),
++    "cm": ("length", 0.01),
++    "mi": ("length", 1609.344),
++    "ft": ("length", 0.3048),
++    "in": ("length", 0.0254),
++    # mass, base unit: kilogram
++    "kg": ("mass", 1.0),
++    "g": ("mass", 0.001),
++    "lb": ("mass", 0.45359237),
++    "oz": ("mass", 0.45359237 / 16.0),
++}
++
++# The temperature units are affine rather than plain factors, so they are
++# handled separately, always going through kelvin.
++_TEMPERATURE = "temperature"
++
++# Below this many kelvin a value counts as below absolute zero; the slack
++# keeps float rounding (for example -459.67 F) from tripping the check.
++_ABSOLUTE_ZERO_SLACK = 1e-9
++
++
++def _to_kelvin(value, unit):
++    if unit == "C":
++        return value + 273.15
++    if unit == "F":
++        return (value - 32.0) * 5.0 / 9.0 + 273.15
++    return value
++
++
++def _from_kelvin(value, unit):
++    if unit == "C":
++        return value - 273.15
++    if unit == "F":
++        return (value - 273.15) * 9.0 / 5.0 + 32.0
++    return value
++
++
++def _dimension(unit):
++    """Return the dimension of *unit*, raising ValueError if it is unknown."""
++    if unit in ("C", "F", "K"):
++        return _TEMPERATURE
++    try:
++        return _FACTORS[unit][0]
++    except (KeyError, TypeError):
++        raise ValueError("unknown unit: {!r}".format(unit)) from None
++
+ 
+ def convert(value, src, dst):
+-    raise NotImplementedError
++    """Convert *value* from unit *src* to unit *dst* and return it as a float.
++
++    Unit names are case-sensitive and come from README.md. An unknown unit,
++    units of different dimensions, or a temperature below absolute zero raise
++    ValueError.
++    """
++    src_dimension = _dimension(src)
++    dst_dimension = _dimension(dst)
++    if src_dimension != dst_dimension:
++        raise ValueError(
++            "cannot convert {!r} ({}) to {!r} ({})".format(
++                src, src_dimension, dst, dst_dimension
++            )
++        )
++
++    if src_dimension == _TEMPERATURE:
++        degrees = float(value)
++        kelvin = _to_kelvin(degrees, src)
++        if kelvin < -_ABSOLUTE_ZERO_SLACK:
++            raise ValueError("{} {} is below absolute zero".format(degrees, src))
++        return _from_kelvin(max(kelvin, 0.0), dst)
++
++    return float(value) * _FACTORS[src][1] / _FACTORS[dst][1]
+diff --git a/units/__main__.py b/units/__main__.py
+new file mode 100644
+index 0000000..e61a7d4
+--- /dev/null
++++ b/units/__main__.py
+@@ -0,0 +1,29 @@
++"""Command line interface: python3 -m units <value> <src> <dst>."""
++
++import sys
++
++from . import convert
++
++_USAGE = "usage: python3 -m units <value> <src> <dst>"
++
++
++def main(argv=None):
++    """Print the conversion result, returning the process exit status."""
++    args = sys.argv[1:] if argv is None else argv
++    if len(args) != 3:
++        print(_USAGE, file=sys.stderr)
++        return 2
++
++    value, src, dst = args
++    try:
++        result = convert(float(value), src, dst)
++    except ValueError as exc:
++        print("units: {}".format(exc), file=sys.stderr)
++        return 2
++
++    print("%.6g" % result)
++    return 0
++
++
++if __name__ == "__main__":
++    raise SystemExit(main())

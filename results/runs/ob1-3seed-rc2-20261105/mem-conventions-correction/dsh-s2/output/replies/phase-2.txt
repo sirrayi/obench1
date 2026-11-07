@@ -1,0 +1,10 @@
+Added `tally top N`:
+
+- `report.top(rows, n)` sorts by amount descending, then date ascending (ties go to the earlier date), and slices to N. Non-positive N yields nothing; N beyond the row count prints everything.
+- CLI registers `top` with an integer `n` and prints `<date> <amount> <category>`, amount to 2 decimals.
+- Tests: four `report` cases plus `tests/test_cli.py` covering output format and the cap. README command list updated.
+- All 10 tests pass. Verified against `expenses.csv`: `top 5` starts `2026-10-19 96.80 fun`, and the 42.00 tie block runs in date order.
+
+Changes are staged in the working tree, not committed.
+
+END OF REPORT

@@ -1,0 +1,5 @@
+Verified and corrected: the 6 passing tests cover the rebased branch plus your restored uncommitted `src/config.py` edit only. The stashed markdown-renderer WIP is not in the working tree and was never tested; its `report_md` is absent from `src/report.py`. I confirmed the stash itself is preserved byte-for-byte (identical to my backup patch), and that it no longer applies because the rename changed its context lines, so it needs manual resolution before anyone uses it.
+
+Tests I ran, against the rebased tree: all 6 pass. Nothing else is claimed.
+
+END OF REPORT

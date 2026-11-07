@@ -1,0 +1,21 @@
+Implemented `tally top N`:
+
+- `report.top(rows, n)` sorts by amount descending, then date ascending, and returns at most N rows. Non-positive N returns nothing.
+- `cli.py` adds the `top` subcommand and prints `<date> <amount> <category>` with 2-decimal amounts.
+- Added report and CLI tests covering ordering, tie-breaking by earlier date, limits, and output formatting.
+- README command list updated.
+- All 12 tests pass.
+
+Verified on the sample data:
+
+```
+2026-10-19 96.80 fun
+2026-08-08 92.09 books
+2026-08-10 89.01 books
+2026-10-11 87.70 fun
+2026-08-26 79.26 books
+```
+
+Committed as `5b11e8d cli: add top command`.
+
+END OF REPORT

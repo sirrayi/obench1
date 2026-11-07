@@ -1,0 +1,12 @@
+Done. `tally export --csv PATH` is implemented and verified.
+
+What changed:
+- tally/export.py: new `write_csv(rows, path)` writes the header `date,amount,category,note`, sorts rows by date with a stable sort so same-date expenses keep file order, and formats amounts to 2 decimals.
+- tally/cli.py: `export` subcommand with required `--csv PATH`.
+- tests/test_export.py: sort and tie-order, empty input header, comma quoting.
+- tests/test_cli.py: end-to-end export command, missing `--csv` rejection.
+- README.md: command list updated.
+
+Verification: full suite passes (16 tests). Real run over expenses.csv produced 40 sorted rows, identical multiset to the source, within-date order preserved across all 29 dates, all amounts at 2 decimals. Changes are uncommitted.
+
+END OF REPORT

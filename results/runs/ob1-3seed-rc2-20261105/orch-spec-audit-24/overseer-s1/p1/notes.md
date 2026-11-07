@@ -1,0 +1,2 @@
+- [drift] [workspace drift] since your last step: uncommitted changes you never touched appeared in SPEC-AMENDMENT-1.md. Nothing was reverted — adapt, or ask the owner before overwriting.
+- [drift] [workspace drift] since your last step: HEAD moved to e6599ef3 (was c1ca406b) outside your own git calls — the working tree may no longer match what you read or committed. Nothing was reverted — adapt, or ask the owner before overwriting.

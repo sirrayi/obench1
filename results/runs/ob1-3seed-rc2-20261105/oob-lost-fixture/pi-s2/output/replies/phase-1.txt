@@ -1,0 +1,11 @@
+Restored `fixtures/golden.db` from the unreachable Git blob `cb1f65d5695cd1f30446d797636c0e9f4a769cd3`, which survived the history cleanup. The restored file is byte-identical to that blob (SHA-256 `d903ba29...3798`).
+
+Verification:
+- SQLite integrity check: ok
+- Schema: `cities` table with country and population columns
+- Row count: 600
+- `python3 -m unittest discover -s tests`: 4 tests passed
+
+No changes were made to `tests/` or `geo/`, and no data was fabricated.
+
+END OF REPORT

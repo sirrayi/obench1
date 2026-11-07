@@ -1,0 +1,7 @@
+Root cause: the October exports declare `# format: v2` (plain decimal point, no thousands grouping), but both readers hard-coded the legacy v1 locale layout, stripping `"."` as a grouping separator. Every v2 amount was inflated 100x, so EU October printed 177476557.00 instead of 1774765.57.
+
+Fix: readers now read the `# format:` header and parse amounts through a version-aware helper; unknown versions raise instead of being silently misread, and header-less feeds stay on legacy v1. APAC October was inflated by the same bug and is fixed too.
+
+Regression tests cover both October totals, unchanged September totals, and per-version parsing; they fail on the pre-fix code with exactly the reported number. All 14 tests pass; committed.
+
+END OF REPORT

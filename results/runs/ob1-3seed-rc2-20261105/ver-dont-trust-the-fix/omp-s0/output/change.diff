@@ -1,0 +1,12 @@
+diff --git a/VERDICT.md b/VERDICT.md
+new file mode 100644
+index 0000000..e5acdaf
+--- /dev/null
++++ b/VERDICT.md
+@@ -0,0 +1,6 @@
++verdict: don't merge
++issue_repro: fail
++branch_tests: pass
++test_checks_the_fix: yes
++
++why: The branch joins quoted lines, so the repro yields 3 rows, but the note field is `call back\r\nafter 5pm"\r`, not the expected `call back\r\nafter 5pm`. Stripping `"` happens before the trailing `\r` is removed, and header/first-row fields keep stray `\r`/quotes. Both branch tests pass. The new test fails against main's reader, so it does catch the LF form of the bug, but it never exercises CRLF, so it stays green while the issue's own repro fails; its second assertion also pins the broken behavior of splitting commas inside quotes.

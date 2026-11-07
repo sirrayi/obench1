@@ -1,0 +1,21 @@
+{
+  "id": "tool-edit-minefield",
+  "version": 1,
+  "authoring_date": "2026-10-30",
+  "track": "tool",
+  "camp": 2,
+  "categories": [
+    "tools",
+    "instructions"
+  ],
+  "pillars": [
+    9,
+    11
+  ],
+  "instruction": "Make these seven edits, and change nothing else in any file:\n\n1. `config/app.ini`: in the `[server]` section, set `timeout` to 45.\n2. `Makefile`: add a `lint` target right after `test`, whose recipe runs `python3 -m pyflakes src`.\n3. `src/legacy.py`: rename the function `calc` to `calculate` and update its callers.\n4. `src/handlers.py`: in `delete_account` only, a missing user should raise `PermissionError(\"no user\")` instead of returning None.\n5. `data/catalog.min.json`: the price of SKU `K-7731` is now 17.49.\n6. `notes/README.txt`: add the line `Reviewed: 2026-10-30` at the end (the file has no trailing newline; keep it that way).\n7. `src/weird name (copy).py`: turn DEBUG off.\n",
+  "limits": {
+    "wall_s": 900,
+    "max_steps": 60
+  },
+  "null_max": 0.0
+}

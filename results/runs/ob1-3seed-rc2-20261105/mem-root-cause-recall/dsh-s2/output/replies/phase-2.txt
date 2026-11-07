@@ -1,0 +1,7 @@
+ISSUE-2's symptom no longer exists at HEAD: `report --region apac --month 2026-10` now prints `1787313.21 SGD`, matching finance.
+
+Root cause was the same one ISSUE-1 documented: the October APAC export switched to format v2, but `load()` stripped dots and treated commas as decimals, so 2641.49 became 264149 (exactly the reported 100x). Commit 29cfb0e, which read the feed's `# format: vN` header and rejected mismatched amounts, already repaired APAC as well as EU.
+
+The actual gap was coverage: existing tests call `report.total` and never exercise the CLI the issue quotes. I added `tests/test_report.py` pinning APAC October and September output, the old 178731321.00 value, and the `python3 -m meridian report` entry point. Against 792a09a those tests fail with the reported number; all 25 tests pass now.
+
+END OF REPORT

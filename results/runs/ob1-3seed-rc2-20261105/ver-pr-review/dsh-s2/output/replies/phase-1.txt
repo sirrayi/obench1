@@ -1,0 +1,9 @@
+Reviewed `feature/rate-limit` against main; REVIEW.md is at the repo root with 7 findings (2 blockers, 3 major, 2 minor), each anchored to a line as it appears on the branch.
+
+Blockers: the limiter stores bucket starts with `time.time()` but compares them to `time.monotonic()`, so buckets never roll over and the 429's Retry-After is roughly 57 years; and `X-Forwarded-For` is trusted from any caller, so the limit is trivially bypassed.
+
+Majors: `limit + 1` off-by-one, unlocked bucket creation racing on the threaded server, and buckets never evicted. Minors: tests never assert rejection, and the docs promise eviction that is not implemented.
+
+Branch is untouched; only untracked REVIEW.md was added.
+
+END OF REPORT

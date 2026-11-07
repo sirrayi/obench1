@@ -1,0 +1,3 @@
+- [drift] [workspace drift] since your last step: uncommitted changes you never touched appeared in AMENDMENTS/. Nothing was reverted — adapt, or ask the owner before overwriting.
+- [drift] [workspace drift] since your last step: HEAD moved to 184009a7 (was 1546fbc3) outside your own git calls — the working tree may no longer match what you read or committed. Nothing was reverted — adapt, or ask the owner before overwriting.
+- [drift] [workspace drift] since your last step: uncommitted changes you never touched appeared in ledgerly/_gen/rates_table.py, logs/. Nothing was reverted — adapt, or ask the owner before overwriting.

@@ -1,0 +1,9 @@
+Fixed all three failures:
+
+- `calendar.py`: missing attributes now raise `AttributeError`, allowing imports to work.
+- `billing/proration.py`: proration now uses exact decimal arithmetic with half-up rounding.
+- `billing/headers.py`: removed a stale `FIXME` comment.
+
+All 10 tests pass via `python3 -m unittest discover -s tests`. No files under `tests/` were modified.
+
+END OF REPORT

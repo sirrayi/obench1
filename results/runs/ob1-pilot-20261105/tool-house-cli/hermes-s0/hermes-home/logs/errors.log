@@ -1,0 +1,19 @@
+2026-11-05 06:31:03,902 WARNING gateway.run: Another Hermes home's gateway owns this host (PID 83762 (no bound port; profiles: default)); starting this home's gateway beside it.
+2026-11-05 06:31:04,104 WARNING hermes.security_audit: Security posture audit found 1 issue(s) — review your deployment:
+2026-11-05 06:31:04,104 WARNING hermes.security_audit:   [security 1/1] SSH password authentication is ENABLED (default — no explicit directive). Password auth is brute-forceable and dangerous on an internet-facing box. Set 'PasswordAuthentication no' in sshd_config and use key-based auth.
+2026-11-05 06:31:04,436 WARNING gateway.run: No messaging platforms enabled.
+2026-11-05 06:31:04,627 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
+2026-11-05 06:31:04,628 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 06:31:04,628 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 06:31:04,636 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 06:31:04,636 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 06:31:05,297 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 06:31:05,297 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 06:31:05,306 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 06:31:05,306 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 06:31:05,846 WARNING hermes_cli.source_releases: Could not resolve the stable source release: <urlopen error [Errno 1] Operation not permitted>
+2026-11-05 06:31:11,722 WARNING [local-1127120873d308ed5d81b219b1b256ddd666e5b181e3132168a9cdb89b942a38] agent.message_sanitization: Normalized provider-minted parallel tool-call ids for replay compatibility
+2026-11-05 06:31:14,638 WARNING [local-1127120873d308ed5d81b219b1b256ddd666e5b181e3132168a9cdb89b942a38] agent.message_sanitization: Normalized provider-minted parallel tool-call ids for replay compatibility
+2026-11-05 06:31:14,711 WARNING [local-1127120873d308ed5d81b219b1b256ddd666e5b181e3132168a9cdb89b942a38] agent.tool_executor: Tool skill_view returned error (0.06s): {"success": false, "error": "Skill 'release' not found.", "available_skills": ["apple-notes", "apple-reminders", "findmy", "imessage", "claude-code", "codex", "computer-use", "hermes-agent", "opencode
+2026-11-05 06:31:14,719 WARNING [local-1127120873d308ed5d81b219b1b256ddd666e5b181e3132168a9cdb89b942a38] agent.tool_executor: Tool read_file returned error (0.03s): {"content": "", "total_lines": 0, "file_size": 0, "truncated": false, "is_binary": false, "is_image": false, "error": "Cannot read '/private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/44201912f
+2026-11-05 06:31:17,092 WARNING [local-1127120873d308ed5d81b219b1b256ddd666e5b181e3132168a9cdb89b942a38] agent.message_sanitization: Normalized provider-minted parallel tool-call ids for replay compatibility

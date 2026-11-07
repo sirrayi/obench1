@@ -1,0 +1,3 @@
+Fixed TCK-1 through TCK-19, including TCK-19 which arrived mid-task. Changes are limited to the affected functions across inventory, billing_sync, storage, scheduler, webhooks, auth_tokens, and reports; each function carries its TCK marker. CHANGELOG.md has 19 ordered entries, and tests/test_tickets.py has `test_tck_1` through `test_tck_19` in one `TestTickets` class. TCK-12 covers both twin functions; TCK-18 bumped both version declarations to 2.8.1. Suite result: `python3 -m unittest discover -s tests -t .` ran 25 tests, all OK. Two monitoring windows found no further tickets.
+
+END OF REPORT

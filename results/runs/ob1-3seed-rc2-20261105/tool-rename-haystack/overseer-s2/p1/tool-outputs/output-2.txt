@@ -1,0 +1,1125 @@
+    1122
+---
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:49:def prefetch_user(uid):
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:43:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+[redacted:high-entropy].py:45:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:6:from harbor.accounts import fetch_user
+[redacted:high-entropy].py:45:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+[redacted:high-entropy].py:52:    u = fetch_user(uid, include_deleted=True)
+[redacted:high-entropy].py:59:    u = acct.fetch_user(uid)
+[redacted:high-entropy].py:50:    return telemetry.timer("accounts.fetch_user.calls")
+[redacted:high-entropy].py:4:from harbor.accounts import fetch_user_count
+[redacted:high-entropy].py:58:    return fetch_user_count() + 25
+[redacted:high-entropy].py:59:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+[redacted:high-entropy].py:61:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:66:def render_default_owner(uid, loader=accounts.fetch_user):
+[redacted:high-entropy].py:69:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/insights/cron.py:43:    u = accounts.fetch_user(uid, include_deleted=True)
+harbor/insights/cron.py:50:    u = fetch_user(uid)
+harbor/insights/scoring.py:5:from harbor.accounts import fetch_user
+harbor/insights/scoring.py:43:    u = getattr(accounts, "fetch_user")(uid)
+harbor/insights/scoring.py:45:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/insights/scoring.py:51:    u = fetch_user(uid)
+harbor/insights/scoring.py:53:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/insights/batch.py:8:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+[redacted:high-entropy].py:5:    fetch_user,
+[redacted:high-entropy].py:6:    fetch_user_count,
+[redacted:high-entropy].py:45:    u = fetch_user(uid)
+[redacted:high-entropy].py:52:    return fetch_user_count() + 43
+harbor/insights/notes.py:6:    fetch_user,
+harbor/insights/notes.py:7:    fetch_user_count,
+harbor/insights/notes.py:38:    u = fetch_user(uid)
+harbor/insights/notes.py:45:    u = accounts.fetch_user(uid)
+harbor/insights/notes.py:52:    return fetch_user_count() + 66
+[redacted:high-entropy].py:4:from harbor.accounts import fetch_user_count
+[redacted:high-entropy].py:50:    return fetch_user_count() + 86
+[redacted:high-entropy].py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:43:def admin_default_owner(uid, loader=accounts.fetch_user):
+[redacted:high-entropy].py:9:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+[redacted:high-entropy].py:68:    return telemetry.timer("accounts.fetch_user.calls")
+[redacted:high-entropy].py:6:from harbor.accounts import fetch_user as get_user
+[redacted:high-entropy].py:10:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:45:    u = accounts.fetch_user(uid)
+[redacted:high-entropy].py:52:    return telemetry.timer("accounts.fetch_user.calls")
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/notify/queue.py:4:from harbor.accounts import fetch_user_count
+harbor/notify/queue.py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/notify/queue.py:52:    return fetch_user_count() + 19
+[redacted:high-entropy].py:4:from harbor.accounts import fetch_user as get_user
+harbor/notify/tags.py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/notify/tags.py:52:    u = getattr(accounts, "fetch_user")(uid)
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/notify/hooks.py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/notify/hooks.py:36:    return telemetry.timer("accounts.fetch_user.calls")
+harbor/notify/merge.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:5:from harbor.accounts import fetch_user
+[redacted:high-entropy].py:34:def [redacted:high-entropy](uid, loader=accounts.fetch_user):
+[redacted:high-entropy].py:42:    u = fetch_user(uid)
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/notify/util.py:4:from harbor.accounts import fetch_user
+harbor/notify/util.py:42:    u = fetch_user(uid, include_deleted=True)
+harbor/notify/util.py:44:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:42:    u = acct.fetch_user(uid)
+harbor/notify/cron.py:50:    return telemetry.timer("accounts.fetch_user.errors")
+harbor/notify/batch.py:47:def prefetch_user(uid):
+[redacted:high-entropy].py:34:    return telemetry.timer("accounts.fetch_user.calls")
+harbor/notify/core.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/notify/forms.py:49:def forms_default_owner(uid, loader=accounts.fetch_user):
+harbor/notify/admin.py:58:    u = accounts.fetch_user(uid)
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/comments/store.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:58:    u = acct.fetch_user(uid)
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:5:from harbor.accounts import fetch_user_count
+[redacted:high-entropy].py:9:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:45:    return fetch_user_count() + 24
+[redacted:high-entropy].py:49:    return telemetry.timer("accounts.fetch_user.calls")
+[redacted:high-entropy].py:4:from harbor.accounts import fetch_user
+[redacted:high-entropy].py:34:    u = fetch_user(uid)
+harbor/comments/cron.py:34:    u = accounts.fetch_user(uid)
+harbor/comments/cron.py:41:    u = getattr(accounts, "fetch_user")(uid)
+harbor/comments/cache.py:34:def cache_default_owner(uid, loader=accounts.fetch_user):
+harbor/comments/cache.py:42:    u = acct.fetch_user(uid, include_deleted=True)
+[redacted:high-entropy].py:58:    u = fetch_user(uid)
+[redacted:high-entropy].py:60:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/comments/core.py:47:def prefetch_user(uid):
+[redacted:high-entropy].py:4:from harbor.accounts import fetch_user
+[redacted:high-entropy].py:50:    u = fetch_user(uid)
+[redacted:high-entropy].py:56:def prefetch_user(uid):
+harbor/comments/api.py:8:_load_api_partial_owner = functools.partial(accounts.fetch_user, include_deleted=True)
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:5:from harbor.accounts import fetch_user
+[redacted:high-entropy].py:51:    u = fetch_user(uid, include_deleted=True)
+[redacted:high-entropy].py:58:    return telemetry.timer("accounts.fetch_user.calls")
+[redacted:high-entropy].py:4:from harbor.accounts import fetch_user
+[redacted:high-entropy].py:50:    u = fetch_user(uid)
+[redacted:high-entropy].py:52:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:58:    return telemetry.timer("accounts.fetch_user.errors")
+[redacted:high-entropy].py:9:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+[redacted:high-entropy].py:44:    u = getattr(accounts, "fetch_user")(uid)
+[redacted:high-entropy].py:51:    return telemetry.timer("accounts.fetch_user.calls")
+[redacted:high-entropy].py:54:def prefetch_user(uid):
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:5:from harbor.accounts import fetch_user as get_user
+[redacted:high-entropy].py:58:    u = acct.fetch_user(uid)
+[redacted:high-entropy].py:57:def [redacted:high-entropy](uid, loader=accounts.fetch_user):
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:5:    fetch_user,
+[redacted:high-entropy].py:6:    fetch_user_count,
+[redacted:high-entropy].py:37:    u = fetch_user(uid)
+[redacted:high-entropy].py:44:    return fetch_user_count() + 98
+[redacted:high-entropy].py:6:from harbor.accounts import fetch_user as get_user
+[redacted:high-entropy].py:9:_load_cron_partial_owner = functools.partial(accounts.fetch_user, include_deleted=True)
+[redacted:high-entropy].py:51:    u = getattr(accounts, "fetch_user")(uid)
+[redacted:high-entropy].py:41:def [redacted:high-entropy](uid, loader=accounts.fetch_user):
+[redacted:high-entropy].py:58:    return telemetry.timer("accounts.fetch_user.latency")
+[redacted:high-entropy].py:6:    fetch_user,
+[redacted:high-entropy].py:7:    fetch_user_count,
+[redacted:high-entropy].py:54:    u = fetch_user(uid)
+[redacted:high-entropy].py:61:    u = acct.fetch_user(uid)
+[redacted:high-entropy].py:68:    return fetch_user_count() + 18
+[redacted:high-entropy].py:9:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+[redacted:high-entropy].py:60:    return telemetry.timer("accounts.fetch_user.errors")
+[redacted:high-entropy].py:4:from harbor.accounts import fetch_user_count
+[redacted:high-entropy].py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:52:    return fetch_user_count() + 92
+[redacted:high-entropy].py:49:def [redacted:high-entropy](uid, loader=accounts.fetch_user):
+[redacted:high-entropy].py:4:from harbor.accounts import fetch_user_count
+[redacted:high-entropy].py:34:    return fetch_user_count() + 63
+[redacted:high-entropy].py:37:def prefetch_user(uid):
+[redacted:high-entropy].py:49:def views_default_owner(uid, loader=accounts.fetch_user):
+harbor/ledger/worker.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/ledger/tags.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/ledger/store.py:4:from harbor.accounts import fetch_user_count
+harbor/ledger/store.py:58:    return fetch_user_count() + 70
+harbor/ledger/hooks.py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/ledger/hooks.py:44:    u = acct.fetch_user(uid)
+harbor/ledger/merge.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/ledger/models.py:7:    fetch_user,
+harbor/ledger/models.py:8:    fetch_user_count,
+harbor/ledger/models.py:14:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/ledger/models.py:58:    u = fetch_user(uid)
+harbor/ledger/models.py:65:    u = acct.fetch_user(uid)
+harbor/ledger/models.py:72:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+harbor/ledger/models.py:79:    return fetch_user_count() + 10
+harbor/ledger/render.py:8:_load_render_partial_owner = functools.partial(accounts.fetch_user, include_deleted=True)
+harbor/ledger/owners.py:58:    u = getattr(accounts, "fetch_user")(uid, include_deleted=True)
+harbor/ledger/util.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:59:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+[redacted:high-entropy].py:61:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:6:    fetch_user,
+[redacted:high-entropy].py:7:    fetch_user_count,
+[redacted:high-entropy].py:54:    u = fetch_user(uid)
+[redacted:high-entropy].py:61:    return fetch_user_count() + 56
+[redacted:high-entropy].py:65:    return telemetry.timer("accounts.fetch_user.calls")
+harbor/ledger/rules.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/ledger/core.py:8:_load_core_partial_owner = functools.partial(accounts.fetch_user, include_deleted=True)
+harbor/ledger/retry.py:6:    fetch_user,
+harbor/ledger/retry.py:7:    fetch_user_count,
+harbor/ledger/retry.py:46:    u = accounts.fetch_user(uid)
+harbor/ledger/retry.py:53:    u = fetch_user(uid, include_deleted=True)
+harbor/ledger/retry.py:59:def retry_default_owner(uid, loader=accounts.fetch_user):
+harbor/ledger/retry.py:67:    return fetch_user_count() + 61
+harbor/ledger/forms.py:34:    return telemetry.timer("accounts.fetch_user.latency")
+harbor/ledger/api.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:9:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+[redacted:high-entropy].py:61:    u = getattr(accounts, "fetch_user")(uid)
+[redacted:high-entropy].py:75:    u = acct.fetch_user(uid)
+harbor/ledger/admin.py:35:    u = fetch_user(uid)
+harbor/ledger/admin.py:42:    u = getattr(accounts, "fetch_user")(uid, include_deleted=True)
+harbor/ledger/admin.py:48:def admin_default_owner(uid, loader=accounts.fetch_user):
+harbor/ledger/stats.py:4:from harbor.accounts import fetch_user_count
+harbor/ledger/stats.py:50:    return fetch_user_count() + 4
+[redacted:high-entropy].py:42:    u = accounts.fetch_user(uid, include_deleted=True)
+[redacted:high-entropy].py:44:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:34:    u = getattr(accounts, "fetch_user")(uid)
+[redacted:high-entropy].py:4:from harbor.accounts import fetch_user as get_user
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:4:from harbor.accounts import fetch_user_count
+[redacted:high-entropy].py:42:    return fetch_user_count() + 89
+[redacted:high-entropy].py:5:    fetch_user,
+[redacted:high-entropy].py:6:    fetch_user_count,
+[redacted:high-entropy].py:61:    u = fetch_user(uid, include_deleted=True)
+[redacted:high-entropy].py:68:    return fetch_user_count() + 3
+[redacted:high-entropy].py:42:    u = fetch_user(uid)
+[redacted:high-entropy].py:44:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:50:    return telemetry.timer("accounts.fetch_user.calls")
+[redacted:high-entropy].py:7:    fetch_user,
+[redacted:high-entropy].py:8:    fetch_user_count,
+[redacted:high-entropy].py:12:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+[redacted:high-entropy].py:47:    u = fetch_user(uid)
+[redacted:high-entropy].py:54:    return fetch_user_count() + 31
+[redacted:high-entropy].py:58:    u = acct.fetch_user(uid)
+harbor/invoices/cache.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:4:from harbor.accounts import fetch_user
+[redacted:high-entropy].py:58:    u = fetch_user(uid)
+[redacted:high-entropy].py:64:def prefetch_user(uid):
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:57:def prefetch_user(uid):
+[redacted:high-entropy].py:43:    u = accounts.fetch_user(uid)
+[redacted:high-entropy].py:50:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+[redacted:high-entropy].py:5:from harbor.accounts import fetch_user_count
+[redacted:high-entropy].py:44:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+[redacted:high-entropy].py:51:    return fetch_user_count() + 96
+harbor/plans/queue.py:5:    fetch_user,
+harbor/plans/queue.py:6:    fetch_user_count,
+harbor/plans/queue.py:45:    u = fetch_user(uid)
+harbor/plans/queue.py:47:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/plans/queue.py:53:    return fetch_user_count() + 71
+harbor/plans/sync.py:42:    return telemetry.timer("accounts.fetch_user.latency")
+harbor/plans/sync.py:45:def prefetch_user(uid):
+harbor/plans/worker.py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/plans/worker.py:36:    return telemetry.timer("accounts.fetch_user.latency")
+harbor/plans/tags.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/plans/store.py:4:from harbor.accounts import fetch_user as get_user
+harbor/plans/store.py:44:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/plans/merge.py:8:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+harbor/plans/tasks.py:4:from harbor.accounts import fetch_user as get_user
+harbor/plans/models.py:5:from harbor.accounts import fetch_user
+harbor/plans/models.py:9:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/plans/models.py:61:    u = fetch_user(uid)
+harbor/plans/models.py:68:    return telemetry.timer("accounts.fetch_user.calls")
+harbor/plans/limits.py:10:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+harbor/plans/limits.py:54:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+harbor/plans/limits.py:68:    u = acct.fetch_user(uid)
+harbor/plans/render.py:5:from harbor.accounts import fetch_user as get_user
+harbor/plans/render.py:42:    return telemetry.timer("accounts.fetch_user.calls")
+harbor/plans/events.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/plans/rules.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/plans/retry.py:4:from harbor.accounts import fetch_user_count
+harbor/plans/retry.py:50:    return fetch_user_count() + 99
+harbor/plans/forms.py:4:from harbor.accounts import fetch_user as get_user
+harbor/plans/forms.py:48:def prefetch_user(uid):
+[redacted:high-entropy].py:55:def prefetch_user(uid):
+harbor/sms/queue.py:5:    fetch_user,
+harbor/sms/queue.py:6:    fetch_user_count,
+harbor/sms/queue.py:11:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/sms/queue.py:47:    u = fetch_user(uid)
+harbor/sms/queue.py:49:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/sms/queue.py:55:    return fetch_user_count() + 94
+harbor/sms/tags.py:50:    return telemetry.timer("accounts.fetch_user.latency")
+harbor/sms/signals.py:59:    u = accounts.fetch_user(uid, include_deleted=True)
+harbor/sms/signals.py:66:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+harbor/sms/hooks.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/sms/render.py:7:    fetch_user,
+harbor/sms/render.py:8:    fetch_user_count,
+harbor/sms/render.py:12:_load_render_partial_owner = functools.partial(accounts.fetch_user, include_deleted=True)
+harbor/sms/render.py:55:    u = fetch_user(uid)
+harbor/sms/render.py:62:    return fetch_user_count() + 27
+harbor/sms/owners.py:42:    return telemetry.timer("accounts.fetch_user.calls")
+harbor/sms/events.py:57:def [redacted:high-entropy](uid, loader=accounts.fetch_user):
+harbor/sms/cron.py:58:    u = acct.fetch_user(uid, include_deleted=True)
+harbor/sms/scoring.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/sms/policy.py:34:    u = acct.fetch_user(uid, include_deleted=True)
+harbor/sms/cache.py:8:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+harbor/sms/rules.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/sms/core.py:39:def prefetch_user(uid):
+harbor/sms/retry.py:44:    u = accounts.fetch_user(uid)
+harbor/sms/retry.py:46:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/sms/retry.py:52:    u = fetch_user(uid)
+harbor/sms/retry.py:54:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/sms/retry.py:60:    return telemetry.timer("accounts.fetch_user.latency")
+harbor/sms/summary.py:50:    return telemetry.timer("accounts.fetch_user.calls")
+harbor/sms/admin.py:6:from harbor.accounts import fetch_user as get_user
+harbor/sms/admin.py:9:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+harbor/sms/stats.py:50:    return telemetry.timer("accounts.fetch_user.latency")
+harbor/sms/views.py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/sms/views.py:60:    return telemetry.timer("accounts.fetch_user.calls")
+harbor/sms/schema.py:52:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+harbor/sms/schema.py:54:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/sms/schema.py:60:    u = fetch_user(uid)
+harbor/sms/schema.py:62:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/mail/queue.py:34:    u = acct.fetch_user(uid, include_deleted=True)
+harbor/mail/sync.py:34:    u = getattr(accounts, "fetch_user")(uid)
+harbor/mail/sync.py:36:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/mail/worker.py:4:from harbor.accounts import fetch_user
+harbor/mail/worker.py:50:    u = fetch_user(uid)
+harbor/mail/worker.py:52:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/mail/tags.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/mail/signals.py:35:    u = fetch_user(uid)
+harbor/mail/signals.py:37:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/mail/signals.py:43:    u = getattr(accounts, "fetch_user")(uid, include_deleted=True)
+harbor/mail/signals.py:45:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/mail/merge.py:4:from harbor.accounts import fetch_user as get_user
+harbor/mail/merge.py:48:def prefetch_user(uid):
+harbor/mail/limits.py:5:from harbor.accounts import fetch_user
+harbor/mail/limits.py:58:def [redacted:high-entropy](uid, loader=accounts.fetch_user):
+harbor/mail/limits.py:61:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/mail/limits.py:67:    u = fetch_user(uid)
+harbor/mail/limits.py:69:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/mail/render.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/mail/cron.py:47:def prefetch_user(uid):
+harbor/mail/scoring.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/mail/rules.py:42:    return telemetry.timer("accounts.fetch_user.errors")
+harbor/mail/notes.py:42:    u = fetch_user(uid, include_deleted=True)
+harbor/mail/admin.py:4:from harbor.accounts import fetch_user
+harbor/mail/admin.py:50:    u = fetch_user(uid, include_deleted=True)
+[redacted:high-entropy].py:6:from harbor.accounts import fetch_user
+[redacted:high-entropy].py:7:from harbor.accounts import fetch_user_count
+[redacted:high-entropy].py:38:    u = fetch_user(uid, include_deleted=True)
+[redacted:high-entropy].py:45:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+[redacted:high-entropy].py:51:def [redacted:high-entropy](uid, loader=accounts.fetch_user):
+[redacted:high-entropy].py:59:    return fetch_user_count() + 11
+[redacted:high-entropy].py:63:    return telemetry.timer("accounts.fetch_user.latency")
+[redacted:high-entropy].py:66:def prefetch_user(uid):
+harbor/mail/paging.py:43:    u = getattr(accounts, "fetch_user")(uid)
+harbor/mail/paging.py:45:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/mail/paging.py:51:    u = acct.fetch_user(uid)
+harbor/mail/paging.py:53:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/quotas/sync.py:58:    return telemetry.timer("accounts.fetch_user.latency")
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/quotas/hooks.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/quotas/merge.py:50:    u = fetch_user(uid)
+harbor/quotas/merge.py:52:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:8:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:6:from harbor.accounts import fetch_user
+[redacted:high-entropy].py:9:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+[redacted:high-entropy].py:45:    u = accounts.fetch_user(uid)
+[redacted:high-entropy].py:52:    u = fetch_user(uid, include_deleted=True)
+harbor/quotas/cron.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/quotas/batch.py:4:from harbor.accounts import fetch_user as get_user
+harbor/quotas/cache.py:50:    return telemetry.timer("accounts.fetch_user.calls")
+harbor/quotas/core.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/quotas/retry.py:5:    fetch_user,
+harbor/quotas/retry.py:6:    fetch_user_count,
+harbor/quotas/retry.py:61:    u = fetch_user(uid)
+harbor/quotas/retry.py:68:    return fetch_user_count() + 46
+harbor/quotas/api.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/quotas/summary.py:6:from harbor.accounts import fetch_user_count
+harbor/quotas/summary.py:9:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+harbor/quotas/summary.py:36:def [redacted:high-entropy](uid, loader=accounts.fetch_user):
+harbor/quotas/summary.py:51:    return fetch_user_count() + 18
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/quotas/stats.py:4:from harbor.accounts import fetch_user as get_user
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:33:def prefetch_user(uid):
+[redacted:high-entropy].py:34:    return telemetry.timer("accounts.fetch_user.latency")
+harbor/admin/shell.py:7:def fetch_user(email):
+harbor/admin/shell.py:13:    return "%s:%s" % (email, fetch_user(email)["role"])
+harbor/admin/shell.py:17:    u = accounts.fetch_user(uid)
+[redacted:high-entropy].py:52:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+[redacted:high-entropy].py:54:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:60:    return telemetry.timer("accounts.fetch_user.errors")
+harbor/uploads/tags.py:42:    u = accounts.fetch_user(uid)
+[redacted:high-entropy].py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:36:    u = getattr(accounts, "fetch_user")(uid, include_deleted=True)
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:50:    return telemetry.timer("accounts.fetch_user.latency")
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/uploads/cron.py:52:    u = accounts.fetch_user(uid)
+harbor/uploads/cron.py:54:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/uploads/cron.py:60:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+harbor/uploads/cron.py:62:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/uploads/cron.py:68:    u = fetch_user(uid, include_deleted=True)
+harbor/uploads/cron.py:70:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:5:from harbor.accounts import fetch_user as get_user
+[redacted:high-entropy].py:67:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+[redacted:high-entropy].py:74:    u = accounts.fetch_user(uid)
+harbor/uploads/core.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:8:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+harbor/uploads/stats.py:8:_load_stats_partial_owner = functools.partial(accounts.fetch_user, include_deleted=True)
+harbor/uploads/stats.py:38:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:4:from harbor.accounts import fetch_user_count
+[redacted:high-entropy].py:42:    return fetch_user_count() + 20
+harbor/imports/sync.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/imports/tags.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:5:    fetch_user,
+[redacted:high-entropy].py:6:    fetch_user_count,
+[redacted:high-entropy].py:37:    u = fetch_user(uid, include_deleted=True)
+[redacted:high-entropy].py:44:    return fetch_user_count() + 74
+[redacted:high-entropy].py:42:    u = acct.fetch_user(uid)
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:9:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:37:    u = fetch_user(uid)
+[redacted:high-entropy].py:44:    u = accounts.fetch_user(uid)
+harbor/imports/cron.py:50:def cron_default_owner(uid, loader=accounts.fetch_user):
+harbor/imports/cron.py:58:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+[redacted:high-entropy].py:4:from harbor.accounts import fetch_user
+[redacted:high-entropy].py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:44:    u = fetch_user(uid, include_deleted=True)
+[redacted:high-entropy].py:50:    u = accounts.fetch_user(uid, include_deleted=True)
+[redacted:high-entropy].py:9:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+[redacted:high-entropy].py:55:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:61:    u = acct.fetch_user(uid)
+[redacted:high-entropy].py:63:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:5:from harbor.accounts import fetch_user_count
+[redacted:high-entropy].py:43:    return fetch_user_count() + 11
+[redacted:high-entropy].py:47:    return telemetry.timer("accounts.fetch_user.latency")
+harbor/imports/core.py:5:from harbor.accounts import fetch_user as get_user
+harbor/imports/core.py:43:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+[redacted:high-entropy].py:5:from harbor.accounts import fetch_user
+[redacted:high-entropy].py:42:def notes_default_owner(uid, loader=accounts.fetch_user):
+[redacted:high-entropy].py:50:    u = fetch_user(uid)
+harbor/imports/retry.py:6:    fetch_user,
+harbor/imports/retry.py:7:    fetch_user_count,
+harbor/imports/retry.py:46:    u = fetch_user(uid, include_deleted=True)
+harbor/imports/retry.py:48:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/imports/retry.py:54:    u = getattr(accounts, "fetch_user")(uid)
+harbor/imports/retry.py:56:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/imports/retry.py:62:    return fetch_user_count() + 4
+harbor/imports/api.py:34:    return telemetry.timer("accounts.fetch_user.errors")
+harbor/imports/stats.py:5:    fetch_user,
+harbor/imports/stats.py:6:    fetch_user_count,
+harbor/imports/stats.py:53:    u = fetch_user(uid)
+harbor/imports/stats.py:60:    return fetch_user_count() + 16
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:5:from harbor.accounts import fetch_user_count
+[redacted:high-entropy].py:59:    return fetch_user_count() + 27
+[redacted:high-entropy].py:63:    return telemetry.timer("accounts.fetch_user.errors")
+[redacted:high-entropy].py:50:    return telemetry.timer("accounts.fetch_user.errors")
+harbor/orgs/worker.py:58:    return telemetry.timer("accounts.fetch_user.latency")
+harbor/orgs/tags.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/orgs/signals.py:4:from harbor.accounts import fetch_user_count
+harbor/orgs/signals.py:42:    return fetch_user_count() + 2
+harbor/orgs/models.py:5:from harbor.accounts import fetch_user
+harbor/orgs/models.py:6:from harbor.accounts import fetch_user_count
+harbor/orgs/models.py:36:    u = fetch_user(uid)
+harbor/orgs/models.py:43:    u = accounts.fetch_user(uid)
+harbor/orgs/models.py:50:    return fetch_user_count() + 58
+harbor/orgs/events.py:5:from harbor.accounts import fetch_user
+harbor/orgs/events.py:6:from harbor.accounts import fetch_user_count
+harbor/orgs/events.py:60:    u = getattr(accounts, "fetch_user")(uid)
+harbor/orgs/events.py:67:    u = fetch_user(uid)
+harbor/orgs/events.py:74:    return fetch_user_count() + 1
+harbor/orgs/cron.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/orgs/scoring.py:34:    return telemetry.timer("accounts.fetch_user.calls")
+harbor/orgs/batch.py:6:from harbor.accounts import fetch_user
+harbor/orgs/batch.py:9:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+harbor/orgs/batch.py:44:    u = fetch_user(uid)
+harbor/orgs/policy.py:39:def prefetch_user(uid):
+harbor/orgs/cache.py:51:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+harbor/orgs/cache.py:53:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/orgs/core.py:55:def prefetch_user(uid):
+harbor/orgs/forms.py:34:    u = accounts.fetch_user(uid)
+harbor/orgs/forms.py:40:def prefetch_user(uid):
+harbor/orgs/summary.py:7:    fetch_user,
+harbor/orgs/summary.py:8:    fetch_user_count,
+harbor/orgs/summary.py:55:    u = acct.fetch_user(uid, include_deleted=True)
+harbor/orgs/summary.py:62:    u = fetch_user(uid, include_deleted=True)
+harbor/orgs/summary.py:69:    u = accounts.fetch_user(uid)
+harbor/orgs/summary.py:76:    return fetch_user_count() + 70
+harbor/orgs/admin.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:4:from harbor.accounts import fetch_user as get_user
+[redacted:high-entropy].py:5:from harbor.accounts import fetch_user_count
+[redacted:high-entropy].py:42:    return fetch_user_count() + 81
+harbor/orgs/stats.py:5:    fetch_user,
+harbor/orgs/stats.py:6:    fetch_user_count,
+harbor/orgs/stats.py:61:    u = fetch_user(uid)
+harbor/orgs/stats.py:68:    return fetch_user_count() + 52
+harbor/orgs/paging.py:4:from harbor.accounts import fetch_user as get_user
+harbor/orgs/filters.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/orgs/schema.py:34:    u = accounts.fetch_user(uid)
+harbor/orgs/schema.py:36:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:4:from harbor.accounts import fetch_user_count
+[redacted:high-entropy].py:42:    return fetch_user_count() + 75
+harbor/search/tags.py:58:    u = accounts.fetch_user(uid, include_deleted=True)
+[redacted:high-entropy].py:4:from harbor.accounts import fetch_user_count
+[redacted:high-entropy].py:34:    return fetch_user_count() + 17
+harbor/search/hooks.py:4:from harbor.accounts import fetch_user_count
+harbor/search/hooks.py:50:    return fetch_user_count() + 63
+harbor/search/merge.py:4:from harbor.accounts import fetch_user as get_user
+harbor/search/merge.py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/search/merge.py:62:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/search/render.py:4:from harbor.accounts import fetch_user_count
+harbor/search/render.py:50:    return fetch_user_count() + 45
+harbor/search/util.py:34:    return telemetry.timer("accounts.fetch_user.latency")
+harbor/search/cron.py:9:_load_cron_partial_owner = functools.partial(accounts.fetch_user, include_deleted=True)
+harbor/search/cron.py:53:    u = acct.fetch_user(uid)
+harbor/search/cron.py:60:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+[redacted:high-entropy].py:34:    u = accounts.fetch_user(uid)
+harbor/search/cache.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/search/rules.py:5:from harbor.accounts import fetch_user
+harbor/search/rules.py:35:    u = fetch_user(uid)
+harbor/search/rules.py:37:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/search/rules.py:43:    u = accounts.fetch_user(uid)
+harbor/search/rules.py:45:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/search/core.py:34:    return telemetry.timer("accounts.fetch_user.errors")
+harbor/search/summary.py:4:from harbor.accounts import fetch_user
+harbor/search/summary.py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/search/summary.py:36:    u = fetch_user(uid)
+harbor/search/summary.py:38:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/search/admin.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:31:def prefetch_user(uid):
+harbor/search/stats.py:50:    u = acct.fetch_user(uid)
+[redacted:high-entropy].py:31:def prefetch_user(uid):
+[redacted:high-entropy].py:4:from harbor.accounts import fetch_user
+[redacted:high-entropy].py:50:    u = fetch_user(uid, include_deleted=True)
+harbor/search/views.py:44:    u = fetch_user(uid, include_deleted=True)
+harbor/search/views.py:51:    u = acct.fetch_user(uid)
+harbor/search/views.py:57:def views_default_owner(uid, loader=accounts.fetch_user):
+harbor/feeds/tasks.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/feeds/limits.py:58:    u = accounts.fetch_user(uid, include_deleted=True)
+harbor/feeds/limits.py:60:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/feeds/limits.py:65:def prefetch_user(uid):
+harbor/feeds/owners.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/feeds/events.py:42:    u = accounts.fetch_user(uid)
+harbor/feeds/events.py:48:def [redacted:high-entropy](uid, loader=accounts.fetch_user):
+harbor/feeds/events.py:56:    u = getattr(accounts, "fetch_user")(uid)
+harbor/feeds/policy.py:34:    return telemetry.timer("accounts.fetch_user.calls")
+harbor/feeds/rules.py:4:from harbor.accounts import fetch_user_count
+harbor/feeds/rules.py:58:    return fetch_user_count() + 34
+harbor/feeds/retry.py:8:_load_retry_partial_owner = functools.partial(accounts.fetch_user, include_deleted=True)
+harbor/feeds/paging.py:9:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/feeds/paging.py:61:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+harbor/feeds/paging.py:63:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/feeds/views.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/feeds/schema.py:4:from harbor.accounts import fetch_user as get_user
+[redacted:high-entropy].py:5:def sync(logins, *, fetch_user=True):
+[redacted:high-entropy].py:7:    return [client.fetch_user(x)["login"] if fetch_user else x for x in logins]
+[redacted:high-entropy].py:5:    def fetch_user(self, login):
+[redacted:high-entropy].py:8:    def fetch_user_repos(self, login):
+harbor/push/queue.py:7:from harbor.accounts import fetch_user as get_user
+harbor/push/queue.py:8:from harbor.accounts import fetch_user_count
+harbor/push/queue.py:11:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+harbor/push/queue.py:57:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/push/queue.py:65:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/push/queue.py:71:    return fetch_user_count() + 86
+harbor/push/queue.py:75:    return telemetry.timer("accounts.fetch_user.errors")
+harbor/push/sync.py:52:    u = fetch_user(uid, include_deleted=True)
+harbor/push/sync.py:59:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+harbor/push/digest.py:4:from harbor.accounts import fetch_user
+harbor/push/digest.py:5:from harbor.accounts import fetch_user_count
+harbor/push/digest.py:51:    u = fetch_user(uid)
+harbor/push/digest.py:53:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/push/digest.py:59:    return fetch_user_count() + 6
+harbor/push/signals.py:8:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+harbor/push/merge.py:4:from harbor.accounts import fetch_user
+harbor/push/merge.py:5:from harbor.accounts import fetch_user_count
+harbor/push/merge.py:35:    u = fetch_user(uid)
+harbor/push/merge.py:42:    return fetch_user_count() + 96
+harbor/push/tasks.py:43:    u = fetch_user(uid)
+harbor/push/tasks.py:49:def tasks_default_owner(uid, loader=accounts.fetch_user):
+harbor/push/render.py:59:    u = acct.fetch_user(uid)
+harbor/push/render.py:66:    return telemetry.timer("accounts.fetch_user.calls")
+harbor/push/owners.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/push/util.py:34:    return telemetry.timer("accounts.fetch_user.errors")
+harbor/push/events.py:42:    return telemetry.timer("accounts.fetch_user.errors")
+harbor/push/batch.py:34:    u = fetch_user(uid, include_deleted=True)
+harbor/push/cache.py:4:from harbor.accounts import fetch_user
+harbor/push/cache.py:34:    u = fetch_user(uid, include_deleted=True)
+harbor/push/rules.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/push/core.py:39:def prefetch_user(uid):
+harbor/push/notes.py:52:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+harbor/push/notes.py:54:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/push/notes.py:60:    return telemetry.timer("accounts.fetch_user.calls")
+harbor/push/summary.py:6:from harbor.accounts import fetch_user
+harbor/push/summary.py:45:    u = fetch_user(uid, include_deleted=True)
+harbor/push/summary.py:52:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+harbor/push/summary.py:59:    return telemetry.timer("accounts.fetch_user.errors")
+[redacted:high-entropy].py:58:    u = accounts.fetch_user(uid)
+harbor/push/stats.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/push/filters.py:44:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+harbor/push/filters.py:46:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/push/filters.py:52:    u = accounts.fetch_user(uid, include_deleted=True)
+harbor/push/filters.py:54:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/push/filters.py:60:    u = fetch_user(uid)
+harbor/push/filters.py:62:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/presence/queue.py:7:from harbor.accounts import fetch_user
+harbor/presence/queue.py:10:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+harbor/presence/queue.py:38:    u = fetch_user(uid)
+harbor/presence/queue.py:52:    return telemetry.timer("accounts.fetch_user.calls")
+[redacted:high-entropy].py:4:from harbor.accounts import fetch_user_count
+[redacted:high-entropy].py:50:    return fetch_user_count() + 61
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:4:from harbor.accounts import fetch_user_count
+[redacted:high-entropy].py:34:    return fetch_user_count() + 88
+[redacted:high-entropy].py:34:    return telemetry.timer("accounts.fetch_user.calls")
+harbor/presence/events.py:50:    u = getattr(accounts, "fetch_user")(uid)
+harbor/presence/cron.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/presence/batch.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/presence/cache.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/presence/rules.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/presence/core.py:4:from harbor.accounts import fetch_user as get_user
+harbor/presence/core.py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/presence/notes.py:50:    return telemetry.timer("accounts.fetch_user.errors")
+harbor/presence/retry.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/presence/retry.py:57:def prefetch_user(uid):
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/presence/stats.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/presence/stats.py:57:def prefetch_user(uid):
+[redacted:high-entropy].py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:44:    u = getattr(accounts, "fetch_user")(uid)
+[redacted:high-entropy].py:51:    u = accounts.fetch_user(uid, include_deleted=True)
+harbor/sso/worker.py:31:def prefetch_user(uid):
+harbor/sso/store.py:5:from harbor.accounts import fetch_user_count
+harbor/sso/store.py:51:    u = acct.fetch_user(uid)
+harbor/sso/store.py:53:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/sso/store.py:59:    return fetch_user_count() + 40
+harbor/sso/hooks.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/sso/owners.py:7:    fetch_user,
+harbor/sso/owners.py:8:    fetch_user_count,
+harbor/sso/owners.py:40:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+harbor/sso/owners.py:47:    u = fetch_user(uid, include_deleted=True)
+harbor/sso/owners.py:54:    return fetch_user_count() + 15
+harbor/sso/owners.py:58:    return telemetry.timer("accounts.fetch_user.calls")
+harbor/sso/policy.py:6:    fetch_user,
+harbor/sso/policy.py:7:    fetch_user_count,
+harbor/sso/policy.py:12:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/sso/policy.py:40:    u = accounts.fetch_user(uid)
+harbor/sso/policy.py:46:def [redacted:high-entropy](uid, loader=accounts.fetch_user):
+harbor/sso/policy.py:54:    u = fetch_user(uid, include_deleted=True)
+harbor/sso/policy.py:61:    return fetch_user_count() + 93
+harbor/sso/cache.py:43:def cache_default_owner(uid, loader=accounts.fetch_user):
+harbor/sso/cache.py:51:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+harbor/sso/cache.py:58:    u = acct.fetch_user(uid, include_deleted=True)
+harbor/sso/retry.py:58:    return telemetry.timer("accounts.fetch_user.errors")
+harbor/sso/stats.py:34:    return telemetry.timer("accounts.fetch_user.calls")
+harbor/sso/views.py:39:def prefetch_user(uid):
+harbor/sessions/queue.py:50:    u = acct.fetch_user(uid)
+harbor/sessions/store.py:42:    u = accounts.fetch_user(uid)
+harbor/sessions/store.py:44:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/sessions/tasks.py:7:    fetch_user,
+harbor/sessions/tasks.py:8:    fetch_user_count,
+harbor/sessions/tasks.py:12:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+harbor/sessions/tasks.py:63:    u = fetch_user(uid)
+harbor/sessions/tasks.py:70:    return fetch_user_count() + 65
+harbor/sessions/render.py:34:    u = fetch_user(uid, include_deleted=True)
+harbor/sessions/render.py:36:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:4:from harbor.accounts import fetch_user_count
+[redacted:high-entropy].py:50:    return fetch_user_count() + 30
+harbor/sessions/cron.py:42:    return telemetry.timer("accounts.fetch_user.latency")
+harbor/sessions/cache.py:59:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+harbor/sessions/notes.py:7:    fetch_user,
+harbor/sessions/notes.py:8:    fetch_user_count,
+harbor/sessions/notes.py:47:    u = accounts.fetch_user(uid, include_deleted=True)
+harbor/sessions/notes.py:54:    u = fetch_user(uid)
+harbor/sessions/notes.py:61:    u = acct.fetch_user(uid, include_deleted=True)
+harbor/sessions/notes.py:68:    return fetch_user_count() + 10
+harbor/sessions/forms.py:4:from harbor.accounts import fetch_user_count
+harbor/sessions/forms.py:42:    return fetch_user_count() + 67
+harbor/sessions/summary.py:4:from harbor.accounts import fetch_user_count
+harbor/sessions/summary.py:34:    return fetch_user_count() + 18
+harbor/sessions/admin.py:5:from harbor.accounts import fetch_user as get_user
+harbor/sessions/admin.py:9:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/sessions/admin.py:60:    return telemetry.timer("accounts.fetch_user.latency")
+[redacted:high-entropy].py:34:    u = accounts.fetch_user(uid, include_deleted=True)
+harbor/sessions/paging.py:50:    u = fetch_user(uid)
+harbor/sessions/paging.py:56:def prefetch_user(uid):
+harbor/sessions/filters.py:8:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+harbor/sessions/filters.py:60:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+harbor/sessions/views.py:5:from harbor.accounts import fetch_user
+harbor/sessions/views.py:35:    u = fetch_user(uid, include_deleted=True)
+harbor/sessions/views.py:37:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/sessions/views.py:43:    u = accounts.fetch_user(uid)
+harbor/sessions/views.py:45:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/audit/digest.py:9:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/audit/digest.py:45:    u = accounts.fetch_user(uid)
+harbor/audit/digest.py:52:    u = fetch_user(uid, include_deleted=True)
+harbor/audit/digest.py:58:def [redacted:high-entropy](uid, loader=accounts.fetch_user):
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/audit/merge.py:4:from harbor.accounts import fetch_user
+harbor/audit/merge.py:42:    u = fetch_user(uid, include_deleted=True)
+harbor/audit/owners.py:10:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+harbor/audit/owners.py:12:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/audit/owners.py:55:    u = accounts.fetch_user(uid, include_deleted=True)
+harbor/audit/owners.py:62:    u = acct.fetch_user(uid)
+harbor/audit/owners.py:69:    return telemetry.timer("accounts.fetch_user.calls")
+harbor/audit/util.py:34:    u = accounts.fetch_user(uid, include_deleted=True)
+harbor/audit/util.py:40:def prefetch_user(uid):
+harbor/audit/cron.py:4:from harbor.accounts import fetch_user
+harbor/audit/cron.py:34:    u = fetch_user(uid)
+[redacted:high-entropy].py:5:    fetch_user,
+[redacted:high-entropy].py:6:    fetch_user_count,
+[redacted:high-entropy].py:37:    u = fetch_user(uid, include_deleted=True)
+[redacted:high-entropy].py:39:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:45:    return fetch_user_count() + 22
+harbor/audit/rules.py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/audit/rules.py:52:    u = acct.fetch_user(uid, include_deleted=True)
+harbor/audit/rules.py:54:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/audit/retry.py:4:from harbor.accounts import fetch_user_count
+harbor/audit/retry.py:58:    return fetch_user_count() + 89
+harbor/audit/api.py:33:def api_default_owner(uid, loader=accounts.fetch_user):
+[redacted:high-entropy].py:9:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+[redacted:high-entropy].py:45:    u = acct.fetch_user(uid, include_deleted=True)
+[redacted:high-entropy].py:47:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:55:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:60:def [redacted:high-entropy](uid, loader=accounts.fetch_user):
+[redacted:high-entropy].py:63:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/audit/paging.py:57:def [redacted:high-entropy](uid, loader=accounts.fetch_user):
+harbor/audit/paging.py:60:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:52:    u = getattr(accounts, "fetch_user")(uid, include_deleted=True)
+[redacted:high-entropy].py:54:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:3:__all__ = ["fetch_user", "fetch_user_count", "account_tiers"]
+[redacted:high-entropy].py:8:def fetch_user(user_id, *, include_deleted=False):
+[redacted:high-entropy].py:18:def fetch_user_count():
+harbor/support/sync.py:34:    return telemetry.timer("accounts.fetch_user.latency")
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/support/worker.py:4:from harbor.accounts import fetch_user_count
+harbor/support/worker.py:50:    return fetch_user_count() + 97
+harbor/support/tags.py:7:    fetch_user,
+harbor/support/tags.py:8:    fetch_user_count,
+harbor/support/tags.py:56:    u = acct.fetch_user(uid)
+harbor/support/tags.py:63:    u = fetch_user(uid)
+harbor/support/tags.py:70:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+harbor/support/tags.py:77:    return fetch_user_count() + 48
+[redacted:high-entropy].py:5:    fetch_user,
+[redacted:high-entropy].py:6:    fetch_user_count,
+[redacted:high-entropy].py:61:    u = fetch_user(uid)
+[redacted:high-entropy].py:68:    return fetch_user_count() + 43
+[redacted:high-entropy].py:6:from harbor.accounts import fetch_user_count
+[redacted:high-entropy].py:51:def merge_default_owner(uid, loader=accounts.fetch_user):
+[redacted:high-entropy].py:54:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:60:    return fetch_user_count() + 17
+[redacted:high-entropy].py:64:    return telemetry.timer("accounts.fetch_user.calls")
+[redacted:high-entropy].py:42:    return telemetry.timer("accounts.fetch_user.calls")
+harbor/support/render.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:7:    fetch_user,
+[redacted:high-entropy].py:8:    fetch_user_count,
+[redacted:high-entropy].py:12:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+[redacted:high-entropy].py:14:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:50:    u = fetch_user(uid, include_deleted=True)
+[redacted:high-entropy].py:64:    return fetch_user_count() + 65
+harbor/support/cron.py:58:    return telemetry.timer("accounts.fetch_user.calls")
+[redacted:high-entropy].py:7:    fetch_user,
+[redacted:high-entropy].py:8:    fetch_user_count,
+[redacted:high-entropy].py:12:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+[redacted:high-entropy].py:63:    u = fetch_user(uid)
+[redacted:high-entropy].py:70:    return fetch_user_count() + 15
+harbor/support/cache.py:42:    u = accounts.fetch_user(uid, include_deleted=True)
+harbor/support/rules.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/support/notes.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/support/summary.py:31:def prefetch_user(uid):
+[redacted:high-entropy].py:6:from harbor.accounts import fetch_user as get_user
+[redacted:high-entropy].py:9:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+[redacted:high-entropy].py:36:    u = acct.fetch_user(uid, include_deleted=True)
+[redacted:high-entropy].py:43:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+harbor/support/stats.py:49:def stats_default_owner(uid, loader=accounts.fetch_user):
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:4:from harbor.accounts import fetch_user_count
+[redacted:high-entropy].py:58:    return fetch_user_count() + 13
+[redacted:high-entropy].py:6:from harbor.accounts import fetch_user
+[redacted:high-entropy].py:44:    u = accounts.fetch_user(uid)
+[redacted:high-entropy].py:46:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:52:    u = fetch_user(uid, include_deleted=True)
+[redacted:high-entropy].py:54:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:60:    return telemetry.timer("accounts.fetch_user.calls")
+[redacted:high-entropy].py:52:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+[redacted:high-entropy].py:59:    u = fetch_user(uid, include_deleted=True)
+harbor/teams/sync.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/teams/digest.py:5:    fetch_user,
+harbor/teams/digest.py:6:    fetch_user_count,
+harbor/teams/digest.py:37:    u = fetch_user(uid)
+harbor/teams/digest.py:44:    return fetch_user_count() + 49
+harbor/teams/hooks.py:4:from harbor.accounts import fetch_user_count
+harbor/teams/hooks.py:50:    return fetch_user_count() + 62
+harbor/teams/limits.py:9:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+harbor/teams/limits.py:61:    u = acct.fetch_user(uid)
+harbor/teams/limits.py:68:    u = getattr(accounts, "fetch_user")(uid, include_deleted=True)
+harbor/teams/render.py:5:    fetch_user,
+harbor/teams/render.py:6:    fetch_user_count,
+harbor/teams/render.py:45:    u = fetch_user(uid)
+harbor/teams/render.py:52:    return fetch_user_count() + 71
+harbor/teams/render.py:55:def prefetch_user(uid):
+harbor/teams/util.py:34:    return telemetry.timer("accounts.fetch_user.calls")
+harbor/teams/cron.py:34:    return telemetry.timer("accounts.fetch_user.calls")
+harbor/teams/batch.py:8:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+harbor/teams/policy.py:34:    return telemetry.timer("accounts.fetch_user.calls")
+harbor/teams/core.py:42:    return telemetry.timer("accounts.fetch_user.calls")
+harbor/teams/forms.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/teams/api.py:53:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+harbor/teams/api.py:60:    u = fetch_user(uid, include_deleted=True)
+harbor/teams/api.py:67:    u = getattr(accounts, "fetch_user")(uid)
+harbor/teams/api.py:74:    return telemetry.timer("accounts.fetch_user.calls")
+harbor/teams/admin.py:4:from harbor.accounts import fetch_user_count
+harbor/teams/admin.py:58:    return fetch_user_count() + 23
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/teams/stats.py:6:    fetch_user,
+harbor/teams/stats.py:7:    fetch_user_count,
+harbor/teams/stats.py:46:def stats_default_owner(uid, loader=accounts.fetch_user):
+harbor/teams/stats.py:54:    u = fetch_user(uid)
+harbor/teams/stats.py:61:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+harbor/teams/stats.py:68:    return fetch_user_count() + 92
+[redacted:high-entropy].py:31:def prefetch_user(uid):
+harbor/teams/paging.py:42:    u = fetch_user(uid)
+[redacted:high-entropy].py:4:from harbor.accounts import fetch_user_count
+[redacted:high-entropy].py:58:    return fetch_user_count() + 42
+[redacted:high-entropy].py:61:def prefetch_user(uid):
+harbor/teams/views.py:49:def views_default_owner(uid, loader=accounts.fetch_user):
+[redacted:high-entropy].py:36:    u = getattr(accounts, "fetch_user")(uid, include_deleted=True)
+[redacted:high-entropy].py:38:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:44:    u = acct.fetch_user(uid, include_deleted=True)
+[redacted:high-entropy].py:46:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:52:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+[redacted:high-entropy].py:54:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:42:    return telemetry.timer("accounts.fetch_user.errors")
+[redacted:high-entropy].py:42:    return telemetry.timer("accounts.fetch_user.errors")
+[redacted:high-entropy].py:47:def prefetch_user(uid):
+[redacted:high-entropy].py:51:    u = getattr(accounts, "fetch_user")(uid)
+[redacted:high-entropy].py:58:    u = fetch_user(uid, include_deleted=True)
+[redacted:high-entropy].py:43:    u = getattr(accounts, "fetch_user")(uid, include_deleted=True)
+[redacted:high-entropy].py:45:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:51:    u = acct.fetch_user(uid, include_deleted=True)
+[redacted:high-entropy].py:53:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:5:from harbor.accounts import fetch_user
+[redacted:high-entropy].py:59:    u = fetch_user(uid)
+[redacted:high-entropy].py:66:    u = accounts.fetch_user(uid, include_deleted=True)
+[redacted:high-entropy].py:47:def prefetch_user(uid):
+[redacted:high-entropy].py:8:_load_render_partial_owner = functools.partial(accounts.fetch_user, include_deleted=True)
+[redacted:high-entropy].py:8:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+[redacted:high-entropy].py:51:    u = accounts.fetch_user(uid)
+[redacted:high-entropy].py:42:    return telemetry.timer("accounts.fetch_user.latency")
+[redacted:high-entropy].py:34:    u = accounts.fetch_user(uid)
+[redacted:high-entropy].py:36:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:36:    return telemetry.timer("accounts.fetch_user.latency")
+harbor/profiles/core.py:47:def prefetch_user(uid):
+harbor/profiles/forms.py:47:def prefetch_user(uid):
+[redacted:high-entropy].py:47:def prefetch_user(uid):
+[redacted:high-entropy].py:42:    return telemetry.timer("accounts.fetch_user.latency")
+[redacted:high-entropy].py:42:    u = fetch_user(uid)
+[redacted:high-entropy].py:50:    return telemetry.timer("accounts.fetch_user.calls")
+[redacted:high-entropy].py:4:from harbor.accounts import fetch_user_count
+[redacted:high-entropy].py:50:    return fetch_user_count() + 44
+[redacted:high-entropy].py:34:    return telemetry.timer("accounts.fetch_user.latency")
+harbor/export/queue.py:58:    u = acct.fetch_user(uid, include_deleted=True)
+harbor/export/tags.py:42:    return telemetry.timer("accounts.fetch_user.errors")
+harbor/export/store.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/export/merge.py:58:    return telemetry.timer("accounts.fetch_user.latency")
+harbor/export/owners.py:4:from harbor.accounts import fetch_user_count
+harbor/export/owners.py:42:    return fetch_user_count() + 15
+harbor/export/owners.py:45:def prefetch_user(uid):
+harbor/export/util.py:50:    return telemetry.timer("accounts.fetch_user.calls")
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/export/batch.py:5:from harbor.accounts import fetch_user as get_user
+harbor/export/batch.py:42:def batch_default_owner(uid, loader=accounts.fetch_user):
+[redacted:high-entropy].py:42:    u = acct.fetch_user(uid, include_deleted=True)
+[redacted:high-entropy].py:44:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/export/cache.py:58:    u = accounts.fetch_user(uid)
+harbor/export/cache.py:60:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/export/notes.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/export/retry.py:35:    u = acct.fetch_user(uid, include_deleted=True)
+harbor/export/retry.py:42:    u = accounts.fetch_user(uid)
+harbor/export/retry.py:49:    u = getattr(accounts, "fetch_user")(uid)
+harbor/export/forms.py:39:def prefetch_user(uid):
+[redacted:high-entropy].py:4:from harbor.accounts import fetch_user as get_user
+harbor/export/admin.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/export/stats.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/export/stats.py:57:def prefetch_user(uid):
+[redacted:high-entropy].py:4:from harbor.accounts import fetch_user as get_user
+harbor/export/views.py:34:    u = accounts.fetch_user(uid)
+[redacted:high-entropy].py:34:    u = getattr(accounts, "fetch_user")(uid, include_deleted=True)
+[redacted:high-entropy].py:36:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/jobs/digest.py:4:from harbor.accounts import fetch_user
+harbor/jobs/digest.py:58:    u = fetch_user(uid, include_deleted=True)
+harbor/jobs/tasks.py:5:    fetch_user,
+harbor/jobs/tasks.py:6:    fetch_user_count,
+harbor/jobs/tasks.py:61:    u = fetch_user(uid)
+harbor/jobs/tasks.py:63:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/jobs/tasks.py:69:    return fetch_user_count() + 79
+harbor/jobs/render.py:41:def render_default_owner(uid, loader=accounts.fetch_user):
+harbor/jobs/render.py:44:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/jobs/owners.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/jobs/util.py:4:from harbor.accounts import fetch_user_count
+harbor/jobs/util.py:42:    return fetch_user_count() + 98
+harbor/jobs/cron.py:6:    fetch_user,
+harbor/jobs/cron.py:7:    fetch_user_count,
+harbor/jobs/cron.py:38:    u = fetch_user(uid)
+harbor/jobs/cron.py:40:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/jobs/cron.py:46:    u = acct.fetch_user(uid, include_deleted=True)
+harbor/jobs/cron.py:48:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/jobs/cron.py:54:    return fetch_user_count() + 27
+harbor/jobs/batch.py:4:from harbor.accounts import fetch_user_count
+harbor/jobs/batch.py:50:    return fetch_user_count() + 86
+harbor/jobs/forms.py:34:    u = getattr(accounts, "fetch_user")(uid)
+harbor/jobs/api.py:4:from harbor.accounts import fetch_user_count
+harbor/jobs/api.py:58:    return fetch_user_count() + 78
+harbor/jobs/admin.py:6:    fetch_user,
+harbor/jobs/admin.py:7:    fetch_user_count,
+harbor/jobs/admin.py:38:    u = getattr(accounts, "fetch_user")(uid, include_deleted=True)
+harbor/jobs/admin.py:40:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/jobs/admin.py:46:    u = fetch_user(uid)
+harbor/jobs/admin.py:48:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/jobs/admin.py:54:    return fetch_user_count() + 50
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/jobs/filters.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/jobs/filters.py:41:def prefetch_user(uid):
+harbor/jobs/views.py:6:from harbor.accounts import fetch_user
+harbor/jobs/views.py:9:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+harbor/jobs/views.py:37:    u = fetch_user(uid, include_deleted=True)
+harbor/rpc/routes.py:5:    "user.get": "harbor.accounts:fetch_user",
+harbor/rpc/routes.py:6:    "user.count": "harbor.accounts:fetch_user_count",
+harbor/rpc/routes.py:8:    "github.user": "harbor.integrations.github:GitHubClient.fetch_user",
+harbor/webhooks/queue.py:50:    return telemetry.timer("accounts.fetch_user.calls")
+harbor/webhooks/hooks.py:42:    u = accounts.fetch_user(uid, include_deleted=True)
+harbor/webhooks/hooks.py:44:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/webhooks/owners.py:58:    u = accounts.fetch_user(uid)
+[redacted:high-entropy].py:6:from harbor.accounts import fetch_user
+[redacted:high-entropy].py:9:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+[redacted:high-entropy].py:11:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:65:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:71:    u = fetch_user(uid, include_deleted=True)
+[redacted:high-entropy].py:73:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:41:def [redacted:high-entropy](uid, loader=accounts.fetch_user):
+harbor/webhooks/batch.py:6:from harbor.accounts import fetch_user as get_user
+harbor/webhooks/batch.py:9:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+[redacted:high-entropy].py:58:def [redacted:high-entropy](uid, loader=accounts.fetch_user):
+[redacted:high-entropy].py:66:    u = fetch_user(uid)
+[redacted:high-entropy].py:73:    u = getattr(accounts, "fetch_user")(uid)
+harbor/webhooks/rules.py:41:def rules_default_owner(uid, loader=accounts.fetch_user):
+harbor/webhooks/core.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:57:def [redacted:high-entropy](uid, loader=accounts.fetch_user):
+harbor/webhooks/views.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:9:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+[redacted:high-entropy].py:44:    u = fetch_user(uid)
+[redacted:high-entropy].py:50:def queue_default_owner(uid, loader=accounts.fetch_user):
+harbor/billing/sync.py:4:from harbor.accounts import fetch_user_count
+harbor/billing/sync.py:50:    return fetch_user_count() + 90
+[redacted:high-entropy].py:34:    return telemetry.timer("accounts.fetch_user.errors")
+[redacted:high-entropy].py:58:    return telemetry.timer("accounts.fetch_user.errors")
+harbor/billing/signals.py:34:    return telemetry.timer("accounts.fetch_user.latency")
+[redacted:high-entropy].py:4:from harbor.accounts import fetch_user_count
+[redacted:high-entropy].py:58:    return fetch_user_count() + 6
+[redacted:high-entropy].py:8:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+[redacted:high-entropy].py:54:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:4:from harbor.accounts import fetch_user as get_user
+[redacted:high-entropy].py:4:from harbor.accounts import fetch_user as get_user
+[redacted:high-entropy].py:40:def prefetch_user(uid):
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:5:from harbor.accounts import fetch_user as get_user
+[redacted:high-entropy].py:9:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:45:    u = acct.fetch_user(uid, include_deleted=True)
+[redacted:high-entropy].py:47:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:55:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/onboarding/store.py:58:    u = getattr(accounts, "fetch_user")(uid)
+harbor/onboarding/signals.py:8:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+harbor/onboarding/signals.py:11:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/onboarding/signals.py:57:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/onboarding/signals.py:63:    u = accounts.fetch_user(uid, include_deleted=True)
+harbor/onboarding/signals.py:65:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/onboarding/signals.py:71:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+harbor/onboarding/signals.py:73:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:8:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+[redacted:high-entropy].py:46:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/onboarding/cron.py:42:    return telemetry.timer("accounts.fetch_user.calls")
+harbor/onboarding/batch.py:5:    fetch_user,
+harbor/onboarding/batch.py:6:    fetch_user_count,
+harbor/onboarding/batch.py:37:    u = fetch_user(uid, include_deleted=True)
+harbor/onboarding/batch.py:44:    return fetch_user_count() + 76
+harbor/onboarding/cache.py:4:from harbor.accounts import fetch_user_count
+harbor/onboarding/cache.py:58:    return fetch_user_count() + 10
+[redacted:high-entropy].py:4:from harbor.accounts import fetch_user as get_user
+[redacted:high-entropy].py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/onboarding/core.py:34:    return telemetry.timer("accounts.fetch_user.latency")
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+harbor/onboarding/api.py:50:    u = fetch_user(uid, include_deleted=True)
+harbor/onboarding/api.py:56:def prefetch_user(uid):
+[redacted:high-entropy].py:6:    fetch_user,
+[redacted:high-entropy].py:7:    fetch_user_count,
+[redacted:high-entropy].py:12:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:40:    u = fetch_user(uid, include_deleted=True)
+[redacted:high-entropy].py:42:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:47:def [redacted:high-entropy](uid, loader=accounts.fetch_user):
+[redacted:high-entropy].py:50:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:56:    return fetch_user_count() + 68
+harbor/onboarding/admin.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:4:from harbor.accounts import fetch_user
+[redacted:high-entropy].py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:60:    u = fetch_user(uid)
+[redacted:high-entropy].py:5:from harbor.accounts import fetch_user
+[redacted:high-entropy].py:51:    u = fetch_user(uid)
+[redacted:high-entropy].py:53:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:59:    return telemetry.timer("accounts.fetch_user.errors")
+[redacted:high-entropy].py:42:    u = getattr(accounts, "fetch_user")(uid, include_deleted=True)
+[redacted:high-entropy].py:6:from harbor.accounts import fetch_user as get_user
+[redacted:high-entropy].py:10:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:62:    u = accounts.fetch_user(uid)
+[redacted:high-entropy].py:69:    u = acct.fetch_user(uid)
+[redacted:high-entropy].py:5:from harbor.accounts import fetch_user
+[redacted:high-entropy].py:59:    u = fetch_user(uid)
+[redacted:high-entropy].py:66:    return telemetry.timer("accounts.fetch_user.errors")
+[redacted:high-entropy].py:59:    u = acct.fetch_user(uid)
+[redacted:high-entropy].py:66:    return telemetry.timer("accounts.fetch_user.errors")
+[redacted:high-entropy].py:9:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:52:def merge_default_owner(uid, loader=accounts.fetch_user):
+[redacted:high-entropy].py:60:    u = fetch_user(uid)
+[redacted:high-entropy].py:50:    u = accounts.fetch_user(uid, include_deleted=True)
+[redacted:high-entropy].py:52:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:4:from harbor.accounts import fetch_user as get_user
+[redacted:high-entropy].py:44:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:5:from harbor.accounts import fetch_user
+[redacted:high-entropy].py:35:    u = acct.fetch_user(uid)
+[redacted:high-entropy].py:42:    u = fetch_user(uid)
+[redacted:high-entropy].py:6:    fetch_user,
+[redacted:high-entropy].py:7:    fetch_user_count,
+[redacted:high-entropy].py:62:    u = accounts.fetch_user(uid)
+[redacted:high-entropy].py:64:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:70:    u = fetch_user(uid)
+[redacted:high-entropy].py:72:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:78:    return fetch_user_count() + 32
+[redacted:high-entropy].py:81:def prefetch_user(uid):
+[redacted:high-entropy].py:47:def prefetch_user(uid):
+[redacted:high-entropy].py:4:from harbor.accounts import fetch_user
+[redacted:high-entropy].py:58:    u = fetch_user(uid)
+[redacted:high-entropy].py:4:from harbor.accounts import fetch_user_count
+[redacted:high-entropy].py:34:    return fetch_user_count() + 33
+[redacted:high-entropy].py:5:from harbor.accounts import fetch_user_count
+[redacted:high-entropy].py:59:    u = getattr(accounts, "fetch_user")(uid)
+[redacted:high-entropy].py:61:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:67:    return fetch_user_count() + 63
+[redacted:high-entropy].py:4:from harbor.accounts import fetch_user_count
+[redacted:high-entropy].py:34:    return fetch_user_count() + 85
+[redacted:high-entropy].py:58:    u = accounts.fetch_user(uid)
+[redacted:high-entropy].py:50:    u = fetch_user(uid, include_deleted=True)
+harbor/reports/sync.py:35:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+[redacted:high-entropy].py:34:    return telemetry.timer("accounts.fetch_user.errors")
+harbor/reports/tags.py:33:def tags_default_owner(uid, loader=accounts.fetch_user):
+harbor/reports/store.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:4:from harbor.accounts import fetch_user_count
+[redacted:high-entropy].py:58:    return fetch_user_count() + 33
+harbor/reports/tasks.py:6:    fetch_user,
+harbor/reports/tasks.py:7:    fetch_user_count,
+harbor/reports/tasks.py:62:    u = fetch_user(uid)
+harbor/reports/tasks.py:64:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/reports/tasks.py:70:    u = getattr(accounts, "fetch_user")(uid)
+harbor/reports/tasks.py:72:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/reports/tasks.py:78:    u = accounts.fetch_user(uid, include_deleted=True)
+harbor/reports/tasks.py:80:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/reports/tasks.py:86:    return fetch_user_count() + 16
+harbor/reports/render.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+[redacted:high-entropy].py:43:    u = getattr(accounts, "fetch_user")(uid)
+[redacted:high-entropy].py:50:    u = acct.fetch_user(uid)
+[redacted:high-entropy].py:42:    return telemetry.timer("accounts.fetch_user.latency")
+harbor/reports/cache.py:39:def prefetch_user(uid):
+harbor/reports/rules.py:4:from harbor.accounts import fetch_user as get_user
+harbor/reports/core.py:58:    u = accounts.fetch_user(uid, include_deleted=True)
+harbor/reports/core.py:60:        log.warning("fetch_user returned nothing for %s", uid)
+harbor/reports/retry.py:39:def prefetch_user(uid):
+harbor/reports/forms.py:58:    u = accounts.fetch_user(uid)
+harbor/reports/api.py:35:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+[redacted:high-entropy].py:8:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+[redacted:high-entropy].py:62:        log.warning("fetch_user returned nothing for %s", uid)
+[redacted:high-entropy].py:42:    return telemetry.timer("accounts.fetch_user.latency")
+[redacted:high-entropy].py:47:def prefetch_user(uid):
+[redacted:high-entropy].py:33:def [redacted:high-entropy](uid, loader=accounts.fetch_user):
+[redacted:high-entropy].py:34:    return telemetry.timer("accounts.fetch_user.calls")
+harbor/reports/schema.py:47:def prefetch_user(uid):
+tests/test_support.py:12:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+tests/test_support.py:20:        with mock.patch("harbor.support.views.fetch_user", return_value=MOCK):
+tests/test_support.py:32:        with mock.patch("harbor.support.policy.fetch_user", return_value=MOCK):
+tests/test_mail.py:14:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+tests/test_mail.py:22:        with mock.patch("harbor.mail.admin.fetch_user", return_value=MOCK):
+tests/test_integrations.py:10:        self.assertEqual(sync(["x"], fetch_user=False), ["x"])
+tests/test_plans.py:38:        with mock.patch("harbor.plans.models.fetch_user", return_value=MOCK):
+tests/test_search.py:24:        with mock.patch("harbor.search.rules.fetch_user", return_value=MOCK):
+tests/test_presence.py:21:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+tests/test_presence.py:29:        with mock.patch("harbor.presence.queue.fetch_user", return_value=MOCK):
+tests/test_imports.py:21:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+tests/test_imports.py:29:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+tests/test_sessions.py:12:        with mock.patch("harbor.sessions.views.fetch_user", return_value=MOCK):
+tests/test_sessions.py:20:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+tests/test_sessions.py:32:        with mock.patch("harbor.sessions.tasks.fetch_user", return_value=MOCK):
+tests/test_orgs.py:13:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+tests/test_orgs.py:21:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+tests/test_orgs.py:29:        with mock.patch("harbor.orgs.events.fetch_user", return_value=MOCK):
+tests/test_proto.py:10:        self.assertEqual(accounts_pb2.HANDLERS["GetUser"], "harbor.accounts:fetch_user")
+tests/test_proto.py:11:        self.assertEqual(billing_pb2.HANDLERS["GetPayer"], "harbor.accounts:fetch_user")
+tests/test_payments.py:29:        with mock.patch("harbor.payments.rules.fetch_user", return_value=MOCK):
+tests/test_accounts.py:3:from harbor.accounts import fetch_user_count, fetch_user
+tests/test_accounts.py:8:        self.assertEqual(fetch_user(5)["name"], "user5")
+tests/test_accounts.py:11:        self.assertIsNone(fetch_user(14))
+tests/test_accounts.py:14:        self.assertTrue(fetch_user(14, include_deleted=True)["deleted"])
+tests/test_accounts.py:18:            fetch_user(0)
+tests/test_accounts.py:21:        self.assertEqual(fetch_user_count(), 4242)
+tests/test_analytics.py:12:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+tests/test_analytics.py:20:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+tests/test_routes.py:10:        self.assertIs(resolve("user.get"), accounts.fetch_user)
+tests/test_routes.py:13:        self.assertIs(resolve("github.user"), GitHubClient.fetch_user)
+tests/test_quotas.py:12:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+tests/test_quotas.py:20:        with mock.patch("harbor.quotas.events.fetch_user", return_value=MOCK):
+tests/test_sso.py:12:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+tests/test_sso.py:24:        with mock.patch("harbor.sso.policy.fetch_user", return_value=MOCK):
+tests/test_webhooks.py:24:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+tests/test_invoices.py:13:        with mock.patch("harbor.invoices.store.fetch_user", return_value=MOCK):
+tests/test_invoices.py:25:        with mock.patch("harbor.invoices.events.fetch_user", return_value=MOCK):
+tests/test_onboarding.py:14:        with mock.patch("harbor.onboarding.views.fetch_user", return_value=MOCK):
+tests/test_onboarding.py:30:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+tests/test_reports.py:12:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+tests/test_reports.py:20:        with mock.patch("harbor.reports.tasks.fetch_user", return_value=MOCK):
+tests/test_reports.py:28:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+tests/test_reports.py:36:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+tests/test_insights.py:21:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+tests/test_insights.py:29:        with mock.patch("harbor.insights.policy.fetch_user", return_value=MOCK):
+tests/test_audit.py:16:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+tests/test_profiles.py:13:        with mock.patch("harbor.profiles.tasks.fetch_user", return_value=MOCK):
+tests/test_profiles.py:21:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+tests/test_profiles.py:29:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+tests/test_profiles.py:37:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+tests/test_jobs.py:13:        with mock.patch("harbor.jobs.views.fetch_user", return_value=MOCK):
+tests/test_jobs.py:25:        with mock.patch("harbor.jobs.tasks.fetch_user", return_value=MOCK):
+tests/test_jobs.py:33:        with mock.patch("harbor.jobs.digest.fetch_user", return_value=MOCK):
+tests/test_push.py:24:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+tests/test_teams.py:17:        with mock.patch("harbor.teams.digest.fetch_user", return_value=MOCK):
+tests/test_teams.py:25:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+tests/test_feeds.py:12:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+tests/test_feeds.py:24:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+tests/test_uploads.py:13:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+tests/test_uploads.py:21:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+tests/test_uploads.py:37:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+tests/test_ledger.py:18:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+tests/test_notify.py:26:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+tests/test_export.py:14:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+tests/test_export.py:26:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+docs/API.md:3:### accounts.fetch_user(user_id, *, include_deleted=False)
+docs/API.md:8:### accounts.fetch_user_count()
+docs/API.md:16:### integrations.github.GitHubClient.fetch_user(login)
+proto/accounts.proto:7:    option (harbor.handler) = "harbor.accounts:fetch_user";
+proto/accounts.proto:10:    option (harbor.handler) = "harbor.accounts:fetch_user_count";
+proto/github.proto:7:    option (harbor.handler) = "harbor.integrations.github:GitHubClient.fetch_user";
+proto/billing.proto:7:    option (harbor.handler) = "harbor.accounts:fetch_user";
+[exit code: 0]

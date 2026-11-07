@@ -1,0 +1,32 @@
+2026-11-05 05:42:21,745 WARNING gateway.run: Another Hermes home's gateway owns this host (PID 83762 (no bound port; profiles: default)); starting this home's gateway beside it.
+2026-11-05 05:42:21,965 WARNING hermes.security_audit: Security posture audit found 1 issue(s) — review your deployment:
+2026-11-05 05:42:21,966 WARNING hermes.security_audit:   [security 1/1] SSH password authentication is ENABLED (default — no explicit directive). Password auth is brute-forceable and dangerous on an internet-facing box. Set 'PasswordAuthentication no' in sshd_config and use key-based auth.
+2026-11-05 05:42:22,281 WARNING gateway.run: No messaging platforms enabled.
+2026-11-05 05:42:22,474 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
+2026-11-05 05:42:22,474 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 05:42:22,474 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 05:42:22,482 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 05:42:22,483 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 05:42:23,151 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 05:42:23,151 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 05:42:23,160 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 05:42:23,160 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 05:42:23,691 WARNING hermes_cli.source_releases: Could not resolve the stable source release: <urlopen error [Errno 1] Operation not permitted>
+2026-11-05 05:43:29,768 WARNING [local-553fcaa730ea2719a1d12f6daf046aee061b30f80815ae426b4e35bca2fe7a9f] agent.tool_executor: Tool write_file returned error (0.01s): {"error": "Refusing to overwrite /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/358644d7f985/meridian/text.py: /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/358644d7f985/merid
+2026-11-05 05:43:29,770 WARNING [local-553fcaa730ea2719a1d12f6daf046aee061b30f80815ae426b4e35bca2fe7a9f] agent.tool_executor: Tool write_file returned error (0.01s): {"error": "Refusing to overwrite /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/358644d7f985/meridian/ingest/eu.py: /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/358644d7f985/
+2026-11-05 05:43:29,772 WARNING [local-553fcaa730ea2719a1d12f6daf046aee061b30f80815ae426b4e35bca2fe7a9f] agent.tool_executor: Tool write_file returned error (0.01s): {"error": "Refusing to overwrite /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/358644d7f985/meridian/ingest/apac.py: /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/358644d7f98
+2026-11-05 05:44:08,808 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 05:44:08,808 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 05:44:08,816 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 05:44:08,816 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 05:44:08,839 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 05:44:08,839 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 05:44:08,847 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 05:44:08,847 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 05:44:14,562 WARNING [local-b82f22aecec1f06f44b5cd0e7f0cbd0b1aeacf034ffe69dadca460fe933d42be] agent.message_sanitization: Normalized provider-minted parallel tool-call ids for replay compatibility
+2026-11-05 05:44:22,312 WARNING [local-b82f22aecec1f06f44b5cd0e7f0cbd0b1aeacf034ffe69dadca460fe933d42be] agent.message_sanitization: Normalized provider-minted parallel tool-call ids for replay compatibility
+2026-11-05 05:44:48,083 WARNING [local-b82f22aecec1f06f44b5cd0e7f0cbd0b1aeacf034ffe69dadca460fe933d42be] agent.message_sanitization: Normalized provider-minted parallel tool-call ids for replay compatibility
+2026-11-05 05:44:48,130 WARNING agent.lsp.install: [install] npm install failed for pyright: 
+2026-11-05 05:44:48,130 WARNING hermes.lint.lsp: lsp[pyright] server unavailable: pyright not found (install via `hermes lsp install <id>` or set lsp.servers.<id>.command)
+2026-11-05 05:45:12,983 WARNING [local-b82f22aecec1f06f44b5cd0e7f0cbd0b1aeacf034ffe69dadca460fe933d42be] agent.message_sanitization: Normalized provider-minted parallel tool-call ids for replay compatibility
+2026-11-05 05:46:12,454 WARNING [local-b82f22aecec1f06f44b5cd0e7f0cbd0b1aeacf034ffe69dadca460fe933d42be] agent.tool_executor: Tool terminal returned error (0.19s): {"output": "test_apac_october_matches_finance (tests.test_ingest.ShippedFeedTotals) ... FAIL\ntest_apac_september_still_parses_v1_amounts (tests.test_ingest.ShippedFeedTotals) ... ok\n\n==============

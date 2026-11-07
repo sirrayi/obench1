@@ -1,0 +1,7 @@
+Rebased feature/report onto main (d657c2d); its three commits (totals row, csv output, header line) now sit on top with the rename applied: format_row is render_row everywhere, including header(). All 6 tests pass, including main's new test_schema.py.
+
+Your work is intact: the uncommitted src/config.py locale edit and untracked notes/ideas.md are back in the working tree, and stash@{0} ("wip: try a markdown renderer") was never touched. Backup tag backup/feature-report-pre-rebase still points at the old tip.
+
+Build junk: moved build/ out of the tree to /tmp/ledger-backup-o4IQda/build (with copies of your dirty files) rather than deleting; no __pycache__ or .pyc remained. Tell me when to drop the tag and backup directory.
+
+END OF REPORT

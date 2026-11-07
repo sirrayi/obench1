@@ -1,0 +1,13 @@
+Implemented `parse_range` in `daterange.py` per SPEC.md and expanded `tests/test_daterange.py` to 62 passing tests.
+
+Behavior covered:
+- `A..B` ISO dates, plus month, ISO-week (`fromisocalendar`) and year endpoints, inclusive
+- Single `YYYY-MM-DD`, `YYYY-MM`, `YYYY-Www`, `YYYY` expanded to their natural span
+- Open ends (`..B`, `A..`), with `..` and blank sides rejected
+- Reversed ranges rejected via resolved end-before-start check
+- Whitespace around text and `..` tolerated
+- `ValueError` for empty input, malformed tokens, bad dates/months/weeks, extra separators, non-strings
+
+Verification: `python3 -m unittest -q` reports 62 tests, OK; files are ASCII-only with no TODO/FIXME/XXX markers; changes are left uncommitted.
+
+END OF REPORT

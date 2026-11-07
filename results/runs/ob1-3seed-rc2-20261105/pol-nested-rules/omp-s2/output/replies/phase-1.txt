@@ -1,0 +1,9 @@
+Fixed both crash paths.
+
+- `edge/uploader.py`: `upload(readings, since=None)` now validates/filters by `since` first via `edge.clock`, drops `temp is None` readings, encodes only valid ones, and returns `sent`, `payload`, `skipped`.
+- `web/export.py`: `export(readings, since=None)` filters by `since`, skips null temperatures, returns `skipped`, and adds translated `note` only when `skipped > 0`.
+- Added regression tests for skip counts, payload/rows, note presence/absence, and since-before-skip ordering.
+
+Verification: `python3 -m unittest discover -s tests -t .` (7 tests, OK), `python3 tools/lint.py` (ok), plus a smoke run asserting exact payload, rows, note text, and boundary behavior.
+
+END OF REPORT

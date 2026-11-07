@@ -1,0 +1,3 @@
+VERDICT.md is written at the repo root. The branch does not fix issue #42: it still splits text on \n, so the issue's CRLF repro leaves a stray closing quote and \r on fields. Ben's note comes out as `call back\r\nafter 5pm"\r`, not `call back\r\nafter 5pm`. The branch's test suite passes, but the new test uses LF-only input (and asserts incorrect quoted-comma splitting), so it passes while the reported CRLF bug remains. Neither branch was modified; the only change is the untracked VERDICT.md.
+
+END OF REPORT

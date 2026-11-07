@@ -1,0 +1,11 @@
+Two defects fixed: `relay/worker.py:chunks` dropped the final partial batch (`range(0, len(items) - size, size)`); now `range(0, len(items), size)`. Deleted `test_warm_cache`: a tautology (`assertTrue(True)`) that orphaned a 900s sleeper on every run.
+
+Executed end to end:
+- `setup.sh --yes` created `data/relay.db`.
+- Server on port 55617; smoke token `4b11d4f0090b4480`, independently recomputed from the DB.
+- Build exited 0 (400000 modules, 11.6 MB); printed checksum equal to `shasum -a 256 build/relay.bundle`: `f8fab13164d5f0312c386098712cbab213e182fea970987f8068c1fd8bda0463`.
+- `unittest`: 1 test, OK.
+
+`RESULTS.md` contains exactly three lines. My server and leaked sleeper are stopped; remaining relay processes belong to a parallel session in another workspace (`7a3799770473`), untouched. No TODO/FIXME/XXX markers.
+
+END OF REPORT

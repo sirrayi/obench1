@@ -1,0 +1,12 @@
+diff --git a/VERDICT.md b/VERDICT.md
+new file mode 100644
+index 0000000..a501e48
+--- /dev/null
++++ b/VERDICT.md
+@@ -0,0 +1,6 @@
++verdict: don't merge
++issue_repro: fail
++branch_tests: pass
++test_checks_the_fix: yes
++
++The branch stops splitting the row, but the issue's own repro still does not give the expected field. With the CRLF export, the note comes back as `call back\r\nafter 5pm"\r` because `strip('"')` cannot remove the closing quote while a trailing `\r` remains, and the first data row's note keeps its quote and `\r` too. The new test uses LF input only, so the suite passes while the real repro fails. Its second assertion is also wrong: it expects `1,"x, y",z` to split the quoted field at the comma, locking in incorrect CSV behavior. CRLF and quote handling need fixing first.

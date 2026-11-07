@@ -1,0 +1,7 @@
+Implemented `parse_range` in `daterange.py`: full-date ranges, month/week/year shorthand, open ends, whitespace tolerance, and `ValueError` for reversed or malformed input. Endpoints may mix forms; bare full dates and bare `..` are rejected.
+
+Expanded `tests/test_daterange.py` to 25 cases covering every spec rule: leap February, month bounds, ISO weeks including week 53 and year-crossing weeks, standalone shorthands, open ends, reversed ranges, whitespace, and malformed inputs.
+
+Verification: `python3 -m unittest discover -s tests -q` passes all 25 tests.
+
+END OF REPORT

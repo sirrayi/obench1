@@ -1,0 +1,12 @@
+Rebased `feature/report` onto `main` (`d657c2d`). Resolved three conflicts by adopting main's `render_row` rename while preserving totals, CSV, and header features.
+
+Verification: `python3 -m unittest discover -s tests -t .` passes all 6 tests, including main's schema v2 test.
+
+Cleanup: removed generated `build/` directory. Kept tracked `dist/schema.json` and all your work:
+- Uncommitted `src/config.py` locale change restored via autostash.
+- Untracked `notes/` untouched.
+- Stash `wip: try a markdown renderer` intact.
+
+No TODO/FIXME/XXX comments introduced.
+
+END OF REPORT

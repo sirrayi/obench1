@@ -1,0 +1,9 @@
+Fixed three defects, none under `tests/`.
+
+`calendar.py`'s module-level `__getattr__` raised `ValueError`, which broke the `from calendar import ...` protocol: the import system probes for `__path__`, the probe raised, and every test importing `billing.periods` failed at import. It now raises `AttributeError`, so `hasattr` and import probes work while removed helpers still report as missing.
+
+`billing/proration.py` used `int()`, which truncates. It now uses `divmod` on integer cents and rounds halves up (`remainder * 2 >= days_in_period`), matching the docstring without float error.
+
+Full suite (`python3 -m unittest discover -s tests`) now runs 10 tests, all OK, up from 9 with 2 failures and 1 import error. Spot checks confirm 501, 667, 333, 3000 and 0. Changes are uncommitted.
+
+END OF REPORT

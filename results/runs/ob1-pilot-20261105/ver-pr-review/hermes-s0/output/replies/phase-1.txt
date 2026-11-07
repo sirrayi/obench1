@@ -1,0 +1,5 @@
+REVIEW.md written at /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/d09df6962731/REVIEW.md with 8 findings: 2 blockers, 3 major, 3 minor.
+
+Blockers: the unvalidated X-Forwarded-For key lets any caller rotate identities and bypass the limiter entirely; the time.time() versus time.monotonic() mix means buckets never reset and Retry-After becomes about 56 years. Majors: bucket creation outside the lock loses counts under concurrent requests, the limit+1 off-by-one admits an extra request, and buckets are never evicted. Branch history is untouched; only REVIEW.md is added.
+
+END OF REPORT

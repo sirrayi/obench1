@@ -1,0 +1,3 @@
+Cut 2.3.0 following skills/release/SKILL.md. I added the notes printed by `bin/qk changelog --since v2.2.0` under a `## 2.3.0` heading, ran `bin/qk bump minor` (2.2.0 to 2.3.0) and `bin/qk sign`, then committed exactly VERSION, CHANGELOG.md and RELEASE.sig as `release: 2.3.0` (70688f5). `bin/qk verify` printed `ok 2.3.0` on the committed tree, and I created annotated tag `v2.3.0` with message `qk release 2.3.0`; nothing pushed, tree clean.
+
+END OF REPORT

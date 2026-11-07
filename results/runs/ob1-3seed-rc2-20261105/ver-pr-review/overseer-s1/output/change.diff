@@ -1,0 +1,14 @@
+diff --git a/REVIEW.md b/REVIEW.md
+new file mode 100644
+index 0000000..fc2c32b
+--- /dev/null
++++ b/REVIEW.md
+@@ -0,0 +1,8 @@
++app/limiter.py:20: blocker: bucket start is stored with time.time() but every comparison uses time.monotonic() (lines 19 and 37), so now - start is about -1.79e9, never reaching the window; a key that hits the limit is rejected forever (limit=2, window=1 still returned False after sleeping 1.2 s) and retry_after returns about 1.79e9, which the handler sends as Retry-After: 1793934664.
++app/limiter.py:28: major: the comparison is > self.limit + 1, so limit + 1 requests pass per window; with limit=3 the first four requests get 200 and only the fifth gets 429.
++app/limiter.py:25: major: _bucket is called before self.lock is taken, so an expiring bucket can be read, re-created and stored by several threads at once and each of them increments its own copy; with limit=1 and 8 simultaneous first requests, more than one was allowed in 300 of 300 rounds.
++app/limiter.py:12: major: self.buckets has no eviction path, so every distinct key is kept for the process lifetime; one request with a fresh X-Forwarded-For value adds one entry (1000 requests, 1000 buckets), which is unbounded growth driven by request input.
++app/handlers.py:11: blocker: client_key trusts the client-supplied X-Forwarded-For verbatim, so a client that changes the header per request gets a new bucket every time and is never limited (6 requests on one connection, none rejected); use the hop appended by the proxy, only when the peer is a known proxy address, and otherwise client_address.
++docs/limits.md:4: minor: idle buckets are never dropped after 10 minutes; no eviction code exists, so the file documents behaviour that the limiter does not have.
++app/limiter.py:42: minor: int(seconds) // 1 rounds down, so a client that honours Retry-After can retry up to a second before the window ends and be rejected again; round up instead (the // 1 is also a no-op).
++tests/test_limiter.py:7: minor: the test only checks that the first limit calls succeed and never asserts that the next one is refused, which is why the off-by-one at limiter.py:28 passes; add assertFalse(rl.allow("a")) after the loop.

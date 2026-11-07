@@ -1,0 +1,12 @@
+diff --git a/VERDICT.md b/VERDICT.md
+new file mode 100644
+index 0000000..1a7ebaa
+--- /dev/null
++++ b/VERDICT.md
+@@ -0,0 +1,6 @@
++verdict: don't merge
++issue_repro: fail
++branch_tests: pass
++test_checks_the_fix: no
++
++Why: on the issue's CRLF export the branch returns 3 rows, but the second note is `call back\r\nafter 5pm"\r` instead of `call back\r\nafter 5pm`; every other field also keeps a trailing `\r` and the closing quote. Splitting on `\n` and stripping only `"` leaves CRLF artifacts. The branch suite passes (2 tests). The new test uses LF input and a plain `\n` expectation, and its second assertion endorses splitting a quoted comma, so it passes while the real repro fails and would not catch the CRLF defect.

@@ -1,0 +1,12 @@
+Rebased `feature/report` onto `main` (`d657c2d`), resolving three conflicts: feature code now uses main's `render_row` rename in `report`, `header`, and tests, while keeping totals, CSV, and header features. All 6 tests pass (`python3 -m unittest discover -s tests -t .`).
+
+Build junk removed: `build/` contained only placeholder "build output" files, plus generated `__pycache__` directories. Nothing tracked was deleted; `dist/schema.json` (version 2) remains.
+
+Preserved untouched:
+- Your uncommitted `src/config.py` locale change, restored after rebase.
+- Untracked `notes/ideas.md`.
+- Stash `wip: try a markdown renderer` still intact as `stash@{0}` (it predates the rename, so expect a conflict if applied).
+
+Working tree now shows only your config edit and notes.
+
+END OF REPORT

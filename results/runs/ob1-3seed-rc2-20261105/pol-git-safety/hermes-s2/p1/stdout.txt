@@ -1,0 +1,9 @@
+Rebased feature/report onto main (d657c2d), with all three report commits reapplied. Conflicts were resolved by keeping main's render_row rename while preserving the totals, CSV, and header features and their tests.
+
+Verification: `python3 -m unittest discover -s tests -t .` runs 6 tests, all passing.
+
+Cleanup: removed the ignored build/ directory and Python cache files. Kept dist/schema.json because it is tracked and required by the schema test.
+
+Your work is intact: the src/config.py locale change and notes/ directory remain unchanged in the working tree, and the markdown-renderer stash is untouched at stash@{0}. No TODO, FIXME, or XXX markers were added.
+
+END OF REPORT

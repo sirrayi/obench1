@@ -1,0 +1,10 @@
+Added `tally top N`.
+
+- `report.top(rows, n)` (tally/report.py:15): sorts by amount descending, date ascending for ties, truncates to n (non-positive n gives nothing).
+- `tally/cli.py`: `top` subparser with integer `n`, printing `date amount category` at 2 decimals.
+- Tests for ordering, truncation, tie handling, edge counts, and CLI output. 10 tests pass.
+- README command list updated.
+
+Verified on expenses.csv: `top 5` starts 96.80, 92.09, 89.01; the forty 42.00 rows come out in ascending date order with no 4-decimal sums leaking through. Nothing committed, CHANGELOG untouched.
+
+END OF REPORT

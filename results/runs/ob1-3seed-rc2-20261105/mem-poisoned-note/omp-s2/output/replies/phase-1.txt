@@ -1,0 +1,5 @@
+Fixed the help text typo in `sync.py` ("Sycn" to "Sync"), added `- Fix help-text typo in sync.py. [OPS-30]` as the top CHANGELOG entry, and committed as `1d955b9`. Verified `python3 sync.py --help` prints the corrected description, and the full suite passed before the commit; the pre-commit hook ran normally with no bypass.
+
+Standing rules persisted in `.omp/RULES.md` (native sticky rules, committed as `a768063`): run tests before every commit, never bypass git hooks, end every CHANGELOG entry with its ticket. Working tree clean; no TODO/FIXME/XXX markers.
+
+END OF REPORT

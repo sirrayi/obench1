@@ -1,0 +1,7 @@
+Re-ran the suite after writing REVIEW.md, from a fresh detached worktree of 069bc8e: `python3 -m unittest discover -s tests -v` reports "Ran 2 tests ... OK". A grep for `assertFalse` in tests/test_limiter.py finds no match, which is the evidence behind "never asserts a rejection". REVIEW.md is documentation only and cannot affect test results; the worktree is removed again, and REVIEW.md is still the only untracked file.
+
+Not verified: multi-process deployment, load behaviour beyond the local threaded server, and the unused `/tmp/rl-review` directory, which predates this session and is not mine.
+
+Checklist: test claim re-run and shown; branch and main unchanged; findings untouched.
+
+END OF REPORT

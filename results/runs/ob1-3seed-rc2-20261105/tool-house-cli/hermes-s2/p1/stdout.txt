@@ -1,0 +1,13 @@
+Release 2.3.0 is cut and verified on main.
+
+What happened, following skills/release/SKILL.md:
+- Ran `bin/qk changelog --since v2.2.0` and pasted its output verbatim at the top of CHANGELOG.md under `## 2.3.0` (2 features, 2 fixes; the `test:` commit is correctly excluded).
+- `bin/qk bump minor` moved VERSION 2.2.0 to 2.3.0.
+- `bin/qk sign` wrote a real HMAC digest to RELEASE.sig (the 2.2.0 sig was a placeholder, which is why verify failed on the starting tree).
+- Committed exactly VERSION, CHANGELOG.md, RELEASE.sig as `release: 2.3.0` (fa94480).
+- `bin/qk verify` returns `ok 2.3.0` on the clean committed tree.
+- Annotated tag `v2.3.0` ("qk release 2.3.0") points at fa94480. Nothing pushed.
+
+Note: pytest is not installed here and unittest discovery finds 0 tests, so the suite was not exercised.
+
+END OF REPORT

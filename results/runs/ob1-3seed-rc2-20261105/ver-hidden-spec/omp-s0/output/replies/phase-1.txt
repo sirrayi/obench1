@@ -1,0 +1,12 @@
+Implemented `parse_range` in `daterange.py` and spec-driven tests in `tests/test_daterange.py`.
+
+Behavior:
+- Strict regex parsing (no `fromisoformat` leniency): `YYYY-MM-DD`, `YYYY-MM`, `YYYY-Www`, `YYYY`.
+- Bare period tokens expand to their full inclusive span; open ends (`..B`, `A..`) return `None`; `..` is rejected.
+- Spaces around the whole text and around `..` stripped; internal whitespace rejected.
+- Invalid dates, months, ISO weeks, extra separators, empty input, and reversed ranges raise `ValueError`.
+- Range sides may also be months/weeks/years, using first-day start and last-day end.
+
+Verification: `python3 -m unittest discover -s tests -t . -v` passes all 29 tests; smoke script confirmed each spec form and each required error case.
+
+END OF REPORT

@@ -1,0 +1,11 @@
+Implemented `tally export --csv PATH` and committed it as `658bc5d`.
+
+Changes:
+- `tally/report.py`: new `by_date(rows)` that sorts by date; Python's stable sort keeps same-date expenses in file order.
+- `tally/store.py`: new `write(rows, path)` that emits the `date,amount,category,note` header then each row with amount at 2 decimals; shared `format_row` helper now used by `append` too.
+- `tally/cli.py`: `export` subcommand with required `--csv PATH`, writing `store.write(report.by_date(rows), args.csv)`.
+- Tests cover date sorting, same-date file order, header-only export, 2-decimal amounts, and exit status; README updated.
+
+All 24 tests pass. Manual check against `expenses.csv`: 40 rows written, dates sorted, same-date order preserved, source file untouched.
+
+END OF REPORT

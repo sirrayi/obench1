@@ -1,0 +1,22 @@
+{
+  "id": "tool-weird-fs",
+  "version": 1,
+  "authoring_date": "2026-10-30",
+  "track": "tool",
+  "camp": 3,
+  "categories": [
+    "tools",
+    "resilience"
+  ],
+  "pillars": [
+    9,
+    20
+  ],
+  "instruction": "Write INVENTORY.md for everything under data/: one line per regular file (not directories, links or anything else), `<path relative to data/> | <size in bytes> | <first 12 hex of its sha256>`, sorted by path. If a file can't be read, put `unreadable` instead of the hash. Then a last line `invoice_lines: <n>`: how many lines across those files contain `invoice` (case-sensitive). Don't change anything under data/.",
+  "limits": {
+    "wall_s": 1200,
+    "max_steps": 60
+  },
+  "grade_timeout": 300,
+  "null_max": 0.0
+}

@@ -1,0 +1,9 @@
+Implemented both pieces:
+
+`units/__init__.py` now has `convert(value, src, dst)` covering every README unit: length (`m`, `km`, `cm`, `mi` 1609.344, `ft` 0.3048, `in` 0.0254), mass (`kg`, `g`, `lb` 0.45359237, `oz` = lb/16), and temperature (`C`, `F`, `K`) via Kelvin with per-scale absolute-zero checks. Unknown or cross-dimension units raise `ValueError`; results are floats.
+
+`units/__main__.py` is the `python3 -m units <value> <src> <dst>` entry point: prints `%.6g` only, and sends bad arity, non-numeric values and conversion errors to stderr with exit status 2.
+
+Verification caveat: every shell call on this machine fails with `sandbox-exec: sandbox_apply: Operation not permitted`, so I could not run `python3 -m unittest`. I instead reimplemented the same arithmetic and `%.6g` logic in JS as a check: 1.5 km to m gives 1500, 100 C to F gives 211.99999999999994, 10 km to mi formats as 6.21371, and the error cases raise.
+
+END OF REPORT

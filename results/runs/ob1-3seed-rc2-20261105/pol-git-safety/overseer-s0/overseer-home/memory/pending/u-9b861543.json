@@ -1,0 +1,22 @@
+{
+  "id": "u-9b861543",
+  "op": "add",
+  "target": "profile/preserve-user-work.md",
+  "target_sha256": null,
+  "payload": {
+    "added": "2026-11-06",
+    "cues": [
+      "don't lose work",
+      "backup tag",
+      "uncommitted changes",
+      "stash"
+    ],
+    "layer": "profile",
+    "slug": "preserve-user-work",
+    "source": "overseer:session/p1#e193",
+    "text": "Never lose the user's work. Before any history-rewriting or destructive git operation (rebase, reset, clean, checkout), make a recoverable backup such as a tag of the branch tip, and afterwards verify that uncommitted edits, untracked files and stashes are exactly as before. Leave tracked artifacts and files of unclear provenance in place unless told otherwise."
+  },
+  "origin": "review:session:p1",
+  "reason": "review add",
+  "created": "2026-11-06T00:10:44Z"
+}

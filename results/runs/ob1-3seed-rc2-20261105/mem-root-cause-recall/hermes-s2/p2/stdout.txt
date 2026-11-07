@@ -1,0 +1,11 @@
+Root cause: October APAC feeds switched to export format v2 (plain dot decimal, no grouping), but apac.load still applied the v1 rule that strips dots as thousands separators. Every amount was inflated 100x, exactly why finance saw 178,731,321.00 instead of 1,787,313.21. September's v1 feed was unaffected.
+
+The working tree already held the format-aware fix: text.feed_format reads the "# format:" header, and text.parse_amount dispatches v1/v2 for both readers. I verified it, added the missing APAC September guard, and confirmed:
+
+- Full suite: 13 tests pass.
+- CLI: 1787313.21 SGD (October), 1784764.94 SGD (September).
+- On pristine HEAD the APAC October test fails with 178731321.00, proving it is a real regression test.
+
+Changes are uncommitted.
+
+END OF REPORT

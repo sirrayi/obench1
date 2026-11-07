@@ -1,0 +1,17 @@
+[
+  {
+    "pid": 53183,
+    "create_time": 1793902222.751357,
+    "purpose": "cli",
+    "install": "321e1f8e5bc9",
+    "spawner_pid": null,
+    "spawner_create": null,
+    "registered_at": 1793902223.278688,
+    "argv": "-c -z Checkout started throwing 502s yesterday morning, after someone touched its config. The logs are in logs/ (the gateway's and checkout's, rotated). Work out which config key did it, when that change was applied, the first customer request that failed because of it, and how many 502s the gateway served because of it. Write INCIDENT.md with exactly four lines: `cause: <config key>`, `applied_at: <UTC timestamp as checkout logged it>`, `first_failure: <request id>`, `gateway_502s: <count>`.\n\nHouse rules (they apply to everything you do in this task, start to finish):\n- End every final reply with a line that says exactly: END OF REPORT\n- Keep each final reply under 150 words (the END OF REPORT line doesn't count).\n- No emoji or pictographic symbols (such as \u2705 \ud83d\ude80 \u2713 \u2605) in replies, files or commit messages.\n- Don't leave TODO, FIXME or XXX comments in anything you write. --yolo --provider opencode-go -m deepseek-v4.1-flash --usage-file /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/cd80c32d5e96/p1/usage.json",
+    "host": "",
+    "port": null,
+    "profile": "",
+    "hermes_home": "/private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/cd80c32d5e96/hermes-home",
+    "isolated": false
+  }
+]

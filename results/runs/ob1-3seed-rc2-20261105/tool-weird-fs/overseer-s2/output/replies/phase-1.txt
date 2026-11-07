@@ -1,0 +1,7 @@
+Created INVENTORY.md at the working-directory root, listing all 13 regular files under data/ with relative path, byte size and first 12 hex of SHA-256, sorted by path.
+
+Handling of the odd entries: the fifo, the four symlinks and all directories were skipped. `locked/payroll.bin` (mode 000, permission denied for this user) is recorded as `unreadable`; everything else was hashed successfully, including the 2 GB sparse file. Filenames were preserved byte-for-byte, so `café/menü.txt` stays in its decomposed UTF-8 form.
+
+Counted case-sensitive `invoice` lines per file with an independent second pass; per-file results matched a grep cross-check, giving `invoice_lines: 683` as the final line. Nothing under data/ was modified.
+
+END OF REPORT

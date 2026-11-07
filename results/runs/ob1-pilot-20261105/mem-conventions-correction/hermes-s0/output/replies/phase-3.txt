@@ -1,0 +1,13 @@
+Fixed. `tally/report.py:9` now skips rows whose date prefix differs from the requested month, before the category filter, so both filters compose.
+
+Verified:
+- `sum --month 2026-09` -> 531.77 (14 September rows; all-time was 1935.71)
+- `sum --month 2026-09 --category food` -> 42.00
+- `sum --month 2026-11` -> 0.00
+- All 14 tests pass via `python3 -m unittest discover -s tests -t .`
+
+Added three month tests to `tests/test_report.py` and one end-to-end `sum --month` test to `tests/test_cli.py`.
+
+Memory updated to Conventional Commits. No commit made: the tree already held unrelated uncommitted work (the `top` command), and you did not ask for one.
+
+END OF REPORT

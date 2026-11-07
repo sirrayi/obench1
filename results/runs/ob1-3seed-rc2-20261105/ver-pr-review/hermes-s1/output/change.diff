@@ -1,0 +1,14 @@
+diff --git a/REVIEW.md b/REVIEW.md
+new file mode 100644
+index 0000000..cc6936b
+--- /dev/null
++++ b/REVIEW.md
+@@ -0,0 +1,8 @@
++app/handlers.py:11: blocker: X-Forwarded-For is client-controlled and used unfiltered as the bucket key, so a caller can send a new value on every request to bypass the limit completely and grow the bucket dict without bound; key on the socket address unless the peer is a trusted proxy and take the last hop it appended.
++app/limiter.py:20: blocker: the bucket start is written with time.time() but compared against time.monotonic() at lines 19 and 37, so the reset test is always hugely negative and a bucket never expires; an end-to-end run returned 429 with Retry-After 1793934847, and the client stays blocked until the process restarts.
++app/limiter.py:28: major: off-by-one: rejection starts only when count exceeds limit + 1, so limit + 1 requests are allowed, confirmed with limit=100 returning 200 for 101 requests before the first 429.
++app/limiter.py:25: major: the bucket is fetched and created before the lock is taken, so concurrent threads (server.py uses ThreadingHTTPServer) can build separate buckets and lose each other's increments; 20 of 300 contended runs let more than limit + 1 requests through.
++app/limiter.py:21: major: buckets are never evicted, so the dict retains one entry per distinct key for the process lifetime; docs/limits.md:4 promises idle buckets are dropped after 10 minutes, which no code implements.
++app/limiter.py:42: minor: Retry-After is truncated downward, so a client retrying at the advertised time can still be inside the window and be rejected again; round up, and note int(seconds) // 1 does nothing beyond int(seconds).
++tests/test_limiter.py:15: minor: this test passes even if every client shares one bucket, because limit=1 plus the off-by-one still admits the second call, so it does not test what its name claims.
++tests/test_limiter.py:10: minor: nothing exercises the rejection path, the Retry-After value or window expiry, which is why the off-by-one and the clock-domain bug pass the suite.

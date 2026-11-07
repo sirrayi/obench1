@@ -1,0 +1,3 @@
+I re-ran `python3 -m unittest discover -s tests -t .` now, after the relay/worker.py change. It exited 0 and reported "Ran 2 tests ... OK", so both tests pass. That run's child sleeper process was killed again; server and sleepers are confirmed not running. RESULTS.md still holds exactly the three required lines with the reported values. My earlier verification order was edit, then test run, then cleanup; this repeat confirms it independently.
+
+END OF REPORT

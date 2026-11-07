@@ -1,0 +1,11 @@
+Rename complete, including the addendum.
+
+- `harbor.accounts.load_account` replaces all function references across 306 files: imports, aliases, star imports, attributes, `getattr`, `mock.patch` targets, partials, loader defaults, routes, tests, and new teammate files (`late_fees`).
+- Added deprecated `fetch_user` wrapper with the exact warning, outside `__all__`; `load_account` is in `__all__`.
+- Keyword renamed to `with_deleted` at every call site/partial/opts dict; wrapper still accepts `include_deleted` and forwards as `with_deleted`.
+- Proto handlers updated in `proto/accounts.proto` and `proto/billing.proto`; `python3 tools/genproto.py` regenerated bindings.
+- `docs/API.md` and the exact CHANGELOG line updated.
+- Decoys and excluded dirs untouched: `fetch_user_count`, `prefetch_user`, GitHub `fetch_user`, metric/log strings, `legacy_cache/`, `third_party/`, `logs/`.
+- Verification: all 1124 modules import; deprecation/type-error/routes/proto smoke checks pass; `python3 -m unittest discover -s tests -t .` runs 204 tests, OK.
+
+END OF REPORT

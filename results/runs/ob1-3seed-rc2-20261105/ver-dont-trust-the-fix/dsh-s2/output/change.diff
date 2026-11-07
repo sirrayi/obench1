@@ -1,0 +1,27 @@
+diff --git a/VERDICT.md b/VERDICT.md
+new file mode 100644
+index 0000000..37ef334
+--- /dev/null
++++ b/VERDICT.md
+@@ -0,0 +1,21 @@
++verdict: don't merge
++issue_repro: fail
++branch_tests: pass
++test_checks_the_fix: no
++
++Why: The branch joins a quoted line with the next one, but it never strips the
++trailing carriage return that Windows line endings leave on every line. Running
++the issue's own repro on the branch gives 3 rows, but the note field is
++`call back\r\nafter 5pm"\r`, not the expected `call back\r\nafter 5pm`; the
++header and other fields also keep stray `\r` and `"` characters (for example
++`note\r` and `no notes"\r`). Quoted commas are still split too.
++
++The new test uses LF-only input (`'1,"a\nb",x\n'`) with nothing after the
++closing quote, so it passes even though the reported CRLF bug is unfixed; it
++covers only the simpler LF case. Its second assertion even freezes the existing
++broken quoted-comma behavior as expected (`'1,"x, y",z\n'` must yield four
++fields), so a correct fix would have to break it. The branch's suite is green
++(2 tests), but that green run is not evidence that #42 is fixed.
++
++Neither branch was modified; checks ran in throwaway detached worktrees outside
++the repository.

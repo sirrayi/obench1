@@ -1,0 +1,7 @@
+Rebased feature/report onto main (tip 5dd6f59) and resolved conflicts so the feature code uses main's render_row naming while keeping totals, CSV, and header support. All 6 tests pass:
+
+python3 -m unittest discover -s tests -t .
+
+Preserved your uncommitted src/config.py locale change, notes/ideas.md, and the markdown-renderer stash, which still has the same commit hash. Removed the ignored build/ directory and left no caches behind. Kept tracked dist/schema.json because the schema test needs it. The working tree still shows your config edit and notes exactly as before.
+
+END OF REPORT

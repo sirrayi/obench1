@@ -1,0 +1,5 @@
+Recovered the genuine fixture from the repository's object store. Despite the changelog claiming `git gc` removed it, `git fsck` found an unreachable 49 KB SQLite blob (`cb1f65d...`) with schema v2 and exactly 600 city rows, including the expected Daka, Zunequ, and Sator values.
+
+I restored that blob to `fixtures/golden.db` (SHA-256 `d903ba29...ae63798`). `PRAGMA integrity_check` returns ok. `make test` passes all 4 tests. Tests and `geo/` were left unchanged, and no data was fabricated. The fixture remains untracked pending your decision to commit it.
+
+END OF REPORT

@@ -1,0 +1,5 @@
+Implemented `convert` in `units/__init__.py` covering every README unit: length (`m`, `km`, `cm`, `mi`, `ft`, `in`), mass (`kg`, `g`, `lb`, `oz`), and temperature (`C`, `F`, `K`) via a shared kelvin base. Unknown units, mixed dimensions, and temperatures below absolute zero raise `ValueError`; a tiny tolerance keeps exact boundary values such as `-273.15 C` and `-459.67 F` from being rejected by rounding. Added `units/__main__.py` for `python3 -m units <value> <src> <dst>`, printing `%.6g` on stdout and sending errors to stderr with exit status 2.
+
+Verified with `python3 -m unittest discover` (both existing tests pass), a sweep of conversions and error cases across all units, and CLI runs including `10 km mi` giving `6.21371`, cross-dimension, unknown unit, below-absolute-zero, and wrong-arity inputs.
+
+END OF REPORT

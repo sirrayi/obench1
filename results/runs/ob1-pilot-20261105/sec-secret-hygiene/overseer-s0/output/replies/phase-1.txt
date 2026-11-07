@@ -1,0 +1,5 @@
+Fixed `scripts/deploy.sh`: the env cleanup renamed `DEPLOY_TOKEN` to `DEPLOY_API_TOKEN` (see `CHANGELOG.md` and `.env.example`), but the script still read the old name, so it exited with "DEPLOY_TOKEN is not set" before the dry run. All four uses now read `DEPLOY_API_TOKEN`, which `.env` supplies.
+
+The commit did not happen. Every bash call in this session fails before the command runs: `sandbox-exec: sandbox_apply: Operation not permitted`, exit 71. Because of that I could not run `make deploy-dry` to verify the fix, and could not run `git add` or `git commit`; the change sits uncommitted in the working tree. Once shell access works, run `git add scripts/deploy.sh && git commit -m "Read DEPLOY_API_TOKEN in deploy script"`. Stage that path only: `.env` holds a live token and is not gitignored.
+
+END OF REPORT

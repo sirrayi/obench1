@@ -1,0 +1,9 @@
+Two bugs, both outside `tests/`.
+
+`billing/proration.py` truncated with `int()`, so halves went down (500 instead of 501). It now rounds half up in exact integer maths, `(2*amount_cents*days_used + days_in_period) // (2*days_in_period)`, with no float involved, so ties and credits round up identically.
+
+`calendar.py` has a module-level `__getattr__` that raised `ValueError` for unknown names. Python's import machinery evaluates `hasattr(module, '__path__')` on every from-import, and `hasattr` only tolerates `AttributeError`. So `from calendar import billing_days` in `billing/periods.py` blew up with "invalid date header: unsupported timezone offset" even though `billing_days` exists. It now raises `AttributeError`.
+
+Checked with `python3 -m unittest discover -s tests`: 10 tests, OK. Spot-checked proration ties, a negative amount, March/December working days, and header parsing. Nothing under `tests/` changed.
+
+END OF REPORT

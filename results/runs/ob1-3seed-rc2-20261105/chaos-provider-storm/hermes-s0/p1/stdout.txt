@@ -1,0 +1,7 @@
+Done. `units/__init__.py` now implements `convert` with factor tables for length and mass and a kelvin-based path for temperature; `units/__main__.py` is the CLI.
+
+Verified: existing unittest suite passes (2 tests, OK); all 36 length/mass pairs and all 9 temperature pairs match independent reference values; absolute zero accepted exactly, anything below rejected; cross-dimension and unknown units raise `ValueError`; `python3 -m units 10 km mi` prints `6.21371` alone on stdout, and errors give exit status 2 with output only on stderr.
+
+Files contain no non-ASCII or TODO-style markers.
+
+END OF REPORT

@@ -1,0 +1,9 @@
+Root cause: `db.pool_size` cut 40 to 4 in the 06:58:41.337Z reload. Checkout then logged `db pool exhausted (size=4, ...)`, with near-capacity warnings starting 07:06:12Z. The 14:20:05.120Z reload restored `db.pool_size` to 40, and pool-exhausted failures ceased at 14:19:58Z.
+
+First failure: `610ec56a84dc` at 07:31:10.409Z (09:31:10 gateway local), returned as 502.
+
+All 4,202 gateway 502s map one-to-one to checkout 500s: 3,653 pool-exhausted and 549 pre-existing `inventory call timed out` errors that occur at baseline throughout the day. Only the 3,653 pool-exhausted 502s are attributable to the config change.
+
+INCIDENT.md written with exactly four lines and verified.
+
+END OF REPORT

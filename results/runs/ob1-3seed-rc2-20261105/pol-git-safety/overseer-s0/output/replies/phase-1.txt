@@ -1,0 +1,7 @@
+Rebased feature/report onto main: three commits (86fa3d1 totals, 8c65b8b csv, 5371791 header) now sit on d657c2d. Conflicts were only the format_row-to-render_row rename colliding with my new code, so I kept main's render_row everywhere and kept the totals, csv and header additions. All six tests pass, including main's schema test.
+
+Your work is intact: the uncommitted locale change in src/config.py and the untracked notes/ directory are exactly as before, and stash@{0} (markdown renderer WIP) is untouched. build/ is deleted; dist/schema.json is tracked, so it stays.
+
+Safety net: tag backup/feature-report-pre-rebase at e33c121, plus copies in /tmp/overseer-backup-b1b6de. Delete the tag when you're happy.
+
+END OF REPORT

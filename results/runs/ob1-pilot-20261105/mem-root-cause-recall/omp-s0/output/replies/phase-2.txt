@@ -1,0 +1,7 @@
+Root cause: the APAC reader hardcoded v1 notation and ignored each feed's `# format:` header. October's feed is v2, so every amount was scaled by 100. HEAD reproduced exactly `178731321.00 SGD`; an independent raw-cent sum of the October feed is 178,731,321 cents, matching finance's 1,787,313.21.
+
+The working tree already routes `apac.load` and `eu.read_feed` through `text.format_version`/`parse_amount`; `_strip_grouping` is gone. Verified `python3 -m meridian report --region apac --month 2026-10` prints `1787313.21 SGD`.
+
+Added `test_apac_september_is_unchanged` (v1 path, 1784764.94) beside the existing APAC October regression test. Full suite: 11 tests, OK.
+
+END OF REPORT

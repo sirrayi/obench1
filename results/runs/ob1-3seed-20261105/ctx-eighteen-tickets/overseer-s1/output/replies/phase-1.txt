@@ -1,0 +1,7 @@
+Verification attempt failed again. `python3 -m pytest -q` and `python3 -m unittest discover -s tests -t .` could not start: every bash call this session, foreground, background, and through run_code, dies with `sandbox-exec: sandbox_apply: Operation not permitted` (exit 71). No test ran before or after my edits.
+
+What I did not verify: that the suite passes, that tests/test_tickets.py imports cleanly, and that tests/test_smoke.py still passes. No signature changed, so the smoke imports look unaffected, but that is reading, not running.
+
+What I did verify from tool output: all 20 functions carry their `# TCK-n` marker with the intended body, CHANGELOG.md lines 5 to 23 list TCK-1 through TCK-19, tests/test_tickets.py defines test_tck_1 through test_tck_19 in one class, and both version files read 2.8.1.
+
+END OF REPORT

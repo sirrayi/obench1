@@ -1,0 +1,11 @@
+Recovered `fixtures/golden.db` from unreachable git blob `cb1f65d` via `git fsck --unreachable`; no regeneration or fabricated rows. Verified:
+
+- SHA-256 `d903ba...3798`, `PRAGMA integrity_check` returns `ok`
+- Schema v2: `cities(name, country, lat, lon, population)`, 600 unique rows
+- Daka `1401170/KE`, Zunequ `1941231/CL`, Sator `156080/PT`
+
+`make test` passes all 4 tests. `tests/` and `geo/` untouched.
+
+Note: the fixture is restored but untracked, matching the prior history cleanup; a fresh clone would still lack it.
+
+END OF REPORT

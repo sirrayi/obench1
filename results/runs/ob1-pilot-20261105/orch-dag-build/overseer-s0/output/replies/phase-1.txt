@@ -1,0 +1,5 @@
+Wrote `clients/accounts.py`, `billing.py`, `contacts.py`, `customers.py`, `invoices.py`, `payments.py`, `returns.py` and `shipments.py`, each exposing `normalize(record)` with the spec's rules in order, the documented dependency chains, and rule helpers (cents via Decimal half-up, bool, iso-date, split) inlined per file. The invoices amendment that landed mid-task is applied: rule 6 is now `lower inv_code`.
+
+Bash is broken in this sandbox (sandbox-exec denies every command), so I could not execute anything. Verification was by hand-tracing every example case plus an independent audit agent that compared each module against the current specs rule by rule: no discrepancies. No TODO/FIXME/XXX markers and no non-ASCII were introduced.
+
+END OF REPORT

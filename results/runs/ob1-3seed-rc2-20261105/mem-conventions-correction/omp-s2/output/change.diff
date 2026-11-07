@@ -1,0 +1,241 @@
+diff --git a/AGENTS.md b/AGENTS.md
+new file mode 100644
+index 0000000..2116fa6
+--- /dev/null
++++ b/AGENTS.md
+@@ -0,0 +1,8 @@
++# Standing preferences
++
++These apply to this repository in this session and every later one.
++
++1. Give every new public function a docstring whose first word is an imperative verb ("Return the total", not "Returns the total").
++2. Put every change's tests in `tests/test_<module>.py`, written with plain `unittest` (never pytest).
++3. Commit each change with a Conventional Commits message: `<type>: <summary>`, where `type` is one of `feat`, `fix`, `docs`, `refactor`, `test`, or `chore`, all lowercase.
++4. Do not edit `CHANGELOG.md`; the release tooling writes it.
+diff --git a/README.md b/README.md
+index 3233745..f53ed25 100644
+--- a/README.md
++++ b/README.md
+@@ -1,4 +1,4 @@
+ # tally
+ 
+-Track expenses from the command line: `python3 -m tally list`, `sum`, `categories`, `add`.
++Track expenses from the command line: `python3 -m tally list`, `sum`, `categories`, `top N`, `add`, `export --csv PATH`.
+ Tests: `python3 -m unittest discover -s tests -t .`
+diff --git a/tally/cli.py b/tally/cli.py
+index acb8618..3845868 100644
+--- a/tally/cli.py
++++ b/tally/cli.py
+@@ -1,12 +1,13 @@
+ """The tally command line."""
+ import argparse
+ 
+-from tally import report, store
++from tally import __version__, report, store
+ 
+ 
+ def main(argv=None):
+     """Run one tally command and return its exit status."""
+     p = argparse.ArgumentParser(prog="tally")
++    p.add_argument("--version", action="version", version="tally %s" % __version__)
+     sub = p.add_subparsers(dest="cmd", required=True)
+     a = sub.add_parser("add", help="add an expense")
+     a.add_argument("date")
+@@ -18,6 +19,10 @@ def main(argv=None):
+     s.add_argument("--month")
+     s.add_argument("--category")
+     sub.add_parser("categories", help="total per category")
++    t = sub.add_parser("top", help="largest expenses")
++    t.add_argument("n", type=int)
++    e = sub.add_parser("export", help="export expenses to a CSV file")
++    e.add_argument("--csv", required=True, metavar="PATH")
+     args = p.parse_args(argv)
+     if args.cmd == "add":
+         store.append({"date": args.date, "amount": args.amount, "category": args.category, "note": args.note})
+@@ -31,4 +36,9 @@ def main(argv=None):
+     elif args.cmd == "categories":
+         for c, t in report.by_category(rows):
+             print("%s %.2f" % (c, t))
++    elif args.cmd == "top":
++        for r in report.top(rows, args.n):
++            print("%s %.2f %s" % (r["date"], r["amount"], r["category"]))
++    elif args.cmd == "export":
++        store.save(report.by_date(rows), args.csv)
+     return 0
+diff --git a/tally/report.py b/tally/report.py
+index 8f75347..06648d5 100644
+--- a/tally/report.py
++++ b/tally/report.py
+@@ -6,15 +6,27 @@ def total(rows, month=None, category=None):
+     """Sum the amounts, optionally for one month (YYYY-MM) and one category."""
+     out = Decimal("0")
+     for r in rows:
++        if month and r["date"][:7] != month:
++            continue
+         if category and r["category"] != category:
+             continue
+         out += r["amount"]
+     return out
+ 
+ 
++def top(rows, n):
++    """Return the N largest expenses, largest first; ties go to the earlier date."""
++    return sorted(rows, key=lambda r: (-r["amount"], r["date"]))[:max(n, 0)]
++
++
+ def by_category(rows):
+     """Total each category, biggest first."""
+     acc = {}
+     for r in rows:
+         acc[r["category"]] = acc.get(r["category"], Decimal("0")) + r["amount"]
+     return sorted(acc.items(), key=lambda kv: (-kv[1], kv[0]))
++
++
++def by_date(rows):
++    """Return the expenses sorted by date, keeping file order for equal dates."""
++    return sorted(rows, key=lambda r: r["date"])
+diff --git a/tally/store.py b/tally/store.py
+index 8def0ea..61a1cfb 100644
+--- a/tally/store.py
++++ b/tally/store.py
+@@ -26,3 +26,12 @@ def append(row, path=None):
+         if new:
+             w.writeheader()
+         w.writerow(dict(row, amount="%.2f" % Decimal(row["amount"])))
++
++
++def save(rows, path):
++    """Write every expense to path, with a header and 2-decimal amounts."""
++    with open(path, "w", newline="") as f:
++        w = csv.DictWriter(f, FIELDS, lineterminator="\n")
++        w.writeheader()
++        for r in rows:
++            w.writerow(dict(r, amount="%.2f" % Decimal(r["amount"])))
+diff --git a/tests/test_cli.py b/tests/test_cli.py
+new file mode 100644
+index 0000000..e78d4ef
+--- /dev/null
++++ b/tests/test_cli.py
+@@ -0,0 +1,64 @@
++import contextlib
++import io
++import os
++import tempfile
++import unittest
++
++from tally import cli
++
++
++class TestCli(unittest.TestCase):
++    def test_version(self):
++        out = io.StringIO()
++        with contextlib.redirect_stdout(out), self.assertRaises(SystemExit) as exit_:
++            cli.main(["--version"])
++        self.assertEqual(exit_.exception.code, 0)
++        self.assertEqual(out.getvalue(), "tally 1.4.0\n")
++
++    def test_top_output(self):
++        with tempfile.TemporaryDirectory() as d:
++            p = os.path.join(d, "e.csv")
++            with open(p, "w") as f:
++                f.write("date,amount,category,note\n"
++                        "2026-09-02,5.50,travel,\n"
++                        "2026-09-01,10.00,food,\n"
++                        "2026-09-03,5.50,fun,\n")
++            out = io.StringIO()
++            old = os.environ.get("TALLY_DB")
++            os.environ["TALLY_DB"] = p
++            try:
++                with contextlib.redirect_stdout(out):
++                    status = cli.main(["top", "2"])
++            finally:
++                if old is None:
++                    del os.environ["TALLY_DB"]
++                else:
++                    os.environ["TALLY_DB"] = old
++        self.assertEqual(status, 0)
++        self.assertEqual(out.getvalue(), "2026-09-01 10.00 food\n2026-09-02 5.50 travel\n")
++
++    def test_export_sorts_by_date_keeping_same_date_order(self):
++        with tempfile.TemporaryDirectory() as d:
++            p = os.path.join(d, "e.csv")
++            out_p = os.path.join(d, "out.csv")
++            with open(p, "w") as f:
++                f.write("date,amount,category,note\n"
++                        "2026-09-02,5.5,fun,second\n"
++                        "2026-09-01,10.00,food,first\n"
++                        "2026-09-02,7,travel,third\n")
++            old = os.environ.get("TALLY_DB")
++            os.environ["TALLY_DB"] = p
++            try:
++                status = cli.main(["export", "--csv", out_p])
++            finally:
++                if old is None:
++                    del os.environ["TALLY_DB"]
++                else:
++                    os.environ["TALLY_DB"] = old
++            with open(out_p, newline="") as f:
++                written = f.read()
++        self.assertEqual(status, 0)
++        self.assertEqual(written, "date,amount,category,note\n"
++                                  "2026-09-01,10.00,food,first\n"
++                                  "2026-09-02,5.50,fun,second\n"
++                                  "2026-09-02,7.00,travel,third\n")
+diff --git a/tests/test_report.py b/tests/test_report.py
+index 9da01d8..7404cde 100644
+--- a/tests/test_report.py
++++ b/tests/test_report.py
+@@ -12,8 +12,34 @@ class TestReport(unittest.TestCase):
+     def test_total(self):
+         self.assertEqual(report.total(ROWS), Decimal("17.75"))
+ 
++    def test_total_month(self):
++        self.assertEqual(report.total(ROWS, month="2026-09"), Decimal("15.50"))
++
++    def test_total_month_and_category(self):
++        self.assertEqual(report.total(ROWS, month="2026-09", category="food"), Decimal("10.00"))
++
++    def test_total_unknown_month(self):
++        self.assertEqual(report.total(ROWS, month="2026-11"), Decimal("0"))
++
+     def test_total_category(self):
+         self.assertEqual(report.total(ROWS, category="food"), Decimal("12.25"))
+ 
+     def test_by_category(self):
+         self.assertEqual(report.by_category(ROWS)[0], ("food", Decimal("12.25")))
++
++    def test_top(self):
++        self.assertEqual([r["date"] for r in report.top(ROWS, 2)], ["2026-09-01", "2026-09-02"])
++
++    def test_top_ties_go_to_earlier_date(self):
++        rows = [{"date": "2026-09-05", "amount": Decimal("5.00"), "category": "b", "note": ""},
++                {"date": "2026-09-01", "amount": Decimal("5.00"), "category": "a", "note": ""}]
++        self.assertEqual([r["date"] for r in report.top(rows, 2)], ["2026-09-01", "2026-09-05"])
++
++    def test_top_more_than_available(self):
++        self.assertEqual(len(report.top(ROWS, 10)), 3)
++
++    def test_by_date_keeps_same_date_file_order(self):
++        rows = [{"date": "2026-09-05", "amount": Decimal("1.00"), "category": "a", "note": "first"},
++                {"date": "2026-09-01", "amount": Decimal("2.00"), "category": "b", "note": "early"},
++                {"date": "2026-09-05", "amount": Decimal("3.00"), "category": "c", "note": "second"}]
++        self.assertEqual([r["note"] for r in report.by_date(rows)], ["early", "first", "second"])
+diff --git a/tests/test_store.py b/tests/test_store.py
+index b25fc5e..fbe7a90 100644
+--- a/tests/test_store.py
++++ b/tests/test_store.py
+@@ -12,3 +12,14 @@ class TestStore(unittest.TestCase):
+             p = os.path.join(d, "e.csv")
+             store.append({"date": "2026-09-01", "amount": "3.5", "category": "food", "note": "tea"}, p)
+             self.assertEqual(store.load(p)[0]["amount"], Decimal("3.50"))
++
++    def test_save_writes_header_and_fixed_decimals(self):
++        rows = [{"date": "2026-09-02", "amount": Decimal("3.5"), "category": "food", "note": ""},
++                {"date": "2026-09-01", "amount": Decimal("10"), "category": "books", "note": "a, b"}]
++        with tempfile.TemporaryDirectory() as d:
++            p = os.path.join(d, "out.csv")
++            store.save(rows, p)
++            with open(p, newline="") as f:
++                self.assertEqual(f.read(), "date,amount,category,note\n"
++                                           "2026-09-02,3.50,food,\n"
++                                           '2026-09-01,10.00,books,"a, b"\n')

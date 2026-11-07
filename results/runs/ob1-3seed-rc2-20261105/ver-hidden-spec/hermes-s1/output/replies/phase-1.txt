@@ -1,0 +1,9 @@
+Implemented `parse_range` in daterange.py: strict token matching for `YYYY-MM-DD`, `YYYY-Www` (validated via `fromisocalendar`, so `2026-W54` and `2025-W53` fail), `YYYY-MM` (calendar-correct month ends, leap years), and `YYYY`; open ends return `None`, `..` alone raises `ValueError`, reversed ranges raise `ValueError`, and spaces are stripped around the text and around `..`.
+
+tests/test_daterange.py now holds 68 unittest cases (no pytest installed) covering every spec rule plus malformed inputs: month 13, week 54, Feb 30, short dates, triple dots, multiple separators, trailing garbage.
+
+Two judgement calls beyond the letter of the spec: a lone ISO date returns a one-day range, and a range with token-based ends (e.g. `2026-10..2026-12`) composes left start with right end.
+
+All tests pass. Changes left uncommitted.
+
+END OF REPORT

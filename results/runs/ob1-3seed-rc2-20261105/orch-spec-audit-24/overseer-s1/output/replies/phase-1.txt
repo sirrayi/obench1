@@ -1,0 +1,3 @@
+The only failed call was my first write to /tmp/audit_services.py: a pre-existing scratch file from a different checkout, outside the repo. It was refused, never overwritten, and not needed. The audit ran from /tmp/audit_services_r8.py, which I just re-ran: all 24 findings files still match the checkout exactly, zero mismatches, at HEAD e6599ef with SPEC.md and SPEC-AMENDMENT-1.md unchanged. It reports one compliant service (svc-05), two unverifiable (svc-11, svc-19, LFS pointers, no violations) and 21 with violations in clause order. Nothing under services/ was touched. The one thing I did not verify is whether /tmp/audit_services.py's own contents are correct, since it belongs to another checkout and I left it alone.
+
+END OF REPORT

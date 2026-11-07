@@ -1,0 +1,494 @@
+diff --git a/clients/_rules.py b/clients/_rules.py
+new file mode 100644
+index 0000000..b3e8f0c
+--- /dev/null
++++ b/clients/_rules.py
+@@ -0,0 +1,80 @@
++"""Rule primitives shared by the service normalizers."""
++
++from datetime import datetime
++from decimal import ROUND_HALF_UP, Decimal
++
++_TRUE = {"yes", "true", "1"}
++_FALSE = {"no", "false", "0"}
++
++
++def require(record, field):
++    if field not in record:
++        raise ValueError(f"missing required field: {field}")
++
++
++def default(record, field, value):
++    record.setdefault(field, value)
++
++
++def strip(record, field):
++    if field in record:
++        record[field] = record[field].strip()
++
++
++def lower(record, field):
++    if field in record:
++        record[field] = record[field].lower()
++
++
++def upper(record, field):
++    if field in record:
++        record[field] = record[field].upper()
++
++
++def rename(record, old, new):
++    if old in record:
++        record[new] = record.pop(old)
++
++
++def drop(record, field):
++    record.pop(field, None)
++
++
++def cents(record, field):
++    if field in record:
++        amount = Decimal(str(record[field]).strip()) * 100
++        record[field] = int(amount.to_integral_value(rounding=ROUND_HALF_UP))
++
++
++def to_bool(record, field):
++    if field not in record:
++        return
++    token = "".join(str(record[field]).split()).lower()
++    if token in _TRUE:
++        record[field] = True
++    elif token in _FALSE:
++        record[field] = False
++    else:
++        raise ValueError(f"invalid boolean for {field}: {record[field]!r}")
++
++
++def iso_date(record, field):
++    if field not in record:
++        return
++    text = "".join(str(record[field]).split())
++    try:
++        parsed = datetime.strptime(text, "%d/%m/%Y")
++    except ValueError as exc:
++        raise ValueError(f"invalid date for {field}: {record[field]!r}") from exc
++    record[field] = parsed.date().isoformat()
++
++
++def split_field(record, field, separator):
++    if field not in record:
++        return
++    pieces = []
++    for piece in record[field].split(separator):
++        piece = piece.strip()
++        if piece:
++            pieces.append(piece)
++    record[field] = pieces
+diff --git a/clients/accounts.py b/clients/accounts.py
+new file mode 100644
+index 0000000..98188a9
+--- /dev/null
++++ b/clients/accounts.py
+@@ -0,0 +1,43 @@
++"""Accounts record normalizer."""
++
++from ._rules import (
++    cents,
++    default,
++    drop,
++    lower,
++    rename,
++    require,
++    strip,
++    to_bool,
++    upper,
++)
++
++
++def normalize(record: dict) -> dict:
++    result = dict(record)
++    require(result, "acc_ref")
++    rename(result, "acc_vip", "accounts_vip")
++    strip(result, "acc_owner")
++    default(result, "acc_label", "unknown")
++    rename(result, "acc_fee", "accounts_fee")
++    lower(result, "acc_label")
++    default(result, "acc_region", "unknown")
++    default(result, "acc_tier", "unknown")
++    default(result, "acc_amount", "0.00")
++    to_bool(result, "accounts_vip")
++    cents(result, "accounts_fee")
++    lower(result, "acc_tier")
++    upper(result, "acc_ref")
++    lower(result, "acc_city")
++    rename(result, "acc_city", "accounts_city")
++    strip(result, "acc_tier")
++    strip(result, "accounts_city")
++    upper(result, "accounts_city")
++    cents(result, "acc_amount")
++    strip(result, "acc_region")
++    rename(result, "acc_region", "accounts_region")
++    upper(result, "accounts_region")
++    strip(result, "acc_ref")
++    rename(result, "acc_amount", "accounts_amount")
++    drop(result, "acc_ref")
++    return result
+diff --git a/clients/billing.py b/clients/billing.py
+new file mode 100644
+index 0000000..dcc70ed
+--- /dev/null
++++ b/clients/billing.py
+@@ -0,0 +1,44 @@
++"""Billing record normalizer."""
++
++from ._rules import (
++    cents,
++    default,
++    drop,
++    iso_date,
++    lower,
++    rename,
++    require,
++    split_field,
++    strip,
++    upper,
++)
++
++
++def normalize(record: dict) -> dict:
++    result = dict(record)
++    cents(result, "bil_fee")
++    require(result, "bil_email")
++    require(result, "bil_due")
++    lower(result, "bil_tier")
++    require(result, "bil_amount")
++    iso_date(result, "bil_due")
++    require(result, "bil_city")
++    strip(result, "bil_country")
++    lower(result, "bil_city")
++    cents(result, "bil_amount")
++    drop(result, "bil_due")
++    lower(result, "bil_email")
++    upper(result, "bil_email")
++    upper(result, "bil_tier")
++    default(result, "bil_tags", "")
++    rename(result, "bil_amount", "billing_amount")
++    strip(result, "bil_tier")
++    split_field(result, "bil_tags", "|")
++    default(result, "bil_code", "unknown")
++    lower(result, "bil_code")
++    strip(result, "bil_code")
++    drop(result, "bil_tags")
++    upper(result, "bil_country")
++    rename(result, "bil_country", "billing_country")
++    lower(result, "billing_country")
++    return result
+diff --git a/clients/contacts.py b/clients/contacts.py
+new file mode 100644
+index 0000000..1269791
+--- /dev/null
++++ b/clients/contacts.py
+@@ -0,0 +1,45 @@
++"""Contacts record normalizer."""
++
++from ._rules import (
++    cents,
++    default,
++    iso_date,
++    lower,
++    rename,
++    require,
++    split_field,
++    strip,
++    to_bool,
++    upper,
++)
++from .customers import normalize as normalize_customers
++
++
++def normalize(record: dict) -> dict:
++    result = normalize_customers(record)
++    require(result, "con_code")
++    require(result, "con_tags")
++    iso_date(result, "con_due")
++    upper(result, "con_code")
++    default(result, "con_country", "unknown")
++    strip(result, "con_name")
++    upper(result, "con_country")
++    rename(result, "con_due", "contacts_due")
++    default(result, "con_vip", "no")
++    strip(result, "con_code")
++    lower(result, "con_name")
++    require(result, "con_email")
++    split_field(result, "con_tags", ";")
++    default(result, "con_amount", "0.00")
++    rename(result, "con_amount", "contacts_amount")
++    upper(result, "con_name")
++    cents(result, "contacts_amount")
++    strip(result, "con_email")
++    to_bool(result, "con_vip")
++    rename(result, "con_name", "contacts_name")
++    require(result, "con_city")
++    upper(result, "con_city")
++    lower(result, "con_city")
++    rename(result, "con_city", "contacts_city")
++    strip(result, "contacts_city")
++    return result
+diff --git a/clients/customers.py b/clients/customers.py
+new file mode 100644
+index 0000000..7a52006
+--- /dev/null
++++ b/clients/customers.py
+@@ -0,0 +1,45 @@
++"""Customers record normalizer."""
++
++from ._rules import (
++    cents,
++    default,
++    drop,
++    iso_date,
++    lower,
++    rename,
++    require,
++    split_field,
++    strip,
++    upper,
++)
++from .accounts import normalize as normalize_accounts
++
++
++def normalize(record: dict) -> dict:
++    result = normalize_accounts(record)
++    require(result, "cus_amount")
++    default(result, "cus_due", "01/01/2000")
++    require(result, "cus_tags")
++    cents(result, "cus_amount")
++    upper(result, "cus_city")
++    require(result, "cus_fee")
++    upper(result, "cus_owner")
++    require(result, "cus_status")
++    strip(result, "cus_status")
++    iso_date(result, "cus_due")
++    rename(result, "cus_fee", "customers_fee")
++    split_field(result, "cus_tags", "|")
++    strip(result, "cus_code")
++    lower(result, "cus_code")
++    upper(result, "cus_status")
++    rename(result, "cus_tags", "customers_tags")
++    strip(result, "cus_owner")
++    cents(result, "customers_fee")
++    lower(result, "cus_city")
++    strip(result, "cus_city")
++    require(result, "cus_email")
++    lower(result, "cus_email")
++    upper(result, "cus_email")
++    strip(result, "cus_email")
++    drop(result, "cus_email")
++    return result
+diff --git a/clients/invoices.py b/clients/invoices.py
+new file mode 100644
+index 0000000..80edadb
+--- /dev/null
++++ b/clients/invoices.py
+@@ -0,0 +1,45 @@
++"""Invoices record normalizer."""
++
++from ._rules import (
++    default,
++    drop,
++    iso_date,
++    lower,
++    rename,
++    require,
++    split_field,
++    strip,
++    to_bool,
++    upper,
++)
++from .billing import normalize as normalize_billing
++
++
++def normalize(record: dict) -> dict:
++    result = normalize_billing(record)
++    strip(result, "inv_code")
++    require(result, "inv_active")
++    iso_date(result, "inv_due")
++    strip(result, "inv_name")
++    upper(result, "inv_tier")
++    upper(result, "inv_code")
++    lower(result, "inv_name")
++    require(result, "inv_status")
++    require(result, "inv_region")
++    upper(result, "inv_name")
++    default(result, "inv_owner", "unknown")
++    drop(result, "inv_name")
++    to_bool(result, "inv_active")
++    require(result, "inv_tags")
++    split_field(result, "inv_tags", ";")
++    upper(result, "inv_region")
++    lower(result, "inv_tier")
++    upper(result, "inv_status")
++    upper(result, "inv_owner")
++    strip(result, "inv_owner")
++    rename(result, "inv_region", "invoices_region")
++    lower(result, "inv_status")
++    rename(result, "inv_status", "invoices_status")
++    strip(result, "invoices_status")
++    strip(result, "invoices_region")
++    return result
+diff --git a/clients/payments.py b/clients/payments.py
+new file mode 100644
+index 0000000..9537658
+--- /dev/null
++++ b/clients/payments.py
+@@ -0,0 +1,44 @@
++"""Payments record normalizer."""
++
++from ._rules import (
++    cents,
++    default,
++    drop,
++    iso_date,
++    lower,
++    rename,
++    require,
++    split_field,
++    strip,
++    upper,
++)
++from .invoices import normalize as normalize_invoices
++
++
++def normalize(record: dict) -> dict:
++    result = normalize_invoices(record)
++    lower(result, "pay_label")
++    default(result, "pay_city", "unknown")
++    default(result, "pay_code", "unknown")
++    default(result, "pay_status", "unknown")
++    default(result, "pay_tier", "unknown")
++    lower(result, "pay_status")
++    lower(result, "pay_note")
++    lower(result, "pay_city")
++    upper(result, "pay_tier")
++    rename(result, "pay_tags", "payments_tags")
++    rename(result, "pay_status", "payments_status")
++    strip(result, "pay_code")
++    default(result, "pay_due", "01/01/2000")
++    upper(result, "pay_note")
++    strip(result, "pay_tier")
++    upper(result, "pay_code")
++    upper(result, "pay_city")
++    iso_date(result, "pay_due")
++    strip(result, "pay_note")
++    strip(result, "pay_city")
++    require(result, "pay_amount")
++    cents(result, "pay_amount")
++    drop(result, "pay_code")
++    split_field(result, "payments_tags", ",")
++    return result
+diff --git a/clients/returns.py b/clients/returns.py
+new file mode 100644
+index 0000000..8b5962d
+--- /dev/null
++++ b/clients/returns.py
+@@ -0,0 +1,40 @@
++"""Returns record normalizer."""
++
++from ._rules import (
++    cents,
++    default,
++    lower,
++    rename,
++    require,
++    strip,
++    to_bool,
++    upper,
++)
++from .shipments import normalize as normalize_shipments
++
++
++def normalize(record: dict) -> dict:
++    result = normalize_shipments(record)
++    strip(result, "ret_tier")
++    require(result, "ret_fee")
++    lower(result, "ret_note")
++    upper(result, "ret_city")
++    to_bool(result, "ret_active")
++    default(result, "ret_owner", "unknown")
++    lower(result, "ret_name")
++    rename(result, "ret_name", "returns_name")
++    require(result, "ret_ref")
++    upper(result, "ret_ref")
++    lower(result, "ret_owner")
++    strip(result, "ret_note")
++    upper(result, "returns_name")
++    strip(result, "ret_ref")
++    strip(result, "ret_owner")
++    strip(result, "returns_name")
++    lower(result, "ret_country")
++    lower(result, "ret_ref")
++    upper(result, "ret_note")
++    rename(result, "ret_fee", "returns_fee")
++    upper(result, "ret_country")
++    cents(result, "returns_fee")
++    return result
+diff --git a/clients/shipments.py b/clients/shipments.py
+new file mode 100644
+index 0000000..ea318cb
+--- /dev/null
++++ b/clients/shipments.py
+@@ -0,0 +1,42 @@
++"""Shipments record normalizer."""
++
++from ._rules import (
++    default,
++    drop,
++    iso_date,
++    lower,
++    rename,
++    require,
++    split_field,
++    strip,
++    upper,
++)
++
++
++def normalize(record: dict) -> dict:
++    result = dict(record)
++    default(result, "shi_name", "unknown")
++    require(result, "shi_due")
++    default(result, "shi_since", "01/01/2000")
++    upper(result, "shi_owner")
++    default(result, "shi_tags", "")
++    upper(result, "shi_status")
++    rename(result, "shi_since", "shipments_since")
++    split_field(result, "shi_tags", ",")
++    rename(result, "shi_due", "shipments_due")
++    require(result, "shi_email")
++    iso_date(result, "shipments_since")
++    iso_date(result, "shipments_due")
++    require(result, "shi_label")
++    drop(result, "shi_status")
++    rename(result, "shi_tier", "shipments_tier")
++    upper(result, "shipments_tier")
++    strip(result, "shi_name")
++    upper(result, "shi_email")
++    rename(result, "shi_label", "shipments_label")
++    lower(result, "shi_name")
++    strip(result, "shipments_label")
++    strip(result, "shipments_tier")
++    upper(result, "shi_name")
++    lower(result, "shipments_tier")
++    return result
+diff --git a/specs/invoices.md b/specs/invoices.md
+index 81130e6..adde1f0 100644
+--- a/specs/invoices.md
++++ b/specs/invoices.md
+@@ -27,3 +27,7 @@ Normalize one raw invoices record. Depends on billing: apply `clients/billing.py
+ 23. rename `inv_status` -> `invoices_status`
+ 24. strip `invoices_status`
+ 25. strip `invoices_region`
++
++## Amendment 1 (from the service owner; supersedes rule 6)
++
++6. lower `inv_code`

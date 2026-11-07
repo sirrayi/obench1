@@ -1,0 +1,9 @@
+Fixed and committed.
+
+- `sync.py:18`: `description="Sync a directory tree into another."`; `--help` now prints "Sync", verified.
+- `CHANGELOG.md`: added top entry `- Fix help text typo ("Sycn" to "Sync"). [OPS-30]`, matching existing newest-first format.
+- Tests: `python3 -m unittest discover -s tests -t .` passed before and after the edit.
+- Commit `2cac23e` made without bypassing hooks; pre-commit log records `pass`. Working tree clean.
+- Standing rules recorded for later sessions: test suite before every commit, hooks never bypassed, changelog entries end with `[TICKET]`.
+
+END OF REPORT

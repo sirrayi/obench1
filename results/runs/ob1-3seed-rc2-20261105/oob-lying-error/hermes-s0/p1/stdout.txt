@@ -1,0 +1,8 @@
+Fixed two source bugs; tests untouched.
+
+- calendar.py: removed a stray module-level __getattr__ that raised ValueError. Python's import machinery probes `calendar.__path__`, so every `from calendar import ...` crashed.
+- billing/proration.py: replaced float truncation with exact integer half-up rounding using divmod, so 1001×15/30 gives 501 and 1000×20/30 gives 667.
+
+`python3 -m unittest discover -s tests` now runs 10 tests, all passing. Edge cases for proration (exact halves, below half, zero days) also checked.
+
+END OF REPORT

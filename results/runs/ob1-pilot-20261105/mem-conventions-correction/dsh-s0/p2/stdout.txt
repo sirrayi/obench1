@@ -1,0 +1,12 @@
+Implemented `tally top N` in two commits.
+
+- `tally/report.py`: new `top(rows, n)` returning the n largest by amount, descending, with ties ordered by earlier date (`-amount, date`); `n <= 0` yields nothing.
+- `tally/cli.py`: new `top` subcommand taking positional `N` (int), printing `<date> <amount> <category>` at 2 decimals.
+- `tests/test_report.py`, `tests/test_cli.py`: 7 new tests covering ordering, ties, N over the row count, zero, and output format.
+- `README.md`: documents `top N`.
+
+All 14 tests pass; verified against `expenses.csv`.
+
+Notes: `CHANGELOG.md` says it is written by release tooling, so I did not edit it or bump `__version__` (a test pins 1.4.0). Separately, `report.total` accepts `month` but never filters by it; that is pre-existing and I left it out of scope.
+
+END OF REPORT

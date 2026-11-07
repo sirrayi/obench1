@@ -1,0 +1,3 @@
+Reviewed `feature/rate-limit` against `main` and wrote `REVIEW.md` with 7 findings: 2 blockers, 3 majors, 2 minors. The main issues are the mismatched clock sources breaking expiry and Retry-After, spoofable X-Forwarded-For, an off-by-one limit, unsynchronized bucket access, and unbounded bucket growth. The branch was not modified.
+
+END OF REPORT

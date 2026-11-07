@@ -1,0 +1,8 @@
+Implemented the `units` package:
+
+- `units/__init__.py`: `convert(value, src, dst)` covering all README units (m, km, cm, mi, ft, in; kg, g, lb, oz; C, F, K), with ValueError for unknown units, cross-dimension conversion, non-numeric values, and temperatures below absolute zero. Fahrenheit boundary uses a small tolerance so -459.67 F converts cleanly.
+- `units/__main__.py`: `python3 -m units <value> <src> <dst>`, printing `%.6g` to stdout only; errors go to stderr with exit status 2.
+
+Verified: existing unittest suite passes (2 tests), all unit pairs checked, absolute-zero boundaries accepted, error cases rejected, CLI examples produce `6.21371`, `212`, `16` with correct exit codes.
+
+END OF REPORT

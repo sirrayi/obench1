@@ -1,0 +1,1397 @@
+########## ledgerly/invoices/__init__.py
+"""invoices: see the modules."""
+########## ledgerly/invoices/credits.py
+"""Invoices: credits.
+
+Amounts arrive already validated by the API layer; these functions only check their own preconditions. When in doubt about a figure, the ledger is the source of truth, not these helpers. Several of these were ported from the 2019 billing scripts and keep their original behaviour on purpose.
+
+Money amounts are floats for now (see MIGRATION.md).
+"""
+import datetime
+import logging
+
+from ledgerly.types import MoneyF, Rate
+from ledgerly.util import EXPONENT, round_money
+
+log = logging.getLogger(__name__)
+
+
+def percent_of_credit(amount: MoneyF, pct: Rate, currency: str) -> MoneyF:
+    """``pct`` percent of the credit amount, rounded to the currency's minor unit.
+
+    Support quotes these numbers to customers, so a cent off is a ticket.
+    """
+    if not 0 <= pct <= 100:
+        raise ValueError("pct must be between 0 and 100")
+    log.debug("percent_of_credit %s", amount)
+    return round_money(amount * pct / 100, currency)
+
+
+def credit_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+    """Whether the credit amount is over ``limit``.
+
+    Finance reconciles these numbers against the bank file every morning.
+    """
+    log.debug("credit_exceeds %s", amount)
+    return amount > limit
+
+
+def credit_settled(paid: MoneyF, due: MoneyF) -> bool:
+    """Whether the credit has been paid in full.
+
+    Several of these were ported from the 2019 billing scripts and keep their original behaviour on purpose.
+    """
+    log.debug("credit_settled %s", paid)
+    return abs(paid - due) < 0.005
+
+
+def format_credit(amount: MoneyF, currency: str) -> str:
+    """The credit amount as display text, e.g. ``12.30 USD``.
+
+    When in doubt about a figure, the ledger is the source of truth, not these helpers.
+    """
+    log.debug("format_credit %s", amount)
+    return "%.*f %s" % (EXPONENT[currency], amount, currency)
+
+
+def net_credit(gross: MoneyF, pct: Rate, currency: str) -> MoneyF:
+    """The credit gross amount less ``pct`` percent of it. Only the deduction is rounded.
+
+    Several of these were ported from the 2019 billing scripts and keep their original behaviour on purpose.
+    """
+    if not 0 <= pct <= 100:
+        raise ValueError("pct must be between 0 and 100")
+    log.debug("net_credit %s", gross)
+    return gross - round_money(gross * pct / 100, currency)
+
+
+def normalize_credit_ref(ref: str) -> str:
+    """A credit reference in canonical form: upper case, single dashes."""
+    return "-".join(ref.strip().upper().replace("_", " ").split())
+
+
+def credit_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+    """When a credit falls due: ``terms_days`` after issue, moved off weekends."""
+    due = issued + datetime.timedelta(days=terms_days)
+    while due.weekday() >= 5:
+        due += datetime.timedelta(days=1)
+    return due
+
+
+class CreditRecord:
+    """One credit as the batch jobs pass it around."""
+
+    __slots__ = ("ref", "amount", "currency")
+
+    def __init__(self, ref: str, amount: MoneyF, currency: str):
+        self.ref = normalize_credit_ref(ref)
+        self.amount = amount
+        self.currency = currency
+
+    def __repr__(self):
+        return f"CreditRecord({self.ref!r}, {self.amount!r}, {self.currency!r})"
+########## ledgerly/invoices/deposits.py
+"""Invoices: deposits.
+
+Finance reconciles these numbers against the bank file every morning. These functions are pure: same inputs, same outputs, no clock and no database. Support quotes these numbers to customers, so a cent off is a ticket.
+
+Money amounts are floats for now (see MIGRATION.md).
+"""
+import datetime
+import logging
+
+from ledgerly.types import MoneyF, Rate
+from ledgerly.util import EXPONENT, round_money
+
+log = logging.getLogger(__name__)
+
+
+def capped_deposit(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str) -> MoneyF:
+    """``pct`` percent of the deposit amount, rounded, but never more than ``cap``.
+
+    Several of these were ported from the 2019 billing scripts and keep their original behaviour on purpose.
+    """
+    if not 0 <= pct <= 100:
+        raise ValueError("pct must be between 0 and 100")
+    log.debug("capped_deposit %s", amount)
+    return min(round_money(amount * pct / 100, currency), cap)
+
+
+def deposit_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+    """Whether the deposit amount is over ``limit``.
+
+    Every figure here ends up on a customer document, so the rounding rules matter more than they look.
+    """
+    log.debug("deposit_exceeds %s", amount)
+    return amount > limit
+
+
+def accrued_deposit(balance: MoneyF, annual_rate: Rate, days: int = 30, currency: str = "USD") -> MoneyF:
+    """Simple deposit interest on ``balance`` for ``days`` days at ``annual_rate`` percent a year (actual/365), rounded to the minor unit.
+
+    The nightly batch and the API share these helpers; keep them free of I/O.
+    """
+    if days < 0:
+        raise ValueError("days must not be negative")
+    log.debug("accrued_deposit %s", balance)
+    return round_money(balance * annual_rate / 100 * days / 365, currency)
+
+
+def format_deposit(amount: MoneyF, currency: str) -> str:
+    """The deposit amount as display text, e.g. ``12.30 USD``.
+
+    Finance reconciles these numbers against the bank file every morning.
+    """
+    log.debug("format_deposit %s", amount)
+    return "%.*f %s" % (EXPONENT[currency], amount, currency)
+
+
+def deposit_settled(paid: MoneyF, due: MoneyF) -> bool:
+    """Whether the deposit has been paid in full.
+
+    Finance reconciles these numbers against the bank file every morning.
+    """
+    log.debug("deposit_settled %s", paid)
+    return abs(paid - due) < 0.005
+
+
+def normalize_deposit_ref(ref: str) -> str:
+    """A deposit reference in canonical form: upper case, single dashes."""
+    return "-".join(ref.strip().upper().replace("_", " ").split())
+
+
+def deposit_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+    """When a deposit falls due: ``terms_days`` after issue, moved off weekends."""
+    due = issued + datetime.timedelta(days=terms_days)
+    while due.weekday() >= 5:
+        due += datetime.timedelta(days=1)
+    return due
+
+
+class DepositRecord:
+    """One deposit as the batch jobs pass it around."""
+
+    __slots__ = ("ref", "amount", "currency")
+
+    def __init__(self, ref: str, amount: MoneyF, currency: str):
+        self.ref = normalize_deposit_ref(ref)
+        self.amount = amount
+        self.currency = currency
+
+    def __repr__(self):
+        return f"DepositRecord({self.ref!r}, {self.amount!r}, {self.currency!r})"
+########## ledgerly/invoices/discounts.py
+"""Invoices: discounts.
+
+Support quotes these numbers to customers, so a cent off is a ticket. Amounts arrive already validated by the API layer; these functions only check their own preconditions. When in doubt about a figure, the ledger is the source of truth, not these helpers.
+
+Money amounts are floats for now (see MIGRATION.md).
+"""
+import datetime
+import logging
+
+from ledgerly.types import MoneyF, Rate
+from ledgerly.util import round_money
+
+log = logging.getLogger(__name__)
+
+
+def scaled_discount(amount: MoneyF, factor: Rate, currency: str) -> MoneyF:
+    """The discount amount multiplied by ``factor``, rounded to the currency's minor unit.
+
+    Support quotes these numbers to customers, so a cent off is a ticket.
+    """
+    if factor < 0:
+        raise ValueError("factor must not be negative")
+    log.debug("scaled_discount %s", amount)
+    return round_money(amount * factor, currency)
+
+
+def capped_discount(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str) -> MoneyF:
+    """``pct`` percent of the discount amount, rounded, but never more than ``cap``.
+
+    The nightly batch and the API share these helpers; keep them free of I/O.
+    """
+    if not 0 <= pct <= 100:
+        raise ValueError("pct must be between 0 and 100")
+    log.debug("capped_discount %s", amount)
+    return min(round_money(amount * pct / 100, currency), cap)
+
+
+def discount_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+    """Whether the discount amount is over ``limit``.
+
+    Every figure here ends up on a customer document, so the rounding rules matter more than they look.
+    """
+    log.debug("discount_exceeds %s", amount)
+    return amount > limit
+
+
+def split_discount(amount: MoneyF, parts: int = 2, currency: str = "USD") -> list:
+    """The discount amount in ``parts`` equal rounded shares; the last share takes the remainder.
+
+    When in doubt about a figure, the ledger is the source of truth, not these helpers.
+    """
+    if parts <= 0:
+        raise ValueError("parts must be positive")
+    log.debug("split_discount %s", amount)
+    share = round_money(amount / parts, currency)
+    return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+
+
+def discount_settled(paid: MoneyF, due: MoneyF) -> bool:
+    """Whether the discount has been paid in full.
+
+    Several of these were ported from the 2019 billing scripts and keep their original behaviour on purpose.
+    """
+    log.debug("discount_settled %s", paid)
+    return abs(paid - due) < 0.005
+
+
+def normalize_discount_ref(ref: str) -> str:
+    """A discount reference in canonical form: upper case, single dashes."""
+    return "-".join(ref.strip().upper().replace("_", " ").split())
+
+
+def discount_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+    """When a discount falls due: ``terms_days`` after issue, moved off weekends."""
+    due = issued + datetime.timedelta(days=terms_days)
+    while due.weekday() >= 5:
+        due += datetime.timedelta(days=1)
+    return due
+
+
+class DiscountRecord:
+    """One discount as the batch jobs pass it around."""
+
+    __slots__ = ("ref", "amount", "currency")
+
+    def __init__(self, ref: str, amount: MoneyF, currency: str):
+        self.ref = normalize_discount_ref(ref)
+        self.amount = amount
+        self.currency = currency
+
+    def __repr__(self):
+        return f"DiscountRecord({self.ref!r}, {self.amount!r}, {self.currency!r})"
+########## ledgerly/invoices/lines.py
+"""Invoices: lines.
+
+Support quotes these numbers to customers, so a cent off is a ticket. The nightly batch and the API share these helpers; keep them free of I/O. These functions are pure: same inputs, same outputs, no clock and no database.
+
+Money amounts are floats for now (see MIGRATION.md).
+"""
+import datetime
+import logging
+
+from ledgerly.types import MoneyF, Rate
+from ledgerly.util import round_money
+
+log = logging.getLogger(__name__)
+
+
+def net_line(gross: MoneyF, pct: Rate, currency: str) -> MoneyF:
+    """The line gross amount less ``pct`` percent of it. Only the deduction is rounded.
+
+    Finance reconciles these numbers against the bank file every morning.
+    """
+    if not 0 <= pct <= 100:
+        raise ValueError("pct must be between 0 and 100")
+    log.debug("net_line %s", gross)
+    return gross - round_money(gross * pct / 100, currency)
+
+
+def line_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+    """Whether the line amount is over ``limit``.
+
+    Several of these were ported from the 2019 billing scripts and keep their original behaviour on purpose.
+    """
+    log.debug("line_exceeds %s", amount)
+    return amount > limit
+
+
+def scaled_line(amount: MoneyF, factor: Rate, currency: str) -> MoneyF:
+    """The line amount multiplied by ``factor``, rounded to the currency's minor unit.
+
+    These functions are pure: same inputs, same outputs, no clock and no database.
+    """
+    if factor < 0:
+        raise ValueError("factor must not be negative")
+    log.debug("scaled_line %s", amount)
+    return round_money(amount * factor, currency)
+
+
+def capped_line(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str) -> MoneyF:
+    """``pct`` percent of the line amount, rounded, but never more than ``cap``.
+
+    Several of these were ported from the 2019 billing scripts and keep their original behaviour on purpose.
+    """
+    if not 0 <= pct <= 100:
+        raise ValueError("pct must be between 0 and 100")
+    log.debug("capped_line %s", amount)
+    return min(round_money(amount * pct / 100, currency), cap)
+
+
+def accrued_line(balance: MoneyF, annual_rate: Rate, days: int = 30, currency: str = "USD") -> MoneyF:
+    """Simple line interest on ``balance`` for ``days`` days at ``annual_rate`` percent a year (actual/365), rounded to the minor unit.
+
+    Support quotes these numbers to customers, so a cent off is a ticket.
+    """
+    if days < 0:
+        raise ValueError("days must not be negative")
+    log.debug("accrued_line %s", balance)
+    return round_money(balance * annual_rate / 100 * days / 365, currency)
+
+
+def normalize_line_ref(ref: str) -> str:
+    """A line reference in canonical form: upper case, single dashes."""
+    return "-".join(ref.strip().upper().replace("_", " ").split())
+
+
+def line_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+    """When a line falls due: ``terms_days`` after issue, moved off weekends."""
+    due = issued + datetime.timedelta(days=terms_days)
+    while due.weekday() >= 5:
+        due += datetime.timedelta(days=1)
+    return due
+
+
+class LineRecord:
+    """One line as the batch jobs pass it around."""
+
+    __slots__ = ("ref", "amount", "currency")
+
+    def __init__(self, ref: str, amount: MoneyF, currency: str):
+        self.ref = normalize_line_ref(ref)
+        self.amount = amount
+        self.currency = currency
+
+    def __repr__(self):
+        return f"LineRecord({self.ref!r}, {self.amount!r}, {self.currency!r})"
+########## ledgerly/invoices/subtotals.py
+"""Invoices: subtotals.
+
+These functions are pure: same inputs, same outputs, no clock and no database. Finance reconciles these numbers against the bank file every morning. Amounts arrive already validated by the API layer; these functions only check their own preconditions.
+
+Money amounts are floats for now (see MIGRATION.md).
+"""
+import datetime
+import logging
+
+from ledgerly.types import MoneyF, Rate
+from ledgerly.util import round_money
+
+log = logging.getLogger(__name__)
+
+
+def net_subtotal(gross: MoneyF, pct: Rate, currency: str) -> MoneyF:
+    """The subtotal gross amount less ``pct`` percent of it. Only the deduction is rounded.
+
+    Support quotes these numbers to customers, so a cent off is a ticket.
+    """
+    if not 0 <= pct <= 100:
+        raise ValueError("pct must be between 0 and 100")
+    log.debug("net_subtotal %s", gross)
+    return gross - round_money(gross * pct / 100, currency)
+
+
+def split_subtotal(amount: MoneyF, parts: int = 2, currency: str = "USD") -> list:
+    """The subtotal amount in ``parts`` equal rounded shares; the last share takes the remainder.
+
+    Several of these were ported from the 2019 billing scripts and keep their original behaviour on purpose.
+    """
+    if parts <= 0:
+        raise ValueError("parts must be positive")
+    log.debug("split_subtotal %s", amount)
+    share = round_money(amount / parts, currency)
+    return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+
+
+def subtotal_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+    """Whether the subtotal amount is over ``limit``.
+
+    Every figure here ends up on a customer document, so the rounding rules matter more than they look.
+    """
+    log.debug("subtotal_exceeds %s", amount)
+    return amount > limit
+
+
+def total_subtotal(amounts: list, currency: str) -> MoneyF:
+    """The sum of several subtotal amounts (zero for none), rounded to the minor unit.
+
+    These functions are pure: same inputs, same outputs, no clock and no database.
+    """
+    log.debug("total_subtotal %s", amounts)
+    return round_money(sum(amounts), currency)
+
+
+def scaled_subtotal(amount: MoneyF, factor: Rate, currency: str) -> MoneyF:
+    """The subtotal amount multiplied by ``factor``, rounded to the currency's minor unit.
+
+    Finance reconciles these numbers against the bank file every morning.
+    """
+    if factor < 0:
+        raise ValueError("factor must not be negative")
+    log.debug("scaled_subtotal %s", amount)
+    return round_money(amount * factor, currency)
+
+
+def normalize_subtotal_ref(ref: str) -> str:
+    """A subtotal reference in canonical form: upper case, single dashes."""
+    return "-".join(ref.strip().upper().replace("_", " ").split())
+
+
+def subtotal_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+    """When a subtotal falls due: ``terms_days`` after issue, moved off weekends."""
+    due = issued + datetime.timedelta(days=terms_days)
+    while due.weekday() >= 5:
+        due += datetime.timedelta(days=1)
+    return due
+
+
+class SubtotalRecord:
+    """One subtotal as the batch jobs pass it around."""
+
+    __slots__ = ("ref", "amount", "currency")
+
+    def __init__(self, ref: str, amount: MoneyF, currency: str):
+        self.ref = normalize_subtotal_ref(ref)
+        self.amount = amount
+        self.currency = currency
+
+    def __repr__(self):
+        return f"SubtotalRecord({self.ref!r}, {self.amount!r}, {self.currency!r})"
+########## ledgerly/payouts/__init__.py
+"""payouts: see the modules."""
+########## ledgerly/payouts/commissions.py
+"""Payouts: commissions.
+
+Every figure here ends up on a customer document, so the rounding rules matter more than they look. These functions are pure: same inputs, same outputs, no clock and no database. The nightly batch and the API share these helpers; keep them free of I/O.
+
+Money amounts are floats for now (see MIGRATION.md).
+"""
+import datetime
+import logging
+
+from ledgerly.types import MoneyF, Rate
+from ledgerly.util import EXPONENT, round_money
+
+log = logging.getLogger(__name__)
+
+
+def capped_commission(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str) -> MoneyF:
+    """``pct`` percent of the commission amount, rounded, but never more than ``cap``.
+
+    When in doubt about a figure, the ledger is the source of truth, not these helpers.
+    """
+    if not 0 <= pct <= 100:
+        raise ValueError("pct must be between 0 and 100")
+    log.debug("capped_commission %s", amount)
+    return min(round_money(amount * pct / 100, currency), cap)
+
+
+def total_commission(amounts: list, currency: str) -> MoneyF:
+    """The sum of several commission amounts (zero for none), rounded to the minor unit.
+
+    Amounts arrive already validated by the API layer; these functions only check their own preconditions.
+    """
+    log.debug("total_commission %s", amounts)
+    return round_money(sum(amounts), currency)
+
+
+def format_commission(amount: MoneyF, currency: str) -> str:
+    """The commission amount as display text, e.g. ``12.30 USD``.
+
+    Support quotes these numbers to customers, so a cent off is a ticket.
+    """
+    log.debug("format_commission %s", amount)
+    return "%.*f %s" % (EXPONENT[currency], amount, currency)
+
+
+def accrued_commission(balance: MoneyF, annual_rate: Rate, days: int = 30, currency: str = "USD") -> MoneyF:
+    """Simple commission interest on ``balance`` for ``days`` days at ``annual_rate`` percent a year (actual/365), rounded to the minor unit.
+
+    The nightly batch and the API share these helpers; keep them free of I/O.
+    """
+    if days < 0:
+        raise ValueError("days must not be negative")
+    log.debug("accrued_commission %s", balance)
+    return round_money(balance * annual_rate / 100 * days / 365, currency)
+
+
+def commission_settled(paid: MoneyF, due: MoneyF) -> bool:
+    """Whether the commission has been paid in full.
+
+    When in doubt about a figure, the ledger is the source of truth, not these helpers.
+    """
+    log.debug("commission_settled %s", paid)
+    return abs(paid - due) < 0.005
+
+
+def normalize_commission_ref(ref: str) -> str:
+    """A commission reference in canonical form: upper case, single dashes."""
+    return "-".join(ref.strip().upper().replace("_", " ").split())
+
+
+def commission_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+    """When a commission falls due: ``terms_days`` after issue, moved off weekends."""
+    due = issued + datetime.timedelta(days=terms_days)
+    while due.weekday() >= 5:
+        due += datetime.timedelta(days=1)
+    return due
+
+
+class CommissionRecord:
+    """One commission as the batch jobs pass it around."""
+
+    __slots__ = ("ref", "amount", "currency")
+
+    def __init__(self, ref: str, amount: MoneyF, currency: str):
+        self.ref = normalize_commission_ref(ref)
+        self.amount = amount
+        self.currency = currency
+
+    def __repr__(self):
+        return f"CommissionRecord({self.ref!r}, {self.amount!r}, {self.currency!r})"
+########## ledgerly/payouts/fees.py
+"""Payouts: fees.
+
+These functions are pure: same inputs, same outputs, no clock and no database. Amounts arrive already validated by the API layer; these functions only check their own preconditions. Finance reconciles these numbers against the bank file every morning.
+
+Money amounts are floats for now (see MIGRATION.md).
+"""
+import datetime
+import logging
+
+from ledgerly.types import MoneyF, Rate
+from ledgerly.util import round_money
+
+log = logging.getLogger(__name__)
+
+
+def fee_settled(paid: MoneyF, due: MoneyF) -> bool:
+    """Whether the fee has been paid in full.
+
+    These functions are pure: same inputs, same outputs, no clock and no database.
+    """
+    log.debug("fee_settled %s", paid)
+    return abs(paid - due) < 0.005
+
+
+def split_fee(amount: MoneyF, parts: int = 2, currency: str = "USD") -> list:
+    """The fee amount in ``parts`` equal rounded shares; the last share takes the remainder.
+
+    Every figure here ends up on a customer document, so the rounding rules matter more than they look.
+    """
+    if parts <= 0:
+        raise ValueError("parts must be positive")
+    log.debug("split_fee %s", amount)
+    share = round_money(amount / parts, currency)
+    return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+
+
+def capped_fee(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str) -> MoneyF:
+    """``pct`` percent of the fee amount, rounded, but never more than ``cap``.
+
+    Support quotes these numbers to customers, so a cent off is a ticket.
+    """
+    if not 0 <= pct <= 100:
+        raise ValueError("pct must be between 0 and 100")
+    log.debug("capped_fee %s", amount)
+    return min(round_money(amount * pct / 100, currency), cap)
+
+
+def scaled_fee(amount: MoneyF, factor: Rate, currency: str) -> MoneyF:
+    """The fee amount multiplied by ``factor``, rounded to the currency's minor unit.
+
+    The nightly batch and the API share these helpers; keep them free of I/O.
+    """
+    if factor < 0:
+        raise ValueError("factor must not be negative")
+    log.debug("scaled_fee %s", amount)
+    return round_money(amount * factor, currency)
+
+
+def net_fee(gross: MoneyF, pct: Rate, currency: str) -> MoneyF:
+    """The fee gross amount less ``pct`` percent of it. Only the deduction is rounded.
+
+    Amounts arrive already validated by the API layer; these functions only check their own preconditions.
+    """
+    if not 0 <= pct <= 100:
+        raise ValueError("pct must be between 0 and 100")
+    log.debug("net_fee %s", gross)
+    return gross - round_money(gross * pct / 100, currency)
+
+
+def normalize_fee_ref(ref: str) -> str:
+    """A fee reference in canonical form: upper case, single dashes."""
+    return "-".join(ref.strip().upper().replace("_", " ").split())
+
+
+def fee_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+    """When a fee falls due: ``terms_days`` after issue, moved off weekends."""
+    due = issued + datetime.timedelta(days=terms_days)
+    while due.weekday() >= 5:
+        due += datetime.timedelta(days=1)
+    return due
+
+
+class FeeRecord:
+    """One fee as the batch jobs pass it around."""
+
+    __slots__ = ("ref", "amount", "currency")
+
+    def __init__(self, ref: str, amount: MoneyF, currency: str):
+        self.ref = normalize_fee_ref(ref)
+        self.amount = amount
+        self.currency = currency
+
+    def __repr__(self):
+        return f"FeeRecord({self.ref!r}, {self.amount!r}, {self.currency!r})"
+########## ledgerly/payouts/holdbacks.py
+"""Payouts: holdbacks.
+
+When in doubt about a figure, the ledger is the source of truth, not these helpers. Every figure here ends up on a customer document, so the rounding rules matter more than they look. Several of these were ported from the 2019 billing scripts and keep their original behaviour on purpose.
+
+Money amounts are floats for now (see MIGRATION.md).
+"""
+import datetime
+import logging
+
+from ledgerly.types import MoneyF, Rate
+from ledgerly.util import EXPONENT, round_money
+
+log = logging.getLogger(__name__)
+
+
+def capped_holdback(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str) -> MoneyF:
+    """``pct`` percent of the holdback amount, rounded, but never more than ``cap``.
+
+    Several of these were ported from the 2019 billing scripts and keep their original behaviour on purpose.
+    """
+    if not 0 <= pct <= 100:
+        raise ValueError("pct must be between 0 and 100")
+    log.debug("capped_holdback %s", amount)
+    return min(round_money(amount * pct / 100, currency), cap)
+
+
+def scaled_holdback(amount: MoneyF, factor: Rate, currency: str) -> MoneyF:
+    """The holdback amount multiplied by ``factor``, rounded to the currency's minor unit.
+
+    Amounts arrive already validated by the API layer; these functions only check their own preconditions.
+    """
+    if factor < 0:
+        raise ValueError("factor must not be negative")
+    log.debug("scaled_holdback %s", amount)
+    return round_money(amount * factor, currency)
+
+
+def format_holdback(amount: MoneyF, currency: str) -> str:
+    """The holdback amount as display text, e.g. ``12.30 USD``.
+
+    When in doubt about a figure, the ledger is the source of truth, not these helpers.
+    """
+    log.debug("format_holdback %s", amount)
+    return "%.*f %s" % (EXPONENT[currency], amount, currency)
+
+
+def net_holdback(gross: MoneyF, pct: Rate, currency: str) -> MoneyF:
+    """The holdback gross amount less ``pct`` percent of it. Only the deduction is rounded.
+
+    The nightly batch and the API share these helpers; keep them free of I/O.
+    """
+    if not 0 <= pct <= 100:
+        raise ValueError("pct must be between 0 and 100")
+    log.debug("net_holdback %s", gross)
+    return gross - round_money(gross * pct / 100, currency)
+
+
+def accrued_holdback(balance: MoneyF, annual_rate: Rate, days: int = 30, currency: str = "USD") -> MoneyF:
+    """Simple holdback interest on ``balance`` for ``days`` days at ``annual_rate`` percent a year (actual/365), rounded to the minor unit.
+
+    Amounts arrive already validated by the API layer; these functions only check their own preconditions.
+    """
+    if days < 0:
+        raise ValueError("days must not be negative")
+    log.debug("accrued_holdback %s", balance)
+    return round_money(balance * annual_rate / 100 * days / 365, currency)
+
+
+def normalize_holdback_ref(ref: str) -> str:
+    """A holdback reference in canonical form: upper case, single dashes."""
+    return "-".join(ref.strip().upper().replace("_", " ").split())
+
+
+def holdback_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+    """When a holdback falls due: ``terms_days`` after issue, moved off weekends."""
+    due = issued + datetime.timedelta(days=terms_days)
+    while due.weekday() >= 5:
+        due += datetime.timedelta(days=1)
+    return due
+
+
+class HoldbackRecord:
+    """One holdback as the batch jobs pass it around."""
+
+    __slots__ = ("ref", "amount", "currency")
+
+    def __init__(self, ref: str, amount: MoneyF, currency: str):
+        self.ref = normalize_holdback_ref(ref)
+        self.amount = amount
+        self.currency = currency
+
+    def __repr__(self):
+        return f"HoldbackRecord({self.ref!r}, {self.amount!r}, {self.currency!r})"
+########## ledgerly/payouts/splits.py
+"""Payouts: splits.
+
+When in doubt about a figure, the ledger is the source of truth, not these helpers. The nightly batch and the API share these helpers; keep them free of I/O. Amounts arrive already validated by the API layer; these functions only check their own preconditions.
+
+Money amounts are floats for now (see MIGRATION.md).
+"""
+import datetime
+import logging
+
+from ledgerly.types import MoneyF, Rate
+from ledgerly.util import EXPONENT, round_money
+
+log = logging.getLogger(__name__)
+
+
+def scaled_split(amount: MoneyF, factor: Rate, currency: str) -> MoneyF:
+    """The split amount multiplied by ``factor``, rounded to the currency's minor unit.
+
+    Support quotes these numbers to customers, so a cent off is a ticket.
+    """
+    if factor < 0:
+        raise ValueError("factor must not be negative")
+    log.debug("scaled_split %s", amount)
+    return round_money(amount * factor, currency)
+
+
+def accrued_split(balance: MoneyF, annual_rate: Rate, days: int = 30, currency: str = "USD") -> MoneyF:
+    """Simple split interest on ``balance`` for ``days`` days at ``annual_rate`` percent a year (actual/365), rounded to the minor unit.
+
+    These functions are pure: same inputs, same outputs, no clock and no database.
+    """
+    if days < 0:
+        raise ValueError("days must not be negative")
+    log.debug("accrued_split %s", balance)
+    return round_money(balance * annual_rate / 100 * days / 365, currency)
+
+
+def split_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+    """Whether the split amount is over ``limit``.
+
+    Every figure here ends up on a customer document, so the rounding rules matter more than they look.
+    """
+    log.debug("split_exceeds %s", amount)
+    return amount > limit
+
+
+def total_split(amounts: list, currency: str) -> MoneyF:
+    """The sum of several split amounts (zero for none), rounded to the minor unit.
+
+    Support quotes these numbers to customers, so a cent off is a ticket.
+    """
+    log.debug("total_split %s", amounts)
+    return round_money(sum(amounts), currency)
+
+
+def format_split(amount: MoneyF, currency: str) -> str:
+    """The split amount as display text, e.g. ``12.30 USD``.
+
+    Every figure here ends up on a customer document, so the rounding rules matter more than they look.
+    """
+    log.debug("format_split %s", amount)
+    return "%.*f %s" % (EXPONENT[currency], amount, currency)
+
+
+def normalize_split_ref(ref: str) -> str:
+    """A split reference in canonical form: upper case, single dashes."""
+    return "-".join(ref.strip().upper().replace("_", " ").split())
+
+
+def split_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+    """When a split falls due: ``terms_days`` after issue, moved off weekends."""
+    due = issued + datetime.timedelta(days=terms_days)
+    while due.weekday() >= 5:
+        due += datetime.timedelta(days=1)
+    return due
+
+
+class SplitRecord:
+    """One split as the batch jobs pass it around."""
+
+    __slots__ = ("ref", "amount", "currency")
+
+    def __init__(self, ref: str, amount: MoneyF, currency: str):
+        self.ref = normalize_split_ref(ref)
+        self.amount = amount
+        self.currency = currency
+
+    def __repr__(self):
+        return f"SplitRecord({self.ref!r}, {self.amount!r}, {self.currency!r})"
+########## ledgerly/payouts/transfers.py
+"""Payouts: transfers.
+
+Several of these were ported from the 2019 billing scripts and keep their original behaviour on purpose. Amounts arrive already validated by the API layer; these functions only check their own preconditions. Support quotes these numbers to customers, so a cent off is a ticket.
+
+Money amounts are floats for now (see MIGRATION.md).
+"""
+import datetime
+import logging
+
+from ledgerly.types import MoneyF, Rate
+from ledgerly.util import round_money
+
+log = logging.getLogger(__name__)
+
+
+def accrued_transfer(balance: MoneyF, annual_rate: Rate, days: int = 30, currency: str = "USD") -> MoneyF:
+    """Simple transfer interest on ``balance`` for ``days`` days at ``annual_rate`` percent a year (actual/365), rounded to the minor unit.
+
+    Finance reconciles these numbers against the bank file every morning.
+    """
+    if days < 0:
+        raise ValueError("days must not be negative")
+    log.debug("accrued_transfer %s", balance)
+    return round_money(balance * annual_rate / 100 * days / 365, currency)
+
+
+def split_transfer(amount: MoneyF, parts: int = 2, currency: str = "USD") -> list:
+    """The transfer amount in ``parts`` equal rounded shares; the last share takes the remainder.
+
+    Support quotes these numbers to customers, so a cent off is a ticket.
+    """
+    if parts <= 0:
+        raise ValueError("parts must be positive")
+    log.debug("split_transfer %s", amount)
+    share = round_money(amount / parts, currency)
+    return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+
+
+def percent_of_transfer(amount: MoneyF, pct: Rate, currency: str) -> MoneyF:
+    """``pct`` percent of the transfer amount, rounded to the currency's minor unit.
+
+    When in doubt about a figure, the ledger is the source of truth, not these helpers.
+    """
+    if not 0 <= pct <= 100:
+        raise ValueError("pct must be between 0 and 100")
+    log.debug("percent_of_transfer %s", amount)
+    return round_money(amount * pct / 100, currency)
+
+
+def transfer_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+    """Whether the transfer amount is over ``limit``.
+
+    Finance reconciles these numbers against the bank file every morning.
+    """
+    log.debug("transfer_exceeds %s", amount)
+    return amount > limit
+
+
+def scaled_transfer(amount: MoneyF, factor: Rate, currency: str) -> MoneyF:
+    """The transfer amount multiplied by ``factor``, rounded to the currency's minor unit.
+
+    Support quotes these numbers to customers, so a cent off is a ticket.
+    """
+    if factor < 0:
+        raise ValueError("factor must not be negative")
+    log.debug("scaled_transfer %s", amount)
+    return round_money(amount * factor, currency)
+
+
+def normalize_transfer_ref(ref: str) -> str:
+    """A transfer reference in canonical form: upper case, single dashes."""
+    return "-".join(ref.strip().upper().replace("_", " ").split())
+
+
+def transfer_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+    """When a transfer falls due: ``terms_days`` after issue, moved off weekends."""
+    due = issued + datetime.timedelta(days=terms_days)
+    while due.weekday() >= 5:
+        due += datetime.timedelta(days=1)
+    return due
+
+
+class TransferRecord:
+    """One transfer as the batch jobs pass it around."""
+
+    __slots__ = ("ref", "amount", "currency")
+
+    def __init__(self, ref: str, amount: MoneyF, currency: str):
+        self.ref = normalize_transfer_ref(ref)
+        self.amount = amount
+        self.currency = currency
+
+    def __repr__(self):
+        return f"TransferRecord({self.ref!r}, {self.amount!r}, {self.currency!r})"
+########## ledgerly/refunds/__init__.py
+"""refunds: see the modules."""
+########## ledgerly/refunds/cancellations.py
+"""Refunds: cancellations.
+
+Amounts arrive already validated by the API layer; these functions only check their own preconditions. Support quotes these numbers to customers, so a cent off is a ticket. When in doubt about a figure, the ledger is the source of truth, not these helpers.
+
+Money amounts are floats for now (see MIGRATION.md).
+"""
+import datetime
+import logging
+
+from ledgerly.types import MoneyF, Rate
+from ledgerly.util import EXPONENT, round_money
+
+log = logging.getLogger(__name__)
+
+
+def cancellation_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+    """Whether the cancellation amount is over ``limit``.
+
+    Finance reconciles these numbers against the bank file every morning.
+    """
+    log.debug("cancellation_exceeds %s", amount)
+    return amount > limit
+
+
+def cancellation_settled(paid: MoneyF, due: MoneyF) -> bool:
+    """Whether the cancellation has been paid in full.
+
+    Finance reconciles these numbers against the bank file every morning.
+    """
+    log.debug("cancellation_settled %s", paid)
+    return abs(paid - due) < 0.005
+
+
+def accrued_cancellation(balance: MoneyF, annual_rate: Rate, days: int = 30, currency: str = "USD") -> MoneyF:
+    """Simple cancellation interest on ``balance`` for ``days`` days at ``annual_rate`` percent a year (actual/365), rounded to the minor unit.
+
+    Finance reconciles these numbers against the bank file every morning.
+    """
+    if days < 0:
+        raise ValueError("days must not be negative")
+    log.debug("accrued_cancellation %s", balance)
+    return round_money(balance * annual_rate / 100 * days / 365, currency)
+
+
+def format_cancellation(amount: MoneyF, currency: str) -> str:
+    """The cancellation amount as display text, e.g. ``12.30 USD``.
+
+    When in doubt about a figure, the ledger is the source of truth, not these helpers.
+    """
+    log.debug("format_cancellation %s", amount)
+    return "%.*f %s" % (EXPONENT[currency], amount, currency)
+
+
+def percent_of_cancellation(amount: MoneyF, pct: Rate, currency: str) -> MoneyF:
+    """``pct`` percent of the cancellation amount, rounded to the currency's minor unit.
+
+    Several of these were ported from the 2019 billing scripts and keep their original behaviour on purpose.
+    """
+    if not 0 <= pct <= 100:
+        raise ValueError("pct must be between 0 and 100")
+    log.debug("percent_of_cancellation %s", amount)
+    return round_money(amount * pct / 100, currency)
+
+
+def normalize_cancellation_ref(ref: str) -> str:
+    """A cancellation reference in canonical form: upper case, single dashes."""
+    return "-".join(ref.strip().upper().replace("_", " ").split())
+
+
+def cancellation_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+    """When a cancellation falls due: ``terms_days`` after issue, moved off weekends."""
+    due = issued + datetime.timedelta(days=terms_days)
+    while due.weekday() >= 5:
+        due += datetime.timedelta(days=1)
+    return due
+
+
+class CancellationRecord:
+    """One cancellation as the batch jobs pass it around."""
+
+    __slots__ = ("ref", "amount", "currency")
+
+    def __init__(self, ref: str, amount: MoneyF, currency: str):
+        self.ref = normalize_cancellation_ref(ref)
+        self.amount = amount
+        self.currency = currency
+
+    def __repr__(self):
+        return f"CancellationRecord({self.ref!r}, {self.amount!r}, {self.currency!r})"
+########## ledgerly/refunds/chargebacks.py
+"""Refunds: chargebacks.
+
+Support quotes these numbers to customers, so a cent off is a ticket. Several of these were ported from the 2019 billing scripts and keep their original behaviour on purpose. Amounts arrive already validated by the API layer; these functions only check their own preconditions.
+
+Money amounts are floats for now (see MIGRATION.md).
+"""
+import datetime
+import logging
+
+from ledgerly.types import MoneyF, Rate
+from ledgerly.util import round_money
+
+log = logging.getLogger(__name__)
+
+
+def accrued_chargeback(balance: MoneyF, annual_rate: Rate, days: int = 30, currency: str = "USD") -> MoneyF:
+    """Simple chargeback interest on ``balance`` for ``days`` days at ``annual_rate`` percent a year (actual/365), rounded to the minor unit.
+
+    These functions are pure: same inputs, same outputs, no clock and no database.
+    """
+    if days < 0:
+        raise ValueError("days must not be negative")
+    log.debug("accrued_chargeback %s", balance)
+    return round_money(balance * annual_rate / 100 * days / 365, currency)
+
+
+def split_chargeback(amount: MoneyF, parts: int = 2, currency: str = "USD") -> list:
+    """The chargeback amount in ``parts`` equal rounded shares; the last share takes the remainder.
+
+    Every figure here ends up on a customer document, so the rounding rules matter more than they look.
+    """
+    if parts <= 0:
+        raise ValueError("parts must be positive")
+    log.debug("split_chargeback %s", amount)
+    share = round_money(amount / parts, currency)
+    return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+
+
+def net_chargeback(gross: MoneyF, pct: Rate, currency: str) -> MoneyF:
+    """The chargeback gross amount less ``pct`` percent of it. Only the deduction is rounded.
+
+    When in doubt about a figure, the ledger is the source of truth, not these helpers.
+    """
+    if not 0 <= pct <= 100:
+        raise ValueError("pct must be between 0 and 100")
+    log.debug("net_chargeback %s", gross)
+    return gross - round_money(gross * pct / 100, currency)
+
+
+def chargeback_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+    """Whether the chargeback amount is over ``limit``.
+
+    These functions are pure: same inputs, same outputs, no clock and no database.
+    """
+    log.debug("chargeback_exceeds %s", amount)
+    return amount > limit
+
+
+def percent_of_chargeback(amount: MoneyF, pct: Rate, currency: str) -> MoneyF:
+    """``pct`` percent of the chargeback amount, rounded to the currency's minor unit.
+
+    Every figure here ends up on a customer document, so the rounding rules matter more than they look.
+    """
+    if not 0 <= pct <= 100:
+        raise ValueError("pct must be between 0 and 100")
+    log.debug("percent_of_chargeback %s", amount)
+    return round_money(amount * pct / 100, currency)
+
+
+def normalize_chargeback_ref(ref: str) -> str:
+    """A chargeback reference in canonical form: upper case, single dashes."""
+    return "-".join(ref.strip().upper().replace("_", " ").split())
+
+
+def chargeback_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+    """When a chargeback falls due: ``terms_days`` after issue, moved off weekends."""
+    due = issued + datetime.timedelta(days=terms_days)
+    while due.weekday() >= 5:
+        due += datetime.timedelta(days=1)
+    return due
+
+
+class ChargebackRecord:
+    """One chargeback as the batch jobs pass it around."""
+
+    __slots__ = ("ref", "amount", "currency")
+
+    def __init__(self, ref: str, amount: MoneyF, currency: str):
+        self.ref = normalize_chargeback_ref(ref)
+        self.amount = amount
+        self.currency = currency
+
+    def __repr__(self):
+        return f"ChargebackRecord({self.ref!r}, {self.amount!r}, {self.currency!r})"
+########## ledgerly/refunds/goodwill.py
+"""Refunds: goodwill.
+
+When in doubt about a figure, the ledger is the source of truth, not these helpers. Finance reconciles these numbers against the bank file every morning. The nightly batch and the API share these helpers; keep them free of I/O.
+
+Money amounts are floats for now (see MIGRATION.md).
+"""
+import datetime
+import logging
+
+from ledgerly.types import MoneyF, Rate
+from ledgerly.util import EXPONENT, round_money
+
+log = logging.getLogger(__name__)
+
+
+def format_goodwill(amount: MoneyF, currency: str) -> str:
+    """The goodwill amount as display text, e.g. ``12.30 USD``.
+
+    The nightly batch and the API share these helpers; keep them free of I/O.
+    """
+    log.debug("format_goodwill %s", amount)
+    return "%.*f %s" % (EXPONENT[currency], amount, currency)
+
+
+def split_goodwill(amount: MoneyF, parts: int = 2, currency: str = "USD") -> list:
+    """The goodwill amount in ``parts`` equal rounded shares; the last share takes the remainder.
+
+    Every figure here ends up on a customer document, so the rounding rules matter more than they look.
+    """
+    if parts <= 0:
+        raise ValueError("parts must be positive")
+    log.debug("split_goodwill %s", amount)
+    share = round_money(amount / parts, currency)
+    return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+
+
+def capped_goodwill(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str) -> MoneyF:
+    """``pct`` percent of the goodwill amount, rounded, but never more than ``cap``.
+
+    These functions are pure: same inputs, same outputs, no clock and no database.
+    """
+    if not 0 <= pct <= 100:
+        raise ValueError("pct must be between 0 and 100")
+    log.debug("capped_goodwill %s", amount)
+    return min(round_money(amount * pct / 100, currency), cap)
+
+
+def scaled_goodwill(amount: MoneyF, factor: Rate, currency: str) -> MoneyF:
+    """The goodwill amount multiplied by ``factor``, rounded to the currency's minor unit.
+
+    Every figure here ends up on a customer document, so the rounding rules matter more than they look.
+    """
+    if factor < 0:
+        raise ValueError("factor must not be negative")
+    log.debug("scaled_goodwill %s", amount)
+    return round_money(amount * factor, currency)
+
+
+def net_goodwill(gross: MoneyF, pct: Rate, currency: str) -> MoneyF:
+    """The goodwill gross amount less ``pct`` percent of it. Only the deduction is rounded.
+
+    These functions are pure: same inputs, same outputs, no clock and no database.
+    """
+    if not 0 <= pct <= 100:
+        raise ValueError("pct must be between 0 and 100")
+    log.debug("net_goodwill %s", gross)
+    return gross - round_money(gross * pct / 100, currency)
+
+
+def normalize_goodwill_ref(ref: str) -> str:
+    """A goodwill reference in canonical form: upper case, single dashes."""
+    return "-".join(ref.strip().upper().replace("_", " ").split())
+
+
+def goodwill_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+    """When a goodwill falls due: ``terms_days`` after issue, moved off weekends."""
+    due = issued + datetime.timedelta(days=terms_days)
+    while due.weekday() >= 5:
+        due += datetime.timedelta(days=1)
+    return due
+
+
+class GoodwillRecord:
+    """One goodwill as the batch jobs pass it around."""
+
+    __slots__ = ("ref", "amount", "currency")
+
+    def __init__(self, ref: str, amount: MoneyF, currency: str):
+        self.ref = normalize_goodwill_ref(ref)
+        self.amount = amount
+        self.currency = currency
+
+    def __repr__(self):
+        return f"GoodwillRecord({self.ref!r}, {self.amount!r}, {self.currency!r})"
+########## ledgerly/refunds/partial.py
+"""Refunds: partial.
+
+Support quotes these numbers to customers, so a cent off is a ticket. The nightly batch and the API share these helpers; keep them free of I/O. These functions are pure: same inputs, same outputs, no clock and no database.
+
+Money amounts are floats for now (see MIGRATION.md).
+"""
+import datetime
+import logging
+
+from ledgerly.types import MoneyF, Rate
+from ledgerly.util import round_money
+
+log = logging.getLogger(__name__)
+
+
+def partial_refund_exceeds(amount: MoneyF, limit: MoneyF) -> bool:
+    """Whether the partial refund amount is over ``limit``.
+
+    The nightly batch and the API share these helpers; keep them free of I/O.
+    """
+    log.debug("partial_refund_exceeds %s", amount)
+    return amount > limit
+
+
+def capped_partial_refund(amount: MoneyF, pct: Rate, cap: MoneyF, currency: str) -> MoneyF:
+    """``pct`` percent of the partial refund amount, rounded, but never more than ``cap``.
+
+    These functions are pure: same inputs, same outputs, no clock and no database.
+    """
+    if not 0 <= pct <= 100:
+        raise ValueError("pct must be between 0 and 100")
+    log.debug("capped_partial_refund %s", amount)
+    return min(round_money(amount * pct / 100, currency), cap)
+
+
+def net_partial_refund(gross: MoneyF, pct: Rate, currency: str) -> MoneyF:
+    """The partial refund gross amount less ``pct`` percent of it. Only the deduction is rounded.
+
+    Amounts arrive already validated by the API layer; these functions only check their own preconditions.
+    """
+    if not 0 <= pct <= 100:
+        raise ValueError("pct must be between 0 and 100")
+    log.debug("net_partial_refund %s", gross)
+    return gross - round_money(gross * pct / 100, currency)
+
+
+def percent_of_partial_refund(amount: MoneyF, pct: Rate, currency: str) -> MoneyF:
+    """``pct`` percent of the partial refund amount, rounded to the currency's minor unit.
+
+    The nightly batch and the API share these helpers; keep them free of I/O.
+    """
+    if not 0 <= pct <= 100:
+        raise ValueError("pct must be between 0 and 100")
+    log.debug("percent_of_partial_refund %s", amount)
+    return round_money(amount * pct / 100, currency)
+
+
+def split_partial_refund(amount: MoneyF, parts: int = 2, currency: str = "USD") -> list:
+    """The partial refund amount in ``parts`` equal rounded shares; the last share takes the remainder.
+
+    Amounts arrive already validated by the API layer; these functions only check their own preconditions.
+    """
+    if parts <= 0:
+        raise ValueError("parts must be positive")
+    log.debug("split_partial_refund %s", amount)
+    share = round_money(amount / parts, currency)
+    return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+
+
+def normalize_partial_refund_ref(ref: str) -> str:
+    """A partial refund reference in canonical form: upper case, single dashes."""
+    return "-".join(ref.strip().upper().replace("_", " ").split())
+
+
+def partial_refund_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+    """When a partial refund falls due: ``terms_days`` after issue, moved off weekends."""
+    due = issued + datetime.timedelta(days=terms_days)
+    while due.weekday() >= 5:
+        due += datetime.timedelta(days=1)
+    return due
+
+
+class PartialRefundRecord:
+    """One partial refund as the batch jobs pass it around."""
+
+    __slots__ = ("ref", "amount", "currency")
+
+    def __init__(self, ref: str, amount: MoneyF, currency: str):
+        self.ref = normalize_partial_refund_ref(ref)
+        self.amount = amount
+        self.currency = currency
+
+    def __repr__(self):
+        return f"PartialRefundRecord({self.ref!r}, {self.amount!r}, {self.currency!r})"
+########## ledgerly/refunds/returns.py
+"""Refunds: returns.
+
+When in doubt about a figure, the ledger is the source of truth, not these helpers. Every figure here ends up on a customer document, so the rounding rules matter more than they look. Support quotes these numbers to customers, so a cent off is a ticket.
+
+Money amounts are floats for now (see MIGRATION.md).
+"""
+import datetime
+import logging
+
+from ledgerly.types import MoneyF, Rate
+from ledgerly.util import EXPONENT, round_money
+
+log = logging.getLogger(__name__)
+
+
+def scaled_return(amount: MoneyF, factor: Rate, currency: str) -> MoneyF:
+    """The return amount multiplied by ``factor``, rounded to the currency's minor unit.
+
+    When in doubt about a figure, the ledger is the source of truth, not these helpers.
+    """
+    if factor < 0:
+        raise ValueError("factor must not be negative")
+    log.debug("scaled_return %s", amount)
+    return round_money(amount * factor, currency)
+
+
+def accrued_return(balance: MoneyF, annual_rate: Rate, days: int = 30, currency: str = "USD") -> MoneyF:
+    """Simple return interest on ``balance`` for ``days`` days at ``annual_rate`` percent a year (actual/365), rounded to the minor unit.
+
+    Amounts arrive already validated by the API layer; these functions only check their own preconditions.
+    """
+    if days < 0:
+        raise ValueError("days must not be negative")
+    log.debug("accrued_return %s", balance)
+    return round_money(balance * annual_rate / 100 * days / 365, currency)
+
+
+def format_return(amount: MoneyF, currency: str) -> str:
+    """The return amount as display text, e.g. ``12.30 USD``.
+
+    Several of these were ported from the 2019 billing scripts and keep their original behaviour on purpose.
+    """
+    log.debug("format_return %s", amount)
+    return "%.*f %s" % (EXPONENT[currency], amount, currency)
+
+
+def net_return(gross: MoneyF, pct: Rate, currency: str) -> MoneyF:
+    """The return gross amount less ``pct`` percent of it. Only the deduction is rounded.
+
+    The nightly batch and the API share these helpers; keep them free of I/O.
+    """
+    if not 0 <= pct <= 100:
+        raise ValueError("pct must be between 0 and 100")
+    log.debug("net_return %s", gross)
+    return gross - round_money(gross * pct / 100, currency)
+
+
+def total_return(amounts: list, currency: str) -> MoneyF:
+    """The sum of several return amounts (zero for none), rounded to the minor unit.
+
+    These functions are pure: same inputs, same outputs, no clock and no database.
+    """
+    log.debug("total_return %s", amounts)
+    return round_money(sum(amounts), currency)
+
+
+def normalize_return_ref(ref: str) -> str:
+    """A return reference in canonical form: upper case, single dashes."""
+    return "-".join(ref.strip().upper().replace("_", " ").split())
+
+
+def return_due_date(issued: datetime.date, terms_days: int = 30) -> datetime.date:
+    """When a return falls due: ``terms_days`` after issue, moved off weekends."""
+    due = issued + datetime.timedelta(days=terms_days)
+    while due.weekday() >= 5:
+        due += datetime.timedelta(days=1)
+    return due
+
+
+class ReturnRecord:
+    """One return as the batch jobs pass it around."""
+
+    __slots__ = ("ref", "amount", "currency")
+
+    def __init__(self, ref: str, amount: MoneyF, currency: str):
+        self.ref = normalize_return_ref(ref)
+        self.amount = amount
+        self.currency = currency
+
+    def __repr__(self):
+        return f"ReturnRecord({self.ref!r}, {self.amount!r}, {self.currency!r})"

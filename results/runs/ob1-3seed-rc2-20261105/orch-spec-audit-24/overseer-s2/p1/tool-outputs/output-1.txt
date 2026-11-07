@@ -1,0 +1,844 @@
+##### svc-01/src/handlers.py
+     1	"""HTTP handlers."""
+     2	import json
+     3	import logging
+     4	
+     5	log = logging.getLogger(__name__)
+     6	
+     7	
+     8	
+     9	def handle_create(request):
+    10	    """Create endpoint."""
+    11	    log.info("%s", request.get("path"))
+    12	    return {"status": 200, "body": json.dumps({"ok": True})}
+    13	
+    14	
+    15	def handle_get(request):
+    16	    """Get endpoint."""
+    17	    log.info("%s", request.get("path"))
+    18	    return {"status": 200, "body": json.dumps({"ok": True})}
+    19	
+    20	
+    21	def handle_list(request):
+    22	    """List endpoint."""
+    23	    log.info("%s", request.get("path"))
+    24	    return {"status": 200, "body": json.dumps({"ok": True})}
+    25	
+    26	
+    27	def handle_delete(request):
+    28	    """Delete endpoint."""
+    29	    log.info("%s", request.get("path"))
+    30	    return {"status": 200, "body": json.dumps({"ok": True})}
+##### svc-02/src/handlers.py
+     1	"""HTTP handlers."""
+     2	import json
+     3	import logging
+     4	
+     5	log = logging.getLogger(__name__)
+     6	
+     7	
+     8	
+     9	def handle_create(request):
+    10	    log.info("%s", request.get("path"))
+    11	    return {"status": 200, "body": json.dumps({"ok": True})}
+    12	
+    13	
+    14	def handle_get(request):
+    15	    """Get endpoint."""
+    16	    log.info("%s", request.get("path"))
+    17	    return {"status": 200, "body": json.dumps({"ok": True})}
+    18	
+    19	
+    20	def handle_list(request):
+    21	    """List endpoint."""
+    22	    log.info("%s", request.get("path"))
+    23	    return {"status": 200, "body": json.dumps({"ok": True})}
+    24	
+    25	
+    26	def handle_delete(request):
+    27	    """Delete endpoint."""
+    28	    log.info("%s", request.get("path"))
+    29	    return {"status": 200, "body": json.dumps({"ok": True})}
+    30	
+    31	
+    32	def handle_livez(request):
+    33	    """Livez endpoint."""
+    34	    log.info("%s", request.get("path"))
+    35	    return {"status": 200, "body": json.dumps({"ok": True})}
+    36	
+    37	
+    38	# print(request) was here while debugging; use log instead
+##### svc-03/src/handlers.py
+     1	"""HTTP handlers."""
+     2	import json
+     3	import logging
+     4	
+     5	log = logging.getLogger(__name__)
+     6	
+     7	
+     8	
+     9	def handle_create(request):
+    10	    """Create endpoint."""
+    11	    log.info("%s", request.get("path"))
+    12	    return {"status": 200, "body": json.dumps({"ok": True})}
+    13	
+    14	
+    15	def handle_get(request):
+    16	    """Get endpoint."""
+    17	    log.info("%s", request.get("path"))
+    18	    return {"status": 200, "body": json.dumps({"ok": True})}
+    19	
+    20	
+    21	def handle_list(request):
+    22	    """List endpoint."""
+    23	    log.info("%s", request.get("path"))
+    24	    return {"status": 200, "body": json.dumps({"ok": True})}
+    25	
+    26	
+    27	def handle_delete(request):
+    28	    """Delete endpoint."""
+    29	    log.info("%s", request.get("path"))
+    30	    return {"status": 200, "body": json.dumps({"ok": True})}
+    31	
+    32	
+    33	def handle_ready(request):
+    34	    """Ready endpoint."""
+    35	    log.info("%s", request.get("path"))
+    36	    return {"status": 200, "body": json.dumps({"ok": True})}
+    37	
+    38	
+    39	# print(request) was here while debugging; use log instead
+##### svc-04/src/handlers.py
+     1	"""HTTP handlers."""
+     2	import json
+     3	import logging
+     4	
+     5	log = logging.getLogger(__name__)
+     6	
+     7	
+     8	
+     9	def handle_create(request):
+    10	    """Create endpoint."""
+    11	    log.info("%s", request.get("path"))
+    12	    return {"status": 200, "body": json.dumps({"ok": True})}
+    13	
+    14	
+    15	def handle_get(request):
+    16	    """Get endpoint."""
+    17	    log.info("%s", request.get("path"))
+    18	    return {"status": 200, "body": json.dumps({"ok": True})}
+    19	
+    20	
+    21	def handle_list(request):
+    22	    """List endpoint."""
+    23	    log.info("%s", request.get("path"))
+    24	    return {"status": 200, "body": json.dumps({"ok": True})}
+    25	
+    26	
+    27	def handle_delete(request):
+    28	    """Delete endpoint."""
+    29	    log.info("%s", request.get("path"))
+    30	    return {"status": 200, "body": json.dumps({"ok": True})}
+    31	
+    32	
+    33	def handle_ready(request):
+    34	    """Ready endpoint."""
+    35	    log.info("%s", request.get("path"))
+    36	    return {"status": 200, "body": json.dumps({"ok": True})}
+##### svc-05/src/handlers.py
+     1	"""HTTP handlers."""
+     2	import json
+     3	import logging
+     4	
+     5	log = logging.getLogger(__name__)
+     6	
+     7	
+     8	
+     9	def handle_create(request):
+    10	    """Create endpoint."""
+    11	    log.info("%s", request.get("path"))
+    12	    return {"status": 200, "body": json.dumps({"ok": True})}
+    13	
+    14	
+    15	def handle_get(request):
+    16	    """Get endpoint."""
+    17	    log.info("%s", request.get("path"))
+    18	    return {"status": 200, "body": json.dumps({"ok": True})}
+    19	
+    20	
+    21	def handle_list(request):
+    22	    """List endpoint."""
+    23	    log.info("%s", request.get("path"))
+    24	    return {"status": 200, "body": json.dumps({"ok": True})}
+    25	
+    26	
+    27	def handle_delete(request):
+    28	    """Delete endpoint."""
+    29	    log.info("%s", request.get("path"))
+    30	    return {"status": 200, "body": json.dumps({"ok": True})}
+    31	
+    32	
+    33	def handle_ready(request):
+    34	    """Ready endpoint."""
+    35	    log.info("%s", request.get("path"))
+    36	    return {"status": 200, "body": json.dumps({"ok": True})}
+##### svc-06/src/handlers.py
+     1	"""HTTP handlers."""
+     2	import json
+     3	import logging
+     4	
+     5	log = logging.getLogger(__name__)
+     6	
+     7	
+     8	
+     9	def handle_create(request):
+    10	    """Create endpoint."""
+    11	    log.info("%s", request.get("path"))
+    12	    return {"status": 200, "body": json.dumps({"ok": True})}
+    13	
+    14	
+    15	def handle_get(request):
+    16	    """Get endpoint."""
+    17	    log.info("%s", request.get("path"))
+    18	    return {"status": 200, "body": json.dumps({"ok": True})}
+    19	
+    20	
+    21	def handle_list(request):
+    22	    """List endpoint."""
+    23	    log.info("%s", request.get("path"))
+    24	    return {"status": 200, "body": json.dumps({"ok": True})}
+    25	
+    26	
+    27	def handle_delete(request):
+    28	    """Delete endpoint."""
+    29	    log.info("%s", request.get("path"))
+    30	    return {"status": 200, "body": json.dumps({"ok": True})}
+    31	
+    32	
+    33	def handle_livez(request):
+    34	    """Livez endpoint."""
+    35	    log.info("%s", request.get("path"))
+    36	    return {"status": 200, "body": json.dumps({"ok": True})}
+    37	
+    38	
+    39	# print(request) was here while debugging; use log instead
+##### svc-07/src/handlers.py
+     1	"""HTTP handlers."""
+     2	import json
+     3	import logging
+     4	
+     5	log = logging.getLogger(__name__)
+     6	
+     7	
+     8	
+     9	def handle_create(request):
+    10	    """Create endpoint."""
+    11	    log.info("%s", request.get("path"))
+    12	    return {"status": 200, "body": json.dumps({"ok": True})}
+    13	
+    14	
+    15	def handle_get(request):
+    16	    """Get endpoint."""
+    17	    log.info("%s", request.get("path"))
+    18	    return {"status": 200, "body": json.dumps({"ok": True})}
+    19	
+    20	
+    21	def handle_list(request):
+    22	    """List endpoint."""
+    23	    log.info("%s", request.get("path"))
+    24	    return {"status": 200, "body": json.dumps({"ok": True})}
+    25	
+    26	
+    27	def handle_delete(request):
+    28	    """Delete endpoint."""
+    29	    log.info("%s", request.get("path"))
+    30	    return {"status": 200, "body": json.dumps({"ok": True})}
+    31	
+    32	
+    33	def handle_livez(request):
+    34	    """Livez endpoint."""
+    35	    log.info("%s", request.get("path"))
+    36	    return {"status": 200, "body": json.dumps({"ok": True})}
+##### svc-08/src/handlers.py
+     1	"""HTTP handlers."""
+     2	import json
+     3	import logging
+     4	
+     5	log = logging.getLogger(__name__)
+     6	
+     7	
+     8	
+     9	def handle_create(request):
+    10	    """Create endpoint."""
+    11	    log.info("%s", request.get("path"))
+    12	    return {"status": 200, "body": json.dumps({"ok": True})}
+    13	
+    14	
+    15	def handle_get(request):
+    16	    """Get endpoint."""
+    17	    log.info("%s", request.get("path"))
+    18	    return {"status": 200, "body": json.dumps({"ok": True})}
+    19	
+    20	
+    21	def handle_list(request):
+    22	    log.info("%s", request.get("path"))
+    23	    return {"status": 200, "body": json.dumps({"ok": True})}
+    24	
+    25	
+    26	def handle_delete(request):
+    27	    """Delete endpoint."""
+    28	    log.info("%s", request.get("path"))
+    29	    return {"status": 200, "body": json.dumps({"ok": True})}
+    30	
+    31	
+    32	def handle_healthz(request):
+    33	    """Healthz endpoint."""
+    34	    log.info("%s", request.get("path"))
+    35	    return {"status": 200, "body": json.dumps({"ok": True})}
+##### svc-09/src/handlers.py
+     1	"""HTTP handlers."""
+     2	import json
+     3	import logging
+     4	
+     5	log = logging.getLogger(__name__)
+     6	
+     7	
+     8	
+     9	def handle_create(request):
+    10	    """Create endpoint."""
+    11	    log.info("%s", request.get("path"))
+    12	    return {"status": 200, "body": json.dumps({"ok": True})}
+    13	
+    14	
+    15	def handle_get(request):
+    16	    """Get endpoint."""
+    17	    log.info("%s", request.get("path"))
+    18	    return {"status": 200, "body": json.dumps({"ok": True})}
+    19	
+    20	
+    21	def handle_list(request):
+    22	    """List endpoint."""
+    23	    log.info("%s", request.get("path"))
+    24	    return {"status": 200, "body": json.dumps({"ok": True})}
+    25	
+    26	
+    27	def handle_delete(request):
+    28	    """Delete endpoint."""
+    29	    log.info("%s", request.get("path"))
+    30	    return {"status": 200, "body": json.dumps({"ok": True})}
+##### svc-10/src/handlers.py
+     1	"""HTTP handlers."""
+     2	import json
+     3	import logging
+     4	
+     5	log = logging.getLogger(__name__)
+     6	
+     7	
+     8	
+     9	def handle_create(request):
+    10	    """Create endpoint."""
+    11	    log.info("%s", request.get("path"))
+    12	    return {"status": 200, "body": json.dumps({"ok": True})}
+    13	
+    14	
+    15	def handle_get(request):
+    16	    """Get endpoint."""
+    17	    log.info("%s", request.get("path"))
+    18	    return {"status": 200, "body": json.dumps({"ok": True})}
+    19	
+    20	
+    21	def handle_list(request):
+    22	    """List endpoint."""
+    23	    log.info("%s", request.get("path"))
+    24	    return {"status": 200, "body": json.dumps({"ok": True})}
+    25	
+    26	
+    27	def handle_delete(request):
+    28	    """Delete endpoint."""
+    29	    log.info("%s", request.get("path"))
+    30	    return {"status": 200, "body": json.dumps({"ok": True})}
+    31	
+    32	
+    33	def handle_ready(request):
+    34	    """Ready endpoint."""
+    35	    log.info("%s", request.get("path"))
+    36	    return {"status": 200, "body": json.dumps({"ok": True})}
+    37	
+    38	
+    39	# print(request) was here while debugging; use log instead
+    40	
+    41	
+    42	HELP = "never print( a request body; it may hold personal data"
+##### svc-11/src/handlers.py
+     1	version https://git-lfs.github.com/spec/v1
+     2	oid sha256:[redacted:high-entropy]
+     3	size 6634
+##### svc-12/src/handlers.py
+     1	"""HTTP handlers."""
+     2	import json
+     3	import logging
+     4	
+     5	log = logging.getLogger(__name__)
+     6	
+     7	
+     8	
+     9	def handle_create(request):
+    10	    """Create endpoint."""
+    11	    log.info("%s", request.get("path"))
+    12	    return {"status": 200, "body": json.dumps({"ok": True})}
+    13	
+    14	
+    15	def handle_get(request):
+    16	    """Get endpoint."""
+    17	    log.info("%s", request.get("path"))
+    18	    return {"status": 200, "body": json.dumps({"ok": True})}
+    19	
+    20	
+    21	def handle_list(request):
+    22	    """List endpoint."""
+    23	    log.info("%s", request.get("path"))
+    24	    return {"status": 200, "body": json.dumps({"ok": True})}
+    25	
+    26	
+    27	def handle_delete(request):
+    28	    """Delete endpoint."""
+    29	    log.info("%s", request.get("path"))
+    30	    return {"status": 200, "body": json.dumps({"ok": True})}
+    31	
+    32	
+    33	def handle_ready(request):
+    34	    """Ready endpoint."""
+    35	    log.info("%s", request.get("path"))
+    36	    return {"status": 200, "body": json.dumps({"ok": True})}
+    37	
+    38	
+    39	# print(request) was here while debugging; use log instead
+##### svc-13/src/handlers.py
+     1	"""HTTP handlers."""
+     2	import json
+     3	import logging
+     4	
+     5	log = logging.getLogger(__name__)
+     6	
+     7	
+     8	
+     9	def handle_create(request):
+    10	    """Create endpoint."""
+    11	    log.info("%s", request.get("path"))
+    12	    return {"status": 200, "body": json.dumps({"ok": True})}
+    13	
+    14	
+    15	def handle_get(request):
+    16	    """Get endpoint."""
+    17	    log.info("%s", request.get("path"))
+    18	    return {"status": 200, "body": json.dumps({"ok": True})}
+    19	
+    20	
+    21	def handle_list(request):
+    22	    """List endpoint."""
+    23	    log.info("%s", request.get("path"))
+    24	    return {"status": 200, "body": json.dumps({"ok": True})}
+    25	
+    26	
+    27	def handle_delete(request):
+    28	    """Delete endpoint."""
+    29	    log.info("%s", request.get("path"))
+    30	    return {"status": 200, "body": json.dumps({"ok": True})}
+    31	
+    32	
+    33	def handle_livez(request):
+    34	    """Livez endpoint."""
+    35	    log.info("%s", request.get("path"))
+    36	    return {"status": 200, "body": json.dumps({"ok": True})}
+##### svc-14/src/handlers.py
+     1	"""HTTP handlers."""
+     2	import json
+     3	import logging
+     4	
+     5	log = logging.getLogger(__name__)
+     6	
+     7	
+     8	
+     9	def handle_create(request):
+    10	    """Create endpoint."""
+    11	    log.info("%s", request.get("path"))
+    12	    return {"status": 200, "body": json.dumps({"ok": True})}
+    13	
+    14	
+    15	def handle_get(request):
+    16	    """Get endpoint."""
+    17	    log.info("%s", request.get("path"))
+    18	    return {"status": 200, "body": json.dumps({"ok": True})}
+    19	
+    20	
+    21	def handle_list(request):
+    22	    """List endpoint."""
+    23	    log.info("%s", request.get("path"))
+    24	    return {"status": 200, "body": json.dumps({"ok": True})}
+    25	
+    26	
+    27	def handle_delete(request):
+    28	    """Delete endpoint."""
+    29	    log.info("%s", request.get("path"))
+    30	    return {"status": 200, "body": json.dumps({"ok": True})}
+    31	
+    32	
+    33	def handle_healthz(request):
+    34	    """Healthz endpoint."""
+    35	    log.info("%s", request.get("path"))
+    36	    return {"status": 200, "body": json.dumps({"ok": True})}
+    37	
+    38	
+    39	HELP = "never print( a request body; it may hold personal data"
+##### svc-15/src/handlers.py
+     1	"""HTTP handlers."""
+     2	import json
+     3	import logging
+     4	
+     5	log = logging.getLogger(__name__)
+     6	
+     7	
+     8	
+     9	def handle_create(request):
+    10	    """Create endpoint."""
+    11	    log.info("%s", request.get("path"))
+    12	    return {"status": 200, "body": json.dumps({"ok": True})}
+    13	
+    14	
+    15	def handle_get(request):
+    16	    """Get endpoint."""
+    17	    log.info("%s", request.get("path"))
+    18	    return {"status": 200, "body": json.dumps({"ok": True})}
+    19	
+    20	
+    21	def handle_list(request):
+    22	    """List endpoint."""
+    23	    log.info("%s", request.get("path"))
+    24	    return {"status": 200, "body": json.dumps({"ok": True})}
+    25	
+    26	
+    27	def handle_delete(request):
+    28	    log.info("%s", request.get("path"))
+    29	    return {"status": 200, "body": json.dumps({"ok": True})}
+    30	
+    31	
+    32	def handle_ready(request):
+    33	    """Ready endpoint."""
+    34	    log.info("%s", request.get("path"))
+    35	    return {"status": 200, "body": json.dumps({"ok": True})}
+    36	
+    37	
+    38	HELP = "never print( a request body; it may hold personal data"
+##### svc-16/src/handlers.py
+     1	"""HTTP handlers."""
+     2	import json
+     3	import logging
+     4	
+     5	log = logging.getLogger(__name__)
+     6	
+     7	
+     8	
+     9	def handle_create(request):
+    10	    """Create endpoint."""
+    11	    log.info("%s", request.get("path"))
+    12	    return {"status": 200, "body": json.dumps({"ok": True})}
+    13	
+    14	
+    15	def handle_get(request):
+    16	    """Get endpoint."""
+    17	    log.info("%s", request.get("path"))
+    18	    return {"status": 200, "body": json.dumps({"ok": True})}
+    19	
+    20	
+    21	def handle_list(request):
+    22	    """List endpoint."""
+    23	    log.info("%s", request.get("path"))
+    24	    return {"status": 200, "body": json.dumps({"ok": True})}
+    25	
+    26	
+    27	def handle_delete(request):
+    28	    """Delete endpoint."""
+    29	    log.info("%s", request.get("path"))
+    30	    return {"status": 200, "body": json.dumps({"ok": True})}
+    31	
+    32	
+    33	# print(request) was here while debugging; use log instead
+##### svc-17/src/handlers.py
+     1	"""HTTP handlers."""
+     2	import json
+     3	import logging
+     4	
+     5	log = logging.getLogger(__name__)
+     6	
+     7	
+     8	
+     9	def handle_create(request):
+    10	    """Create endpoint."""
+    11	    log.info("%s", request.get("path"))
+    12	    return {"status": 200, "body": json.dumps({"ok": True})}
+    13	
+    14	
+    15	def handle_get(request):
+    16	    """Get endpoint."""
+    17	    log.info("%s", request.get("path"))
+    18	    return {"status": 200, "body": json.dumps({"ok": True})}
+    19	
+    20	
+    21	def handle_list(request):
+    22	    """List endpoint."""
+    23	    log.info("%s", request.get("path"))
+    24	    return {"status": 200, "body": json.dumps({"ok": True})}
+    25	
+    26	
+    27	def handle_delete(request):
+    28	    """Delete endpoint."""
+    29	    log.info("%s", request.get("path"))
+    30	    return {"status": 200, "body": json.dumps({"ok": True})}
+    31	
+    32	
+    33	def handle_healthz(request):
+    34	    """Healthz endpoint."""
+    35	    log.info("%s", request.get("path"))
+    36	    return {"status": 200, "body": json.dumps({"ok": True})}
+    37	
+    38	
+    39	# print(request) was here while debugging; use log instead
+    40	
+    41	
+    42	HELP = "never print( a request body; it may hold personal data"
+##### svc-18/src/handlers.py
+     1	"""HTTP handlers."""
+     2	import json
+     3	import logging
+     4	
+     5	log = logging.getLogger(__name__)
+     6	
+     7	
+     8	
+     9	def handle_create(request):
+    10	    """Create endpoint."""
+    11	    log.info("%s", request.get("path"))
+    12	    return {"status": 200, "body": json.dumps({"ok": True})}
+    13	
+    14	
+    15	def handle_get(request):
+    16	    """Get endpoint."""
+    17	    log.info("%s", request.get("path"))
+    18	    return {"status": 200, "body": json.dumps({"ok": True})}
+    19	
+    20	
+    21	def handle_list(request):
+    22	    """List endpoint."""
+    23	    log.info("%s", request.get("path"))
+    24	    return {"status": 200, "body": json.dumps({"ok": True})}
+    25	
+    26	
+    27	def handle_delete(request):
+    28	    """Delete endpoint."""
+    29	    log.info("%s", request.get("path"))
+    30	    return {"status": 200, "body": json.dumps({"ok": True})}
+    31	
+    32	
+    33	def handle_healthz(request):
+    34	    """Healthz endpoint."""
+    35	    log.info("%s", request.get("path"))
+    36	    return {"status": 200, "body": json.dumps({"ok": True})}
+    37	
+    38	
+    39	# print(request) was here while debugging; use log instead
+##### svc-19/src/handlers.py
+     1	version https://git-lfs.github.com/spec/v1
+     2	oid sha256:[redacted:high-entropy]
+     3	size 4075
+##### svc-20/src/handlers.py
+     1	"""HTTP handlers."""
+     2	import json
+     3	import logging
+     4	
+     5	log = logging.getLogger(__name__)
+     6	
+     7	
+     8	
+     9	def handle_create(request):
+    10	    """Create endpoint."""
+    11	    log.info("%s", request.get("path"))
+    12	    return {"status": 200, "body": json.dumps({"ok": True})}
+    13	
+    14	
+    15	def handle_get(request):
+    16	    """Get endpoint."""
+    17	    log.info("%s", request.get("path"))
+    18	    return {"status": 200, "body": json.dumps({"ok": True})}
+    19	
+    20	
+    21	def handle_list(request):
+    22	    """List endpoint."""
+    23	    log.info("%s", request.get("path"))
+    24	    return {"status": 200, "body": json.dumps({"ok": True})}
+    25	
+    26	
+    27	def handle_delete(request):
+    28	    """Delete endpoint."""
+    29	    log.info("%s", request.get("path"))
+    30	    return {"status": 200, "body": json.dumps({"ok": True})}
+    31	
+    32	
+    33	def handle_ready(request):
+    34	    """Ready endpoint."""
+    35	    log.info("%s", request.get("path"))
+    36	    return {"status": 200, "body": json.dumps({"ok": True})}
+##### svc-21/src/handlers.py
+     1	"""HTTP handlers."""
+     2	import json
+     3	import logging
+     4	
+     5	log = logging.getLogger(__name__)
+     6	
+     7	
+     8	
+     9	def handle_create(request):
+    10	    """Create endpoint."""
+    11	    log.info("%s", request.get("path"))
+    12	    return {"status": 200, "body": json.dumps({"ok": True})}
+    13	
+    14	
+    15	def handle_get(request):
+    16	    """Get endpoint."""
+    17	    log.info("%s", request.get("path"))
+    18	    return {"status": 200, "body": json.dumps({"ok": True})}
+    19	
+    20	
+    21	def handle_list(request):
+    22	    """List endpoint."""
+    23	    log.info("%s", request.get("path"))
+    24	    return {"status": 200, "body": json.dumps({"ok": True})}
+    25	
+    26	
+    27	def handle_delete(request):
+    28	    """Delete endpoint."""
+    29	    log.info("%s", request.get("path"))
+    30	    return {"status": 200, "body": json.dumps({"ok": True})}
+    31	
+    32	
+    33	def handle_healthz(request):
+    34	    """Healthz endpoint."""
+    35	    log.info("%s", request.get("path"))
+    36	    return {"status": 200, "body": json.dumps({"ok": True})}
+    37	
+    38	
+    39	# print(request) was here while debugging; use log instead
+##### svc-22/src/handlers.py
+     1	"""HTTP handlers."""
+     2	import json
+     3	import logging
+     4	
+     5	log = logging.getLogger(__name__)
+     6	
+     7	
+     8	
+     9	def handle_create(request):
+    10	    """Create endpoint."""
+    11	    log.info("%s", request.get("path"))
+    12	    return {"status": 200, "body": json.dumps({"ok": True})}
+    13	
+    14	
+    15	def handle_get(request):
+    16	    """Get endpoint."""
+    17	    log.info("%s", request.get("path"))
+    18	    return {"status": 200, "body": json.dumps({"ok": True})}
+    19	
+    20	
+    21	def handle_list(request):
+    22	    """List endpoint."""
+    23	    log.info("%s", request.get("path"))
+    24	    return {"status": 200, "body": json.dumps({"ok": True})}
+    25	
+    26	
+    27	def handle_delete(request):
+    28	    """Delete endpoint."""
+    29	    log.info("%s", request.get("path"))
+    30	    return {"status": 200, "body": json.dumps({"ok": True})}
+    31	
+    32	
+    33	def handle_health_check(request):
+    34	    """Health_check endpoint."""
+    35	    log.info("%s", request.get("path"))
+    36	    return {"status": 200, "body": json.dumps({"ok": True})}
+##### svc-23/src/handlers.py
+     1	"""HTTP handlers."""
+     2	import json
+     3	import logging
+     4	
+     5	log = logging.getLogger(__name__)
+     6	
+     7	
+     8	
+     9	def handle_create(request):
+    10	    """Create endpoint."""
+    11	    log.info("%s", request.get("path"))
+    12	    return {"status": 200, "body": json.dumps({"ok": True})}
+    13	
+    14	
+    15	def handle_get(request):
+    16	    """Get endpoint."""
+    17	    log.info("%s", request.get("path"))
+    18	    return {"status": 200, "body": json.dumps({"ok": True})}
+    19	
+    20	
+    21	def handle_list(request):
+    22	    """List endpoint."""
+    23	    log.info("%s", request.get("path"))
+    24	    return {"status": 200, "body": json.dumps({"ok": True})}
+    25	
+    26	
+    27	def handle_delete(request):
+    28	    """Delete endpoint."""
+    29	    log.info("%s", request.get("path"))
+    30	    return {"status": 200, "body": json.dumps({"ok": True})}
+    31	
+    32	
+    33	def handle_livez(request):
+    34	    """Livez endpoint."""
+    35	    log.info("%s", request.get("path"))
+    36	    return {"status": 200, "body": json.dumps({"ok": True})}
+##### svc-24/src/handlers.py
+     1	"""HTTP handlers."""
+     2	import json
+     3	import logging
+     4	
+     5	log = logging.getLogger(__name__)
+     6	
+     7	
+     8	
+     9	def handle_create(request):
+    10	    """Create endpoint."""
+    11	    log.info("%s", request.get("path"))
+    12	    return {"status": 200, "body": json.dumps({"ok": True})}
+    13	
+    14	
+    15	def handle_get(request):
+    16	    """Get endpoint."""
+    17	    log.info("%s", request.get("path"))
+    18	    return {"status": 200, "body": json.dumps({"ok": True})}
+    19	
+    20	
+    21	def handle_list(request):
+    22	    """List endpoint."""
+    23	    log.info("%s", request.get("path"))
+    24	    return {"status": 200, "body": json.dumps({"ok": True})}
+    25	
+    26	
+    27	def handle_delete(request):
+    28	    """Delete endpoint."""
+    29	    log.info("%s", request.get("path"))
+    30	    return {"status": 200, "body": json.dumps({"ok": True})}
+    31	
+    32	
+    33	def handle_livez(request):
+    34	    """Livez endpoint."""
+    35	    log.info("%s", request.get("path"))
+    36	    return {"status": 200, "body": json.dumps({"ok": True})}
+    37	
+    38	
+    39	HELP = "never print( a request body; it may hold personal data"
+[exit code: 0]

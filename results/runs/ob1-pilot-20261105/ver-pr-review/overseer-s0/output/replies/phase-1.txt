@@ -1,0 +1,7 @@
+Checklist:
+- Every finding names a file and line, and how it fails — done: all nine lines in REVIEW.md begin `path:line: severity:` and each states the mechanism and consequence (for example the window that never rolls over, the `Retry-After` of about 1.79e9, the off-by-one allowing `limit + 1`).
+- The reply says what was not looked at — done: it states that nothing was executed, because bash fails with a sandbox_apply error, so no git commands and no test run; the branch tree was reconstructed from the loose git object set and two identical fixture checkouts, and the findings are from reading code only.
+
+Nothing further was verified beyond reading those sources, so the runtime claims about `Retry-After` and the race are reasoned, not observed.
+
+END OF REPORT

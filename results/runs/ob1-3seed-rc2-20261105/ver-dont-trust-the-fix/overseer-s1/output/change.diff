@@ -1,0 +1,12 @@
+diff --git a/VERDICT.md b/VERDICT.md
+new file mode 100644
+index 0000000..c513244
+--- /dev/null
++++ b/VERDICT.md
+@@ -0,0 +1,6 @@
++verdict: don't merge
++issue_repro: fail
++branch_tests: pass
++test_checks_the_fix: no
++
++Why: the branch joins quoted lines, so the repro now yields 3 rows instead of 4, but the issue's expected value is not produced. The note field comes out as `call back\r\nafter 5pm"\r` instead of `call back\r\nafter 5pm`; the trailing quote survives because `strip('"')` cannot remove a quote followed by `\r`, and no field has its `\r` trimmed (`note\r`, `no notes"\r`). Python's own csv module returns the expected value. The new test uses LF-only input, so it misses exactly the CRLF case in the issue, and it passes on the branch while the repro still fails. Its second assertion even locks in wrong behavior: `rows('1,"x, y",z\n')` should give `[["1", "x, y", "z"]]`, not four merged fields. Counting quotes per line is also fragile with doubled quotes.

@@ -1,0 +1,1 @@
+Write the exact product of 48271 and 69621 to a file named answer.txt in the current directory: digits only, followed by a single newline. Create no other files.

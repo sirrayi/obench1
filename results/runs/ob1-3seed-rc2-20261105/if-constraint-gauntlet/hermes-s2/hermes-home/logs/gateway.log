@@ -1,0 +1,17 @@
+2026-11-05 19:04:49,347 INFO gateway.control_socket: Gateway control socket listening at /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/f69556136c99/hermes-home/gateway.sock
+2026-11-05 19:04:49,532 INFO gateway.run: Starting Hermes Gateway...
+2026-11-05 19:04:49,533 INFO gateway.run: Session storage: /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/f69556136c99/hermes-home/sessions
+2026-11-05 19:04:49,534 INFO gateway.run: Agent budget: max_iterations=unlimited (agent.max_turns from config.yaml, else the HERMES_MAX_ITERATIONS bridge)
+2026-11-05 19:04:49,534 INFO gateway.run: Secret redaction: ENABLED (tool output, logs, and chat responses are scrubbed before delivery)
+2026-11-05 19:04:49,557 WARNING gateway.run: No messaging platforms enabled.
+2026-11-05 19:04:49,557 INFO gateway.run: Gateway will continue running for cron job execution.
+2026-11-05 19:04:49,603 INFO gateway.run: Channel directory built: 0 target(s)
+2026-11-05 19:04:49,937 INFO gateway.run: Model context warmed:  -> 256000 tokens (default)
+2026-11-05 19:04:49,938 INFO gateway.run: Turn machinery warmed in 0.4s (20 tool schema(s) materialized)
+2026-11-05 19:04:49,948 INFO gateway.run: Press Ctrl+C to stop
+2026-11-05 19:04:49,951 INFO gateway.run: kanban dispatcher: holding singleton dispatcher lock (/private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/f69556136c99/hermes-home/kanban/.dispatcher.lock)
+2026-11-05 19:04:49,953 INFO gateway.run: Cron scheduler will tick 1 profile(s): ['default']
+2026-11-05 19:04:49,955 INFO gateway.run: Auto-started gateway: exits after 600s with no clients, adapters, cron/kanban work or admissions (gateway.unmanaged_idle_exit_seconds)
+2026-11-05 19:04:49,956 INFO gateway.run: Gateway housekeeping started (interval=60s)
+2026-11-05 19:04:51,171 INFO gateway.run: inbound message: platform=local user=uid:502 chat=local-70b37f2c0cc7a0a3aaa568e868bf82d4c070c46cf81d7102aa61604e8b69e009 msg='Write RELEASE_NOTES.md for release 4.2.0 from commits.jsonl (one JSON object per' reply_to_id=None reply_to_text=''
+2026-11-05 19:04:54,954 INFO gateway.run: kanban dispatcher: embedded in gateway (interval=60.0s)

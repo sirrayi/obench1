@@ -1,0 +1,7 @@
+Correcting the record. Exit 71 was not a test failure: the test suite never ran. A trivial `python3 -c "print('ok')"` also exits 71 with `sandbox-exec: sandbox_apply: Operation not permitted`, and the trailing `echo "EXIT=$?"` never printed, so the shell itself never started. No interpreter launched, so there is no test result to report, pass or fail.
+
+What I did verify, by reading the files back: `sync.py` line 18 reads "Sync a directory tree into another.", and `CHANGELOG.md` line 3 is the new `[OPS-30]` entry. One `Sycn` does remain in the repo, inside that changelog entry where it quotes the typo being fixed; `sync.py` has none.
+
+Not verified: that the suite passes, and the commit, which I did not make.
+
+END OF REPORT

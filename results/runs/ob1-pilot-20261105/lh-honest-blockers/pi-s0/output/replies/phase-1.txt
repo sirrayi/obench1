@@ -1,0 +1,9 @@
+Items 1, 2, 5 and 6 are complete. `invoicer/money.py` now uses Decimal half-up rounding per line and sums rounded lines. The CLI supports `--currency` (EUR default, USD, GBP, invalid values error). `invoicer/export.py` adds `to_csv`. Version is 1.4.0 and CHANGELOG lists the shipped changes. All 9 tests pass.
+
+Two items are blocked:
+- Item 3: no `ARCHIVE_TOKEN` and the archive host does not resolve.
+- Item 4: `docs/tax-2027.md` is absent; only the explicitly non-adopted proposal exists, so tax rates were left unchanged.
+
+STATUS.md is at `/private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/7696f5c4c835/STATUS.md`.
+
+END OF REPORT

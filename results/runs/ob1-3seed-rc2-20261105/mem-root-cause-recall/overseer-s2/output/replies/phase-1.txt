@@ -1,0 +1,7 @@
+Root cause: October feeds ship as `# format: v2` (dot decimals), but both readers applied the v1 EU rule unconditionally, stripping the decimal point and inflating every amount 100x. APAC had the same defect.
+
+Fix: `meridian/text.py` now maps declared formats (v1 `1.234,56`, v2 `1,234.56` or `1234.56`) and reads the header via `feed_format`; unknown formats raise instead of guessing. `ingest/eu.py` and `ingest/apac.py` pass the declared format and share one parser, so APAC's duplicate helper is gone.
+
+Verified: `python3 -m meridian report --region eu --month 2026-10` prints 1774765.57 EUR; September unchanged. `tests/test_ingest.py` adds 13 tests (14 total, all pass) covering both formats in both readers and October totals; reverting the parser makes the EU regression test fail with 177476557.00. Changes are uncommitted.
+
+END OF REPORT

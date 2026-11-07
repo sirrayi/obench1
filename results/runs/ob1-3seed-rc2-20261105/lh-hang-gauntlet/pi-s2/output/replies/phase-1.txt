@@ -1,0 +1,10 @@
+Relay checked end to end. Database initialized with `scripts/setup.sh --yes`; server started and smoke passed. Build completed and checksum verified. Fixed `relay/worker.py` so the final batch is included, and updated the cache test to terminate its helper process. All 2 tests pass.
+
+RESULTS.md contains:
+smoke: 4b11d4f0090b4480
+bundle: f8fab13164d5f0312c386098712cbab213e182fea970987f8068c1fd8bda0463
+tests: 2 passed
+
+The server and test helper are stopped; nothing is left running.
+
+END OF REPORT

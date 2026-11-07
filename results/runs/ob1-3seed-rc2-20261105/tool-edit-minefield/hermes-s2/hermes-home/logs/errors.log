@@ -1,0 +1,20 @@
+2026-11-06 00:40:31,167 WARNING gateway.run: Another Hermes home's gateway owns this host (PID 83762 (no bound port; profiles: default)); starting this home's gateway beside it.
+2026-11-06 00:40:31,452 WARNING hermes.security_audit: Security posture audit found 1 issue(s) — review your deployment:
+2026-11-06 00:40:31,453 WARNING hermes.security_audit:   [security 1/1] SSH password authentication is ENABLED (default — no explicit directive). Password auth is brute-forceable and dangerous on an internet-facing box. Set 'PasswordAuthentication no' in sshd_config and use key-based auth.
+2026-11-06 00:40:31,835 WARNING gateway.run: No messaging platforms enabled.
+2026-11-06 00:40:32,056 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
+2026-11-06 00:40:32,056 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-06 00:40:32,057 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-06 00:40:32,066 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-06 00:40:32,067 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-06 00:40:32,777 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-06 00:40:32,777 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-06 00:40:32,786 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-06 00:40:32,787 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-06 00:40:33,413 WARNING hermes_cli.source_releases: Could not resolve the stable source release: <urlopen error [Errno 1] Operation not permitted>
+2026-11-06 00:40:41,009 WARNING [local-735a77018863fd1475acb969ac20d4b2cd203f5429b50948a06930f1631f6067] agent.message_sanitization: Normalized provider-minted parallel tool-call ids for replay compatibility
+2026-11-06 00:40:41,495 WARNING [local-735a77018863fd1475acb969ac20d4b2cd203f5429b50948a06930f1631f6067] agent.tool_executor: Tool read_file returned error (0.23s): {"content": "", "total_lines": 0, "file_size": 237, "truncated": false, "is_binary": true, "is_image": false, "error": "Binary file (unknown binary, 237 bytes) — cannot display as text.", "not_found":
+2026-11-06 00:40:49,163 WARNING [local-735a77018863fd1475acb969ac20d4b2cd203f5429b50948a06930f1631f6067] agent.message_sanitization: Normalized provider-minted parallel tool-call ids for replay compatibility
+2026-11-06 00:41:05,621 WARNING [local-735a77018863fd1475acb969ac20d4b2cd203f5429b50948a06930f1631f6067] agent.tool_executor: Tool terminal returned error (0.26s): {"output": "Traceback (most recent call last):\n  File \"<stdin>\", line 21, in <module>\nAssertionError", "exit_code": 1, "error": null}
+2026-11-06 00:41:23,162 WARNING [local-735a77018863fd1475acb969ac20d4b2cd203f5429b50948a06930f1631f6067] agent.message_sanitization: Normalized provider-minted parallel tool-call ids for replay compatibility
+2026-11-06 00:41:23,300 WARNING [local-735a77018863fd1475acb969ac20d4b2cd203f5429b50948a06930f1631f6067] agent.tool_executor: Tool terminal returned error (0.13s): {"output": "Makefile                 | 3 +++\n config/app.ini           | 2 +-\n data/catalog.min.json    | 2 +-\n notes/README.txt         | 3 ++-\n src/handlers.py          | 2 +-\n src/legacy.py   

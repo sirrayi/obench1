@@ -1,0 +1,7 @@
+Fixed all 18 tickets (TCK-1 through TCK-18) across the seven service modules, changing only the target function lines. Every changed function carries its TCK marker; TCK-12 covers both the v1 and v2 twins, which remain identical.
+
+Added 18 CHANGELOG entries under Unreleased in numeric order, one regression test per ticket in a single TestTickets class, and bumped the version to 2.8.1 in fleetd/__init__.py and pyproject.toml as TCK-18 requires.
+
+Verification: python3 -m unittest discover -s tests -t . passes, 24 tests OK. All ticket behaviours were asserted directly. No new ticket files arrived, and the working tree contains only these changes.
+
+END OF REPORT

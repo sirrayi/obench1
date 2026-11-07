@@ -1,0 +1,48 @@
+{
+  "estimated_cost_usd": null,
+  "cost_status": null,
+  "cost_source": null,
+  "input_tokens": 13901,
+  "output_tokens": 129,
+  "cache_read_tokens": null,
+  "cache_write_tokens": null,
+  "reasoning_tokens": null,
+  "total_tokens": null,
+  "api_calls": 2,
+  "model": "deepseek-v4.1-flash",
+  "provider": "opencode-go",
+  "session_id": "local-fcb7b4db5f1f5fa031021257cd22ad9c4b3d793a1b38328f90450e18e337c733",
+  "completed": false,
+  "partial": false,
+  "interrupted": false,
+  "turn_exit_reason": null,
+  "failed": true,
+  "service_tier": null,
+  "auxiliary": {
+    "api_calls": 1,
+    "input_tokens": 19,
+    "output_tokens": 720,
+    "cache_read_tokens": 384,
+    "cache_write_tokens": 0,
+    "reasoning_tokens": 705,
+    "estimated_cost_usd": 0,
+    "total_tokens": 739,
+    "by_task": {
+      "title_generation": {
+        "api_calls": 1,
+        "cache_read_tokens": 384,
+        "cache_write_tokens": 0,
+        "estimated_cost_usd": 0,
+        "input_tokens": 19,
+        "output_tokens": 720,
+        "reasoning_tokens": 705
+      }
+    }
+  },
+  "total_including_auxiliary": {
+    "estimated_cost_usd": null,
+    "total_tokens": 739,
+    "api_calls": 3
+  },
+  "failure": "HTTP 429: Upstream request failed: [overloaded] the server is overloaded; retry shortly"
+}

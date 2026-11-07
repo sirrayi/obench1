@@ -1,0 +1,7 @@
+All seven edits are in, and only those seven files changed.
+
+`config/app.ini` has `timeout = 45` under `[server]`; the client and cache timeouts stay 30. `Makefile` gained a tab-indented `lint` target running `python3 -m pyflakes src`, placed directly after `test`. `src/legacy.py` now defines `calculate`, with both call sites in `recalc` and `report` updated; the latin-1 header bytes and the `recalc` name are untouched. `src/handlers.py` raises `PermissionError("no user")` in `delete_account` only; the other three handlers still return None. `data/catalog.min.json` changed by exactly two bytes, K-7731 going from 19.99 to 17.49, and still parses to 16000 items. `notes/README.txt` ends with the new line and still has no trailing newline. `DEBUG = False` in `src/weird name (copy).py`, with `DEBUG_SQL` left on.
+
+Verified via git diff, byte comparisons against HEAD, Python import and behavior checks, and `make -n lint`. Temporary bytecode caches were removed, leaving no untracked files.
+
+END OF REPORT

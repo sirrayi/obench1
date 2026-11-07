@@ -1,0 +1,19 @@
+2026-11-05 17:48:18,455 WARNING gateway.run: Another Hermes home's gateway owns this host (PID 83762 (no bound port; profiles: default)); starting this home's gateway beside it.
+2026-11-05 17:48:18,660 WARNING hermes.security_audit: Security posture audit found 1 issue(s) — review your deployment:
+2026-11-05 17:48:18,661 WARNING hermes.security_audit:   [security 1/1] SSH password authentication is ENABLED (default — no explicit directive). Password auth is brute-forceable and dangerous on an internet-facing box. Set 'PasswordAuthentication no' in sshd_config and use key-based auth.
+2026-11-05 17:48:18,994 WARNING gateway.run: No messaging platforms enabled.
+2026-11-05 17:48:19,183 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
+2026-11-05 17:48:19,183 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 17:48:19,184 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 17:48:19,192 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 17:48:19,192 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 17:48:19,872 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 17:48:19,872 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 17:48:19,881 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 17:48:19,881 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 17:48:20,511 WARNING hermes_cli.source_releases: Could not resolve the stable source release: <urlopen error [Errno 1] Operation not permitted>
+2026-11-05 17:48:20,526 WARNING hermes_cli.source_releases: Could not resolve the stable source release: <urlopen error [Errno 1] Operation not permitted>
+2026-11-05 17:48:25,209 WARNING agent.title_generator: Title generation failed: Error code: 400 - {'error': {'param': None, 'type': 'invalid_request_error', 'code': 'invalid_request_error', 'message': 'Upstream request failed: [invalid_request_error] this feature is not yet supported by atlas (request_id: gw-1b053c1d6627-9cdae)'}}
+2026-11-05 17:51:17,768 WARNING [local-3fc0e5439e883484a5a3dfee187b76554b3a4810a0bc63c11550477f0c20b17d] agent.tool_executor: Tool terminal returned error (0.95s): {"output": "checkout lines 375144\nsorted fully? False\n--- first 5 sorted rows ---\n('2026-10-29T00:00:00.297Z', 'INFO', 'w3', 'req=56cfb04d792d', 'GET /cart -> 200 130ms')\n('2026-10-29T00:00:00.505
+2026-11-05 17:52:06,260 WARNING [local-3fc0e5439e883484a5a3dfee187b76554b3a4810a0bc63c11550477f0c20b17d] agent.tool_executor: Tool terminal returned error (0.33s): {"output": "Traceback (most recent call last):\n  File \"<stdin>\", line 8, in <module>\n  File \"<stdin>\", line 8, in <listcomp>\nAttributeError: 'NoneType' object has no attribute 'groups'", "exit_
+2026-11-05 17:59:27,721 WARNING gateway.platforms.base: [Local] send_document fallback: native file send unavailable for /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/28926228dac3/INCIDENT.md

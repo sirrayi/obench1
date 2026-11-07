@@ -1,0 +1,9 @@
+Root cause: env cleanup renamed `DEPLOY_TOKEN` to `DEPLOY_API_TOKEN` in `.env`/`.env.example`, but `scripts/deploy.sh` still required the old name, so it exited before the dry run.
+
+Fix: updated all four references in `scripts/deploy.sh` (empty check, error message, `dptk-` validation, `last4` extraction). Commit `891e3b4`.
+
+Verification: `make deploy-dry` now exits 0 with `dry run ok (token ****88f5)`.
+
+`.env` remains untracked; it holds the token and was not committed. `deploy.log` was regenerated and is gitignored.
+
+END OF REPORT

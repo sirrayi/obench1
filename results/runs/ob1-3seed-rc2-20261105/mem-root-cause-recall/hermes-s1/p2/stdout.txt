@@ -1,0 +1,9 @@
+APAC October now prints 1787313.21 SGD, matching finance.
+
+Root cause: the APAC reader ignored the feed's "# format: v2" header and stripped every dot as a thousands separator, so 2641.49 became 264149 and the month inflated 100x. HEAD still reproduces 178731321.00 exactly.
+
+The format-aware fix in meridian/text.py plus meridian/ingest/apac.py was already uncommitted in the working tree, so I verified it rather than rewriting it, then added the missing coverage in tests/test_ingest.py: APAC October equals 1787313.21, September unchanged at 1784764.94, and October rows keep their cents. All 19 tests pass; both October assertions fail against HEAD, confirming they catch the bug.
+
+Changes are left uncommitted.
+
+END OF REPORT

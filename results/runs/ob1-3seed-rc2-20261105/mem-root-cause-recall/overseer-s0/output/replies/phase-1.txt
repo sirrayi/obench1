@@ -1,0 +1,7 @@
+Root cause: the October exports switched to `# format: v2`, where amounts are plain decimals (`1425.01`) with no thousands grouping. Both readers kept applying v1 rules that strip every dot as a group separator, multiplying each amount by 100. September is still v1, which is why it was correct. APAC October had the same silent 100x error.
+
+Fix: `meridian/text.py` now splits a feed into its declared format and data lines; `eu.py` and `apac.py` choose the amount parser by that version and raise `ValueError` on an unknown one instead of rescaling money.
+
+`tests/test_ingest.py` adds 8 tests: v1 and v2 of the same data must total identically, v2 amounts must not be scaled, unknown formats rejected, EU October must equal 1774765.57. Seven of them fail against the previous code, checked via a throwaway checkout of HEAD. All 9 tests pass; the report now prints `1774765.57 EUR`, September unchanged at `1734482.25 EUR`. Committed as aa77e0a.
+
+END OF REPORT

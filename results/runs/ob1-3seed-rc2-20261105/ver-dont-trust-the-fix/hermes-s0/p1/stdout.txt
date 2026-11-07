@@ -1,0 +1,7 @@
+Wrote /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/79dbfb1e7055/VERDICT.md. Neither branch was modified (main ccb35ce, fix/42-quoted-newlines 4849dac); repo is clean apart from that new untracked file.
+
+verdict: don't merge. The issue's repro still fails on the branch: it returns 3 rows, but Ben's note is 'call back\r\nafter 5pm"\r', not 'call back\r\nafter 5pm'. Joining on quote parity leaves a trailing \r on every field, which also stops strip('"') from removing the closing quote.
+
+Branch tests pass 2/2, but the new test only feeds LF input ('1,"a\nb",x\n'), so it passes while the reported CRLF bug remains. Its second assertion claims a quoted comma splits a field (['x',' y']), locking in wrong CSV behavior.
+
+END OF REPORT

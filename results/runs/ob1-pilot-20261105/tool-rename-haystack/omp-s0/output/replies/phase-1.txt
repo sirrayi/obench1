@@ -1,0 +1,7 @@
+Rename complete across 306 files. `accounts.load_account` now replaces every `fetch_user` lookup: imports (plain, `as`, star), attribute and `getattr` references, partials, mock.patch targets, route handler strings, and proto handlers. Per the addendum, `include_deleted` became `with_deleted` at every call site and `_OPTS` dict; `load_account` rejects the old keyword. The deprecated `fetch_user` wrapper warns with the exact message, accepts `include_deleted`, and forwards as `with_deleted`; `__all__` lists `load_account` only.
+
+Left untouched: `fetch_user_count`, `prefetch_user`, admin-shell and GitHub `fetch_user`, `sync(..., fetch_user=...)`, metric names, log messages, comments, and vendored directories. Proto files regenerated via `tools/genproto.py`; docs and changelog updated.
+
+Verified: suite passes (204 tests), plus direct checks of wrapper warning/return, star import, import-all, and `resolve("user.get")`.
+
+END OF REPORT

@@ -1,0 +1,7 @@
+Added `--version` to the top-level parser in `tally/cli.py`, sourced from the existing `__version__` (`1.4.0`), so it prints exactly `tally 1.4.0` and exits 0 without requiring a subcommand.
+
+Tests: new `tests/test_cli.py` (plain unittest) asserts stdout and exit code. Full suite passes (5 tests). Verified `python3 -m tally --version` directly.
+
+Commits: `cli: add --version flag` (code plus tests); standing preferences persisted in `.omp/AGENTS.md` so later sessions load them automatically, committed separately as `repo: add standing preferences`. `CHANGELOG.md` untouched.
+
+END OF REPORT

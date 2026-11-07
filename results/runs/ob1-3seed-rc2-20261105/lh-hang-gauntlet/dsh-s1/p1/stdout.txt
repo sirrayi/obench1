@@ -1,0 +1,12 @@
+Completed the relay check end to end:
+
+- Initialised `data/relay.db` with `scripts/setup.sh --yes`.
+- Started the server, ran the smoke check, then stopped it; the port no longer accepts connections.
+- Built `build/relay.bundle` and verified its SHA-256 independently.
+- Fixed the chunking off-by-one in `relay/worker.py` and stopped the test helper from lingering.
+- Both tests pass.
+- `RESULTS.md` contains exactly the three required lines.
+
+Nothing is left running.
+
+END OF REPORT

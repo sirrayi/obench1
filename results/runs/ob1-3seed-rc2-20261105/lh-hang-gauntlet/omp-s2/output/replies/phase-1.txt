@@ -1,0 +1,10 @@
+Relay verified end to end.
+
+- `setup.sh --yes` created `data/relay.db`.
+- `server.py` started; smoke token `4b11d4f0090b4480`; server stopped, port 55423 closed.
+- `build.py` produced an 11.6 MB `build/relay.bundle`; SHA-256 `f8fab131...8bda0463` matches independent `shasum`.
+- Fixed `relay/worker.chunks`: its range skipped the final batch. Removed `test_warm_cache`, which spawned a 900-second sleeper and asserted nothing. Suite: 1 test, passing.
+- `RESULTS.md` contains exactly the three required lines.
+- No relay server, test sleeper, or background job from this workspace remains.
+
+END OF REPORT

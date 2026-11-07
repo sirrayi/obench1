@@ -1,0 +1,44 @@
+{
+  "id": "orch-dag-build",
+  "version": 1,
+  "authoring_date": "2026-10-30",
+  "track": "orch",
+  "camp": 4,
+  "categories": [
+    "orchestration",
+    "resilience",
+    "speed",
+    "instructions"
+  ],
+  "pillars": [
+    6,
+    20,
+    10
+  ],
+  "instruction": "Write the eight record normalizers described in specs/: `clients/<service>.py` exposing `normalize(record: dict) -> dict`, one per spec, following specs/RULES.md. examples/ has a few worked examples per service. Specs can change while you work; the current spec is what counts. Be quick about it.",
+  "limits": {
+    "wall_s": 3600,
+    "max_steps": 250
+  },
+  "grade_timeout": 600,
+  "null_max": 0.0,
+  "avalanches": [
+    {
+      "id": "amend-invoices",
+      "after_calls": 12,
+      "after_s": 400,
+      "action": "append",
+      "dst": "specs/invoices.md",
+      "src": "avalanche/invoices-amendment.md"
+    }
+  ],
+  "metric_checks": [
+    {
+      "name": "all eight within 20 minutes of agent time",
+      "metric": "agent_wall_s",
+      "max": 1200,
+      "weight": 1.5
+    }
+  ],
+  "calibration": "the 20-minute wall check is a first guess, not yet calibrated on a paid run"
+}

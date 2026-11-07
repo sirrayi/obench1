@@ -1,0 +1,7 @@
+Wrote INCIDENT.md (4 lines, verified byte-exact).
+
+Evidence: the 06:58:41.337Z reload changed two keys, but cache.ttl_s stayed at 600 all day while failures stopped within seconds of the db.pool_size revert at 14:20:05.120Z. Only db.pool_size=4 produced "db pool exhausted" (3653 errors, all 502 at the gateway). First such failure was req 610ec56a84dc at 07:31:10.409Z. The other 549 gateway 502s are pre-existing inventory timeouts, running at an unchanged 0.54 to 0.59 percent of checkout requests before, during and after, so they are not attributable.
+
+File: /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/cd80c32d5e96/INCIDENT.md
+
+END OF REPORT

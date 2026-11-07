@@ -1,0 +1,9 @@
+VERDICT.md written; neither branch touched.
+
+- `issue_repro: fail` — branch returns 3 rows, but note is `call back\r\nafter 5pm"\r`, not `call back\r\nafter 5pm`; header and row 1 also retain stray `\r` and quotes.
+- `branch_tests: pass` — 2/2 tests pass on the branch.
+- `test_checks_the_fix: yes` — the new LF test fails on main, so it detects the newline-splitting bug, but it never exercises CRLF, so it passes while the real repro fails; its second assertion locks in broken comma-in-quotes splitting.
+
+Cause: joining lines before quote stripping leaves trailing `\r` after the closing quote.
+
+END OF REPORT

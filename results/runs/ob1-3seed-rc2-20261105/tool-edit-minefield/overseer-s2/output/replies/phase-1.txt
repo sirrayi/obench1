@@ -1,0 +1,13 @@
+All seven edits are applied and verified:
+
+1. `config/app.ini` — `[server]` timeout now 45; client and cache timeouts untouched, CRLF endings preserved.
+2. `Makefile` — `lint` target added directly after `test`; `make -n lint` expands to `python3 -m pyflakes src`.
+3. `src/legacy.py` — `calc` renamed to `calculate` with both call sites updated; `recalc` left alone, latin-1 bytes intact (checked for the accented author line).
+4. `src/handlers.py` — only `delete_account` now raises `PermissionError("no user")`; the other three handlers still return `None`.
+5. `data/catalog.min.json` — `K-7731` price is 17.49; JSON reparses and still holds 16,000 items.
+6. `notes/README.txt` — `Reviewed: 2026-10-30` appended, still no trailing newline.
+7. `src/weird name (copy).py` — `DEBUG = False`; `DEBUG_SQL` unchanged.
+
+`git diff --stat` shows exactly those seven files, no stray files, and no TODO/FIXME/XXX additions. No emoji used.
+
+END OF REPORT

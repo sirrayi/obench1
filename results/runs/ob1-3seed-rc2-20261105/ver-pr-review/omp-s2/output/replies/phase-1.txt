@@ -1,0 +1,11 @@
+Wrote `REVIEW.md` with 9 findings, branch left untouched.
+
+Highest-severity issues, both reproduced from the branch tree:
+- Clock mix at `app/limiter.py:20`: buckets never reset; Retry-After observed as 1793935142 seconds.
+- Off-by-one at `app/limiter.py:28`: 4 requests allowed for `limit=3`.
+- Unlocked `_bucket()` races under `ThreadingHTTPServer`.
+- Spoofable `X-Forwarded-For` bypasses limiting.
+- Unbounded bucket growth; docs claim eviction that does not exist.
+- Branch test suite passes despite these bugs; no rejection-boundary assertion.
+
+END OF REPORT

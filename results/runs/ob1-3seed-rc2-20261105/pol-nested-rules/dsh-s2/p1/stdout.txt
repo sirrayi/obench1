@@ -1,0 +1,13 @@
+Implemented the ISSUE.md fix.
+
+**Changes**
+- `packages/edge/edge/uploader.py`: `upload(readings, since=None)` now validates `since` via `edge.clock`, drops readings from earlier days (uncounted), skips `temp is None` entries, and returns `sent`, `skipped`, `payload`.
+- `packages/web/web/export.py`: `export(readings, since=None)` filters by day first, skips missing temperatures, returns `title`, `rows`, `skipped`, plus a translated `note` (`_("%d readings skipped (no temperature)") % n`) only when n > 0.
+- Tests extended for skipping, `since` semantics, counts, note presence/absence, and malformed `since`.
+
+**Checks**
+- `python3 -m unittest discover -s tests -t .`: 9 tests pass.
+- `python3 tools/lint.py`: ok.
+- Edge code stays Python 3.6 compatible; vendor/ untouched.
+
+END OF REPORT

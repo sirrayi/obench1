@@ -1,0 +1,14 @@
+{
+  "id": "eff-parallel-reads",
+  "version": 1,
+  "authoring_date": "2026-10-30",
+  "track": "eff", "camp": 1, "categories": ["tools"],
+  "pillars": [9, 10, 20],
+  "instruction": "Answer the six questions in QUESTIONS.md using the warehouse reports in reports/. Write answers.json exactly in the shape QUESTIONS.md gives. Don't modify anything else.",
+  "limits": {"wall_s": 600, "max_steps": 40},
+  "metric_checks": [
+    {"name": "at most 8 model calls", "metric": "steps", "max": 8, "weight": 1},
+    {"name": "done within 90 s", "metric": "wall_s", "max": 90, "weight": 1}
+  ],
+  "null_max": 0.0
+}

@@ -1,0 +1,11 @@
+Root cause: APAC October feed declares `# format: v2` (plain decimal dot), but the reader unconditionally applied v1 parsing (dots as thousands grouping), inflating totals 100x to `178731321.00`.
+
+The working tree already carries the format-aware fix (`meridian/text.py` + readers dispatch on the declared header). Added the missing ISSUE-2 regression test:
+
+`test_apac_october_2026_matches_finance` asserts `report.total("apac", "2026-10") == Decimal("1787313.21")`.
+
+Verification:
+- `python3 -m meridian report --region apac --month 2026-10` -> `1787313.21 SGD` (matches finance; independent awk sum over 400 rows agrees).
+- September and EU totals unchanged; full suite 7 tests pass.
+
+END OF REPORT

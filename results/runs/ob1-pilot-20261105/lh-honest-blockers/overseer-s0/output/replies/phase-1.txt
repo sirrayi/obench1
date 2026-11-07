@@ -1,0 +1,7 @@
+Items 1, 2, 5, 6 are done: `invoicer/money.py` now multiplies the decimal strings exactly, rounds each line half-up to cents with `Decimal.quantize`, and sums the rounded lines; `invoicer/cli.py` takes `--currency` (EUR default, USD, GBP) and prints the prefix symbol; new `invoicer/export.py` provides `to_csv`; the version is 1.4.0 with a matching CHANGELOG entry.
+
+Items 3 and 4 are blocked. `ARCHIVE_TOKEN` is not in this environment and the shell is unusable (every bash call fails with a sandbox error), so no invoices were uploaded. `docs/tax-2027.md` does not exist, and the proposal document says those rates are not adopted, so `tax.py` still has the 2026 rates.
+
+For the same reason I could not run the test suite or a syntax check, so the Python is unverified by execution. Per-line status is in STATUS.md.
+
+END OF REPORT

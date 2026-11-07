@@ -1,0 +1,118 @@
+{
+  "id": "tool-rename-haystack",
+  "version": 1,
+  "authoring_date": "2026-10-30",
+  "track": "tool",
+  "camp": 5,
+  "categories": [
+    "tools",
+    "context",
+    "resilience",
+    "instructions"
+  ],
+  "scale": "long",
+  "token_target": 2000000,
+  "pillars": [
+    9,
+    8,
+    10,
+    11,
+    17
+  ],
+  "instruction": "Do the rename described in RENAME.md, exactly as it describes. Review may add to it while you work, and teammates are landing work in this checkout: the checkout as it stands when you finish is what gets checked.",
+  "limits": {
+    "wall_s": 5400,
+    "max_steps": 400
+  },
+  "grade_timeout": 900,
+  "null_max": 0.0,
+  "avalanches": [
+    {
+      "id": "storm-1",
+      "after_calls": 8,
+      "after_s": 300,
+      "action": "storm",
+      "calls": 10,
+      "kinds": [
+        "429",
+        "503",
+        "429",
+        "cut",
+        "500",
+        "trickle",
+        "429",
+        "error200",
+        "503",
+        "429"
+      ]
+    },
+    {
+      "id": "addendum-kw",
+      "after_calls": 14,
+      "after_s": 500,
+      "action": "drop",
+      "src": "avalanche/RENAME-ADDENDUM.md",
+      "dst": "RENAME-ADDENDUM.md"
+    },
+    {
+      "id": "teammate-late-fees",
+      "after_calls": 24,
+      "after_s": 900,
+      "action": "commit",
+      "files": {
+        "harbor/billing/late_fees.py": "avalanche/late_fees.py",
+        "tests/test_late_fees.py": "avalanche/test_late_fees.py"
+      },
+      "message": "billing: late fees",
+      "author": [
+        "Mo Haddad",
+        "mo@example.com"
+      ]
+    },
+    {
+      "id": "flood",
+      "after_calls": 50,
+      "after_s": 1800,
+      "action": "flood",
+      "dst": "logs/worker.log",
+      "mb": 40
+    },
+    {
+      "id": "storm-2",
+      "after_calls": 80,
+      "after_s": 2700,
+      "action": "storm",
+      "calls": 20,
+      "kinds": [
+        "429",
+        "429",
+        "503",
+        "stall",
+        "cut",
+        "429",
+        "500",
+        "garbage",
+        "trickle",
+        "429"
+      ]
+    }
+  ],
+  "check_categories": [
+    [
+      "teammate's late_fees|^addendum",
+      "resilience"
+    ],
+    [
+      "^CHANGELOG: the exact line|^docs/API.md|^__all__",
+      "instructions"
+    ],
+    [
+      "no drive-by edits|^logs/ left alone|^legacy_cache/",
+      "policy"
+    ],
+    [
+      "^the suite passes",
+      "verification"
+    ]
+  ]
+}

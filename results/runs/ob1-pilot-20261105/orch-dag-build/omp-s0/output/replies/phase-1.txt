@@ -1,0 +1,13 @@
+Implemented eight normalizers plus a shared ordered-rule engine:
+
+- `clients/accounts.py`, `billing.py`, `shipments.py`
+- `clients/customers.py` (accounts dependency)
+- `clients/contacts.py` (customers dependency)
+- `clients/invoices.py` (billing dependency)
+- `clients/payments.py` (invoices dependency)
+- `clients/returns.py` (shipments dependency)
+- `clients/_rules.py` for require/default/string/rename/drop/cents/bool/iso-date/split semantics, including Decimal ROUND_HALF_UP.
+
+Verification: all 24 example cases match exactly, including expected `ValueError` cases. Success paths for contacts, invoices, and payments (whose examples are all errors) were exercised with synthetic records. Input dicts remain unmutated. All modules compile and expose `normalize(record: dict) -> dict`. Spec hashes were unchanged from initial read through completion.
+
+END OF REPORT

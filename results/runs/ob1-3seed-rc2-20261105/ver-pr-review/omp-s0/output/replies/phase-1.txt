@@ -1,0 +1,11 @@
+REVIEW.md written: 8 findings (2 blockers, 4 major, 2 minor). Branch untouched; existing tests pass but miss all of these.
+
+- `handlers.py:11`: spoofable `X-Forwarded-For` bypasses the limit (verified: rotating XFF stays at 200).
+- `limiter.py:20`: epoch `start` compared to `monotonic()`, so buckets never reset and `Retry-After` is about 1.79e9 (verified).
+- `limiter.py:28`: off-by-one admits `limit + 1` requests (verified).
+- `limiter.py:25`: bucket mutation outside the lock loses counts under threads.
+- `docs/limits.md:4`: claimed eviction absent; unbounded key growth.
+- `tests/test_limiter.py:10`: no rejection, reset, or Retry-After coverage.
+- Plus per-process limiter behind the LB and dead `recent` state.
+
+END OF REPORT

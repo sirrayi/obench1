@@ -1,0 +1,11 @@
+All checks pass: 10/10 tests, `tests/` untouched, no TODO/FIXME/XXX markers remain, and the only non-ASCII character is a pre-existing `×` in a docstring (not a pictographic symbol).
+
+**What was wrong and what I changed:**
+
+1. `calendar.py`: a module-level `__getattr__` raised `ValueError` for any missing attribute. `from calendar import billing_days` first probes `__path__` via `hasattr`, and `hasattr` only swallows `AttributeError`, so the import died even though `billing_days` existed. Removed the hook.
+2. `billing/proration.py`: `prorate` truncated with `int()` instead of rounding. Now uses exact integer half-up arithmetic, `(2*amount*days + period) // (2*period)`; verified against `Decimal` `ROUND_HALF_UP` over the full input grid.
+3. `billing/headers.py`: removed a stale `FIXME` claiming timezone flakiness; that code was already correct.
+
+`python3 -m unittest discover -s tests` reports **Ran 10 tests, OK**.
+
+END OF REPORT

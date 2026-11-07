@@ -1,0 +1,18 @@
+2026-11-05 19:28:50,726 WARNING gateway.run: Another Hermes home's gateway owns this host (PID 83762 (no bound port; profiles: default)); starting this home's gateway beside it.
+2026-11-05 19:28:50,953 WARNING hermes.security_audit: Security posture audit found 1 issue(s) — review your deployment:
+2026-11-05 19:28:50,953 WARNING hermes.security_audit:   [security 1/1] SSH password authentication is ENABLED (default — no explicit directive). Password auth is brute-forceable and dangerous on an internet-facing box. Set 'PasswordAuthentication no' in sshd_config and use key-based auth.
+2026-11-05 19:28:51,332 WARNING gateway.run: No messaging platforms enabled.
+2026-11-05 19:28:51,532 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
+2026-11-05 19:28:51,532 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 19:28:51,532 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 19:28:51,543 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 19:28:51,543 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 19:28:52,215 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 19:28:52,215 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 19:28:52,224 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 19:28:52,224 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 19:28:52,854 WARNING hermes_cli.source_releases: Could not resolve the stable source release: <urlopen error [Errno 1] Operation not permitted>
+2026-11-05 19:28:57,904 WARNING agent.title_generator: Title generation failed: Error code: 400 - {'error': {'param': None, 'type': 'invalid_request_error', 'code': 'invalid_request_error', 'message': 'Upstream request failed: [invalid_request_error] this feature is not yet supported by atlas (request_id: gw-1b53ccfa30d3-bd306)'}}
+2026-11-05 19:31:41,818 WARNING agent.lsp.install: [install] npm install failed for pyright: 
+2026-11-05 19:31:41,818 WARNING hermes.lint.lsp: lsp[pyright] server unavailable: pyright not found (install via `hermes lsp install <id>` or set lsp.servers.<id>.command)
+2026-11-05 19:34:23,086 WARNING [local-3dbf9fdd167c4318717800081589d77d633ca58c34e4410e43dbb6eb159549f5] agent.tool_executor: Tool terminal returned error (120.31s): {"output": "[Command timed out after 120s]", "exit_code": 124, "error": null, "hint": "Exit 124: the command hit its timeout. Raise timeout= (foreground max 600s) or run it with background=true and no

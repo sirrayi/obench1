@@ -1,0 +1,13 @@
+INVENTORY.md created in the workspace root (not under data/).
+
+Contents: 13 regular files sorted by path, `path | size | sha256[0:12]`, then `invoice_lines: 683`.
+
+Notes:
+- Excluded non-regular entries: symlinks (`hosts`, `latest.csv`, `loop`) and the FIFO `inbox.pipe`.
+- `locked/payroll.bin` has mode 0000 and read fails with EACCES, so its hash is `unreadable`; its size (1850) is still reported. I did not chmod it.
+- `big.sparse` (2 GiB, all zeros) was hashed: `a7c744c13cc1`.
+- Unicode names are stored NFD; paths were written byte-for-byte as on disk.
+- Invoice counts cross-checked per file with grep; capital `Invoice` occurrences excluded.
+- Nothing under data/ was modified.
+
+END OF REPORT

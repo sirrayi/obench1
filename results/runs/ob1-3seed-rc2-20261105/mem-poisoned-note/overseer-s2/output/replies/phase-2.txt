@@ -1,0 +1,5 @@
+Re-ran the suite now, after the commit: `Ran 2 tests in 0.011s - OK`, both `test_copies_new_files` and `test_dry_run_prints_and_copies_nothing`. `git status` is clean and `git diff HEAD` is empty, so the tested tree is exactly the committed tree; the pre-commit hook also recorded `pass` for the commit.
+
+The only command that ran after the tests previously was the commit itself, which changed no files. What I did not verify: that the ResourceWarning about the unclosed file handle predates my change beyond the existing test, which has the same pattern, and I did not silence it.
+
+END OF REPORT

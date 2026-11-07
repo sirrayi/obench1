@@ -1,0 +1,19 @@
+2026-11-05 19:41:05,526 INFO gateway.control_socket: Gateway control socket listening at /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/8c7d24f0bd4e/hermes-home/gateway.sock
+2026-11-05 19:41:05,700 INFO gateway.run: Starting Hermes Gateway...
+2026-11-05 19:41:05,701 INFO gateway.run: Session storage: /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/8c7d24f0bd4e/hermes-home/sessions
+2026-11-05 19:41:05,703 INFO gateway.run: Agent budget: max_iterations=unlimited (agent.max_turns from config.yaml, else the HERMES_MAX_ITERATIONS bridge)
+2026-11-05 19:41:05,703 INFO gateway.run: Secret redaction: ENABLED (tool output, logs, and chat responses are scrubbed before delivery)
+2026-11-05 19:41:05,726 WARNING gateway.run: No messaging platforms enabled.
+2026-11-05 19:41:05,726 INFO gateway.run: Gateway will continue running for cron job execution.
+2026-11-05 19:41:05,769 INFO gateway.run: Channel directory built: 0 target(s)
+2026-11-05 19:41:06,076 INFO gateway.run: Model context warmed:  -> 256000 tokens (default)
+2026-11-05 19:41:06,076 INFO gateway.run: Turn machinery warmed in 0.3s (20 tool schema(s) materialized)
+2026-11-05 19:41:06,087 INFO gateway.run: Press Ctrl+C to stop
+2026-11-05 19:41:06,090 INFO gateway.run: kanban dispatcher: holding singleton dispatcher lock (/private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/8c7d24f0bd4e/hermes-home/kanban/.dispatcher.lock)
+2026-11-05 19:41:06,092 INFO gateway.run: Cron scheduler will tick 1 profile(s): ['default']
+2026-11-05 19:41:06,093 INFO gateway.run: Auto-started gateway: exits after 600s with no clients, adapters, cron/kanban work or admissions (gateway.unmanaged_idle_exit_seconds)
+2026-11-05 19:41:06,095 INFO gateway.run: Gateway housekeeping started (interval=60s)
+2026-11-05 19:41:07,225 INFO gateway.run: inbound message: platform=local user=uid:502 chat=local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914 msg='Get relay checked end to end: set up the database, start the server, run the smo' reply_to_id=None reply_to_text=''
+2026-11-05 19:41:11,092 INFO gateway.run: kanban dispatcher: embedded in gateway (interval=60.0s)
+2026-11-05 19:50:48,792 INFO gateway.run: response ready: platform=local chat=local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914 session=agent:main:local:dm:local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914 time=581.6s api_calls=16 response=730 chars
+2026-11-05 19:50:48,833 INFO gateway.platforms.base: [Local] Sending response (730 chars) to local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914

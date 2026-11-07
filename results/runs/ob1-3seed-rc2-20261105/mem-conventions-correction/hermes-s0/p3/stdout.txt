@@ -1,0 +1,11 @@
+Fixed and committed as bd70a12 (fix: filter sum totals by --month).
+
+Cause: report.total() accepted a month argument but never used it, so sum fell back to every row.
+
+Change in tally/report.py: rows are skipped unless their date prefix matches YYYY-MM, before the category filter. Added tests for month, month plus category, a month with no matches, and the sum --month CLI path (11 tests pass).
+
+Verified against expenses.csv: sum --month 2026-09 gives 531.77 (was 1935.71), 2026-09 --category travel gives 181.55, both matching an independent count; an unmatched month gives 0.00.
+
+Standing preference updated: Conventional Commits types now replace the area form; other conventions unchanged.
+
+END OF REPORT

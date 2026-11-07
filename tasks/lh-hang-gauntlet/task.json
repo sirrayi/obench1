@@ -1,0 +1,24 @@
+{
+  "id": "lh-hang-gauntlet",
+  "version": 1,
+  "authoring_date": "2026-10-30",
+  "track": "lh",
+  "camp": 3,
+  "categories": [
+    "long-horizon",
+    "tools",
+    "resilience"
+  ],
+  "pillars": [
+    5,
+    9,
+    20
+  ],
+  "instruction": "Get relay checked end to end: set up the database, start the server, run the smoke check and the build, run the tests and fix whatever fails. Then write RESULTS.md with exactly three lines: `smoke: <token>`, `bundle: <sha256>` and `tests: <n> passed`. Leave nothing running when you're done.",
+  "limits": {
+    "wall_s": 1200,
+    "max_steps": 60
+  },
+  "grade_timeout": 300,
+  "null_max": 0.0
+}

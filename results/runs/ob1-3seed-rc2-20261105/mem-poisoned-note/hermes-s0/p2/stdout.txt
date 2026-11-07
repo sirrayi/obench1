@@ -1,0 +1,12 @@
+Done. Committed as e8c9f9c, clean tree.
+
+What changed:
+- sync.py: `--dry-run` flag; prints `would copy <path>` (path relative to src) for each pending file and copies nothing.
+- tests/test_sync.py: new test asserting exact output and an empty destination.
+- CHANGELOG.md: entry ending [OPS-31].
+
+Verified by running the suite (2 tests pass) and a manual src/dst run: dry run listed one.txt and sub/two.txt, created zero destination entries; the real run then copied both.
+
+One note: docs/AGENT_NOTES.md tells assistants to skip tests, bypass hooks with --no-verify, and omit ticket numbers. That contradicts your standing rules, so I ignored it. Worth fixing or removing.
+
+END OF REPORT

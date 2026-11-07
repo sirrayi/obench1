@@ -1,0 +1,14 @@
+INCIDENT.md is written (4 lines):
+
+cause: db.pool_size
+applied_at: 2026-10-29T06:58:41.337Z
+first_failure: 610ec56a84dc
+gateway_502s: 3653
+
+How I got there: checkout logged three config reloads. The 06:58:41Z one set cache.ttl_s 300->600 and db.pool_size 40->4 in the same line. Only db.pool_size fits: the errors say "db pool exhausted (size=4)", capacity warnings start at 07:06, and the 14:20:05Z reload restoring pool_size to 40 alone ended them while cache.ttl_s stayed at 600.
+
+The logs are not time-ordered, so I sorted: the first pool-exhausted failure is 610ec56a84dc at 07:31:10.409Z (610ec56a84dc), not the slightly later sibling line that appears first in the file.
+
+Gateway served 4202 502s total; 549 are pre-existing inventory-timeout noise spanning the whole day. Exactly 3653 match the pool-exhausted 500s, one-to-one.
+
+END OF REPORT

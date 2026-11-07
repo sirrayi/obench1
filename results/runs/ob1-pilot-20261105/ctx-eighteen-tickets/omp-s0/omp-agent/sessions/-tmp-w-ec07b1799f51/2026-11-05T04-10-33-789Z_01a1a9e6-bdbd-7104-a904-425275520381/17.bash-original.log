@@ -1,0 +1,19 @@
+fleetd/auth_tokens.py:7:def workspace_drain_timeout_threshold(value: int) -> bool:  # TCK-6
+fleetd/auth_tokens.py:2440:def device_drain_timeout_bucket(value: int) -> int:  # TCK-8
+fleetd/billing_sync.py:1642:def pipeline_drain_timeout_quiet(hour: int) -> bool:  # TCK-10
+fleetd/billing_sync.py:1790:def partner_fan_out_limit_window(n: int) -> list:  # TCK-15
+fleetd/billing_sync.py:2305:def device_lease_window_backoff(attempt: int) -> int:  # TCK-2
+fleetd/inventory.py:1346:def cluster_lease_window_clamp(x: int) -> int:  # TCK-1
+fleetd/inventory.py:2212:def cluster_quota_ceiling_duration(text: str) -> int:  # TCK-4
+fleetd/reports.py:1863:def region_flush_threshold_window(n: int) -> list:  # TCK-3
+fleetd/reports.py:2370:def partner_export_chunk_clamp(x: int) -> int:  # TCK-13
+fleetd/scheduler.py:663:def workspace_heartbeat_interval_duration(text: str) -> int:  # TCK-16
+fleetd/scheduler.py:673:def workspace_flush_threshold_normkey(name: str) -> str:  # TCK-5
+fleetd/scheduler.py:2492:def pipeline_batch_size_fmtid(n: int) -> str:  # TCK-9
+fleetd/storage.py:514:def device_burst_allowance_threshold(value: int) -> bool:  # TCK-18
+fleetd/storage.py:1188:def workspace_cache_horizon_tags(a: list, b: list) -> list:  # TCK-11
+fleetd/storage.py:1633:def cluster_fan_out_limit_backoff(attempt: int) -> int:  # TCK-14
+fleetd/storage.py:2351:def team_probe_interval_retry_after(header: str) -> int:  # TCK-12
+fleetd/storage.py:2360:def team_probe_interval_retry_after_v2(header: str) -> int:  # TCK-12
+fleetd/webhooks.py:471:def partner_flush_threshold_percent(part: int, whole: int) -> float:  # TCK-7
+fleetd/webhooks.py:1304:def workspace_shard_count_normkey(name: str) -> str:  # TCK-17

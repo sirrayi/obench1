@@ -1,0 +1,9 @@
+REVIEW.md written at repo root; branch untouched. Eight findings, all reproduced:
+
+- Blocker: bucket start uses `time.time()` but comparisons use `time.monotonic()`; buckets never expire (observed `Retry-After: 1793934828`).
+- Major: off-by-one allows `limit + 1` requests; spoofable `X-Forwarded-For` bypass; no bucket eviction despite docs; unlocked bucket lookup under ThreadingHTTPServer.
+- Minor: tests never assert rejection; `Retry-After` truncation can send 0; unused `recent` deque.
+
+Live checks: limit=3 allowed 4; blocked client got 200 with spoofed XFF; unit tests pass but miss the bugs.
+
+END OF REPORT

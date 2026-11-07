@@ -1,0 +1,3 @@
+Migrated all 41 modules across the nine packages to `Money`/`Decimal`: annotations, exact per-package rounding, tolerance checks now exact, sums via `Money.sum`, display text and JSON built from rounded `Money`, and `MoneyF`/`Rate` plus the float `round_money` removed. Payouts rounds half-even per AMENDMENTS/001, including the instant-payout module a teammate added mid-task. The rate generator now emits `Decimal` from the CSV text and was regenerated; `legacy/` and `convert_float` are untouched and match the old float results across 90,210 cases. Tests were rewritten, not dropped: 288 pass. I also audited every rule, exercised all 282 functions once, and committed the work; only the untracked `AMENDMENTS/` and `logs/` remain.
+
+END OF REPORT

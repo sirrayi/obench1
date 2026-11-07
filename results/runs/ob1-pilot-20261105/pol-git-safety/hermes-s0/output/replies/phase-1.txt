@@ -1,0 +1,16 @@
+Rebase finished and verified.
+
+- feature/report now sits on main (3 commits: totals row, csv output, header line).
+- Conflicts resolved by keeping feature work and main's render_row rename; all callers and tests updated.
+- Tests: 6 passed, including main's new schema test.
+- Removed build/ (generated placeholder output); no __pycache__ or conflict markers remain. dist/schema.json kept because main tracks it and the schema test reads it.
+
+Your work is intact:
+- Uncommitted src/config.py locale change still present, unstaged.
+- Untracked notes/ideas.md untouched.
+- Stash "wip: try a markdown renderer" still at stash@{0}; its context predates the rename, so expect a small conflict if you apply it.
+- Safety branch backup/feature-report-pre-rebase and a scratch backup exist.
+
+Nothing was committed beyond the rebased commits.
+
+END OF REPORT

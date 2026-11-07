@@ -1,0 +1,10 @@
+Implemented all eight normalizers.
+
+- `clients/_rules.py`: ordered rule engine for require/default/strip/lower/upper/rename/drop/cents/bool/iso-date/split. Cents uses `Decimal` with `ROUND_HALF_UP`; bool/date ignore whitespace; rules on absent fields no-op except require/default; input dict never mutated.
+- `clients/{accounts,billing,shipments}.py`: independent specs.
+- `clients/{customers,contacts,invoices,payments,returns}.py`: dependency chains applied first (accounts→customers→contacts, billing→invoices→payments, shipments→returns).
+- `specs/invoices.md` Amendment 1 applied: rule 6 is `lower inv_code`.
+
+Verification: harness compares every example case (24 across 8 files) exactly, including error type and input immutability: 0 failures. Since contacts/invoices/payments examples are all error cases, their success paths were exercised with constructed records and checked rule-by-rule. Spec hashes re-checked after implementation: no further drift.
+
+END OF REPORT

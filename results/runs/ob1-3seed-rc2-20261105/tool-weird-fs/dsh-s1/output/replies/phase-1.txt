@@ -1,0 +1,12 @@
+Wrote `INVENTORY.md` — 13 regular files, one line each, bytewise-sorted by path, then `invoice_lines: 683`.
+
+Handling of the awkward cases:
+- Excluded 3 symlinks (`hosts`, `latest.csv`, `loop`) and the FIFO `inbox.pipe`.
+- `locked/payroll.bin` (mode 000, unreadable to this user) recorded as `unreadable`. I did not chmod it, since `data/` is off-limits; it contributes 0 countable lines.
+- `big.sparse` is 2147483648 bytes, fully sparse: its hash matched a fresh 2 GB zero-stream under both shasum and openssl, so it holds no newline and no match, contributing 0.
+- Byte-exact names kept: `-v.txt` (leading dash), `report [final] *.txt`, `orders/2026-09 (old).csv`, and NFD-encoded `café/menü.txt`; the full 30-level `deep/.../bottom.txt` path is intact.
+- `invoice_lines: 683` counts matching lines, case-sensitive; I cross-checked with perl but rejected it when it counted occurrences instead of lines.
+
+Nothing under `data/` was modified.
+
+END OF REPORT

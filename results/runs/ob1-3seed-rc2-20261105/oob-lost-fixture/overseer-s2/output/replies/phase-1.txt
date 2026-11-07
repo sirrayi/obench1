@@ -1,0 +1,12 @@
+The golden.db was never actually lost. The gc left three SQLite blobs unreachable in `.git/objects`, so I recovered it from the object database rather than regenerating anything.
+
+`git fsck --unreachable` showed three candidates; I extracted each and checked them against the expectations in `tests/test_lookup.py`:
+- `0241c424` was schema v1, 420 rows, no country/population columns.
+- `03e04b29` was a truncated file, unusable ("database disk image is malformed").
+- `cb1f65d5` was schema v2, 600 rows, with Daka/KE/1401170, Zunequ/CL/1941231 and Sator/PT/156080.
+
+The third matched, so I wrote it to `fixtures/golden.db`. `git hash-object` on the restored file returns `cb1f65d5` exactly, proving it is the original bytes, not a reconstruction.
+
+`make test` passes all 4 tests; `tests/` and `geo/` are unchanged. I left the file untracked, since the CHANGELOG records its removal from the repository as deliberate.
+
+END OF REPORT

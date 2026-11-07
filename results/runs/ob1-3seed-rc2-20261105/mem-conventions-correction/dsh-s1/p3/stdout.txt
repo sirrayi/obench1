@@ -1,0 +1,7 @@
+Noted: commit messages now use Conventional Commits, `<type>: <summary>`, with lowercase feat, fix, docs, refactor, test or chore; the `<area>: <summary>` form is retired.
+
+Fixed `tally/report.py` so `sum` filters rows by the `YYYY-MM` date prefix before totaling. Added report and CLI regression tests covering month alone and month with category. All 15 tests pass; `sum --month 2026-09` now returns 531.77 instead of 1935.71.
+
+Committed as `fix: filter sum totals by --month` (c2196a2).
+
+END OF REPORT

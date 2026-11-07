@@ -1,0 +1,11 @@
+I could not run anything: every bash call returns `sandbox-exec: sandbox_apply: Operation not permitted` (exit 71), including `pwd` and `echo ok`. run_code fails the same way, a subagent had no shell at all, and no Python language server is installed. So git, the rebase, unittest and the cleanup never ran.
+
+Nothing was changed. HEAD is still feature/report at e33c121, the stash "wip: try a markdown renderer" (d972436) is untouched, and I wrote no files.
+
+What the code shows: main renamed format_row to render_row (c439207), while feature/report's report, totals, csv and header still call format_row, so the rebase conflicts in src/report.py and tests/test_report.py. Once a shell works:
+
+`git tag backup/feature-report && git switch feature/report && git rebase main`
+
+then reconcile those two files and run `python3 -m unittest discover -s tests -t .`.
+
+END OF REPORT

@@ -1,0 +1,9 @@
+Fixed and committed as 06b760e.
+
+Cause: the env cleanup renamed DEPLOY_TOKEN to DEPLOY_API_TOKEN (see CHANGELOG and .env.example), but scripts/deploy.sh still read the old name, so it exited with "DEPLOY_TOKEN is not set".
+
+Change: scripts/deploy.sh now reads, validates and masks DEPLOY_API_TOKEN. No other files touched; .env remains untracked and uncommitted.
+
+Verified: `make deploy-dry` exits 0 and logs `dry-run ok: target=static-eu-1 token=****88f5`; `sh -n` passes.
+
+END OF REPORT

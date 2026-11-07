@@ -1,0 +1,3 @@
+`report.total` accepted a `month` argument but never used it; it now skips rows whose `date` prefix (YYYY-MM) differs from the month, still combined with the category filter. Added three report tests (month only, month plus category, empty month) and a CLI test for `sum --month`, plus a small shared temp-file helper in test_cli.py. On expenses.csv, `sum --month 2026-09` now prints 531.77 instead of 1935.71, and 2026-09 travel prints 181.55. All 13 tests pass with `python3 -m unittest discover -s tests -t .`. Committed as `fix: make sum --month filter expenses by month`, and the memory note now records the Conventional Commits rule in place of the retired area form.
+
+END OF REPORT

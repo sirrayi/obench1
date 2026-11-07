@@ -1,0 +1,15 @@
+diff --git a/REVIEW.md b/REVIEW.md
+new file mode 100644
+index 0000000..0a13f07
+--- /dev/null
++++ b/REVIEW.md
+@@ -0,0 +1,9 @@
++app/limiter.py:20: blocker: `_bucket` compares `time.monotonic()` (line 17) against a `start` stamped with `time.time()`, so `now - b["start"]` is roughly -1.79e9 and never reaches `self.window`; a key keeps its first bucket forever, so a client that once hits the limit stays blocked until the process restarts.
++app/limiter.py:37: blocker: `retry_after` subtracts the wall-clock `start` from `time.monotonic()`, giving a large negative elapsed, so it returns about 1.79e9; handlers.py sends that verbatim as `Retry-After`, telling clients to wait decades.
++app/handlers.py:11: blocker: `client_key` trusts the client-supplied `X-Forwarded-For` header verbatim, so any caller bypasses the limit by sending a fresh value per request; the whole header value, including a comma-joined proxy chain, becomes the bucket key.
++app/limiter.py:28: major: `> self.limit + 1` lets `limit + 1` requests through per window (101 for the default 100), contradicting the module docstring's "at most `limit` requests"; the condition should be `> self.limit`.
++app/limiter.py:25: major: `_bucket` is called outside `self.lock` and mutates `self.buckets`, so concurrent requests on the ThreadingHTTPServer can both miss the bucket, overwrite each other's counter and reset `count` mid-window, letting a client exceed the limit.
++app/limiter.py:21: major: buckets are inserted here and never evicted, so `self.buckets` grows without bound; combined with the spoofable key at handlers.py:11, a caller can force one entry per request and exhaust memory.
++tests/test_limiter.py:10: major: the tests only assert the calls that should be allowed and never assert that the request after the limit is rejected or that the window rolls over, so the off-by-one at limiter.py:28 and the frozen window pass unnoticed.
++app/limiter.py:42: minor: `int(seconds) // 1` is a no-op and `int()` truncates toward zero rather than rounding down as the comment claims, so the retry value is computed as though a rounding decision had been made when none was.
++app/limiter.py:14: minor: `self.recent` is populated for a `/debug` page that does not exist anywhere in this PR, so it retains client IPs with no reader.

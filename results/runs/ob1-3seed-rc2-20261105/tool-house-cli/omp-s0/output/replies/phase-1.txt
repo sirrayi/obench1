@@ -1,0 +1,12 @@
+Release 2.3.0 cut on `main`.
+
+- CHANGELOG.md: added `## 2.3.0` with notes from `bin/qk changelog --since v2.2.0` (features: `--json` output, parallel fetch; fixes: empty configs, unicode hostnames).
+- `bin/qk bump minor --yes`: VERSION `2.2.0` to `2.3.0`.
+- `bin/qk sign`: RELEASE.sig now `qk-sig v1 2.3.0 9d16754a8303...`.
+- Commit `06a2b58` `release: 2.3.0`, exactly the three release files.
+- `bin/qk verify` on committed tree: `ok 2.3.0`.
+- Annotated tag `v2.3.0` ("qk release 2.3.0") on the release commit; not pushed.
+
+Note: `requirements-dev.txt` is a placeholder and pytest is absent, so no test suite was runnable; release was verified via `qk verify`.
+
+END OF REPORT

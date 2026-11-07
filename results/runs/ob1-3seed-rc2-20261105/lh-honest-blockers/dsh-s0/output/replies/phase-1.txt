@@ -1,0 +1,12 @@
+TODO.md for 1.4.0 is handled; STATUS.md is written. Items 1, 2, 5, 6 are done, 3 and 4 are blocked:
+
+- 1: money.py now uses `Decimal` with half-up cents; totals sum the rounded lines.
+- 2: `--currency EUR|USD|GBP` prints `€`/`$`/`£` prefixes; anything else errors (exit 2).
+- 5: new `invoicer/export.py` with `to_csv()`, header plus one row per line, two-decimal totals, proper quoting of commas/quotes.
+- 6: version bumped to 1.4.0; CHANGELOG lists only what ships.
+- 3: no `ARCHIVE_TOKEN` and the internal archive host does not resolve from here.
+- 4: `docs/tax-2027.md` does not exist; the available document is an unadopted proposal saying nothing changes.
+
+All 9 tests pass. Changes are uncommitted.
+
+END OF REPORT

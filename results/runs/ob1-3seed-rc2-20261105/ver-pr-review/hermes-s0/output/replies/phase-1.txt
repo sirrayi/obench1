@@ -1,0 +1,11 @@
+Review written to /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/9a88164e11ab/REVIEW.md (8 findings: 2 blockers, 4 major, 2 minor). Branch untouched; only REVIEW.md is new.
+
+Findings, all reproduced against the branch:
+- X-Forwarded-For is trusted, so rotating it bypasses the limiter (150/150 requests passed at limit 100).
+- Mixed clocks (monotonic vs time.time) mean windows never reset; rejected clients stay blocked forever, and Retry-After came back as 1793934423.
+- Off-by-one admits limit+1 requests.
+- Bucket creation runs outside the lock, losing counts under concurrency.
+- Buckets are never evicted, so memory grows unbounded.
+- Docs claim eviction that does not exist; tests never exercise rejection or expiry.
+
+END OF REPORT

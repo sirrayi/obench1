@@ -1,0 +1,195 @@
+diff --git a/ISSUE-2.md b/ISSUE-2.md
+new file mode 100644
+index 0000000..4ad0c64
+--- /dev/null
++++ b/ISSUE-2.md
+@@ -0,0 +1,4 @@
++# ISSUE-2: APAC October total is off too
++
++`python3 -m meridian report --region apac --month 2026-10` prints `178731321.00 SGD`; finance has 1,787,313.21 SGD.
++September is fine. Fix it, with a regression test.
+diff --git a/meridian/ingest/apac.py b/meridian/ingest/apac.py
+index 0e7661c..0af0151 100644
+--- a/meridian/ingest/apac.py
++++ b/meridian/ingest/apac.py
+@@ -1,20 +1,20 @@
+ """Reader for the APAC ledger export (pipe-separated)."""
+-from decimal import Decimal
+-
+-
+-def _strip_grouping(raw):
+-    # APAC exports group thousands with spaces and use a decimal comma: "1 234,56"
+-    return raw.strip().replace(" ", "").replace(".", "").replace(",", ".")
++from meridian import text
+ 
+ 
+ def load(path):
+     """Read an APAC feed: a list of {date, account, amount} rows."""
+     out = []
+     with open(path, encoding="utf-8") as f:
+-        for line in f:
+-            line = line.rstrip("\n")
+-            if not line or line.startswith("#") or line.startswith("date|"):
+-                continue
+-            date, account, amount = line.split("|")
+-            out.append({"date": date, "account": account, "amount": Decimal(_strip_grouping(amount))})
++        raw_lines = f.read().splitlines()
++    fmt = text.feed_format(raw_lines)
++    for line in raw_lines:
++        if not line or line.startswith("#") or line.startswith("date|"):
++            continue
++        date, account, amount = line.split("|")
++        out.append({
++            "date": date,
++            "account": account,
++            "amount": text.parse_amount(amount, fmt),
++        })
+     return out
+diff --git a/meridian/ingest/eu.py b/meridian/ingest/eu.py
+index 432fc67..c8a55f0 100644
+--- a/meridian/ingest/eu.py
++++ b/meridian/ingest/eu.py
+@@ -1,6 +1,4 @@
+ """Reader for the EU ledger export (semicolon-separated)."""
+-from decimal import Decimal
+-
+ from meridian import text
+ 
+ 
+@@ -8,8 +6,14 @@ def read_feed(path):
+     """Read an EU feed: a list of {date, account, amount} rows."""
+     rows = []
+     with open(path, encoding="utf-8") as f:
+-        lines = [x for x in f.read().splitlines() if x and not x.startswith("#")]
++        raw_lines = f.read().splitlines()
++    fmt = text.feed_format(raw_lines)
++    lines = [x for x in raw_lines if x and not x.startswith("#")]
+     for line in lines[1:]:
+         date, account, amount = line.split(";")
+-        rows.append({"date": date, "account": account, "amount": Decimal(text.clean_number(amount))})
++        rows.append({
++            "date": date,
++            "account": account,
++            "amount": text.parse_amount(amount, fmt),
++        })
+     return rows
+diff --git a/meridian/text.py b/meridian/text.py
+index 39ac75f..cb85fc3 100644
+--- a/meridian/text.py
++++ b/meridian/text.py
+@@ -1,11 +1,33 @@
+ """Text helpers shared by the ingest readers."""
++from decimal import Decimal
++
++SUPPORTED_FORMATS = ("v1", "v2")
+ 
+ 
+ def clean_number(raw):
+-    """Turn a feed amount into a plain decimal string ("1.234,56" -> "1234.56")."""
+-    return raw.strip().replace(".", "").replace(",", ".")
++    """Turn a v1 feed amount into a plain decimal string ("1.234,56" -> "1234.56")."""
++    return raw.strip().replace(" ", "").replace(".", "").replace(",", ".")
++
++
++def feed_format(lines):
++    """Return the format declared in a feed header, defaulting to v1."""
++    for line in lines:
++        line = line.strip()
++        if not line.startswith("#") or ":" not in line:
++            continue
++        key, value = line[1:].split(":", 1)
++        if key.strip() == "format":
++            fmt = value.strip()
++            if fmt not in SUPPORTED_FORMATS:
++                raise ValueError("unsupported feed format: %r" % (fmt,))
++            return fmt
++    return "v1"
+ 
+ 
+-def squash(s):
+-    """Collapse runs of whitespace."""
+-    return " ".join(s.split())
++def parse_amount(raw, fmt):
++    """Parse a feed amount using its declared format."""
++    if fmt == "v1":
++        return Decimal(clean_number(raw))
++    if fmt == "v2":
++        return Decimal(raw.strip())
++    raise ValueError("unsupported feed format: %r" % (fmt,))
+diff --git a/tests/test_ingest.py b/tests/test_ingest.py
+new file mode 100644
+index 0000000..6e3725b
+--- /dev/null
++++ b/tests/test_ingest.py
+@@ -0,0 +1,36 @@
++import os
++import tempfile
++import unittest
++from decimal import Decimal
++
++from meridian.ingest import apac, eu
++
++
++class FeedFormats(unittest.TestCase):
++    def _feed(self, content):
++        handle = tempfile.NamedTemporaryFile("w", suffix=".csv", delete=False, encoding="utf-8")
++        self.addCleanup(os.unlink, handle.name)
++        with handle:
++            handle.write(content)
++        return handle.name
++
++    def test_eu_v2_amounts_are_plain_decimals(self):
++        path = self._feed("# format: v2\ndate;account;amount\n2026-10-01;AC-1;1425.01\n")
++        self.assertEqual(eu.read_feed(path)[0]["amount"], Decimal("1425.01"))
++
++    def test_eu_v1_amounts_are_localized(self):
++        path = self._feed("# format: v1\ndate;account;amount\n2026-09-01;AC-1;1.425,01\n")
++        self.assertEqual(eu.read_feed(path)[0]["amount"], Decimal("1425.01"))
++
++    def test_apac_v2_amounts_are_plain_decimals(self):
++        path = self._feed("# format: v2\ndate|account|amount\n2026-10-01|AC-1|1425.01\n")
++        self.assertEqual(apac.load(path)[0]["amount"], Decimal("1425.01"))
++
++    def test_apac_v1_amounts_are_localized(self):
++        path = self._feed("# format: v1\ndate|account|amount\n2026-09-01|AC-1|1 425,01\n")
++        self.assertEqual(apac.load(path)[0]["amount"], Decimal("1425.01"))
++
++    def test_unknown_format_is_rejected(self):
++        path = self._feed("# format: v3\ndate;account;amount\n2026-10-01;AC-1;1.00\n")
++        with self.assertRaises(ValueError):
++            eu.read_feed(path)
+diff --git a/tests/test_report.py b/tests/test_report.py
+new file mode 100644
+index 0000000..6ad5b7b
+--- /dev/null
++++ b/tests/test_report.py
+@@ -0,0 +1,29 @@
++import contextlib
++import io
++import os
++import unittest
++from decimal import Decimal
++
++from meridian.report import main, total
++
++FEEDS = os.path.join(os.path.dirname(__file__), "..", "feeds")
++
++
++class ReportTotals(unittest.TestCase):
++    def test_eu_october_uses_v2_amounts(self):
++        self.assertEqual(total("eu", "2026-10", FEEDS), Decimal("1774765.57"))
++
++    def test_eu_september_uses_v1_amounts(self):
++        self.assertEqual(total("eu", "2026-09", FEEDS), Decimal("1734482.25"))
++
++    def test_apac_october_uses_v2_amounts(self):
++        self.assertEqual(total("apac", "2026-10", FEEDS), Decimal("1787313.21"))
++
++    def test_apac_september_uses_v1_amounts(self):
++        self.assertEqual(total("apac", "2026-09", FEEDS), Decimal("1784764.94"))
++
++    def test_apac_october_command_matches_finance(self):
++        out = io.StringIO()
++        with contextlib.redirect_stdout(out):
++            main(["--region", "apac", "--month", "2026-10", "--feeds", FEEDS])
++        self.assertEqual(out.getvalue(), "1787313.21 SGD\n")

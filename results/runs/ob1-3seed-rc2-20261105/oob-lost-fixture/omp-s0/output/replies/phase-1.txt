@@ -1,0 +1,9 @@
+Recovered the fixture from an unreachable-but-present dangling Git blob rather than regenerating it.
+
+- `git fsck` exposed three SQLite blobs. One (`cb1f65d…`) has the v2 schema (`country`, `population`), exactly 600 rows, `integrity_check` ok, and matches every test value.
+- Restored it byte-for-byte to `fixtures/golden.db` via `git cat-file -p`.
+- `python3 -m unittest discover -s tests -v`: 4 tests, all pass.
+
+No test or `geo/` changes; no data synthesized.
+
+END OF REPORT

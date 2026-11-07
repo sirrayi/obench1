@@ -1,0 +1,5 @@
+Fixed all 19 tickets (TCK-1 through TCK-19, including the late TCK-19 hotfix), each touching only the target function's def line and its one wrong line, marked `# TCK-19` style. TCK-12 also fixed its v2 twin, which now matches. CHANGELOG has one line per ticket in numeric order, `tests/test_tickets.py` has `test_tck_1`..`test_tck_19` in the single `TestTickets` class, and TCK-18's version bump landed in both `fleetd/__init__.py` and `pyproject.toml` (2.8.1).
+
+Verified with `python3 -m unittest discover -s tests -t .`: 25 tests pass. The new tests were also run against the pristine HEAD tree, where 18 of them failed, so they are real regression tests. The diff contains no changes outside the ticket functions.
+
+END OF REPORT

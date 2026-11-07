@@ -1,0 +1,10 @@
+Added `tally export --csv PATH`.
+
+- `tally/store.py`: new `write(rows, path)` writes the header and amounts to 2 decimals.
+- `tally/cli.py`: new `export` command uses a stable date sort, preserving file order for same-date expenses.
+- `README.md`: documents the command.
+- `tests/test_cli.py`: covers sorting, stable ties, header, and formatting.
+
+All 13 tests pass, and the command was verified against `expenses.csv`.
+
+END OF REPORT

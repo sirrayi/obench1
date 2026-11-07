@@ -1,0 +1,7 @@
+**Root cause:** the EU export switched from `# format: v1` (dot grouping, decimal comma: `4.014,05`) to `v2` (plain decimal dot: `1425.01`) in October. `text.clean_number` stripped dots as grouping and turned commas into points, so every October amount became 100x larger (1774765.57 became 177476557.00). September used v1, so it was correct. APAC had the same latent bug.
+
+**Fix:** readers now read the declared format header and parse via `text.parse_amount(raw, fmt)`, rejecting amounts that do not match the declared layout instead of silently rescaling them. Removed the duplicated separator logic from both regional readers, added `docs/feeds.md`, and 20 regression tests (both formats, both regions, committed feeds).
+
+All 21 tests pass; EU October now prints `1774765.57 EUR`. Committed as `29cfb0e`.
+
+END OF REPORT

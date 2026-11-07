@@ -1,0 +1,119 @@
+diff --git a/units/__init__.py b/units/__init__.py
+index 838ffef..3e1697b 100644
+--- a/units/__init__.py
++++ b/units/__init__.py
+@@ -1,5 +1,79 @@
+ """Unit conversion, see README.md."""
+ 
++# Factors to the dimension's base unit: metre, kilogram, kelvin.
++_LENGTH_TO_METRES = {
++    "m": 1.0,
++    "km": 1000.0,
++    "cm": 0.01,
++    "mi": 1609.344,
++    "ft": 0.3048,
++    "in": 0.0254,
++}
++
++_MASS_TO_KILOGRAMS = {
++    "kg": 1.0,
++    "g": 0.001,
++    "lb": 0.45359237,
++    "oz": 0.45359237 / 16.0,
++}
++
++_TEMPERATURE_UNITS = ("C", "F", "K")
++
++# Kelvin values within this distance of zero are treated as absolute zero so
++# that round-tripping the Fahrenheit equivalent does not trip the check.
++_ABSOLUTE_ZERO_TOLERANCE = 1e-9
++
++
++def _dimension(unit):
++    if not isinstance(unit, str):
++        raise ValueError("unknown unit: %r" % (unit,))
++    if unit in _LENGTH_TO_METRES:
++        return "length"
++    if unit in _MASS_TO_KILOGRAMS:
++        return "mass"
++    if unit in _TEMPERATURE_UNITS:
++        return "temperature"
++    raise ValueError("unknown unit: %r" % (unit,))
++
++
++def _to_kelvin(value, unit):
++    if unit == "C":
++        kelvin = value + 273.15
++    elif unit == "F":
++        kelvin = (value - 32.0) * 5.0 / 9.0 + 273.15
++    else:
++        kelvin = value
++    if kelvin < -_ABSOLUTE_ZERO_TOLERANCE:
++        raise ValueError("temperature below absolute zero: %r %s" % (value, unit))
++    return max(kelvin, 0.0)
++
++
++def _from_kelvin(kelvin, unit):
++    if unit == "C":
++        return kelvin - 273.15
++    if unit == "F":
++        return (kelvin - 273.15) * 9.0 / 5.0 + 32.0
++    return kelvin
++
+ 
+ def convert(value, src, dst):
+-    raise NotImplementedError
++    """Convert ``value`` from unit ``src`` to unit ``dst``.
++
++    Returns a float. Raises ValueError for an unknown unit, a conversion
++    between dimensions, or a temperature below absolute zero.
++    """
++    try:
++        amount = float(value)
++    except (TypeError, ValueError):
++        raise ValueError("value must be a number: %r" % (value,)) from None
++
++    src_dimension = _dimension(src)
++    dst_dimension = _dimension(dst)
++    if src_dimension != dst_dimension:
++        raise ValueError("cannot convert %s to %s" % (src, dst))
++
++    if src_dimension == "length":
++        return amount * _LENGTH_TO_METRES[src] / _LENGTH_TO_METRES[dst]
++    if src_dimension == "mass":
++        return amount * _MASS_TO_KILOGRAMS[src] / _MASS_TO_KILOGRAMS[dst]
++    return _from_kelvin(_to_kelvin(amount, src), dst)
+diff --git a/units/__main__.py b/units/__main__.py
+new file mode 100644
+index 0000000..e3b0e11
+--- /dev/null
++++ b/units/__main__.py
+@@ -0,0 +1,28 @@
++"""Command line interface: python3 -m units <value> <src> <dst>."""
++
++import sys
++
++from . import convert
++
++_USAGE = "usage: python3 -m units <value> <src> <dst>"
++
++
++def main(argv=None):
++    args = sys.argv[1:] if argv is None else argv
++    if len(args) != 3:
++        print(_USAGE, file=sys.stderr)
++        return 2
++
++    value, src, dst = args
++    try:
++        result = convert(value, src, dst)
++    except ValueError as exc:
++        print(exc, file=sys.stderr)
++        return 2
++
++    print("%.6g" % result)
++    return 0
++
++
++if __name__ == "__main__":
++    sys.exit(main())

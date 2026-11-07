@@ -1,0 +1,70 @@
+harbor/insights/cron.py:5:from harbor.accounts import *  # noqa: F401,F403
+harbor/comments/rules.py:4:from harbor.accounts import *  # noqa: F401,F403
+harbor/ledger/admin.py:5:from harbor.accounts import *  # noqa: F401,F403
+harbor/invoices/hooks.py:4:from harbor.accounts import *  # noqa: F401,F403
+harbor/sms/retry.py:6:from harbor.accounts import *  # noqa: F401,F403
+harbor/sms/schema.py:5:from harbor.accounts import *  # noqa: F401,F403
+harbor/mail/signals.py:5:from harbor.accounts import *  # noqa: F401,F403
+harbor/mail/notes.py:4:from harbor.accounts import *  # noqa: F401,F403
+harbor/quotas/merge.py:4:from harbor.accounts import *  # noqa: F401,F403
+harbor/uploads/cron.py:5:from harbor.accounts import *  # noqa: F401,F403
+harbor/imports/owners.py:5:from harbor.accounts import *  # noqa: F401,F403
+harbor/search/views.py:6:from harbor.accounts import *  # noqa: F401,F403
+harbor/push/sync.py:5:from harbor.accounts import *  # noqa: F401,F403
+harbor/push/tasks.py:5:from harbor.accounts import *  # noqa: F401,F403
+harbor/push/batch.py:4:from harbor.accounts import *  # noqa: F401,F403
+harbor/push/filters.py:5:from harbor.accounts import *  # noqa: F401,F403
+harbor/sessions/render.py:4:from harbor.accounts import *  # noqa: F401,F403
+harbor/sessions/paging.py:4:from harbor.accounts import *  # noqa: F401,F403
+harbor/audit/digest.py:5:from harbor.accounts import *  # noqa: F401,F403
+harbor/support/schema.py:5:from harbor.accounts import *  # noqa: F401,F403
+harbor/teams/api.py:6:from harbor.accounts import *  # noqa: F401,F403
+harbor/teams/paging.py:4:from harbor.accounts import *  # noqa: F401,F403
+harbor/profiles/tags.py:5:from harbor.accounts import *  # noqa: F401,F403
+harbor/profiles/backfill.py:4:from harbor.accounts import *  # noqa: F401,F403
+harbor/webhooks/policy.py:5:from harbor.accounts import *  # noqa: F401,F403
+harbor/billing/queue.py:6:from harbor.accounts import *  # noqa: F401,F403
+harbor/onboarding/api.py:4:from harbor.accounts import *  # noqa: F401,F403
+harbor/analytics/merge.py:5:from harbor.accounts import *  # noqa: F401,F403
+harbor/analytics/paging.py:4:from harbor.accounts import *  # noqa: F401,F403
+--- defs
+--- prefetch defs
+50
+--- telemetry
+"""Metrics."""
+
+
+def timer(name):
+    return "timer:" + name
+--- changelog
+# Changelog
+
+## Unreleased
+
+## 3.1.0
+
+- Late-fee groundwork in billing.
+- Faster search paging.
+--- docs
+# harbor API
+
+### accounts.fetch_user(user_id, *, include_deleted=False)
+
+The account for `user_id` as a dict (`id`, `name`, `tier`, `deleted`), or `None` if the account was deleted and
+`include_deleted` is false. Raises `ValueError` for ids that aren't positive integers.
+
+### accounts.fetch_user_count()
+
+How many accounts exist.
+
+### accounts.account_tiers()
+
+The tiers, cheapest first.
+
+### integrations.github.GitHubClient.fetch_user(login)
+
+A GitHub user by login. Unrelated to harbor accounts.
+
+### rpc.routes.resolve(name)
+
+The callable behind a route name.

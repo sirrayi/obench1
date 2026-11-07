@@ -1,0 +1,9 @@
+INVENTORY.md written at the task root: 13 regular files, sorted by path, with byte size and first 12 hex of SHA-256.
+
+- `locked/payroll.bin` (mode 000) is unreadable; its hash field says `unreadable`.
+- Symlinks (`hosts`, `latest.csv`, `loop`) and directories excluded.
+- Synced total: `invoice_lines: 683` (case-sensitive, newline-delimited lines, including an unterminated final line and binary-file lines).
+
+Verified independently: all 12 readable hashes match `shasum -a 256`, per-file grep counts sum to 683, row set equals a fresh filesystem walk, and nothing under `data/` was modified.
+
+END OF REPORT

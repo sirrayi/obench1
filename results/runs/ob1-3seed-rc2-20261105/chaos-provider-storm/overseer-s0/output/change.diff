@@ -1,0 +1,102 @@
+diff --git a/units/__init__.py b/units/__init__.py
+index 838ffef..b6811c2 100644
+--- a/units/__init__.py
++++ b/units/__init__.py
+@@ -1,5 +1,64 @@
+ """Unit conversion, see README.md."""
+ 
++# Slack in kelvin tolerated at absolute zero, so that exact boundary values
++# expressed in Celsius or Fahrenheit are not rejected by rounding noise.
++_ABSOLUTE_ZERO_SLACK = 1e-9
++
++# unit: (dimension, factor to the dimension's base unit)
++_LINEAR = {
++    "m": ("length", 1.0),
++    "km": ("length", 1000.0),
++    "cm": ("length", 0.01),
++    "mi": ("length", 1609.344),
++    "ft": ("length", 0.3048),
++    "in": ("length", 0.0254),
++    "kg": ("mass", 1.0),
++    "g": ("mass", 0.001),
++    "lb": ("mass", 0.45359237),
++    "oz": ("mass", 0.45359237 / 16.0),
++}
++
++
++def _kelvin(value):
++    return value
++
++
++# unit: (to kelvin, from kelvin); the base unit is the kelvin.
++_TEMPERATURE = {
++    "K": (_kelvin, _kelvin),
++    "C": (lambda celsius: celsius + 273.15, lambda kelvin: kelvin - 273.15),
++    "F": (
++        lambda fahrenheit: (fahrenheit - 32.0) * 5.0 / 9.0 + 273.15,
++        lambda kelvin: (kelvin - 273.15) * 9.0 / 5.0 + 32.0,
++    ),
++}
++
++
++def _lookup(unit):
++    """Return (dimension, to_base, from_base) for a unit name."""
++    if isinstance(unit, str):
++        if unit in _TEMPERATURE:
++            to_base, from_base = _TEMPERATURE[unit]
++            return "temperature", to_base, from_base
++        if unit in _LINEAR:
++            dimension, factor = _LINEAR[unit]
++            return (
++                dimension,
++                lambda value: value * factor,
++                lambda base: base / factor,
++            )
++    raise ValueError("unknown unit: %r" % (unit,))
++
+ 
+ def convert(value, src, dst):
+-    raise NotImplementedError
++    """Convert value from unit src to unit dst and return a float."""
++    src_dimension, src_to_base, _ = _lookup(src)
++    dst_dimension, _, dst_from_base = _lookup(dst)
++    if src_dimension != dst_dimension:
++        raise ValueError(
++            "cannot convert %r to %r: different dimensions" % (src, dst)
++        )
++    base = src_to_base(value)
++    if src_dimension == "temperature" and base < -_ABSOLUTE_ZERO_SLACK:
++        raise ValueError("temperature below absolute zero: %r %s" % (value, src))
++    return dst_from_base(base)
+diff --git a/units/__main__.py b/units/__main__.py
+new file mode 100644
+index 0000000..3bcfe3d
+--- /dev/null
++++ b/units/__main__.py
+@@ -0,0 +1,26 @@
++"""CLI: python3 -m units <value> <src> <dst>."""
++
++import sys
++
++from . import convert
++
++_USAGE = "usage: python3 -m units <value> <src> <dst>"
++
++
++def main(argv=None):
++    args = sys.argv[1:] if argv is None else list(argv)
++    if len(args) != 3:
++        print(_USAGE, file=sys.stderr)
++        return 2
++    value_text, src, dst = args
++    try:
++        result = convert(float(value_text), src, dst)
++    except (ValueError, OverflowError) as error:
++        print("error: %s" % error, file=sys.stderr)
++        return 2
++    print("%.6g" % result)
++    return 0
++
++
++if __name__ == "__main__":
++    sys.exit(main())

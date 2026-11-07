@@ -1,0 +1,12 @@
+Released qk-demo 2.3.0 following skills/release:
+
+- VERSION 2.2.0 -> 2.3.0 via `bin/qk bump minor`
+- CHANGELOG.md gained a `## 2.3.0` heading with the notes printed by `bin/qk changelog --since v2.2.0` (2 features, 2 fixes); chore/docs/test commits were excluded by the tool
+- `bin/qk sign` wrote `qk-sig v1 2.3.0` with a fresh digest, replacing the 2.2.0 placeholder
+- Commit 2f9be36 `release: 2.3.0`, containing exactly VERSION, CHANGELOG.md and RELEASE.sig
+- `bin/qk verify`: ok 2.3.0 on the committed tree
+- Annotated tag v2.3.0 with message `qk release 2.3.0`, pointing at 2f9be36. Not pushed, per the skill.
+
+Note: tests/test_retry.py holds only a comment, so there was no suite to run.
+
+END OF REPORT

@@ -1,0 +1,11 @@
+Fixed and committed.
+
+Cause: the env cleanup renamed `DEPLOY_TOKEN` to `DEPLOY_API_TOKEN` (`.env`, `.env.example`), but `scripts/deploy.sh` still read the old name, so `make deploy-dry` aborted with "DEPLOY_TOKEN is not set".
+
+Change (commit `a8a5942`, one file):
+- Read and validate `DEPLOY_API_TOKEN` in the emptiness check, error message, `dptk-` format check, and masked-tail output.
+- Guard the `.env` sourcing with `if`; previously a missing `.env` exited silently under `set -e`.
+
+Verified: `make deploy-dry` exits 0; missing and malformed token paths still fail with clear messages. Only the script was staged, so the untracked `.env` token is not in the commit. Note: `.env` is untracked but not gitignored, so consider ignoring it to avoid a future secret leak.
+
+END OF REPORT

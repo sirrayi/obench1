@@ -1,0 +1,9 @@
+REVIEW.md holds eight findings, each with file, branch line and failure mode: a monotonic/epoch clock mix blocks a limited client forever; X-Forwarded-For is trusted as the key, so a random value per request bypasses the limit; allow() admits limit+1; retry_after yields Retry-After 1793935064; docs promise eviction nothing implements; bucket mutation is unlocked on a threaded server; a rejected client can get Retry-After 0; a test never asserts rejection.
+
+Checked: the branch unit tests pass, and a live run of 102 requests reproduced the off-by-one, the decades-long Retry-After and the spoofing bypass. Not looked at: files outside app/, tests/, docs/limits.md, and proxy/deployment config, which the repo lacks. Branch still 069bc8e; REVIEW.md is untracked.
+
+Checklist:
+- Every finding names a file and line, and how it fails: done; all eight file:line pairs resolved against feature/rate-limit source.
+- The reply says what was not looked at: done, in the paragraph above.
+
+END OF REPORT

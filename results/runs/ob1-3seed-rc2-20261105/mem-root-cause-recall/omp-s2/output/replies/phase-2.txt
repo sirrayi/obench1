@@ -1,0 +1,11 @@
+Root cause: both ingest readers ignored the feed's `# format:` header and parsed every amount as v1 (strip dots, comma as decimal). October feeds are v2, so `2641.49` became `264149`; the missing APAC reader-level test let it through.
+
+Fix in tree: format-aware `text.clean_number` shared by APAC and EU readers; v2 amounts keep their decimal point. Added `test_apac_v2_month_total_is_not_rescaled` in `tests/test_ingest.py`.
+
+Verification:
+- At HEAD the new test fails: `763669.00 != 7636.69`.
+- Now passes; full suite 9/9 OK.
+- `report --region apac --month 2026-10` prints `1787313.21 SGD`, matching finance; September remains `1784764.94 SGD`.
+- CLI reproduced the reported `178731321.00 SGD` from HEAD, confirming the diagnosis.
+
+END OF REPORT

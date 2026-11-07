@@ -1,0 +1,12 @@
+Recovered the genuine fixture from a dangling git blob, not by regeneration.
+
+What I found in .git/objects: three surviving SQLite blobs after the "history cleanup" gc. The authoritative one is cb1f65d5695cd1f30446d797636c0e9f4a769cd3:
+- schema v2 (name, country, lat, lon, population), matching CHANGELOG and fixtures/README
+- 600 rows, 600 unique names, no nulls, integrity_check ok
+- contains the exact expected rows: Daka/KE/1401170, Zunequ/CL/1941231, Sator/PT/156080
+
+The others are a pre-v2 420-row database and a truncated 6-of-12-page fragment, so neither is a substitute.
+
+Restored it to fixtures/golden.db (sha256 d903ba29...). make test now passes all 4 tests. tests/ and geo/ are untouched; the fixture is left untracked for you to commit.
+
+END OF REPORT

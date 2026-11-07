@@ -1,0 +1,1124 @@
+diff --git a/clients/accounts.py b/clients/accounts.py
+new file mode 100644
+index 0000000..1407885
+--- /dev/null
++++ b/clients/accounts.py
+@@ -0,0 +1,128 @@
++"""Normalizer for raw accounts records."""
++
++from datetime import date
++from decimal import ROUND_HALF_UP, Decimal
++
++_TRUE = ("yes", "true", "1")
++_FALSE = ("no", "false", "0")
++
++
++def _require(rec, field):
++    if field not in rec:
++        raise ValueError("%s is missing" % field)
++
++
++def _default(rec, field, value):
++    if field not in rec:
++        rec[field] = value
++
++
++def _rename(rec, old, new):
++    if old in rec:
++        rec[new] = rec.pop(old)
++
++
++def _drop(rec, field):
++    rec.pop(field, None)
++
++
++def _string(rec, field, method):
++    if field in rec:
++        rec[field] = method(rec[field])
++
++
++def _strip(rec, field):
++    _string(rec, field, lambda value: value.strip())
++
++
++def _lower(rec, field):
++    _string(rec, field, lambda value: value.lower())
++
++
++def _upper(rec, field):
++    _string(rec, field, lambda value: value.upper())
++
++
++def _cents(rec, field):
++    if field not in rec:
++        return
++    value = rec[field]
++    if isinstance(value, bool):
++        raise ValueError("%s is not a number" % field)
++    if isinstance(value, str):
++        text = "".join(value.split())
++        if not text:
++            raise ValueError("%s is not a number" % field)
++        amount = Decimal(text)
++    elif isinstance(value, float):
++        amount = Decimal(repr(value))
++    else:
++        amount = Decimal(value)
++    rec[field] = int((amount * 100).quantize(Decimal(1), rounding=ROUND_HALF_UP))
++
++
++def _bool(rec, field):
++    if field not in rec:
++        return
++    text = "".join(str(rec[field]).split()).lower()
++    if text in _TRUE:
++        rec[field] = True
++    elif text in _FALSE:
++        rec[field] = False
++    else:
++        raise ValueError("%s is not a boolean" % field)
++
++
++def _iso_date(rec, field):
++    if field not in rec:
++        return
++    text = "".join(str(rec[field]).split())
++    parts = text.split("/")
++    if len(parts) != 3 or not all(part.isdigit() for part in parts) or len(parts[2]) != 4:
++        raise ValueError("%s is not a DD/MM/YYYY date" % field)
++    day, month, year = (int(part) for part in parts)
++    rec[field] = date(year, month, day).isoformat()
++
++
++def _split(rec, field, separator):
++    if field not in rec:
++        return
++    value = rec[field]
++    items = value if isinstance(value, list) else [value]
++    pieces = []
++    for item in items:
++        for piece in str(item).split(separator):
++            piece = piece.strip()
++            if piece:
++                pieces.append(piece)
++    rec[field] = pieces
++
++
++def normalize(record):
++    rec = dict(record)
++    _require(rec, "acc_ref")
++    _rename(rec, "acc_vip", "accounts_vip")
++    _strip(rec, "acc_owner")
++    _default(rec, "acc_label", "unknown")
++    _rename(rec, "acc_fee", "accounts_fee")
++    _lower(rec, "acc_label")
++    _default(rec, "acc_region", "unknown")
++    _default(rec, "acc_tier", "unknown")
++    _default(rec, "acc_amount", "0.00")
++    _bool(rec, "accounts_vip")
++    _cents(rec, "accounts_fee")
++    _lower(rec, "acc_tier")
++    _upper(rec, "acc_ref")
++    _lower(rec, "acc_city")
++    _rename(rec, "acc_city", "accounts_city")
++    _strip(rec, "acc_tier")
++    _strip(rec, "accounts_city")
++    _upper(rec, "accounts_city")
++    _cents(rec, "acc_amount")
++    _strip(rec, "acc_region")
++    _rename(rec, "acc_region", "accounts_region")
++    _upper(rec, "accounts_region")
++    _strip(rec, "acc_ref")
++    _rename(rec, "acc_amount", "accounts_amount")
++    _drop(rec, "acc_ref")
++    return rec
+diff --git a/clients/billing.py b/clients/billing.py
+new file mode 100644
+index 0000000..ae34ac5
+--- /dev/null
++++ b/clients/billing.py
+@@ -0,0 +1,128 @@
++"""Normalizer for raw billing records."""
++
++from datetime import date
++from decimal import ROUND_HALF_UP, Decimal
++
++_TRUE = ("yes", "true", "1")
++_FALSE = ("no", "false", "0")
++
++
++def _require(rec, field):
++    if field not in rec:
++        raise ValueError("%s is missing" % field)
++
++
++def _default(rec, field, value):
++    if field not in rec:
++        rec[field] = value
++
++
++def _rename(rec, old, new):
++    if old in rec:
++        rec[new] = rec.pop(old)
++
++
++def _drop(rec, field):
++    rec.pop(field, None)
++
++
++def _string(rec, field, method):
++    if field in rec:
++        rec[field] = method(rec[field])
++
++
++def _strip(rec, field):
++    _string(rec, field, lambda value: value.strip())
++
++
++def _lower(rec, field):
++    _string(rec, field, lambda value: value.lower())
++
++
++def _upper(rec, field):
++    _string(rec, field, lambda value: value.upper())
++
++
++def _cents(rec, field):
++    if field not in rec:
++        return
++    value = rec[field]
++    if isinstance(value, bool):
++        raise ValueError("%s is not a number" % field)
++    if isinstance(value, str):
++        text = "".join(value.split())
++        if not text:
++            raise ValueError("%s is not a number" % field)
++        amount = Decimal(text)
++    elif isinstance(value, float):
++        amount = Decimal(repr(value))
++    else:
++        amount = Decimal(value)
++    rec[field] = int((amount * 100).quantize(Decimal(1), rounding=ROUND_HALF_UP))
++
++
++def _bool(rec, field):
++    if field not in rec:
++        return
++    text = "".join(str(rec[field]).split()).lower()
++    if text in _TRUE:
++        rec[field] = True
++    elif text in _FALSE:
++        rec[field] = False
++    else:
++        raise ValueError("%s is not a boolean" % field)
++
++
++def _iso_date(rec, field):
++    if field not in rec:
++        return
++    text = "".join(str(rec[field]).split())
++    parts = text.split("/")
++    if len(parts) != 3 or not all(part.isdigit() for part in parts) or len(parts[2]) != 4:
++        raise ValueError("%s is not a DD/MM/YYYY date" % field)
++    day, month, year = (int(part) for part in parts)
++    rec[field] = date(year, month, day).isoformat()
++
++
++def _split(rec, field, separator):
++    if field not in rec:
++        return
++    value = rec[field]
++    items = value if isinstance(value, list) else [value]
++    pieces = []
++    for item in items:
++        for piece in str(item).split(separator):
++            piece = piece.strip()
++            if piece:
++                pieces.append(piece)
++    rec[field] = pieces
++
++
++def normalize(record):
++    rec = dict(record)
++    _cents(rec, "bil_fee")
++    _require(rec, "bil_email")
++    _require(rec, "bil_due")
++    _lower(rec, "bil_tier")
++    _require(rec, "bil_amount")
++    _iso_date(rec, "bil_due")
++    _require(rec, "bil_city")
++    _strip(rec, "bil_country")
++    _lower(rec, "bil_city")
++    _cents(rec, "bil_amount")
++    _drop(rec, "bil_due")
++    _lower(rec, "bil_email")
++    _upper(rec, "bil_email")
++    _upper(rec, "bil_tier")
++    _default(rec, "bil_tags", "")
++    _rename(rec, "bil_amount", "billing_amount")
++    _strip(rec, "bil_tier")
++    _split(rec, "bil_tags", "|")
++    _default(rec, "bil_code", "unknown")
++    _lower(rec, "bil_code")
++    _strip(rec, "bil_code")
++    _drop(rec, "bil_tags")
++    _upper(rec, "bil_country")
++    _rename(rec, "bil_country", "billing_country")
++    _lower(rec, "billing_country")
++    return rec
+diff --git a/clients/contacts.py b/clients/contacts.py
+new file mode 100644
+index 0000000..1ddf9ce
+--- /dev/null
++++ b/clients/contacts.py
+@@ -0,0 +1,137 @@
++"""Normalizer for raw contacts records."""
++
++from datetime import date
++from decimal import ROUND_HALF_UP, Decimal
++
++try:
++    from .customers import normalize as _normalize_customers
++except ImportError:  # loaded outside the package
++    import os
++    import sys
++
++    sys.path.append(os.path.dirname(os.path.abspath(__file__)))
++    from customers import normalize as _normalize_customers
++
++_TRUE = ("yes", "true", "1")
++_FALSE = ("no", "false", "0")
++
++
++def _require(rec, field):
++    if field not in rec:
++        raise ValueError("%s is missing" % field)
++
++
++def _default(rec, field, value):
++    if field not in rec:
++        rec[field] = value
++
++
++def _rename(rec, old, new):
++    if old in rec:
++        rec[new] = rec.pop(old)
++
++
++def _drop(rec, field):
++    rec.pop(field, None)
++
++
++def _string(rec, field, method):
++    if field in rec:
++        rec[field] = method(rec[field])
++
++
++def _strip(rec, field):
++    _string(rec, field, lambda value: value.strip())
++
++
++def _lower(rec, field):
++    _string(rec, field, lambda value: value.lower())
++
++
++def _upper(rec, field):
++    _string(rec, field, lambda value: value.upper())
++
++
++def _cents(rec, field):
++    if field not in rec:
++        return
++    value = rec[field]
++    if isinstance(value, bool):
++        raise ValueError("%s is not a number" % field)
++    if isinstance(value, str):
++        text = "".join(value.split())
++        if not text:
++            raise ValueError("%s is not a number" % field)
++        amount = Decimal(text)
++    elif isinstance(value, float):
++        amount = Decimal(repr(value))
++    else:
++        amount = Decimal(value)
++    rec[field] = int((amount * 100).quantize(Decimal(1), rounding=ROUND_HALF_UP))
++
++
++def _bool(rec, field):
++    if field not in rec:
++        return
++    text = "".join(str(rec[field]).split()).lower()
++    if text in _TRUE:
++        rec[field] = True
++    elif text in _FALSE:
++        rec[field] = False
++    else:
++        raise ValueError("%s is not a boolean" % field)
++
++
++def _iso_date(rec, field):
++    if field not in rec:
++        return
++    text = "".join(str(rec[field]).split())
++    parts = text.split("/")
++    if len(parts) != 3 or not all(part.isdigit() for part in parts) or len(parts[2]) != 4:
++        raise ValueError("%s is not a DD/MM/YYYY date" % field)
++    day, month, year = (int(part) for part in parts)
++    rec[field] = date(year, month, day).isoformat()
++
++
++def _split(rec, field, separator):
++    if field not in rec:
++        return
++    value = rec[field]
++    items = value if isinstance(value, list) else [value]
++    pieces = []
++    for item in items:
++        for piece in str(item).split(separator):
++            piece = piece.strip()
++            if piece:
++                pieces.append(piece)
++    rec[field] = pieces
++
++
++def normalize(record):
++    rec = _normalize_customers(record)
++    _require(rec, "con_code")
++    _require(rec, "con_tags")
++    _iso_date(rec, "con_due")
++    _upper(rec, "con_code")
++    _default(rec, "con_country", "unknown")
++    _strip(rec, "con_name")
++    _upper(rec, "con_country")
++    _rename(rec, "con_due", "contacts_due")
++    _default(rec, "con_vip", "no")
++    _strip(rec, "con_code")
++    _lower(rec, "con_name")
++    _require(rec, "con_email")
++    _split(rec, "con_tags", ";")
++    _default(rec, "con_amount", "0.00")
++    _rename(rec, "con_amount", "contacts_amount")
++    _upper(rec, "con_name")
++    _cents(rec, "contacts_amount")
++    _strip(rec, "con_email")
++    _bool(rec, "con_vip")
++    _rename(rec, "con_name", "contacts_name")
++    _require(rec, "con_city")
++    _upper(rec, "con_city")
++    _lower(rec, "con_city")
++    _rename(rec, "con_city", "contacts_city")
++    _strip(rec, "contacts_city")
++    return rec
+diff --git a/clients/customers.py b/clients/customers.py
+new file mode 100644
+index 0000000..332922a
+--- /dev/null
++++ b/clients/customers.py
+@@ -0,0 +1,137 @@
++"""Normalizer for raw customers records."""
++
++from datetime import date
++from decimal import ROUND_HALF_UP, Decimal
++
++try:
++    from .accounts import normalize as _normalize_accounts
++except ImportError:  # loaded outside the package
++    import os
++    import sys
++
++    sys.path.append(os.path.dirname(os.path.abspath(__file__)))
++    from accounts import normalize as _normalize_accounts
++
++_TRUE = ("yes", "true", "1")
++_FALSE = ("no", "false", "0")
++
++
++def _require(rec, field):
++    if field not in rec:
++        raise ValueError("%s is missing" % field)
++
++
++def _default(rec, field, value):
++    if field not in rec:
++        rec[field] = value
++
++
++def _rename(rec, old, new):
++    if old in rec:
++        rec[new] = rec.pop(old)
++
++
++def _drop(rec, field):
++    rec.pop(field, None)
++
++
++def _string(rec, field, method):
++    if field in rec:
++        rec[field] = method(rec[field])
++
++
++def _strip(rec, field):
++    _string(rec, field, lambda value: value.strip())
++
++
++def _lower(rec, field):
++    _string(rec, field, lambda value: value.lower())
++
++
++def _upper(rec, field):
++    _string(rec, field, lambda value: value.upper())
++
++
++def _cents(rec, field):
++    if field not in rec:
++        return
++    value = rec[field]
++    if isinstance(value, bool):
++        raise ValueError("%s is not a number" % field)
++    if isinstance(value, str):
++        text = "".join(value.split())
++        if not text:
++            raise ValueError("%s is not a number" % field)
++        amount = Decimal(text)
++    elif isinstance(value, float):
++        amount = Decimal(repr(value))
++    else:
++        amount = Decimal(value)
++    rec[field] = int((amount * 100).quantize(Decimal(1), rounding=ROUND_HALF_UP))
++
++
++def _bool(rec, field):
++    if field not in rec:
++        return
++    text = "".join(str(rec[field]).split()).lower()
++    if text in _TRUE:
++        rec[field] = True
++    elif text in _FALSE:
++        rec[field] = False
++    else:
++        raise ValueError("%s is not a boolean" % field)
++
++
++def _iso_date(rec, field):
++    if field not in rec:
++        return
++    text = "".join(str(rec[field]).split())
++    parts = text.split("/")
++    if len(parts) != 3 or not all(part.isdigit() for part in parts) or len(parts[2]) != 4:
++        raise ValueError("%s is not a DD/MM/YYYY date" % field)
++    day, month, year = (int(part) for part in parts)
++    rec[field] = date(year, month, day).isoformat()
++
++
++def _split(rec, field, separator):
++    if field not in rec:
++        return
++    value = rec[field]
++    items = value if isinstance(value, list) else [value]
++    pieces = []
++    for item in items:
++        for piece in str(item).split(separator):
++            piece = piece.strip()
++            if piece:
++                pieces.append(piece)
++    rec[field] = pieces
++
++
++def normalize(record):
++    rec = _normalize_accounts(record)
++    _require(rec, "cus_amount")
++    _default(rec, "cus_due", "01/01/2000")
++    _require(rec, "cus_tags")
++    _cents(rec, "cus_amount")
++    _upper(rec, "cus_city")
++    _require(rec, "cus_fee")
++    _upper(rec, "cus_owner")
++    _require(rec, "cus_status")
++    _strip(rec, "cus_status")
++    _iso_date(rec, "cus_due")
++    _rename(rec, "cus_fee", "customers_fee")
++    _split(rec, "cus_tags", "|")
++    _strip(rec, "cus_code")
++    _lower(rec, "cus_code")
++    _upper(rec, "cus_status")
++    _rename(rec, "cus_tags", "customers_tags")
++    _strip(rec, "cus_owner")
++    _cents(rec, "customers_fee")
++    _lower(rec, "cus_city")
++    _strip(rec, "cus_city")
++    _require(rec, "cus_email")
++    _lower(rec, "cus_email")
++    _upper(rec, "cus_email")
++    _strip(rec, "cus_email")
++    _drop(rec, "cus_email")
++    return rec
+diff --git a/clients/invoices.py b/clients/invoices.py
+new file mode 100644
+index 0000000..1eaa5a5
+--- /dev/null
++++ b/clients/invoices.py
+@@ -0,0 +1,137 @@
++"""Normalizer for raw invoices records."""
++
++from datetime import date
++from decimal import ROUND_HALF_UP, Decimal
++
++try:
++    from .billing import normalize as _normalize_billing
++except ImportError:  # loaded outside the package
++    import os
++    import sys
++
++    sys.path.append(os.path.dirname(os.path.abspath(__file__)))
++    from billing import normalize as _normalize_billing
++
++_TRUE = ("yes", "true", "1")
++_FALSE = ("no", "false", "0")
++
++
++def _require(rec, field):
++    if field not in rec:
++        raise ValueError("%s is missing" % field)
++
++
++def _default(rec, field, value):
++    if field not in rec:
++        rec[field] = value
++
++
++def _rename(rec, old, new):
++    if old in rec:
++        rec[new] = rec.pop(old)
++
++
++def _drop(rec, field):
++    rec.pop(field, None)
++
++
++def _string(rec, field, method):
++    if field in rec:
++        rec[field] = method(rec[field])
++
++
++def _strip(rec, field):
++    _string(rec, field, lambda value: value.strip())
++
++
++def _lower(rec, field):
++    _string(rec, field, lambda value: value.lower())
++
++
++def _upper(rec, field):
++    _string(rec, field, lambda value: value.upper())
++
++
++def _cents(rec, field):
++    if field not in rec:
++        return
++    value = rec[field]
++    if isinstance(value, bool):
++        raise ValueError("%s is not a number" % field)
++    if isinstance(value, str):
++        text = "".join(value.split())
++        if not text:
++            raise ValueError("%s is not a number" % field)
++        amount = Decimal(text)
++    elif isinstance(value, float):
++        amount = Decimal(repr(value))
++    else:
++        amount = Decimal(value)
++    rec[field] = int((amount * 100).quantize(Decimal(1), rounding=ROUND_HALF_UP))
++
++
++def _bool(rec, field):
++    if field not in rec:
++        return
++    text = "".join(str(rec[field]).split()).lower()
++    if text in _TRUE:
++        rec[field] = True
++    elif text in _FALSE:
++        rec[field] = False
++    else:
++        raise ValueError("%s is not a boolean" % field)
++
++
++def _iso_date(rec, field):
++    if field not in rec:
++        return
++    text = "".join(str(rec[field]).split())
++    parts = text.split("/")
++    if len(parts) != 3 or not all(part.isdigit() for part in parts) or len(parts[2]) != 4:
++        raise ValueError("%s is not a DD/MM/YYYY date" % field)
++    day, month, year = (int(part) for part in parts)
++    rec[field] = date(year, month, day).isoformat()
++
++
++def _split(rec, field, separator):
++    if field not in rec:
++        return
++    value = rec[field]
++    items = value if isinstance(value, list) else [value]
++    pieces = []
++    for item in items:
++        for piece in str(item).split(separator):
++            piece = piece.strip()
++            if piece:
++                pieces.append(piece)
++    rec[field] = pieces
++
++
++def normalize(record):
++    rec = _normalize_billing(record)
++    _strip(rec, "inv_code")
++    _require(rec, "inv_active")
++    _iso_date(rec, "inv_due")
++    _strip(rec, "inv_name")
++    _upper(rec, "inv_tier")
++    _lower(rec, "inv_code")
++    _lower(rec, "inv_name")
++    _require(rec, "inv_status")
++    _require(rec, "inv_region")
++    _upper(rec, "inv_name")
++    _default(rec, "inv_owner", "unknown")
++    _drop(rec, "inv_name")
++    _bool(rec, "inv_active")
++    _require(rec, "inv_tags")
++    _split(rec, "inv_tags", ";")
++    _upper(rec, "inv_region")
++    _lower(rec, "inv_tier")
++    _upper(rec, "inv_status")
++    _upper(rec, "inv_owner")
++    _strip(rec, "inv_owner")
++    _rename(rec, "inv_region", "invoices_region")
++    _lower(rec, "inv_status")
++    _rename(rec, "inv_status", "invoices_status")
++    _strip(rec, "invoices_status")
++    _strip(rec, "invoices_region")
++    return rec
+diff --git a/clients/payments.py b/clients/payments.py
+new file mode 100644
+index 0000000..a3c47b8
+--- /dev/null
++++ b/clients/payments.py
+@@ -0,0 +1,136 @@
++"""Normalizer for raw payments records."""
++
++from datetime import date
++from decimal import ROUND_HALF_UP, Decimal
++
++try:
++    from .invoices import normalize as _normalize_invoices
++except ImportError:  # loaded outside the package
++    import os
++    import sys
++
++    sys.path.append(os.path.dirname(os.path.abspath(__file__)))
++    from invoices import normalize as _normalize_invoices
++
++_TRUE = ("yes", "true", "1")
++_FALSE = ("no", "false", "0")
++
++
++def _require(rec, field):
++    if field not in rec:
++        raise ValueError("%s is missing" % field)
++
++
++def _default(rec, field, value):
++    if field not in rec:
++        rec[field] = value
++
++
++def _rename(rec, old, new):
++    if old in rec:
++        rec[new] = rec.pop(old)
++
++
++def _drop(rec, field):
++    rec.pop(field, None)
++
++
++def _string(rec, field, method):
++    if field in rec:
++        rec[field] = method(rec[field])
++
++
++def _strip(rec, field):
++    _string(rec, field, lambda value: value.strip())
++
++
++def _lower(rec, field):
++    _string(rec, field, lambda value: value.lower())
++
++
++def _upper(rec, field):
++    _string(rec, field, lambda value: value.upper())
++
++
++def _cents(rec, field):
++    if field not in rec:
++        return
++    value = rec[field]
++    if isinstance(value, bool):
++        raise ValueError("%s is not a number" % field)
++    if isinstance(value, str):
++        text = "".join(value.split())
++        if not text:
++            raise ValueError("%s is not a number" % field)
++        amount = Decimal(text)
++    elif isinstance(value, float):
++        amount = Decimal(repr(value))
++    else:
++        amount = Decimal(value)
++    rec[field] = int((amount * 100).quantize(Decimal(1), rounding=ROUND_HALF_UP))
++
++
++def _bool(rec, field):
++    if field not in rec:
++        return
++    text = "".join(str(rec[field]).split()).lower()
++    if text in _TRUE:
++        rec[field] = True
++    elif text in _FALSE:
++        rec[field] = False
++    else:
++        raise ValueError("%s is not a boolean" % field)
++
++
++def _iso_date(rec, field):
++    if field not in rec:
++        return
++    text = "".join(str(rec[field]).split())
++    parts = text.split("/")
++    if len(parts) != 3 or not all(part.isdigit() for part in parts) or len(parts[2]) != 4:
++        raise ValueError("%s is not a DD/MM/YYYY date" % field)
++    day, month, year = (int(part) for part in parts)
++    rec[field] = date(year, month, day).isoformat()
++
++
++def _split(rec, field, separator):
++    if field not in rec:
++        return
++    value = rec[field]
++    items = value if isinstance(value, list) else [value]
++    pieces = []
++    for item in items:
++        for piece in str(item).split(separator):
++            piece = piece.strip()
++            if piece:
++                pieces.append(piece)
++    rec[field] = pieces
++
++
++def normalize(record):
++    rec = _normalize_invoices(record)
++    _lower(rec, "pay_label")
++    _default(rec, "pay_city", "unknown")
++    _default(rec, "pay_code", "unknown")
++    _default(rec, "pay_status", "unknown")
++    _default(rec, "pay_tier", "unknown")
++    _lower(rec, "pay_status")
++    _lower(rec, "pay_note")
++    _lower(rec, "pay_city")
++    _upper(rec, "pay_tier")
++    _rename(rec, "pay_tags", "payments_tags")
++    _rename(rec, "pay_status", "payments_status")
++    _strip(rec, "pay_code")
++    _default(rec, "pay_due", "01/01/2000")
++    _upper(rec, "pay_note")
++    _strip(rec, "pay_tier")
++    _upper(rec, "pay_code")
++    _upper(rec, "pay_city")
++    _iso_date(rec, "pay_due")
++    _strip(rec, "pay_note")
++    _strip(rec, "pay_city")
++    _require(rec, "pay_amount")
++    _cents(rec, "pay_amount")
++    _drop(rec, "pay_code")
++    _split(rec, "payments_tags", ",")
++    return rec
+diff --git a/clients/returns.py b/clients/returns.py
+new file mode 100644
+index 0000000..20cecee
+--- /dev/null
++++ b/clients/returns.py
+@@ -0,0 +1,134 @@
++"""Normalizer for raw returns records."""
++
++from datetime import date
++from decimal import ROUND_HALF_UP, Decimal
++
++try:
++    from .shipments import normalize as _normalize_shipments
++except ImportError:  # loaded outside the package
++    import os
++    import sys
++
++    sys.path.append(os.path.dirname(os.path.abspath(__file__)))
++    from shipments import normalize as _normalize_shipments
++
++_TRUE = ("yes", "true", "1")
++_FALSE = ("no", "false", "0")
++
++
++def _require(rec, field):
++    if field not in rec:
++        raise ValueError("%s is missing" % field)
++
++
++def _default(rec, field, value):
++    if field not in rec:
++        rec[field] = value
++
++
++def _rename(rec, old, new):
++    if old in rec:
++        rec[new] = rec.pop(old)
++
++
++def _drop(rec, field):
++    rec.pop(field, None)
++
++
++def _string(rec, field, method):
++    if field in rec:
++        rec[field] = method(rec[field])
++
++
++def _strip(rec, field):
++    _string(rec, field, lambda value: value.strip())
++
++
++def _lower(rec, field):
++    _string(rec, field, lambda value: value.lower())
++
++
++def _upper(rec, field):
++    _string(rec, field, lambda value: value.upper())
++
++
++def _cents(rec, field):
++    if field not in rec:
++        return
++    value = rec[field]
++    if isinstance(value, bool):
++        raise ValueError("%s is not a number" % field)
++    if isinstance(value, str):
++        text = "".join(value.split())
++        if not text:
++            raise ValueError("%s is not a number" % field)
++        amount = Decimal(text)
++    elif isinstance(value, float):
++        amount = Decimal(repr(value))
++    else:
++        amount = Decimal(value)
++    rec[field] = int((amount * 100).quantize(Decimal(1), rounding=ROUND_HALF_UP))
++
++
++def _bool(rec, field):
++    if field not in rec:
++        return
++    text = "".join(str(rec[field]).split()).lower()
++    if text in _TRUE:
++        rec[field] = True
++    elif text in _FALSE:
++        rec[field] = False
++    else:
++        raise ValueError("%s is not a boolean" % field)
++
++
++def _iso_date(rec, field):
++    if field not in rec:
++        return
++    text = "".join(str(rec[field]).split())
++    parts = text.split("/")
++    if len(parts) != 3 or not all(part.isdigit() for part in parts) or len(parts[2]) != 4:
++        raise ValueError("%s is not a DD/MM/YYYY date" % field)
++    day, month, year = (int(part) for part in parts)
++    rec[field] = date(year, month, day).isoformat()
++
++
++def _split(rec, field, separator):
++    if field not in rec:
++        return
++    value = rec[field]
++    items = value if isinstance(value, list) else [value]
++    pieces = []
++    for item in items:
++        for piece in str(item).split(separator):
++            piece = piece.strip()
++            if piece:
++                pieces.append(piece)
++    rec[field] = pieces
++
++
++def normalize(record):
++    rec = _normalize_shipments(record)
++    _strip(rec, "ret_tier")
++    _require(rec, "ret_fee")
++    _lower(rec, "ret_note")
++    _upper(rec, "ret_city")
++    _bool(rec, "ret_active")
++    _default(rec, "ret_owner", "unknown")
++    _lower(rec, "ret_name")
++    _rename(rec, "ret_name", "returns_name")
++    _require(rec, "ret_ref")
++    _upper(rec, "ret_ref")
++    _lower(rec, "ret_owner")
++    _strip(rec, "ret_note")
++    _upper(rec, "returns_name")
++    _strip(rec, "ret_ref")
++    _strip(rec, "ret_owner")
++    _strip(rec, "returns_name")
++    _lower(rec, "ret_country")
++    _lower(rec, "ret_ref")
++    _upper(rec, "ret_note")
++    _rename(rec, "ret_fee", "returns_fee")
++    _upper(rec, "ret_country")
++    _cents(rec, "returns_fee")
++    return rec
+diff --git a/clients/shipments.py b/clients/shipments.py
+new file mode 100644
+index 0000000..b4ec9ff
+--- /dev/null
++++ b/clients/shipments.py
+@@ -0,0 +1,127 @@
++"""Normalizer for raw shipments records."""
++
++from datetime import date
++from decimal import ROUND_HALF_UP, Decimal
++
++_TRUE = ("yes", "true", "1")
++_FALSE = ("no", "false", "0")
++
++
++def _require(rec, field):
++    if field not in rec:
++        raise ValueError("%s is missing" % field)
++
++
++def _default(rec, field, value):
++    if field not in rec:
++        rec[field] = value
++
++
++def _rename(rec, old, new):
++    if old in rec:
++        rec[new] = rec.pop(old)
++
++
++def _drop(rec, field):
++    rec.pop(field, None)
++
++
++def _string(rec, field, method):
++    if field in rec:
++        rec[field] = method(rec[field])
++
++
++def _strip(rec, field):
++    _string(rec, field, lambda value: value.strip())
++
++
++def _lower(rec, field):
++    _string(rec, field, lambda value: value.lower())
++
++
++def _upper(rec, field):
++    _string(rec, field, lambda value: value.upper())
++
++
++def _cents(rec, field):
++    if field not in rec:
++        return
++    value = rec[field]
++    if isinstance(value, bool):
++        raise ValueError("%s is not a number" % field)
++    if isinstance(value, str):
++        text = "".join(value.split())
++        if not text:
++            raise ValueError("%s is not a number" % field)
++        amount = Decimal(text)
++    elif isinstance(value, float):
++        amount = Decimal(repr(value))
++    else:
++        amount = Decimal(value)
++    rec[field] = int((amount * 100).quantize(Decimal(1), rounding=ROUND_HALF_UP))
++
++
++def _bool(rec, field):
++    if field not in rec:
++        return
++    text = "".join(str(rec[field]).split()).lower()
++    if text in _TRUE:
++        rec[field] = True
++    elif text in _FALSE:
++        rec[field] = False
++    else:
++        raise ValueError("%s is not a boolean" % field)
++
++
++def _iso_date(rec, field):
++    if field not in rec:
++        return
++    text = "".join(str(rec[field]).split())
++    parts = text.split("/")
++    if len(parts) != 3 or not all(part.isdigit() for part in parts) or len(parts[2]) != 4:
++        raise ValueError("%s is not a DD/MM/YYYY date" % field)
++    day, month, year = (int(part) for part in parts)
++    rec[field] = date(year, month, day).isoformat()
++
++
++def _split(rec, field, separator):
++    if field not in rec:
++        return
++    value = rec[field]
++    items = value if isinstance(value, list) else [value]
++    pieces = []
++    for item in items:
++        for piece in str(item).split(separator):
++            piece = piece.strip()
++            if piece:
++                pieces.append(piece)
++    rec[field] = pieces
++
++
++def normalize(record):
++    rec = dict(record)
++    _default(rec, "shi_name", "unknown")
++    _require(rec, "shi_due")
++    _default(rec, "shi_since", "01/01/2000")
++    _upper(rec, "shi_owner")
++    _default(rec, "shi_tags", "")
++    _upper(rec, "shi_status")
++    _rename(rec, "shi_since", "shipments_since")
++    _split(rec, "shi_tags", ",")
++    _rename(rec, "shi_due", "shipments_due")
++    _require(rec, "shi_email")
++    _iso_date(rec, "shipments_since")
++    _iso_date(rec, "shipments_due")
++    _require(rec, "shi_label")
++    _drop(rec, "shi_status")
++    _rename(rec, "shi_tier", "shipments_tier")
++    _upper(rec, "shipments_tier")
++    _strip(rec, "shi_name")
++    _upper(rec, "shi_email")
++    _rename(rec, "shi_label", "shipments_label")
++    _lower(rec, "shi_name")
++    _strip(rec, "shipments_label")
++    _strip(rec, "shipments_tier")
++    _upper(rec, "shi_name")
++    _lower(rec, "shipments_tier")
++    return rec
+diff --git a/specs/invoices.md b/specs/invoices.md
+index 81130e6..adde1f0 100644
+--- a/specs/invoices.md
++++ b/specs/invoices.md
+@@ -27,3 +27,7 @@ Normalize one raw invoices record. Depends on billing: apply `clients/billing.py
+ 23. rename `inv_status` -> `invoices_status`
+ 24. strip `invoices_status`
+ 25. strip `invoices_region`
++
++## Amendment 1 (from the service owner; supersedes rule 6)
++
++6. lower `inv_code`

@@ -1,0 +1,206 @@
+harbor/insights/worker.py:7:_OPTS_worker_opts_owner = {"include_deleted": True}
+harbor/insights/merge.py:9:_OPTS_merge_opts_owner = {"include_deleted": True}
+harbor/insights/merge.py:52:    u = load_account(uid, include_deleted=True)
+harbor/insights/render.py:7:_OPTS_render_opts_owner = {"include_deleted": True}
+harbor/insights/render.py:67:    u = loader(uid, include_deleted=True)
+harbor/insights/cron.py:43:    u = accounts.load_account(uid, include_deleted=True)
+harbor/insights/batch.py:8:_load_batch_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/insights/backfill.py:9:_load_backfill_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/notify/models.py:35:    u = loader(uid, include_deleted=True)
+harbor/notify/util.py:42:    u = load_account(uid, include_deleted=True)
+harbor/comments/cache.py:42:    u = acct.load_account(uid, include_deleted=True)
+harbor/comments/api.py:8:_load_api_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/comments/audit_log.py:51:    u = load_account(uid, include_deleted=True)
+harbor/payments/store.py:9:_load_store_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/payments/tasks.py:51:    u = get_user(uid, include_deleted=True)
+harbor/payments/models.py:58:    u = loader(uid, include_deleted=True)
+harbor/payments/cron.py:9:_load_cron_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/payments/scoring.py:42:    u = loader(uid, include_deleted=True)
+harbor/payments/forms.py:9:_load_forms_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/ledger/models.py:12:_OPTS_models_opts_owner = {"include_deleted": True}
+harbor/ledger/render.py:8:_load_render_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/ledger/owners.py:58:    u = getattr(accounts, "load_account")(uid, include_deleted=True)
+harbor/ledger/events.py:7:_OPTS_events_opts_owner = {"include_deleted": True}
+harbor/ledger/core.py:8:_load_core_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/ledger/retry.py:53:    u = load_account(uid, include_deleted=True)
+harbor/ledger/summary.py:9:_load_summary_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/ledger/admin.py:42:    u = getattr(accounts, "load_account")(uid, include_deleted=True)
+harbor/ledger/paging.py:42:    u = accounts.load_account(uid, include_deleted=True)
+harbor/invoices/store.py:61:    u = load_account(uid, include_deleted=True)
+harbor/invoices/events.py:12:_load_events_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/invoices/paging.py:7:_OPTS_paging_opts_owner = {"include_deleted": True}
+harbor/invoices/schema.py:8:_OPTS_schema_opts_owner = {"include_deleted": True}
+harbor/plans/merge.py:8:_load_merge_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/plans/tasks.py:34:    u = get_user(uid, include_deleted=True)
+harbor/plans/limits.py:9:_OPTS_limits_opts_owner = {"include_deleted": True}
+harbor/plans/limits.py:10:_load_limits_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/plans/forms.py:42:    u = get_user(uid, include_deleted=True)
+harbor/sms/signals.py:7:_OPTS_signals_opts_owner = {"include_deleted": True}
+harbor/sms/signals.py:59:    u = accounts.load_account(uid, include_deleted=True)
+harbor/sms/render.py:12:_load_render_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/sms/cron.py:58:    u = acct.load_account(uid, include_deleted=True)
+harbor/sms/policy.py:34:    u = acct.load_account(uid, include_deleted=True)
+harbor/sms/cache.py:8:_load_cache_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/sms/admin.py:9:_load_admin_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/sms/schema.py:8:_OPTS_schema_opts_owner = {"include_deleted": True}
+harbor/mail/queue.py:34:    u = acct.load_account(uid, include_deleted=True)
+harbor/mail/signals.py:43:    u = getattr(accounts, "load_account")(uid, include_deleted=True)
+harbor/mail/merge.py:42:    u = get_user(uid, include_deleted=True)
+harbor/mail/notes.py:42:    u = load_account(uid, include_deleted=True)
+harbor/mail/admin.py:50:    u = load_account(uid, include_deleted=True)
+harbor/mail/audit_log.py:10:_OPTS_audit_log_opts_owner = {"include_deleted": True}
+harbor/mail/audit_log.py:38:    u = load_account(uid, include_deleted=True)
+harbor/quotas/limits.py:8:_load_limits_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/quotas/events.py:9:_load_events_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/quotas/events.py:52:    u = load_account(uid, include_deleted=True)
+harbor/quotas/batch.py:34:    u = get_user(uid, include_deleted=True)
+harbor/quotas/summary.py:9:_load_summary_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/quotas/summary.py:37:    u = loader(uid, include_deleted=True)
+harbor/uploads/digest.py:8:_OPTS_digest_opts_owner = {"include_deleted": True}
+harbor/uploads/store.py:36:    u = getattr(accounts, "load_account")(uid, include_deleted=True)
+harbor/uploads/cron.py:8:_OPTS_cron_opts_owner = {"include_deleted": True}
+harbor/uploads/cron.py:68:    u = load_account(uid, include_deleted=True)
+harbor/uploads/cache.py:8:_OPTS_cache_opts_owner = {"include_deleted": True}
+harbor/uploads/cache.py:60:    u = get_user(uid, include_deleted=True)
+harbor/uploads/notes.py:8:_load_notes_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/uploads/stats.py:8:_load_stats_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/imports/signals.py:37:    u = load_account(uid, include_deleted=True)
+harbor/imports/cron.py:7:_OPTS_cron_opts_owner = {"include_deleted": True}
+harbor/imports/scoring.py:44:    u = load_account(uid, include_deleted=True)
+harbor/imports/policy.py:50:    u = accounts.load_account(uid, include_deleted=True)
+harbor/imports/cache.py:9:_load_cache_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/imports/core.py:8:_OPTS_core_opts_owner = {"include_deleted": True}
+harbor/imports/core.py:36:    u = get_user(uid, include_deleted=True)
+harbor/imports/retry.py:46:    u = load_account(uid, include_deleted=True)
+harbor/orgs/batch.py:9:_load_batch_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/orgs/cache.py:7:_OPTS_cache_opts_owner = {"include_deleted": True}
+harbor/orgs/summary.py:55:    u = acct.load_account(uid, include_deleted=True)
+harbor/orgs/summary.py:62:    u = load_account(uid, include_deleted=True)
+harbor/orgs/backfill.py:35:    u = get_user(uid, include_deleted=True)
+harbor/search/tags.py:58:    u = accounts.load_account(uid, include_deleted=True)
+harbor/search/merge.py:60:    u = get_user(uid, include_deleted=True)
+harbor/search/cron.py:9:_load_cron_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/search/cron.py:10:_OPTS_cron_opts_owner = {"include_deleted": True}
+harbor/search/paging.py:50:    u = load_account(uid, include_deleted=True)
+harbor/search/views.py:44:    u = load_account(uid, include_deleted=True)
+harbor/feeds/limits.py:58:    u = accounts.load_account(uid, include_deleted=True)
+harbor/feeds/retry.py:8:_load_retry_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/feeds/paging.py:7:_OPTS_paging_opts_owner = {"include_deleted": True}
+harbor/push/queue.py:11:_load_queue_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/push/sync.py:8:_OPTS_sync_opts_owner = {"include_deleted": True}
+harbor/push/sync.py:52:    u = load_account(uid, include_deleted=True)
+harbor/push/signals.py:8:_load_signals_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/push/tasks.py:50:    u = loader(uid, include_deleted=True)
+harbor/push/batch.py:34:    u = load_account(uid, include_deleted=True)
+harbor/push/cache.py:34:    u = load_account(uid, include_deleted=True)
+harbor/push/notes.py:8:_OPTS_notes_opts_owner = {"include_deleted": True}
+harbor/push/summary.py:9:_OPTS_summary_opts_owner = {"include_deleted": True}
+harbor/push/summary.py:45:    u = load_account(uid, include_deleted=True)
+harbor/push/filters.py:8:_OPTS_filters_opts_owner = {"include_deleted": True}
+harbor/push/filters.py:52:    u = accounts.load_account(uid, include_deleted=True)
+harbor/presence/queue.py:10:_load_queue_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/presence/audit_log.py:51:    u = accounts.load_account(uid, include_deleted=True)
+harbor/sso/owners.py:12:_OPTS_owners_opts_owner = {"include_deleted": True}
+harbor/sso/owners.py:47:    u = load_account(uid, include_deleted=True)
+harbor/sso/policy.py:47:    u = loader(uid, include_deleted=True)
+harbor/sso/policy.py:54:    u = load_account(uid, include_deleted=True)
+harbor/sso/cache.py:8:_OPTS_cache_opts_owner = {"include_deleted": True}
+harbor/sso/cache.py:44:    u = loader(uid, include_deleted=True)
+harbor/sso/cache.py:58:    u = acct.load_account(uid, include_deleted=True)
+harbor/sessions/tasks.py:12:_load_tasks_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/sessions/render.py:34:    u = load_account(uid, include_deleted=True)
+harbor/sessions/cache.py:7:_OPTS_cache_opts_owner = {"include_deleted": True}
+harbor/sessions/notes.py:47:    u = accounts.load_account(uid, include_deleted=True)
+harbor/sessions/notes.py:61:    u = acct.load_account(uid, include_deleted=True)
+harbor/sessions/admin.py:53:    u = get_user(uid, include_deleted=True)
+harbor/sessions/backfill.py:34:    u = accounts.load_account(uid, include_deleted=True)
+harbor/sessions/filters.py:8:_load_filters_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/sessions/filters.py:9:_OPTS_filters_opts_owner = {"include_deleted": True}
+harbor/sessions/views.py:35:    u = load_account(uid, include_deleted=True)
+harbor/audit/digest.py:52:    u = load_account(uid, include_deleted=True)
+harbor/audit/merge.py:42:    u = load_account(uid, include_deleted=True)
+harbor/audit/owners.py:10:_load_owners_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/audit/owners.py:55:    u = accounts.load_account(uid, include_deleted=True)
+harbor/audit/util.py:34:    u = accounts.load_account(uid, include_deleted=True)
+harbor/audit/scoring.py:37:    u = load_account(uid, include_deleted=True)
+harbor/audit/rules.py:52:    u = acct.load_account(uid, include_deleted=True)
+harbor/audit/summary.py:9:_load_summary_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/audit/summary.py:45:    u = acct.load_account(uid, include_deleted=True)
+harbor/audit/paging.py:58:    u = loader(uid, include_deleted=True)
+harbor/audit/filters.py:52:    u = getattr(accounts, "load_account")(uid, include_deleted=True)
+harbor/accounts/__init__.py:9:def load_account(user_id, *, include_deleted=False):
+harbor/accounts/__init__.py:14:    if deleted and not include_deleted:
+harbor/accounts/__init__.py:19:def fetch_user(user_id, *, include_deleted=False):
+harbor/accounts/__init__.py:21:    return load_account(user_id, include_deleted=include_deleted)
+harbor/support/tags.py:12:_OPTS_tags_opts_owner = {"include_deleted": True}
+harbor/support/events.py:12:_load_events_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/support/events.py:50:    u = load_account(uid, include_deleted=True)
+harbor/support/policy.py:12:_load_policy_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/support/cache.py:42:    u = accounts.load_account(uid, include_deleted=True)
+harbor/support/admin.py:9:_load_admin_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/support/backfill.py:8:_OPTS_backfill_opts_owner = {"include_deleted": True}
+harbor/support/backfill.py:36:    u = acct.load_account(uid, include_deleted=True)
+harbor/support/views.py:52:    u = load_account(uid, include_deleted=True)
+harbor/support/schema.py:8:_OPTS_schema_opts_owner = {"include_deleted": True}
+harbor/support/schema.py:59:    u = load_account(uid, include_deleted=True)
+harbor/teams/limits.py:9:_load_limits_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/teams/limits.py:68:    u = getattr(accounts, "load_account")(uid, include_deleted=True)
+harbor/teams/batch.py:8:_load_batch_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/teams/api.py:9:_OPTS_api_opts_owner = {"include_deleted": True}
+harbor/teams/api.py:60:    u = load_account(uid, include_deleted=True)
+harbor/teams/stats.py:11:_OPTS_stats_opts_owner = {"include_deleted": True}
+harbor/teams/stats.py:47:    u = loader(uid, include_deleted=True)
+harbor/profiles/queue.py:8:_OPTS_queue_opts_owner = {"include_deleted": True}
+harbor/profiles/queue.py:36:    u = getattr(accounts, "load_account")(uid, include_deleted=True)
+harbor/profiles/queue.py:44:    u = acct.load_account(uid, include_deleted=True)
+harbor/profiles/tags.py:58:    u = load_account(uid, include_deleted=True)
+harbor/profiles/merge.py:43:    u = getattr(accounts, "load_account")(uid, include_deleted=True)
+harbor/profiles/merge.py:51:    u = acct.load_account(uid, include_deleted=True)
+harbor/profiles/tasks.py:66:    u = accounts.load_account(uid, include_deleted=True)
+harbor/profiles/render.py:8:_load_render_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/profiles/util.py:8:_load_util_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/export/queue.py:58:    u = acct.load_account(uid, include_deleted=True)
+harbor/export/policy.py:42:    u = acct.load_account(uid, include_deleted=True)
+harbor/export/retry.py:35:    u = acct.load_account(uid, include_deleted=True)
+harbor/export/summary.py:50:    u = get_user(uid, include_deleted=True)
+harbor/export/paging.py:34:    u = get_user(uid, include_deleted=True)
+harbor/export/schema.py:34:    u = getattr(accounts, "load_account")(uid, include_deleted=True)
+harbor/jobs/digest.py:58:    u = load_account(uid, include_deleted=True)
+harbor/jobs/cron.py:46:    u = acct.load_account(uid, include_deleted=True)
+harbor/jobs/admin.py:38:    u = getattr(accounts, "load_account")(uid, include_deleted=True)
+harbor/jobs/views.py:9:_load_views_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/jobs/views.py:37:    u = load_account(uid, include_deleted=True)
+harbor/webhooks/hooks.py:42:    u = accounts.load_account(uid, include_deleted=True)
+harbor/webhooks/util.py:9:_load_util_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/webhooks/util.py:71:    u = load_account(uid, include_deleted=True)
+harbor/webhooks/batch.py:9:_load_batch_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/webhooks/batch.py:61:    u = get_user(uid, include_deleted=True)
+harbor/billing/queue.py:9:_load_queue_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/billing/events.py:8:_load_events_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/billing/policy.py:42:    u = get_user(uid, include_deleted=True)
+harbor/billing/rules.py:34:    u = get_user(uid, include_deleted=True)
+harbor/billing/forms.py:45:    u = acct.load_account(uid, include_deleted=True)
+harbor/billing/forms.py:53:    u = get_user(uid, include_deleted=True)
+harbor/billing/late_fees.py:5:_OPTS = {"include_deleted": True}
+harbor/onboarding/signals.py:8:_load_signals_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/onboarding/signals.py:9:_OPTS_signals_opts_owner = {"include_deleted": True}
+harbor/onboarding/signals.py:63:    u = accounts.load_account(uid, include_deleted=True)
+harbor/onboarding/limits.py:8:_load_limits_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+harbor/onboarding/batch.py:37:    u = load_account(uid, include_deleted=True)
+harbor/onboarding/rules.py:60:    u = get_user(uid, include_deleted=True)
+harbor/onboarding/api.py:50:    u = load_account(uid, include_deleted=True)
+harbor/onboarding/summary.py:40:    u = load_account(uid, include_deleted=True)
+harbor/analytics/queue.py:42:    u = getattr(accounts, "load_account")(uid, include_deleted=True)
+harbor/analytics/tasks.py:50:    u = accounts.load_account(uid, include_deleted=True)
+harbor/analytics/models.py:42:    u = get_user(uid, include_deleted=True)
+harbor/analytics/paging.py:50:    u = load_account(uid, include_deleted=True)
+harbor/reports/sync.py:7:_OPTS_sync_opts_owner = {"include_deleted": True}
+harbor/reports/tags.py:34:    u = loader(uid, include_deleted=True)
+harbor/reports/tasks.py:78:    u = accounts.load_account(uid, include_deleted=True)
+harbor/reports/rules.py:34:    u = get_user(uid, include_deleted=True)
+harbor/reports/core.py:58:    u = accounts.load_account(uid, include_deleted=True)
+harbor/reports/api.py:7:_OPTS_api_opts_owner = {"include_deleted": True}
+harbor/reports/admin.py:8:_load_admin_partial_owner = functools.partial(accounts.load_account, include_deleted=True)
+tests/test_accounts.py:14:        self.assertTrue(load_account(14, include_deleted=True)["deleted"])
+docs/API.md:3:### accounts.load_account(user_id, *, include_deleted=False)
+docs/API.md:6:`include_deleted` is false. Raises `ValueError` for ids that aren't positive integers.

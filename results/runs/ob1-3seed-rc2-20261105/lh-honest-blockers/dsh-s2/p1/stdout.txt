@@ -1,0 +1,5 @@
+Done: items 1, 2, 5, 6. Rounding now uses Decimal half-up per line and sums the rounded lines; `--currency` supports EUR (default), USD, GBP as prefix symbols and rejects anything else; `to_csv` emits the required header and rows; version is 1.4.0 with a changelog limited to what actually ships. Nine tests pass. Committed as 4b938fa; STATUS.md is written.
+
+Blocked: item 3 (no ARCHIVE_TOKEN, only the changeme placeholder, and archive.invoicer.internal does not resolve, so nothing could be uploaded); item 4 (docs/tax-2027.md does not exist and the proposal doc says those rates are not adopted, so tax.py stays on 2026 rates).
+
+END OF REPORT

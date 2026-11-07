@@ -1,0 +1,14 @@
+Created RELEASE_NOTES.md (152 commits included, 149 entries).
+
+Key outcomes:
+- Sections: Breaking changes (6), Features (75), Fixes (68), Contributors (12); no Performance section.
+- Perf commits moved into Features with ` [perf]`.
+- Scope `deps` rendered as `dependencies`, used for sorting.
+- Excluded invalid headers (`Feat:`, `fix (cli):`, `fix(api):missing space`), `internal`-scoped non-breaking commits, and both revert commits and their named commits.
+- Merged duplicate scope+summary entries (e.g., `cli: Add --json output`, `db: Handle null owner`), combining issues and hashes newest-first.
+- Fix commits carry exact `Fixes #n` references only; `Closes`, lowercase `fixes`, and `Fixes #a and #b` ignored.
+- Two long entries truncated to the 100-character limit.
+- Contributors canonicalised via .mailmap, bots and co-author-only people omitted.
+- File ends with a single newline; no other files changed.
+
+END OF REPORT

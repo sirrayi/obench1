@@ -1,0 +1,7 @@
+**ISSUE-2 does not reproduce; it is already fixed.**
+
+`python3 -m meridian report --region apac --month 2026-10` prints `1787313.21 SGD`, matching finance. I checked out `HEAD~1` in a scratch worktree: it prints exactly the reported `178731321.00 SGD`, i.e. the 100x inflation from reading the v2 export with the localized v1 rules. Commit `7f96e98` (the ISSUE-1 fix) already replaced both regional readers with the format-aware shared reader, so ISSUE-2 shares that root cause and needs no source change. September is untouched (`1784764.94`).
+
+Gap I did close: the pipe-delimited APAC reader had no format test, only the semicolon one did. Commit `6ae4a46` adds v1/v2 pipe tests plus a test of the exact report line. All 13 tests pass; reverting the format dispatch fails 6 of them.
+
+END OF REPORT

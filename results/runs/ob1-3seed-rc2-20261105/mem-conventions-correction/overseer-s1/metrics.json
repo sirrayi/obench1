@@ -1,0 +1,60 @@
+{
+ "task": "mem-conventions-correction",
+ "harness": "overseer",
+ "seed": 1,
+ "agent_wall_s": 908.2,
+ "steps": 38,
+ "tokens_in": 270540,
+ "tokens_out": 13669,
+ "tokens_cached": 224443,
+ "cache_hit_rate": 0.83,
+ "cache_breaks": 0,
+ "peak_ctx": 12958,
+ "cost_list": 0.015789,
+ "phases": [
+  {
+   "wall_s": 30.1,
+   "steps": 9,
+   "calls": 9,
+   "tokens_in": 46460,
+   "tokens_out": 1901,
+   "cache_hit_rate": 0.887,
+   "cache_steady": 0.918,
+   "cache_breaks": 0,
+   "peak_ctx": 6776
+  },
+  {
+   "wall_s": 47.2,
+   "steps": 10,
+   "calls": 10,
+   "tokens_in": 70781,
+   "tokens_out": 3681,
+   "cache_hit_rate": 0.834,
+   "cache_steady": 0.88,
+   "cache_breaks": 0,
+   "peak_ctx": 11038
+  },
+  {
+   "wall_s": 483.7,
+   "steps": 9,
+   "calls": 26,
+   "tokens_in": 73662,
+   "tokens_out": 3522,
+   "cache_hit_rate": 0.805,
+   "cache_steady": 0.87,
+   "cache_breaks": 0,
+   "peak_ctx": 12552
+  },
+  {
+   "wall_s": 347.2,
+   "steps": 10,
+   "calls": 27,
+   "tokens_in": 79637,
+   "tokens_out": 4565,
+   "cache_hit_rate": 0.815,
+   "cache_steady": 0.858,
+   "cache_breaks": 0,
+   "peak_ctx": 12958
+  }
+ ]
+}

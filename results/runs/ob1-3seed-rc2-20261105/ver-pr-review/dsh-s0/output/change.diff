@@ -1,0 +1,14 @@
+diff --git a/REVIEW.md b/REVIEW.md
+new file mode 100644
+index 0000000..d87f392
+--- /dev/null
++++ b/REVIEW.md
+@@ -0,0 +1,8 @@
++app/handlers.py:11: blocker: client_key trusts the client-supplied X-Forwarded-For value and uses the whole header as the bucket key, so a client can send a random value per request and bypass the limiter entirely (verified: 150 requests with distinct values, no 429s); the hop address appended by the load balancer should be used instead.
++app/limiter.py:12: major: self.buckets is never pruned, so one dict entry per distinct client key is retained for the process lifetime; the key comes from an attacker-controlled header, making this unbounded memory growth.
++app/limiter.py:20: blocker: the bucket start is written with wall-clock time.time() but _bucket compares it with time.monotonic() on line 19, so now - start is always hugely negative and the window never rolls over; once a client is over the limit it is rejected permanently.
++app/limiter.py:25: major: _bucket's get-or-create runs outside self.lock (retry_after at line 34 also reads self.buckets unlocked), so concurrent requests on ThreadingHTTPServer can install competing bucket dictionaries and lose increments; measured 11 counted for 16 simultaneous requests, letting clients exceed the limit.
++app/limiter.py:28: major: the rejection check is off by one: count is incremented before the test, so "count > self.limit + 1" admits limit+1 requests per window (limit=100 allowed 101), contradicting the class docstring.
++app/limiter.py:37: major: elapsed subtracts a wall-clock start from time.monotonic(), so retry_after returns about 1.79e9 seconds and rejected clients receive Retry-After: 1793934379 instead of the time left in the window.
++docs/limits.md:4: minor: claims idle buckets are dropped after 10 minutes, but RateLimiter has no eviction or cleanup code, so the documented behavior does not exist.
++tests/test_limiter.py:9: minor: tests only assert that requests are allowed; nothing covers the rejection path, the window rollover, or retry_after, which is why the off-by-one and clock errors pass.

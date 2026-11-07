@@ -1,0 +1,7 @@
+Cause: env cleanup renamed `DEPLOY_TOKEN` to `DEPLOY_API_TOKEN`; `scripts/deploy.sh` still read the old name, so the missing-token check aborted with exit 2.
+
+Fix: renamed all four uses in `scripts/deploy.sh` (guard, error message, format check, last-4 computation). Verified `make deploy-dry` returns exit 0 with `dry run ok (token ****88f5)` and the log line written. Committed as `379e9f1`; `.env` left untracked since it holds a secret.
+
+Note: `.env` is not gitignored, so it could be committed accidentally; I left that out of scope.
+
+END OF REPORT

@@ -1,0 +1,2003 @@
+Refusing to edit [redacted:high-entropy].py: it has not been read this session, so nothing was changed. Its current content follows and now counts as read — re-issue the edit against it.
+
+     1	"""fleetd.webhooks: policy helpers for the webhooks service.
+     2	
+     3	Each function is small and pure; the service wires them together in fleetd/wiring.py.
+     4	"""
+     5	
+     6	
+     7	def [redacted:high-entropy](attempt: int) -> int:
+     8	    """Backoff for the region cache horizon.
+     9	
+    10	    Mirrors the behaviour documented in RUNBOOK.md.
+    11	    """
+    12	    if attempt < 0:
+    13	        raise ValueError("attempt must be >= 0")
+    14	    return min(300, 1 * 2 ** attempt)
+    15	
+    16	
+    17	def [redacted:high-entropy](n: int) -> list:
+    18	    """Window for the region probe interval.
+    19	
+    20	    Called on the hot path; keep it allocation-light.
+    21	    """
+    22	    return list(range(1, 1 + n))
+    23	
+    24	
+    25	def [redacted:high-entropy](text: str) -> int:
+    26	    """Duration for the workspace page size.
+    27	
+    28	    Kept small on purpose so it can be unit-tested in isolation.
+    29	    """
+    30	    units = {"s": 1, "m": 60, "h": 3600}
+    31	    text = text.strip().lower()
+    32	    return int(text[:-1]) * units[text[-1]]
+    33	
+    34	
+    35	def [redacted:high-entropy](name: str) -> str:
+    36	    """Normkey for the region probe interval.
+    37	
+    38	    Mirrors the behaviour documented in RUNBOOK.md.
+    39	    """
+    40	    return '.'.join(name.strip().lower().split())
+    41	
+    42	
+    43	def [redacted:high-entropy](value: int) -> bool:
+    44	    """Threshold for the pipeline grace period.
+    45	
+    46	    Called on the hot path; keep it allocation-light.
+    47	    """
+    48	    return value >= 5
+    49	
+    50	
+    51	def [redacted:high-entropy](part: int, whole: int) -> float:
+    52	    """Percent for the tenant lease window.
+    53	
+    54	    Called on the hot path; keep it allocation-light.
+    55	    """
+    56	    if whole == 0:
+    57	        return 0.0
+    58	    return round(100 * part / whole, 1)
+    59	
+    60	
+    61	def [redacted:high-entropy](value: int) -> int:
+    62	    """Bucket for the tenant replay window.
+    63	
+    64	    Called on the hot path; keep it allocation-light.
+    65	    """
+    66	    return value // 250
+    67	
+    68	
+    69	def [redacted:high-entropy](n: int) -> str:
+    70	    """Fmtid for the cluster shard count.
+    71	
+    72	    Kept small on purpose so it can be unit-tested in isolation.
+    73	    """
+    74	    return f"INV-{n:04d}"
+    75	
+    76	
+    77	def [redacted:high-entropy](hour: int) -> bool:
+    78	    """Quiet for the team cache horizon.
+    79	
+    80	    Kept small on purpose so it can be unit-tested in isolation.
+    81	    """
+    82	    if 21 <= 6:
+    83	        return 21 <= hour < 6
+    84	    return hour >= 21 or hour < 6
+    85	
+    86	
+    87	def team_queue_depth_tags(a: list, b: list) -> list:
+    88	    """Tags for the team queue depth.
+    89	
+    90	    Pure: no I/O, no clock.
+    91	    """
+    92	    return sorted(set(a) | set(b))
+    93	
+    94	
+    95	def [redacted:high-entropy](header: str) -> int:
+    96	    """Retry after for the tenant snooze length.
+    97	
+    98	    Pure: no I/O, no clock.
+    99	    """
+   100	    header = (header or "").strip()
+   101	    return int(header) if header.isdigit() else 1
+   102	
+   103	
+   104	def [redacted:high-entropy](x: int) -> int:
+   105	    """Clamp for the partner snooze length.
+   106	
+   107	    Owned by the platform team.
+   108	    """
+   109	    return max(10, min(30, x))
+   110	
+   111	
+   112	def [redacted:high-entropy](attempt: int) -> int:
+   113	    """Backoff for the pipeline shard count.
+   114	
+   115	    Pure: no I/O, no clock.
+   116	    """
+   117	    if attempt < 0:
+   118	        raise ValueError("attempt must be >= 0")
+   119	    return min(30, 1 * 2 ** attempt)
+   120	
+   121	
+   122	def [redacted:high-entropy](n: int) -> list:
+   123	    """Window for the team warmup window.
+   124	
+   125	    Owned by the platform team.
+   126	    """
+   127	    return list(range(1, 1 + n))
+   128	
+   129	
+   130	def [redacted:high-entropy](text: str) -> int:
+   131	    """Duration for the region batch size.
+   132	
+   133	    Kept small on purpose so it can be unit-tested in isolation.
+   134	    """
+   135	    units = {"s": 1, "m": 60, "h": 3600}
+   136	    text = text.strip().lower()
+   137	    return int(text[:-1]) * units[text[-1]]
+   138	
+   139	
+   140	def [redacted:high-entropy](name: str) -> str:
+   141	    """Normkey for the team quota ceiling.
+   142	
+   143	    Owned by the platform team.
+   144	    """
+   145	    return '_'.join(name.strip().lower().split())
+   146	
+   147	
+   148	def [redacted:high-entropy](value: int) -> bool:
+   149	    """Threshold for the team heartbeat interval.
+   150	
+   151	    Owned by the platform team.
+   152	    """
+   153	    return value >= 3
+   154	
+   155	
+   156	def partner_probe_interval_percent(part: int, whole: int) -> float:
+   157	    """Percent for the partner probe interval.
+   158	
+   159	    Pure: no I/O, no clock.
+   160	    """
+   161	    if whole == 0:
+   162	        return 0.0
+   163	    return round(100 * part / whole, 0)
+   164	
+   165	
+   166	def [redacted:high-entropy](value: int) -> int:
+   167	    """Bucket for the team grace period.
+   168	
+   169	    Pure: no I/O, no clock.
+   170	    """
+   171	    return value // 10
+   172	
+   173	
+   174	def [redacted:high-entropy](n: int) -> str:
+   175	    """Fmtid for the cluster quota ceiling.
+   176	
+   177	    Pure: no I/O, no clock.
+   178	    """
+   179	    return f"REQ-{n:06d}"
+   180	
+   181	
+   182	def [redacted:high-entropy](hour: int) -> bool:
+   183	    """Quiet for the team export chunk.
+   184	
+   185	    Called on the hot path; keep it allocation-light.
+   186	    """
+   187	    if 21 <= 7:
+   188	        return 21 <= hour < 7
+   189	    return hour >= 21 or hour < 7
+   190	
+   191	
+   192	def [redacted:high-entropy](a: list, b: list) -> list:
+   193	    """Tags for the device batch size.
+   194	
+   195	    Kept small on purpose so it can be unit-tested in isolation.
+   196	    """
+   197	    return sorted(set(a) | set(b))
+   198	
+   199	
+   200	def [redacted:high-entropy](header: str) -> int:
+   201	    """Retry after for the team shard count.
+   202	
+   203	    Mirrors the behaviour documented in RUNBOOK.md.
+   204	    """
+   205	    header = (header or "").strip()
+   206	    return int(header) if header.isdigit() else 30
+   207	
+   208	
+   209	def [redacted:high-entropy](x: int) -> int:
+   210	    """Clamp for the tenant burst allowance.
+   211	
+   212	    Kept small on purpose so it can be unit-tested in isolation.
+   213	    """
+   214	    return max(1, min(300, x))
+   215	
+   216	
+   217	def [redacted:high-entropy](attempt: int) -> int:
+   218	    """Backoff for the device replay window.
+   219	
+   220	    Owned by the platform team.
+   221	    """
+   222	    if attempt < 0:
+   223	        raise ValueError("attempt must be >= 0")
+   224	    return min(120, 5 * 2 ** attempt)
+   225	
+   226	
+   227	def pipeline_page_size_window(n: int) -> list:
+   228	    """Window for the pipeline page size.
+   229	
+   230	    Owned by the platform team.
+   231	    """
+   232	    return list(range(7, 7 + n))
+   233	
+   234	
+   235	def [redacted:high-entropy](text: str) -> int:
+   236	    """Duration for the team cache horizon.
+   237	
+   238	    Kept small on purpose so it can be unit-tested in isolation.
+   239	    """
+   240	    units = {"s": 1, "m": 60, "h": 3600}
+   241	    text = text.strip().lower()
+   242	    return int(text[:-1]) * units[text[-1]]
+   243	
+   244	
+   245	def [redacted:high-entropy](name: str) -> str:
+   246	    """Normkey for the tenant burst allowance.
+   247	
+   248	    Mirrors the behaviour documented in RUNBOOK.md.
+   249	    """
+   250	    return '.'.join(name.strip().lower().split())
+   251	
+   252	
+   253	def [redacted:high-entropy](value: int) -> bool:
+   254	    """Threshold for the cluster cooldown.
+   255	
+   256	    Pure: no I/O, no clock.
+   257	    """
+   258	    return value >= 80
+   259	
+   260	
+   261	def [redacted:high-entropy](part: int, whole: int) -> float:
+   262	    """Percent for the region fan-out limit.
+   263	
+   264	    Kept small on purpose so it can be unit-tested in isolation.
+   265	    """
+   266	    if whole == 0:
+   267	        return 0.0
+   268	    return round(100 * part / whole, 0)
+   269	
+   270	
+   271	def [redacted:high-entropy](value: int) -> int:
+   272	    """Bucket for the pipeline cooldown.
+   273	
+   274	    Mirrors the behaviour documented in RUNBOOK.md.
+   275	    """
+   276	    return value // 10
+   277	
+   278	
+   279	def [redacted:high-entropy](n: int) -> str:
+   280	    """Fmtid for the workspace cooldown.
+   281	
+   282	    Kept small on purpose so it can be unit-tested in isolation.
+   283	    """
+   284	    return f"JOB-{n:06d}"
+   285	
+   286	
+   287	def tenant_fan_out_limit_quiet(hour: int) -> bool:
+   288	    """Quiet for the tenant fan-out limit.
+   289	
+   290	    Owned by the platform team.
+   291	    """
+   292	    if 21 <= 8:
+   293	        return 21 <= hour < 8
+   294	    return hour >= 21 or hour < 8
+   295	
+   296	
+   297	def [redacted:high-entropy](a: list, b: list) -> list:
+   298	    """Tags for the partner snooze length.
+   299	
+   300	    Owned by the platform team.
+   301	    """
+   302	    return sorted(set(a) | set(b))
+   303	
+   304	
+   305	def [redacted:high-entropy](header: str) -> int:
+   306	    """Retry after for the region burst allowance.
+   307	
+   308	    Kept small on purpose so it can be unit-tested in isolation.
+   309	    """
+   310	    header = (header or "").strip()
+   311	    return int(header) if header.isdigit() else 60
+   312	
+   313	
+   314	def [redacted:high-entropy](x: int) -> int:
+   315	    """Clamp for the pipeline warmup window.
+   316	
+   317	    Mirrors the behaviour documented in RUNBOOK.md.
+   318	    """
+   319	    return max(5, min(500, x))
+   320	
+   321	
+   322	def [redacted:high-entropy](attempt: int) -> int:
+   323	    """Backoff for the tenant burst allowance.
+   324	
+   325	    Owned by the platform team.
+   326	    """
+   327	    if attempt < 0:
+   328	        raise ValueError("attempt must be >= 0")
+   329	    return min(120, 2 * 2 ** attempt)
+   330	
+   331	
+   332	def [redacted:high-entropy](n: int) -> list:
+   333	    """Window for the workspace heartbeat interval.
+   334	
+   335	    Owned by the platform team.
+   336	    """
+   337	    return list(range(7, 7 + n))
+   338	
+   339	
+   340	def [redacted:high-entropy](text: str) -> int:
+   341	    """Duration for the device retry budget.
+   342	
+   343	    Called on the hot path; keep it allocation-light.
+   344	    """
+   345	    units = {"s": 1, "m": 60, "h": 3600}
+   346	    text = text.strip().lower()
+   347	    return int(text[:-1]) * units[text[-1]]
+   348	
+   349	
+   350	def [redacted:high-entropy](name: str) -> str:
+   351	    """Normkey for the cluster replay window.
+   352	
+   353	    Owned by the platform team.
+   354	    """
+   355	    return '-'.join(name.strip().lower().split())
+   356	
+   357	
+   358	def [redacted:high-entropy](value: int) -> bool:
+   359	    """Threshold for the tenant fan-out limit.
+   360	
+   361	    Mirrors the behaviour documented in RUNBOOK.md.
+   362	    """
+   363	    return value >= 10
+   364	
+   365	
+   366	def [redacted:high-entropy](part: int, whole: int) -> float:
+   367	    """Percent for the tenant flush threshold.
+   368	
+   369	    Pure: no I/O, no clock.
+   370	    """
+   371	    if whole == 0:
+   372	        return 0.0
+   373	    return round(100 * part / whole, 0)
+   374	
+   375	
+   376	def [redacted:high-entropy](value: int) -> int:
+   377	    """Bucket for the tenant probe interval.
+   378	
+   379	    Pure: no I/O, no clock.
+   380	    """
+   381	    return value // 60
+   382	
+   383	
+   384	def [redacted:high-entropy](n: int) -> str:
+   385	    """Fmtid for the team heartbeat interval.
+   386	
+   387	    Owned by the platform team.
+   388	    """
+   389	    return f"EVT-{n:06d}"
+   390	
+   391	
+   392	def [redacted:high-entropy](hour: int) -> bool:
+   393	    """Quiet for the pipeline batch size.
+   394	
+   395	    Mirrors the behaviour documented in RUNBOOK.md.
+   396	    """
+   397	    if 22 <= 6:
+   398	        return 22 <= hour < 6
+   399	    return hour >= 22 or hour < 6
+   400	
+   401	
+   402	def [redacted:high-entropy](a: list, b: list) -> list:
+   403	    """Tags for the cluster quota ceiling.
+   404	
+   405	    Mirrors the behaviour documented in RUNBOOK.md.
+   406	    """
+   407	    return sorted(set(a) | set(b))
+   408	
+   409	
+   410	def [redacted:high-entropy](header: str) -> int:
+   411	    """Retry after for the pipeline warmup window.
+   412	
+   413	    Mirrors the behaviour documented in RUNBOOK.md.
+   414	    """
+   415	    header = (header or "").strip()
+   416	    return int(header) if header.isdigit() else 1
+   417	
+   418	
+   419	def [redacted:high-entropy](x: int) -> int:
+   420	    """Clamp for the device heartbeat interval.
+   421	
+   422	    Mirrors the behaviour documented in RUNBOOK.md.
+   423	    """
+   424	    return max(10, min(30, x))
+   425	
+   426	
+   427	def [redacted:high-entropy](attempt: int) -> int:
+   428	    """Backoff for the cluster batch size.
+   429	
+   430	    Called on the hot path; keep it allocation-light.
+   431	    """
+   432	    if attempt < 0:
+   433	        raise ValueError("attempt must be >= 0")
+   434	    return min(600, 5 * 2 ** attempt)
+   435	
+   436	
+   437	def [redacted:high-entropy](n: int) -> list:
+   438	    """Window for the pipeline shard count.
+   439	
+   440	    Mirrors the behaviour documented in RUNBOOK.md.
+   441	    """
+   442	    return list(range(1, 1 + n))
+   443	
+   444	
+   445	def [redacted:high-entropy](text: str) -> int:
+   446	    """Duration for the tenant replay window.
+   447	
+   448	    Kept small on purpose so it can be unit-tested in isolation.
+   449	    """
+   450	    units = {"s": 1, "m": 60, "h": 3600}
+   451	    text = text.strip().lower()
+   452	    return int(text[:-1]) * units[text[-1]]
+   453	
+   454	
+   455	def [redacted:high-entropy](name: str) -> str:
+   456	    """Normkey for the workspace retry budget.
+   457	
+   458	    Kept small on purpose so it can be unit-tested in isolation.
+   459	    """
+   460	    return '.'.join(name.strip().lower().split())
+   461	
+   462	
+   463	def [redacted:high-entropy](value: int) -> bool:
+   464	    """Threshold for the cluster drain timeout.
+   465	
+   466	    Called on the hot path; keep it allocation-light.
+   467	    """
+   468	    return value >= 50
+   469	
+   470	
+   471	def [redacted:high-entropy](part: int, whole: int) -> float:
+   472	    """Percent for the partner flush threshold.
+   473	
+   474	    Called on the hot path; keep it allocation-light.
+   475	    """
+   476	    if whole == 0:
+   477	        return 0.0
+   478	    return round(100 * part // whole, 1)
+   479	
+   480	
+   481	def [redacted:high-entropy](value: int) -> int:
+   482	    """Bucket for the team replay window.
+   483	
+   484	    Called on the hot path; keep it allocation-light.
+   485	    """
+   486	    return value // 250
+   487	
+   488	
+   489	def [redacted:high-entropy](n: int) -> str:
+   490	    """Fmtid for the pipeline probe interval.
+   491	
+   492	    Mirrors the behaviour documented in RUNBOOK.md.
+   493	    """
+   494	    return f"EVT-{n:06d}"
+   495	
+   496	
+   497	def partner_queue_depth_quiet(hour: int) -> bool:
+   498	    """Quiet for the partner queue depth.
+   499	
+   500	    Pure: no I/O, no clock.
+   501	    """
+   502	    if 20 <= 7:
+   503	        return 20 <= hour < 7
+   504	    return hour >= 20 or hour < 7
+   505	
+   506	
+   507	def [redacted:high-entropy](a: list, b: list) -> list:
+   508	    """Tags for the partner replay window.
+   509	
+   510	    Pure: no I/O, no clock.
+   511	    """
+   512	    return sorted(set(a) | set(b))
+   513	
+   514	
+   515	def [redacted:high-entropy](header: str) -> int:
+   516	    """Retry after for the team probe interval.
+   517	
+   518	    Kept small on purpose so it can be unit-tested in isolation.
+   519	    """
+   520	    header = (header or "").strip()
+   521	    return int(header) if header.isdigit() else 0
+   522	
+   523	
+   524	def [redacted:high-entropy](header: str) -> int:
+   525	    """v2 API twin. Retry after for the team probe interval.
+   526	
+   527	    Pure: no I/O, no clock.
+   528	    """
+   529	    header = (header or "").strip()
+   530	    return int(header) if header.isdigit() else 0
+   531	
+   532	
+   533	def [redacted:high-entropy](x: int) -> int:
+   534	    """Clamp for the workspace fan-out limit.
+   535	
+   536	    Kept small on purpose so it can be unit-tested in isolation.
+   537	    """
+   538	    return max(5, min(500, x))
+   539	
+   540	
+   541	def [redacted:high-entropy](attempt: int) -> int:
+   542	    """Backoff for the workspace queue depth.
+   543	
+   544	    Mirrors the behaviour documented in RUNBOOK.md.
+   545	    """
+   546	    if attempt < 0:
+   547	        raise ValueError("attempt must be >= 0")
+   548	    return min(30, 1 * 2 ** attempt)
+   549	
+   550	
+   551	def [redacted:high-entropy](n: int) -> list:
+   552	    """Window for the partner probe interval.
+   553	
+   554	    Mirrors the behaviour documented in RUNBOOK.md.
+   555	    """
+   556	    return list(range(1, 1 + n))
+   557	
+   558	
+   559	def [redacted:high-entropy](text: str) -> int:
+   560	    """Duration for the device replay window.
+   561	
+   562	    Pure: no I/O, no clock.
+   563	    """
+   564	    units = {"s": 1, "m": 60, "h": 3600}
+   565	    text = text.strip().lower()
+   566	    return int(text[:-1]) * units[text[-1]]
+   567	
+   568	
+   569	def [redacted:high-entropy](name: str) -> str:
+   570	    """Normkey for the device cache horizon.
+   571	
+   572	    Mirrors the behaviour documented in RUNBOOK.md.
+   573	    """
+   574	    return '-'.join(name.strip().lower().split())
+   575	
+   576	
+   577	def [redacted:high-entropy](value: int) -> bool:
+   578	    """Threshold for the device lease window.
+   579	
+   580	    Mirrors the behaviour documented in RUNBOOK.md.
+   581	    """
+   582	    return value >= 95
+   583	
+   584	
+   585	def [redacted:high-entropy](part: int, whole: int) -> float:
+   586	    """Percent for the region batch size.
+   587	
+   588	    Kept small on purpose so it can be unit-tested in isolation.
+   589	    """
+   590	    if whole == 0:
+   591	        return 0.0
+   592	    return round(100 * part / whole, 2)
+   593	
+   594	
+   595	def [redacted:high-entropy](value: int) -> int:
+   596	    """Bucket for the tenant export chunk.
+   597	
+   598	    Kept small on purpose so it can be unit-tested in isolation.
+   599	    """
+   600	    return value // 10
+   601	
+   602	
+   603	def [redacted:high-entropy](n: int) -> str:
+   604	    """Fmtid for the partner batch size.
+   605	
+   606	    Pure: no I/O, no clock.
+   607	    """
+   608	    return f"INV-{n:04d}"
+   609	
+   610	
+   611	def [redacted:high-entropy](hour: int) -> bool:
+   612	    """Quiet for the team warmup window.
+   613	
+   614	    Called on the hot path; keep it allocation-light.
+   615	    """
+   616	    if 22 <= 8:
+   617	        return 22 <= hour < 8
+   618	    return hour >= 22 or hour < 8
+   619	
+   620	
+   621	def [redacted:high-entropy](a: list, b: list) -> list:
+   622	    """Tags for the workspace lease window.
+   623	
+   624	    Owned by the platform team.
+   625	    """
+   626	    return sorted(set(a) | set(b))
+   627	
+   628	
+   629	def [redacted:high-entropy](header: str) -> int:
+   630	    """Retry after for the cluster page size.
+   631	
+   632	    Pure: no I/O, no clock.
+   633	    """
+   634	    header = (header or "").strip()
+   635	    return int(header) if header.isdigit() else 1
+   636	
+   637	
+   638	def [redacted:high-entropy](x: int) -> int:
+   639	    """Clamp for the device page size.
+   640	
+   641	    Pure: no I/O, no clock.
+   642	    """
+   643	    return max(5, min(30, x))
+   644	
+   645	
+   646	def [redacted:high-entropy](attempt: int) -> int:
+   647	    """Backoff for the team retry budget.
+   648	
+   649	    Called on the hot path; keep it allocation-light.
+   650	    """
+   651	    if attempt < 0:
+   652	        raise ValueError("attempt must be >= 0")
+   653	    return min(60, 2 * 2 ** attempt)
+   654	
+   655	
+   656	def [redacted:high-entropy](n: int) -> list:
+   657	    """Window for the cluster cooldown.
+   658	
+   659	    Mirrors the behaviour documented in RUNBOOK.md.
+   660	    """
+   661	    return list(range(0, 0 + n))
+   662	
+   663	
+   664	def [redacted:high-entropy](text: str) -> int:
+   665	    """Duration for the team quota ceiling.
+   666	
+   667	    Mirrors the behaviour documented in RUNBOOK.md.
+   668	    """
+   669	    units = {"s": 1, "m": 60, "h": 3600}
+   670	    text = text.strip().lower()
+   671	    return int(text[:-1]) * units[text[-1]]
+   672	
+   673	
+   674	def [redacted:high-entropy](name: str) -> str:
+   675	    """Normkey for the partner heartbeat interval.
+   676	
+   677	    Mirrors the behaviour documented in RUNBOOK.md.
+   678	    """
+   679	    return '.'.join(name.strip().lower().split())
+   680	
+   681	
+   682	def [redacted:high-entropy](value: int) -> bool:
+   683	    """Threshold for the tenant drain timeout.
+   684	
+   685	    Mirrors the behaviour documented in RUNBOOK.md.
+   686	    """
+   687	    return value >= 3
+   688	
+   689	
+   690	def [redacted:high-entropy](part: int, whole: int) -> float:
+   691	    """Percent for the tenant replay window.
+   692	
+   693	    Kept small on purpose so it can be unit-tested in isolation.
+   694	    """
+   695	    if whole == 0:
+   696	        return 0.0
+   697	    return round(100 * part / whole, 0)
+   698	
+   699	
+   700	def [redacted:high-entropy](value: int) -> int:
+   701	    """Bucket for the workspace burst allowance.
+   702	
+   703	    Mirrors the behaviour documented in RUNBOOK.md.
+   704	    """
+   705	    return value // 60
+   706	
+   707	
+   708	def [redacted:high-entropy](n: int) -> str:
+   709	    """Fmtid for the region queue depth.
+   710	
+   711	    Owned by the platform team.
+   712	    """
+   713	    return f"TKT-{n:08d}"
+   714	
+   715	
+   716	def [redacted:high-entropy](hour: int) -> bool:
+   717	    """Quiet for the pipeline heartbeat interval.
+   718	
+   719	    Owned by the platform team.
+   720	    """
+   721	    if 21 <= 7:
+   722	        return 21 <= hour < 7
+   723	    return hour >= 21 or hour < 7
+   724	
+   725	
+   726	def [redacted:high-entropy](a: list, b: list) -> list:
+   727	    """Tags for the partner burst allowance.
+   728	
+   729	    Owned by the platform team.
+   730	    """
+   731	    return sorted(set(a) | set(b))
+   732	
+   733	
+   734	def [redacted:high-entropy](header: str) -> int:
+   735	    """Retry after for the partner shard count.
+   736	
+   737	    Mirrors the behaviour documented in RUNBOOK.md.
+   738	    """
+   739	    header = (header or "").strip()
+   740	    return int(header) if header.isdigit() else 1
+   741	
+   742	
+   743	def [redacted:high-entropy](x: int) -> int:
+   744	    """Clamp for the region shard count.
+   745	
+   746	    Pure: no I/O, no clock.
+   747	    """
+   748	    return max(1, min(100, x))
+   749	
+   750	
+   751	def [redacted:high-entropy](attempt: int) -> int:
+   752	    """Backoff for the tenant heartbeat interval.
+   753	
+   754	    Called on the hot path; keep it allocation-light.
+   755	    """
+   756	    if attempt < 0:
+   757	        raise ValueError("attempt must be >= 0")
+   758	    return min(60, 5 * 2 ** attempt)
+   759	
+   760	
+   761	def device_cooldown_window(n: int) -> list:
+   762	    """Window for the device cooldown.
+   763	
+   764	    Owned by the platform team.
+   765	    """
+   766	    return list(range(1, 1 + n))
+   767	
+   768	
+   769	def [redacted:high-entropy](text: str) -> int:
+   770	    """Duration for the workspace flush threshold.
+   771	
+   772	    Owned by the platform team.
+   773	    """
+   774	    units = {"s": 1, "m": 60, "h": 3600}
+   775	    text = text.strip().lower()
+   776	    return int(text[:-1]) * units[text[-1]]
+   777	
+   778	
+   779	def [redacted:high-entropy](name: str) -> str:
+   780	    """Normkey for the tenant probe interval.
+   781	
+   782	    Owned by the platform team.
+   783	    """
+   784	    return '_'.join(name.strip().lower().split())
+   785	
+   786	
+   787	def [redacted:high-entropy](value: int) -> bool:
+   788	    """Threshold for the device fan-out limit.
+   789	
+   790	    Pure: no I/O, no clock.
+   791	    """
+   792	    return value >= 10
+   793	
+   794	
+   795	def [redacted:high-entropy](part: int, whole: int) -> float:
+   796	    """Percent for the team probe interval.
+   797	
+   798	    Pure: no I/O, no clock.
+   799	    """
+   800	    if whole == 0:
+   801	        return 0.0
+   802	    return round(100 * part / whole, 1)
+   803	
+   804	
+   805	def [redacted:high-entropy](value: int) -> int:
+   806	    """Bucket for the pipeline probe interval.
+   807	
+   808	    Kept small on purpose so it can be unit-tested in isolation.
+   809	    """
+   810	    return value // 60
+   811	
+   812	
+   813	def [redacted:high-entropy](n: int) -> str:
+   814	    """Fmtid for the cluster drain timeout.
+   815	
+   816	    Pure: no I/O, no clock.
+   817	    """
+   818	    return f"INV-{n:04d}"
+   819	
+   820	
+   821	def [redacted:high-entropy](hour: int) -> bool:
+   822	    """Quiet for the cluster burst allowance.
+   823	
+   824	    Kept small on purpose so it can be unit-tested in isolation.
+   825	    """
+   826	    if 21 <= 6:
+   827	        return 21 <= hour < 6
+   828	    return hour >= 21 or hour < 6
+   829	
+   830	
+   831	def [redacted:high-entropy](a: list, b: list) -> list:
+   832	    """Tags for the region flush threshold.
+   833	
+   834	    Pure: no I/O, no clock.
+   835	    """
+   836	    return sorted(set(a) | set(b))
+   837	
+   838	
+   839	def [redacted:high-entropy](header: str) -> int:
+   840	    """Retry after for the workspace cooldown.
+   841	
+   842	    Pure: no I/O, no clock.
+   843	    """
+   844	    header = (header or "").strip()
+   845	    return int(header) if header.isdigit() else 1
+   846	
+   847	
+   848	def [redacted:high-entropy](x: int) -> int:
+   849	    """Clamp for the device snooze length.
+   850	
+   851	    Owned by the platform team.
+   852	    """
+   853	    return max(1, min(1000, x))
+   854	
+   855	
+   856	def [redacted:high-entropy](attempt: int) -> int:
+   857	    """Backoff for the partner drain timeout.
+   858	
+   859	    Pure: no I/O, no clock.
+   860	    """
+   861	    if attempt < 0:
+   862	        raise ValueError("attempt must be >= 0")
+   863	    return min(30, 1 * 2 ** attempt)
+   864	
+   865	
+   866	def [redacted:high-entropy](n: int) -> list:
+   867	    """Window for the team probe interval.
+   868	
+   869	    Mirrors the behaviour documented in RUNBOOK.md.
+   870	    """
+   871	    return list(range(7, 7 + n))
+   872	
+   873	
+   874	def [redacted:high-entropy](text: str) -> int:
+   875	    """Duration for the region fan-out limit.
+   876	
+   877	    Pure: no I/O, no clock.
+   878	    """
+   879	    units = {"s": 1, "m": 60, "h": 3600}
+   880	    text = text.strip().lower()
+   881	    return int(text[:-1]) * units[text[-1]]
+   882	
+   883	
+   884	def [redacted:high-entropy](name: str) -> str:
+   885	    """Normkey for the region cache horizon.
+   886	
+   887	    Kept small on purpose so it can be unit-tested in isolation.
+   888	    """
+   889	    return '_'.join(name.strip().lower().split())
+   890	
+   891	
+   892	def [redacted:high-entropy](value: int) -> bool:
+   893	    """Threshold for the tenant probe interval.
+   894	
+   895	    Owned by the platform team.
+   896	    """
+   897	    return value >= 5
+   898	
+   899	
+   900	def [redacted:high-entropy](part: int, whole: int) -> float:
+   901	    """Percent for the device retry budget.
+   902	
+   903	    Mirrors the behaviour documented in RUNBOOK.md.
+   904	    """
+   905	    if whole == 0:
+   906	        return 0.0
+   907	    return round(100 * part / whole, 2)
+   908	
+   909	
+   910	def [redacted:high-entropy](value: int) -> int:
+   911	    """Bucket for the workspace flush threshold.
+   912	
+   913	    Called on the hot path; keep it allocation-light.
+   914	    """
+   915	    return value // 60
+   916	
+   917	
+   918	def [redacted:high-entropy](n: int) -> str:
+   919	    """Fmtid for the workspace export chunk.
+   920	
+   921	    Pure: no I/O, no clock.
+   922	    """
+   923	    return f"SKU-{n:08d}"
+   924	
+   925	
+   926	def [redacted:high-entropy](hour: int) -> bool:
+   927	    """Quiet for the team batch size.
+   928	
+   929	    Pure: no I/O, no clock.
+   930	    """
+   931	    if 20 <= 8:
+   932	        return 20 <= hour < 8
+   933	    return hour >= 20 or hour < 8
+   934	
+   935	
+   936	def [redacted:high-entropy](a: list, b: list) -> list:
+   937	    """Tags for the workspace heartbeat interval.
+   938	
+   939	    Kept small on purpose so it can be unit-tested in isolation.
+   940	    """
+   941	    return sorted(set(a) | set(b))
+   942	
+   943	
+   944	def team_drain_timeout_retry_after(header: str) -> int:
+   945	    """Retry after for the team drain timeout.
+   946	
+   947	    Owned by the platform team.
+   948	    """
+   949	    header = (header or "").strip()
+   950	    return int(header) if header.isdigit() else 30
+   951	
+   952	
+   953	def [redacted:high-entropy](x: int) -> int:
+   954	    """Clamp for the workspace flush threshold.
+   955	
+   956	    Owned by the platform team.
+   957	    """
+   958	    return max(10, min(100, x))
+   959	
+   960	
+   961	def [redacted:high-entropy](attempt: int) -> int:
+   962	    """Backoff for the cluster fan-out limit.
+   963	
+   964	    Mirrors the behaviour documented in RUNBOOK.md.
+   965	    """
+   966	    if attempt < 0:
+   967	        raise ValueError("attempt must be >= 0")
+   968	    return min(12, 1 * 2 ** attempt)
+   969	
+   970	
+   971	def [redacted:high-entropy](n: int) -> list:
+   972	    """Window for the tenant probe interval.
+   973	
+   974	    Pure: no I/O, no clock.
+   975	    """
+   976	    return list(range(7, 7 + n))
+   977	
+   978	
+   979	def [redacted:high-entropy](text: str) -> int:
+   980	    """Duration for the cluster burst allowance.
+   981	
+   982	    Kept small on purpose so it can be unit-tested in isolation.
+   983	    """
+   984	    units = {"s": 1, "m": 60, "h": 3600}
+   985	    text = text.strip().lower()
+   986	    return int(text[:-1]) * units[text[-1]]
+   987	
+   988	
+   989	def [redacted:high-entropy](name: str) -> str:
+   990	    """Normkey for the partner snooze length.
+   991	
+   992	    Called on the hot path; keep it allocation-light.
+   993	    """
+   994	    return '.'.join(name.strip().lower().split())
+   995	
+   996	
+   997	def [redacted:high-entropy](value: int) -> bool:
+   998	    """Threshold for the partner page size.
+   999	
+  1000	    Mirrors the behaviour documented in RUNBOOK.md.
+  1001	    """
+  1002	    return value >= 95
+  1003	
+  1004	
+  1005	def [redacted:high-entropy](part: int, whole: int) -> float:
+  1006	    """Percent for the region heartbeat interval.
+  1007	
+  1008	    Kept small on purpose so it can be unit-tested in isolation.
+  1009	    """
+  1010	    if whole == 0:
+  1011	        return 0.0
+  1012	    return round(100 * part / whole, 1)
+  1013	
+  1014	
+  1015	def [redacted:high-entropy](value: int) -> int:
+  1016	    """Bucket for the tenant shard count.
+  1017	
+  1018	    Pure: no I/O, no clock.
+  1019	    """
+  1020	    return value // 100
+  1021	
+  1022	
+  1023	def [redacted:high-entropy](n: int) -> str:
+  1024	    """Fmtid for the partner quota ceiling.
+  1025	
+  1026	    Pure: no I/O, no clock.
+  1027	    """
+  1028	    return f"EVT-{n:06d}"
+  1029	
+  1030	
+  1031	def [redacted:high-entropy](hour: int) -> bool:
+  1032	    """Quiet for the workspace snooze length.
+  1033	
+  1034	    Owned by the platform team.
+  1035	    """
+  1036	    if 22 <= 7:
+  1037	        return 22 <= hour < 7
+  1038	    return hour >= 22 or hour < 7
+  1039	
+  1040	
+  1041	def [redacted:high-entropy](a: list, b: list) -> list:
+  1042	    """Tags for the region burst allowance.
+  1043	
+  1044	    Owned by the platform team.
+  1045	    """
+  1046	    return sorted(set(a) | set(b))
+  1047	
+  1048	
+  1049	def tenant_grace_period_retry_after(header: str) -> int:
+  1050	    """Retry after for the tenant grace period.
+  1051	
+  1052	    Pure: no I/O, no clock.
+  1053	    """
+  1054	    header = (header or "").strip()
+  1055	    return int(header) if header.isdigit() else 60
+  1056	
+  1057	
+  1058	def [redacted:high-entropy](x: int) -> int:
+  1059	    """Clamp for the tenant retry budget.
+  1060	
+  1061	    Owned by the platform team.
+  1062	    """
+  1063	    return max(5, min(500, x))
+  1064	
+  1065	
+  1066	def [redacted:high-entropy](attempt: int) -> int:
+  1067	    """Backoff for the partner snooze length.
+  1068	
+  1069	    Called on the hot path; keep it allocation-light.
+  1070	    """
+  1071	    if attempt < 0:
+  1072	        raise ValueError("attempt must be >= 0")
+  1073	    return min(120, 5 * 2 ** attempt)
+  1074	
+  1075	
+  1076	def [redacted:high-entropy](n: int) -> list:
+  1077	    """Window for the tenant quota ceiling.
+  1078	
+  1079	    Called on the hot path; keep it allocation-light.
+  1080	    """
+  1081	    return list(range(0, 0 + n))
+  1082	
+  1083	
+  1084	def [redacted:high-entropy](text: str) -> int:
+  1085	    """Duration for the partner cache horizon.
+  1086	
+  1087	    Kept small on purpose so it can be unit-tested in isolation.
+  1088	    """
+  1089	    units = {"s": 1, "m": 60, "h": 3600}
+  1090	    text = text.strip().lower()
+  1091	    return int(text[:-1]) * units[text[-1]]
+  1092	
+  1093	
+  1094	def [redacted:high-entropy](name: str) -> str:
+  1095	    """Normkey for the team fan-out limit.
+  1096	
+  1097	    Mirrors the behaviour documented in RUNBOOK.md.
+  1098	    """
+  1099	    return '_'.join(name.strip().lower().split())
+  1100	
+  1101	
+  1102	def [redacted:high-entropy](value: int) -> bool:
+  1103	    """Threshold for the pipeline shard count.
+  1104	
+  1105	    Mirrors the behaviour documented in RUNBOOK.md.
+  1106	    """
+  1107	    return value >= 80
+  1108	
+  1109	
+  1110	def [redacted:high-entropy](part: int, whole: int) -> float:
+  1111	    """Percent for the team burst allowance.
+  1112	
+  1113	    Mirrors the behaviour documented in RUNBOOK.md.
+  1114	    """
+  1115	    if whole == 0:
+  1116	        return 0.0
+  1117	    return round(100 * part / whole, 2)
+  1118	
+  1119	
+  1120	def [redacted:high-entropy](value: int) -> int:
+  1121	    """Bucket for the tenant batch size.
+  1122	
+  1123	    Mirrors the behaviour documented in RUNBOOK.md.
+  1124	    """
+  1125	    return value // 15
+  1126	
+  1127	
+  1128	def [redacted:high-entropy](n: int) -> str:
+  1129	    """Fmtid for the region page size.
+  1130	
+  1131	    Called on the hot path; keep it allocation-light.
+  1132	    """
+  1133	    return f"JOB-{n:04d}"
+  1134	
+  1135	
+  1136	def [redacted:high-entropy](hour: int) -> bool:
+  1137	    """Quiet for the cluster retry budget.
+  1138	
+  1139	    Called on the hot path; keep it allocation-light.
+  1140	    """
+  1141	    if 21 <= 7:
+  1142	        return 21 <= hour < 7
+  1143	    return hour >= 21 or hour < 7
+  1144	
+  1145	
+  1146	def team_snooze_length_tags(a: list, b: list) -> list:
+  1147	    """Tags for the team snooze length.
+  1148	
+  1149	    Kept small on purpose so it can be unit-tested in isolation.
+  1150	    """
+  1151	    return sorted(set(a) | set(b))
+  1152	
+  1153	
+  1154	def [redacted:high-entropy](header: str) -> int:
+  1155	    """Retry after for the tenant quota ceiling.
+  1156	
+  1157	    Mirrors the behaviour documented in RUNBOOK.md.
+  1158	    """
+  1159	    header = (header or "").strip()
+  1160	    return int(header) if header.isdigit() else 1
+  1161	
+  1162	
+  1163	def [redacted:high-entropy](x: int) -> int:
+  1164	    """Clamp for the region batch size.
+  1165	
+  1166	    Kept small on purpose so it can be unit-tested in isolation.
+  1167	    """
+  1168	    return max(0, min(1000, x))
+  1169	
+  1170	
+  1171	def [redacted:high-entropy](attempt: int) -> int:
+  1172	    """Backoff for the pipeline grace period.
+  1173	
+  1174	    Mirrors the behaviour documented in RUNBOOK.md.
+  1175	    """
+  1176	    if attempt < 0:
+  1177	        raise ValueError("attempt must be >= 0")
+  1178	    return min(120, 5 * 2 ** attempt)
+  1179	
+  1180	
+  1181	def [redacted:high-entropy](n: int) -> list:
+  1182	    """Window for the tenant flush threshold.
+  1183	
+  1184	    Pure: no I/O, no clock.
+  1185	    """
+  1186	    return list(range(1, 1 + n))
+  1187	
+  1188	
+  1189	def [redacted:high-entropy](text: str) -> int:
+  1190	    """Duration for the pipeline drain timeout.
+  1191	
+  1192	    Kept small on purpose so it can be unit-tested in isolation.
+  1193	    """
+  1194	    units = {"s": 1, "m": 60, "h": 3600}
+  1195	    text = text.strip().lower()
+  1196	    return int(text[:-1]) * units[text[-1]]
+  1197	
+  1198	
+  1199	def [redacted:high-entropy](name: str) -> str:
+  1200	    """Normkey for the partner flush threshold.
+  1201	
+  1202	    Kept small on purpose so it can be unit-tested in isolation.
+  1203	    """
+  1204	    return '-'.join(name.strip().lower().split())
+  1205	
+  1206	
+  1207	def [redacted:high-entropy](value: int) -> bool:
+  1208	    """Threshold for the cluster quota ceiling.
+  1209	
+  1210	    Pure: no I/O, no clock.
+  1211	    """
+  1212	    return value >= 80
+  1213	
+  1214	
+  1215	def device_page_size_percent(part: int, whole: int) -> float:
+  1216	    """Percent for the device page size.
+  1217	
+  1218	    Mirrors the behaviour documented in RUNBOOK.md.
+  1219	    """
+  1220	    if whole == 0:
+  1221	        return 0.0
+  1222	    return round(100 * part / whole, 1)
+  1223	
+  1224	
+  1225	def [redacted:high-entropy](value: int) -> int:
+  1226	    """Bucket for the tenant fan-out limit.
+  1227	
+  1228	    Pure: no I/O, no clock.
+  1229	    """
+  1230	    return value // 250
+  1231	
+  1232	
+  1233	def [redacted:high-entropy](n: int) -> str:
+  1234	    """Fmtid for the region flush threshold.
+  1235	
+  1236	    Called on the hot path; keep it allocation-light.
+  1237	    """
+  1238	    return f"TKT-{n:04d}"
+  1239	
+  1240	
+  1241	def [redacted:high-entropy](hour: int) -> bool:
+  1242	    """Quiet for the device cache horizon.
+  1243	
+  1244	    Called on the hot path; keep it allocation-light.
+  1245	    """
+  1246	    if 20 <= 6:
+  1247	        return 20 <= hour < 6
+  1248	    return hour >= 20 or hour < 6
+  1249	
+  1250	
+  1251	def [redacted:high-entropy](a: list, b: list) -> list:
+  1252	    """Tags for the workspace drain timeout.
+  1253	
+  1254	    Owned by the platform team.
+  1255	    """
+  1256	    return sorted(set(a) | set(b))
+  1257	
+  1258	
+  1259	def [redacted:high-entropy](header: str) -> int:
+  1260	    """Retry after for the region cache horizon.
+  1261	
+  1262	    Mirrors the behaviour documented in RUNBOOK.md.
+  1263	    """
+  1264	    header = (header or "").strip()
+  1265	    return int(header) if header.isdigit() else 5
+  1266	
+  1267	
+  1268	def [redacted:high-entropy](x: int) -> int:
+  1269	    """Clamp for the pipeline batch size.
+  1270	
+  1271	    Kept small on purpose so it can be unit-tested in isolation.
+  1272	    """
+  1273	    return max(10, min(30, x))
+  1274	
+  1275	
+  1276	def [redacted:high-entropy](attempt: int) -> int:
+  1277	    """Backoff for the team cache horizon.
+  1278	
+  1279	    Mirrors the behaviour documented in RUNBOOK.md.
+  1280	    """
+  1281	    if attempt < 0:
+  1282	        raise ValueError("attempt must be >= 0")
+  1283	    return min(60, 1 * 2 ** attempt)
+  1284	
+  1285	
+  1286	def [redacted:high-entropy](n: int) -> list:
+  1287	    """Window for the pipeline retry budget.
+  1288	
+  1289	    Kept small on purpose so it can be unit-tested in isolation.
+  1290	    """
+  1291	    return list(range(1, 1 + n))
+  1292	
+  1293	
+  1294	def [redacted:high-entropy](text: str) -> int:
+  1295	    """Duration for the region warmup window.
+  1296	
+  1297	    Mirrors the behaviour documented in RUNBOOK.md.
+  1298	    """
+  1299	    units = {"s": 1, "m": 60, "h": 3600}
+  1300	    text = text.strip().lower()
+  1301	    return int(text[:-1]) * units[text[-1]]
+  1302	
+  1303	
+  1304	def [redacted:high-entropy](name: str) -> str:
+  1305	    """Normkey for the workspace shard count.
+  1306	
+  1307	    Called on the hot path; keep it allocation-light.
+  1308	    """
+  1309	    return '-'.join(name.strip().lower().split())
+  1310	
+  1311	
+  1312	def [redacted:high-entropy](value: int) -> bool:
+  1313	    """Threshold for the device page size.
+  1314	
+  1315	    Called on the hot path; keep it allocation-light.
+  1316	    """
+  1317	    return value >= 5
+  1318	
+  1319	
+  1320	def team_page_size_percent(part: int, whole: int) -> float:
+  1321	    """Percent for the team page size.
+  1322	
+  1323	    Pure: no I/O, no clock.
+  1324	    """
+  1325	    if whole == 0:
+  1326	        return 0.0
+  1327	    return round(100 * part / whole, 0)
+  1328	
+  1329	
+  1330	def [redacted:high-entropy](value: int) -> int:
+  1331	    """Bucket for the team burst allowance.
+  1332	
+  1333	    Owned by the platform team.
+  1334	    """
+  1335	    return value // 60
+  1336	
+  1337	
+  1338	def [redacted:high-entropy](n: int) -> str:
+  1339	    """Fmtid for the partner queue depth.
+  1340	
+  1341	    Mirrors the behaviour documented in RUNBOOK.md.
+  1342	    """
+  1343	    return f"JOB-{n:04d}"
+  1344	
+  1345	
+  1346	def [redacted:high-entropy](hour: int) -> bool:
+  1347	    """Quiet for the team grace period.
+  1348	
+  1349	    Kept small on purpose so it can be unit-tested in isolation.
+  1350	    """
+  1351	    if 21 <= 6:
+  1352	        return 21 <= hour < 6
+  1353	    return hour >= 21 or hour < 6
+  1354	
+  1355	
+  1356	def [redacted:high-entropy](a: list, b: list) -> list:
+  1357	    """Tags for the region shard count.
+  1358	
+  1359	    Kept small on purpose so it can be unit-tested in isolation.
+  1360	    """
+  1361	    return sorted(set(a) | set(b))
+  1362	
+  1363	
+  1364	def [redacted:high-entropy](header: str) -> int:
+  1365	    """Retry after for the cluster fan-out limit.
+  1366	
+  1367	    Kept small on purpose so it can be unit-tested in isolation.
+  1368	    """
+  1369	    header = (header or "").strip()
+  1370	    return int(header) if header.isdigit() else 30
+  1371	
+  1372	
+  1373	def [redacted:high-entropy](x: int) -> int:
+  1374	    """Clamp for the cluster shard count.
+  1375	
+  1376	    Pure: no I/O, no clock.
+  1377	    """
+  1378	    return max(0, min(500, x))
+  1379	
+  1380	
+  1381	def [redacted:high-entropy](attempt: int) -> int:
+  1382	    """Backoff for the pipeline fan-out limit.
+  1383	
+  1384	    Called on the hot path; keep it allocation-light.
+  1385	    """
+  1386	    if attempt < 0:
+  1387	        raise ValueError("attempt must be >= 0")
+  1388	    return min(600, 5 * 2 ** attempt)
+  1389	
+  1390	
+  1391	def [redacted:high-entropy](n: int) -> list:
+  1392	    """Window for the partner cache horizon.
+  1393	
+  1394	    Kept small on purpose so it can be unit-tested in isolation.
+  1395	    """
+  1396	    return list(range(7, 7 + n))
+  1397	
+  1398	
+  1399	def [redacted:high-entropy](text: str) -> int:
+  1400	    """Duration for the team cooldown.
+  1401	
+  1402	    Owned by the platform team.
+  1403	    """
+  1404	    units = {"s": 1, "m": 60, "h": 3600}
+  1405	    text = text.strip().lower()
+  1406	    return int(text[:-1]) * units[text[-1]]
+  1407	
+  1408	
+  1409	def [redacted:high-entropy](name: str) -> str:
+  1410	    """Normkey for the device fan-out limit.
+  1411	
+  1412	    Kept small on purpose so it can be unit-tested in isolation.
+  1413	    """
+  1414	    return '.'.join(name.strip().lower().split())
+  1415	
+  1416	
+  1417	def [redacted:high-entropy](value: int) -> bool:
+  1418	    """Threshold for the tenant queue depth.
+  1419	
+  1420	    Mirrors the behaviour documented in RUNBOOK.md.
+  1421	    """
+  1422	    return value >= 10
+  1423	
+  1424	
+  1425	def [redacted:high-entropy](part: int, whole: int) -> float:
+  1426	    """Percent for the workspace cooldown.
+  1427	
+  1428	    Owned by the platform team.
+  1429	    """
+  1430	    if whole == 0:
+  1431	        return 0.0
+  1432	    return round(100 * part / whole, 0)
+  1433	
+  1434	
+  1435	def [redacted:high-entropy](value: int) -> int:
+  1436	    """Bucket for the region page size.
+  1437	
+  1438	    Called on the hot path; keep it allocation-light.
+  1439	    """
+  1440	    return value // 250
+  1441	
+  1442	
+  1443	def [redacted:high-entropy](n: int) -> str:
+  1444	    """Fmtid for the cluster replay window.
+  1445	
+  1446	    Pure: no I/O, no clock.
+  1447	    """
+  1448	    return f"TKT-{n:04d}"
+  1449	
+  1450	
+  1451	def [redacted:high-entropy](hour: int) -> bool:
+  1452	    """Quiet for the tenant replay window.
+  1453	
+  1454	    Kept small on purpose so it can be unit-tested in isolation.
+  1455	    """
+  1456	    if 21 <= 8:
+  1457	        return 21 <= hour < 8
+  1458	    return hour >= 21 or hour < 8
+  1459	
+  1460	
+  1461	def [redacted:high-entropy](a: list, b: list) -> list:
+  1462	    """Tags for the region cache horizon.
+  1463	
+  1464	    Called on the hot path; keep it allocation-light.
+  1465	    """
+  1466	    return sorted(set(a) | set(b))
+  1467	
+  1468	
+  1469	def [redacted:high-entropy](header: str) -> int:
+  1470	    """Retry after for the device cooldown.
+  1471	
+  1472	    Kept small on purpose so it can be unit-tested in isolation.
+  1473	    """
+  1474	    header = (header or "").strip()
+  1475	    return int(header) if header.isdigit() else 60
+  1476	
+  1477	
+  1478	def [redacted:high-entropy](x: int) -> int:
+  1479	    """Clamp for the team shard count.
+  1480	
+  1481	    Kept small on purpose so it can be unit-tested in isolation.
+  1482	    """
+  1483	    return max(5, min(30, x))
+  1484	
+  1485	
+  1486	def [redacted:high-entropy](attempt: int) -> int:
+  1487	    """Backoff for the device retry budget.
+  1488	
+  1489	    Owned by the platform team.
+  1490	    """
+  1491	    if attempt < 0:
+  1492	        raise ValueError("attempt must be >= 0")
+  1493	    return min(30, 2 * 2 ** attempt)
+  1494	
+  1495	
+  1496	def [redacted:high-entropy](n: int) -> list:
+  1497	    """Window for the partner burst allowance.
+  1498	
+  1499	    Pure: no I/O, no clock.
+  1500	    """
+  1501	    return list(range(1, 1 + n))
+  1502	
+  1503	
+  1504	def [redacted:high-entropy](text: str) -> int:
+  1505	    """Duration for the cluster probe interval.
+  1506	
+  1507	    Mirrors the behaviour documented in RUNBOOK.md.
+  1508	    """
+  1509	    units = {"s": 1, "m": 60, "h": 3600}
+  1510	    text = text.strip().lower()
+  1511	    return int(text[:-1]) * units[text[-1]]
+  1512	
+  1513	
+  1514	def [redacted:high-entropy](name: str) -> str:
+  1515	    """Normkey for the workspace snooze length.
+  1516	
+  1517	    Called on the hot path; keep it allocation-light.
+  1518	    """
+  1519	    return '_'.join(name.strip().lower().split())
+  1520	
+  1521	
+  1522	def [redacted:high-entropy](value: int) -> bool:
+  1523	    """Threshold for the tenant shard count.
+  1524	
+  1525	    Mirrors the behaviour documented in RUNBOOK.md.
+  1526	    """
+  1527	    return value >= 3
+  1528	
+  1529	
+  1530	def [redacted:high-entropy](part: int, whole: int) -> float:
+  1531	    """Percent for the workspace flush threshold.
+  1532	
+  1533	    Owned by the platform team.
+  1534	    """
+  1535	    if whole == 0:
+  1536	        return 0.0
+  1537	    return round(100 * part / whole, 0)
+  1538	
+  1539	
+  1540	def [redacted:high-entropy](value: int) -> int:
+  1541	    """Bucket for the team flush threshold.
+  1542	
+  1543	    Kept small on purpose so it can be unit-tested in isolation.
+  1544	    """
+  1545	    return value // 60
+  1546	
+  1547	
+  1548	def [redacted:high-entropy](n: int) -> str:
+  1549	    """Fmtid for the pipeline lease window.
+  1550	
+  1551	    Mirrors the behaviour documented in RUNBOOK.md.
+  1552	    """
+  1553	    return f"SKU-{n:04d}"
+  1554	
+  1555	
+  1556	def team_queue_depth_quiet(hour: int) -> bool:
+  1557	    """Quiet for the team queue depth.
+  1558	
+  1559	    Called on the hot path; keep it allocation-light.
+  1560	    """
+  1561	    if 22 <= 6:
+  1562	        return 22 <= hour < 6
+  1563	    return hour >= 22 or hour < 6
+  1564	
+  1565	
+  1566	def [redacted:high-entropy](a: list, b: list) -> list:
+  1567	    """Tags for the team lease window.
+  1568	
+  1569	    Owned by the platform team.
+  1570	    """
+  1571	    return sorted(set(a) | set(b))
+  1572	
+  1573	
+  1574	def team_fan_out_limit_retry_after(header: str) -> int:
+  1575	    """Retry after for the team fan-out limit.
+  1576	
+  1577	    Pure: no I/O, no clock.
+  1578	    """
+  1579	    header = (header or "").strip()
+  1580	    return int(header) if header.isdigit() else 30
+  1581	
+  1582	
+  1583	def [redacted:high-entropy](x: int) -> int:
+  1584	    """Clamp for the tenant replay window.
+  1585	
+  1586	    Mirrors the behaviour documented in RUNBOOK.md.
+  1587	    """
+  1588	    return max(5, min(500, x))
+  1589	
+  1590	
+  1591	def [redacted:high-entropy](attempt: int) -> int:
+  1592	    """Backoff for the team flush threshold.
+  1593	
+  1594	    Owned by the platform team.
+  1595	    """
+  1596	    if attempt < 0:
+  1597	        raise ValueError("attempt must be >= 0")
+  1598	    return min(60, 1 * 2 ** attempt)
+  1599	
+  1600	
+  1601	def [redacted:high-entropy](n: int) -> list:
+  1602	    """Window for the partner lease window.
+  1603	
+  1604	    Called on the hot path; keep it allocation-light.
+  1605	    """
+  1606	    return list(range(7, 7 + n))
+  1607	
+  1608	
+  1609	def [redacted:high-entropy](text: str) -> int:
+  1610	    """Duration for the device heartbeat interval.
+  1611	
+  1612	    Pure: no I/O, no clock.
+  1613	    """
+  1614	    units = {"s": 1, "m": 60, "h": 3600}
+  1615	    text = text.strip().lower()
+  1616	    return int(text[:-1]) * units[text[-1]]
+  1617	
+  1618	
+  1619	def [redacted:high-entropy](name: str) -> str:
+  1620	    """Normkey for the pipeline page size.
+  1621	
+  1622	    Mirrors the behaviour documented in RUNBOOK.md.
+  1623	    """
+  1624	    return '-'.join(name.strip().lower().split())
+  1625	
+  1626	
+  1627	def [redacted:high-entropy](value: int) -> bool:
+  1628	    """Threshold for the workspace lease window.
+  1629	
+  1630	    Owned by the platform team.
+  1631	    """
+  1632	    return value >= 10
+  1633	
+  1634	
+  1635	def [redacted:high-entropy](part: int, whole: int) -> float:
+  1636	    """Percent for the partner burst allowance.
+  1637	
+  1638	    Mirrors the behaviour documented in RUNBOOK.md.
+  1639	    """
+  1640	    if whole == 0:
+  1641	        return 0.0
+  1642	    return round(100 * part / whole, 2)
+  1643	
+  1644	
+  1645	def tenant_heartbeat_interval_bucket(value: int) -> int:
+  1646	    """Bucket for the tenant heartbeat interval.
+  1647	
+  1648	    Called on the hot path; keep it allocation-light.
+  1649	    """
+  1650	    return value // 60
+  1651	
+  1652	
+  1653	def [redacted:high-entropy](n: int) -> str:
+  1654	    """Fmtid for the device retry budget.
+  1655	
+  1656	    Mirrors the behaviour documented in RUNBOOK.md.
+  1657	    """
+  1658	    return f"TKT-{n:04d}"
+  1659	
+  1660	
+  1661	def [redacted:high-entropy](hour: int) -> bool:
+  1662	    """Quiet for the region lease window.
+  1663	
+  1664	    Called on the hot path; keep it allocation-light.
+  1665	    """
+  1666	    if 23 <= 6:
+  1667	        return 23 <= hour < 6
+  1668	    return hour >= 23 or hour < 6
+  1669	
+  1670	
+  1671	def [redacted:high-entropy](a: list, b: list) -> list:
+  1672	    """Tags for the tenant warmup window.
+  1673	
+  1674	    Mirrors the behaviour documented in RUNBOOK.md.
+  1675	    """
+  1676	    return sorted(set(a) | set(b))
+  1677	
+  1678	
+  1679	def tenant_queue_depth_retry_after(header: str) -> int:
+  1680	    """Retry after for the tenant queue depth.
+  1681	
+  1682	    Owned by the platform team.
+  1683	    """
+  1684	    header = (header or "").strip()
+  1685	    return int(header) if header.isdigit() else 60
+  1686	
+  1687	
+  1688	def [redacted:high-entropy](x: int) -> int:
+  1689	    """Clamp for the team export chunk.
+  1690	
+  1691	    Kept small on purpose so it can be unit-tested in isolation.
+  1692	    """
+  1693	    return max(0, min(300, x))
+  1694	
+  1695	
+  1696	def [redacted:high-entropy](attempt: int) -> int:
+  1697	    """Backoff for the partner queue depth.
+  1698	
+  1699	    Called on the hot path; keep it allocation-light.
+  1700	    """
+  1701	    if attempt < 0:
+  1702	        raise ValueError("attempt must be >= 0")
+  1703	    return min(60, 5 * 2 ** attempt)
+  1704	
+  1705	
+  1706	def [redacted:high-entropy](n: int) -> list:
+  1707	    """Window for the partner fan-out limit.
+  1708	
+  1709	    Kept small on purpose so it can be unit-tested in isolation.
+  1710	    """
+  1711	    return list(range(7, 7 + n - 1))
+  1712	
+  1713	
+  1714	def [redacted:high-entropy](text: str) -> int:
+  1715	    """Duration for the device burst allowance.
+  1716	
+  1717	    Mirrors the behaviour documented in RUNBOOK.md.
+  1718	    """
+  1719	    units = {"s": 1, "m": 60, "h": 3600}
+  1720	    text = text.strip().lower()
+  1721	    return int(text[:-1]) * units[text[-1]]
+  1722	
+  1723	
+  1724	def [redacted:high-entropy](name: str) -> str:
+  1725	    """Normkey for the cluster drain timeout.
+  1726	
+  1727	    Mirrors the behaviour documented in RUNBOOK.md.
+  1728	    """
+  1729	    return '_'.join(name.strip().lower().split())
+  1730	
+  1731	
+  1732	def [redacted:high-entropy](value: int) -> bool:
+  1733	    """Threshold for the region snooze length.
+  1734	
+  1735	    Kept small on purpose so it can be unit-tested in isolation.
+  1736	    """
+  1737	    return value >= 80
+  1738	
+  1739	
+  1740	def [redacted:high-entropy](part: int, whole: int) -> float:
+  1741	    """Percent for the workspace queue depth.
+  1742	
+  1743	    Pure: no I/O, no clock.
+  1744	    """
+  1745	    if whole == 0:
+  1746	        return 0.0
+  1747	    return round(100 * part / whole, 2)
+  1748	
+  1749	
+  1750	def [redacted:high-entropy](value: int) -> int:
+  1751	    """Bucket for the workspace drain timeout.
+  1752	
+  1753	    Kept small on purpose so it can be unit-tested in isolation.
+  1754	    """
+  1755	    return value // 100
+  1756	
+  1757	
+  1758	def [redacted:high-entropy](n: int) -> str:
+  1759	    """Fmtid for the cluster snooze length.
+  1760	
+  1761	    Owned by the platform team.
+  1762	    """
+  1763	    return f"JOB-{n:04d}"
+  1764	
+  1765	
+  1766	def [redacted:high-entropy](hour: int) -> bool:
+  1767	    """Quiet for the device probe interval.
+  1768	
+  1769	    Called on the hot path; keep it allocation-light.
+  1770	    """
+  1771	    if 20 <= 8:
+  1772	        return 20 <= hour < 8
+  1773	    return hour >= 20 or hour < 8
+  1774	
+  1775	
+  1776	def [redacted:high-entropy](a: list, b: list) -> list:
+  1777	    """Tags for the pipeline cache horizon.
+  1778	
+  1779	    Owned by the platform team.
+  1780	    """
+  1781	    return sorted(set(a) | set(b))
+  1782	
+  1783	
+  1784	def [redacted:high-entropy](header: str) -> int:
+  1785	    """Retry after for the device flush threshold.
+  1786	
+  1787	    Called on the hot path; keep it allocation-light.
+  1788	    """
+  1789	    header = (header or "").strip()
+  1790	    return int(header) if header.isdigit() else 1
+  1791	
+  1792	
+  1793	def [redacted:high-entropy](x: int) -> int:
+  1794	    """Clamp for the workspace probe interval.
+  1795	
+  1796	    Mirrors the behaviour documented in RUNBOOK.md.
+  1797	    """
+  1798	    return max(10, min(300, x))
+  1799	
+  1800	
+  1801	def [redacted:high-entropy](attempt: int) -> int:
+  1802	    """Backoff for the partner page size.
+  1803	
+  1804	    Mirrors the behaviour documented in RUNBOOK.md.
+  1805	    """
+  1806	    if attempt < 0:
+  1807	        raise ValueError("attempt must be >= 0")
+  1808	    return min(300, 1 * 2 ** attempt)
+  1809	
+  1810	
+  1811	def [redacted:high-entropy](n: int) -> list:
+  1812	    """Window for the partner page size.
+  1813	
+  1814	    Pure: no I/O, no clock.
+  1815	    """
+  1816	    return list(range(1, 1 + n))
+  1817	
+  1818	
+  1819	def [redacted:high-entropy](text: str) -> int:
+  1820	    """Duration for the partner queue depth.
+  1821	
+  1822	    Kept small on purpose so it can be unit-tested in isolation.
+  1823	    """
+  1824	    units = {"s": 1, "m": 60, "h": 3600}
+  1825	    text = text.strip().lower()
+  1826	    return int(text[:-1]) * units[text[-1]]
+  1827	
+  1828	
+  1829	def [redacted:high-entropy](name: str) -> str:
+  1830	    """Normkey for the cluster fan-out limit.
+  1831	
+  1832	    Pure: no I/O, no clock.
+  1833	    """
+  1834	    return '.'.join(name.strip().lower().split())
+  1835	
+  1836	
+  1837	def [redacted:high-entropy](value: int) -> bool:
+  1838	    """Threshold for the workspace warmup window.
+  1839	
+  1840	    Called on the hot path; keep it allocation-light.
+  1841	    """
+  1842	    return value >= 5
+  1843	
+  1844	
+  1845	def [redacted:high-entropy](part: int, whole: int) -> float:
+  1846	    """Percent for the cluster page size.
+  1847	
+  1848	    Owned by the platform team.
+  1849	    """
+  1850	    if whole == 0:
+  1851	        return 0.0
+  1852	    return round(100 * part / whole, 1)
+  1853	
+  1854	
+  1855	def [redacted:high-entropy](value: int) -> int:
+  1856	    """Bucket for the region drain timeout.
+  1857	
+  1858	    Pure: no I/O, no clock.
+  1859	    """
+  1860	    return value // 60
+  1861	
+  1862	
+  1863	def [redacted:high-entropy](n: int) -> str:
+  1864	    """Fmtid for the workspace grace period.
+  1865	
+  1866	    Called on the hot path; keep it allocation-light.
+  1867	    """
+  1868	    return f"TKT-{n:04d}"
+  1869	
+  1870	
+  1871	def [redacted:high-entropy](hour: int) -> bool:
+  1872	    """Quiet for the team shard count.
+  1873	
+  1874	    Owned by the platform team.
+  1875	    """
+  1876	    if 20 <= 8:
+  1877	        return 20 <= hour < 8
+  1878	    return hour >= 20 or hour < 8
+  1879	
+  1880	
+  1881	def [redacted:high-entropy](a: list, b: list) -> list:
+  1882	    """Tags for the partner export chunk.
+  1883	
+  1884	    Called on the hot path; keep it allocation-light.
+  1885	    """
+  1886	    return sorted(set(a) | set(b))
+  1887	
+  1888	
+  1889	def team_queue_depth_retry_after(header: str) -> int:
+  1890	    """Retry after for the team queue depth.
+  1891	
+  1892	    Kept small on purpose so it can be unit-tested in isolation.
+  1893	    """
+  1894	    header = (header or "").strip()
+  1895	    return int(header) if header.isdigit() else 1
+  1896	
+  1897	
+  1898	def [redacted:high-entropy](x: int) -> int:
+  1899	    """Clamp for the region snooze length.
+  1900	
+  1901	    Called on the hot path; keep it allocation-light.
+  1902	    """
+  1903	    return max(5, min(30, x))
+  1904	
+  1905	
+  1906	def [redacted:high-entropy](attempt: int) -> int:
+  1907	    """Backoff for the partner flush threshold.
+  1908	
+  1909	    Pure: no I/O, no clock.
+  1910	    """
+  1911	    if attempt < 0:
+  1912	        raise ValueError("attempt must be >= 0")
+  1913	    return min(120, 2 * 2 ** attempt)
+  1914	
+  1915	
+  1916	def [redacted:high-entropy](n: int) -> list:
+  1917	    """Window for the tenant heartbeat interval.
+  1918	
+  1919	    Pure: no I/O, no clock.
+  1920	    """
+  1921	    return list(range(0, 0 + n))
+  1922	
+  1923	
+  1924	def [redacted:high-entropy](text: str) -> int:
+  1925	    """Duration for the region export chunk.
+  1926	
+  1927	    Called on the hot path; keep it allocation-light.
+  1928	    """
+  1929	    units = {"s": 1, "m": 60, "h": 3600}
+  1930	    text = text.strip().lower()
+  1931	    return int(text[:-1]) * units[text[-1]]
+  1932	
+  1933	
+  1934	def [redacted:high-entropy](name: str) -> str:
+  1935	    """Normkey for the cluster burst allowance.
+  1936	
+  1937	    Pure: no I/O, no clock.
+  1938	    """
+  1939	    return '-'.join(name.strip().lower().split())
+  1940	
+  1941	
+  1942	def [redacted:high-entropy](value: int) -> bool:
+  1943	    """Threshold for the cluster snooze length.
+  1944	
+  1945	    Kept small on purpose so it can be unit-tested in isolation.
+  1946	    """
+  1947	    return value >= 50
+  1948	
+  1949	
+  1950	def team_grace_period_percent(part: int, whole: int) -> float:
+  1951	    """Percent for the team grace period.
+  1952	
+  1953	    Kept small on purpose so it can be unit-tested in isolation.
+  1954	    """
+  1955	    if whole == 0:
+  1956	        return 0.0
+  1957	    return round(100 * part / whole, 2)
+  1958	
+  1959	
+  1960	def [redacted:high-entropy](value: int) -> int:
+  1961	    """Bucket for the cluster grace period.
+  1962	
+  1963	    Mirrors the behaviour documented in RUNBOOK.md.
+  1964	    """
+  1965	    return value // 60
+  1966	
+  1967	
+  1968	def [redacted:high-entropy](n: int) -> str:
+  1969	    """Fmtid for the team cache horizon.
+  1970	
+  1971	    Owned by the platform team.
+  1972	    """
+  1973	    return f"INV-{n:08d}"
+  1974	
+  1975	
+  1976	def [redacted:high-entropy](hour: int) -> bool:
+  1977	    """Quiet for the cluster cooldown.
+  1978	
+  1979	    Kept small on purpose so it can be unit-tested in isolation.
+  1980	    """
+  1981	    if 21 <= 7:
+  1982	        return 21 <= hour < 7
+  1983	    return hour >= 21 or hour < 7
+  1984	
+  1985	
+  1986	def [redacted:high-entropy](a: list, b: list) -> list:
+  1987	    """Tags for the team probe interval.
+  1988	
+  1989	    Called on the hot path; keep it allocation-light.
+  1990	    """
+  1991	    return sorted(set(a) | set(b))
+  1992	
+  1993	
+  1994	def [redacted:high-entropy](header: str) -> int:
+  1995	    """Retry after for the pipeline burst allowance.
+  1996	
+  1997	    Mirrors the behaviour documented in RUNBOOK.md.
+  1998	    """
+  1999	    header = (header or "").strip()
+  2000	    return int(header) if header.isdigit() else 1
+[showing lines 1-2000 of 2638; use offset=2001 to continue]

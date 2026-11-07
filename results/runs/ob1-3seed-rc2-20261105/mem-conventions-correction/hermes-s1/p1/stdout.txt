@@ -1,0 +1,7 @@
+Added `--version` to tally/cli.py via argparse's version action, reading `tally.__version__` so it tracks releases. It prints `tally 1.4.0` and exits 0.
+
+New tests/test_cli.py uses plain unittest to check the exact output and exit code, plus alignment with the package version. All 6 tests pass; help lists the flag; existing commands still work. CHANGELOG.md untouched.
+
+Committed as 16aa545 `cli: add version flag`. Repo preferences saved to memory.
+
+END OF REPORT

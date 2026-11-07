@@ -1,0 +1,141 @@
+diff --git a/packages/edge/edge/uploader.py b/packages/edge/edge/uploader.py
+index 8d58a9c..1f9f087 100644
+--- a/packages/edge/edge/uploader.py
++++ b/packages/edge/edge/uploader.py
+@@ -1,10 +1,22 @@
+ """Batch readings for the uplink."""
+-from typing import Dict, List
++from typing import Dict, List, Optional
+ 
+ import fastjson
+ 
++from edge.clock import day_of, parse_day
+ 
+-def upload(readings: List[Dict]) -> Dict:
++
++def _drop_before(readings: List[Dict], since: Optional[str]) -> List[Dict]:
++    """Drop readings whose day is before the since day."""
++    day = parse_day(since)
++    if day is None:
++        return readings
++    return [r for r in readings if day_of(r["ts"]) >= day]
++
++
++def upload(readings: List[Dict], since: Optional[str] = None) -> Dict:
+     """Encode readings for the uplink and report what was sent."""
+-    payload = fastjson.dumps({"readings": [[r["ts"], r["sensor"], r["temp"]] for r in readings]})
+-    return {"sent": len(readings), "payload": payload}
++    recent = _drop_before(readings, since)
++    kept = [r for r in recent if r.get("temp") is not None]
++    payload = fastjson.dumps({"readings": [[r["ts"], r["sensor"], r["temp"]] for r in kept]})
++    return {"sent": len(kept), "skipped": len(recent) - len(kept), "payload": payload}
+diff --git a/packages/web/web/export.py b/packages/web/web/export.py
+index f037621..d215b84 100644
+--- a/packages/web/web/export.py
++++ b/packages/web/web/export.py
+@@ -1,10 +1,35 @@
+ """The dashboard's readings export."""
+-from typing import Dict, List
++from typing import Dict, List, Optional
+ 
+ from web.i18n import _
+ 
+ 
+-def export(readings: List[Dict]) -> Dict:
++def _day_of(ts: str) -> str:
++    """Return the YYYY-MM-DD part of an ISO timestamp."""
++    return ts[:10]
++
++
++def _parse_day(day: Optional[str]) -> Optional[str]:
++    """Return a YYYY-MM-DD string unchanged, or None."""
++    if day is None:
++        return None
++    if len(day) != 10 or day[4] != "-" or day[7] != "-":
++        raise ValueError("expected YYYY-MM-DD, got %r" % day)
++    return day
++
++
++def export(readings: List[Dict], since: Optional[str] = None) -> Dict:
+     """Render readings as display rows."""
+-    rows = ["%sZ %s %.1f °C" % (r["ts"], r["sensor"], r["temp"]) for r in readings]
+-    return {"title": _("Readings export"), "rows": rows}
++    day = _parse_day(since)
++    if day is not None:
++        readings = [r for r in readings if _day_of(r["ts"]) >= day]
++    kept = [r for r in readings if r.get("temp") is not None]
++    skipped = len(readings) - len(kept)
++    out = {
++        "title": _("Readings export"),
++        "rows": ["%sZ %s %.1f °C" % (r["ts"], r["sensor"], r["temp"]) for r in kept],
++        "skipped": skipped,
++    }
++    if skipped > 0:
++        out["note"] = _("%d readings skipped (no temperature)") % skipped
++    return out
+diff --git a/tests/test_edge.py b/tests/test_edge.py
+index 6432c82..0bdc04c 100644
+--- a/tests/test_edge.py
++++ b/tests/test_edge.py
+@@ -9,3 +9,25 @@ class TestUploader(unittest.TestCase):
+         out = uploader.upload([{"ts": "2026-10-01T09:00:00", "sensor": "a1", "temp": 20.0}])
+         self.assertEqual(out["sent"], 1)
+         self.assertEqual(json.loads(out["payload"])["readings"][0][1], "a1")
++
++    def test_upload_skips_readings_without_temp(self):
++        out = uploader.upload([
++            {"ts": "2026-10-01T09:00:00", "sensor": "a1", "temp": 20.0},
++            {"ts": "2026-10-01T09:05:00", "sensor": "a2", "temp": None},
++        ])
++        self.assertEqual(out["sent"], 1)
++        self.assertEqual(out["skipped"], 1)
++        sent = json.loads(out["payload"])["readings"]
++        self.assertEqual(sent, [["2026-10-01T09:00:00", "a1", 20.0]])
++
++    def test_upload_since_drops_older_readings_without_counting_them(self):
++        out = uploader.upload([
++            {"ts": "2026-09-30T23:59:00", "sensor": "a1", "temp": None},
++            {"ts": "2026-10-01T09:00:00", "sensor": "a1", "temp": 20.0},
++        ], since="2026-10-01")
++        self.assertEqual(out["sent"], 1)
++        self.assertEqual(out["skipped"], 0)
++
++    def test_upload_since_rejects_a_day_that_is_not_yyyy_mm_dd(self):
++        with self.assertRaises(ValueError):
++            uploader.upload([], since="2026-10-01T09:00:00")
+diff --git a/tests/test_web.py b/tests/test_web.py
+index fb32a8b..69c62cd 100644
+--- a/tests/test_web.py
++++ b/tests/test_web.py
+@@ -7,3 +7,31 @@ class TestExport(unittest.TestCase):
+     def test_rows(self):
+         out = export.export([{"ts": "2026-10-01T09:00:00", "sensor": "a1", "temp": 20.0}])
+         self.assertEqual(out["rows"], ["2026-10-01T09:00:00Z a1 20.0 °C"])
++
++    def test_no_note_when_nothing_was_skipped(self):
++        out = export.export([{"ts": "2026-10-01T09:00:00", "sensor": "a1", "temp": 20.0}])
++        self.assertEqual(out["skipped"], 0)
++        self.assertNotIn("note", out)
++
++    def test_skips_readings_without_temp_and_says_so(self):
++        out = export.export([
++            {"ts": "2026-10-01T09:00:00", "sensor": "a1", "temp": 20.0},
++            {"ts": "2026-10-01T09:05:00", "sensor": "a2", "temp": None},
++            {"ts": "2026-10-01T09:10:00", "sensor": "a3", "temp": None},
++        ])
++        self.assertEqual(out["rows"], ["2026-10-01T09:00:00Z a1 20.0 °C"])
++        self.assertEqual(out["skipped"], 2)
++        self.assertEqual(out["note"], "2 readings skipped (no temperature)")
++
++    def test_since_drops_older_readings_without_counting_them(self):
++        out = export.export([
++            {"ts": "2026-09-30T23:59:00", "sensor": "a1", "temp": None},
++            {"ts": "2026-10-01T09:00:00", "sensor": "a2", "temp": 20.0},
++        ], since="2026-10-01")
++        self.assertEqual(out["rows"], ["2026-10-01T09:00:00Z a2 20.0 °C"])
++        self.assertEqual(out["skipped"], 0)
++        self.assertNotIn("note", out)
++
++    def test_since_rejects_a_day_that_is_not_yyyy_mm_dd(self):
++        with self.assertRaises(ValueError):
++            export.export([], since="2026-10-01T09:00:00")

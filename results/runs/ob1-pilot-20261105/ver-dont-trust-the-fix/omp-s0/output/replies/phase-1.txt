@@ -1,0 +1,5 @@
+VERDICT.md written with: `don't merge`, `issue_repro: fail`, `branch_tests: pass`, `test_checks_the_fix: no`.
+
+Evidence: the branch joins split lines, but does not handle the export's CRLF endings. The issue repro returns 3 rows, yet row 2's note is `call back\r\nafter 5pm"\r`, retaining a closing quote and CR; expected exact value is `call back\r\nafter 5pm`. Both branch tests pass, but the new test uses only LF input, never the reported CRLF export, so it misses the failure. Its second case also treats a comma inside quotes as a delimiter, asserting wrong behavior. Neither branch was modified; only untracked VERDICT.md was added to main's working tree.
+
+END OF REPORT

@@ -1,0 +1,7 @@
+Implemented `parse_range` in `daterange.py`: strict `[0-9]` token parsing for dates, months, ISO weeks, and years; inclusive endpoint expansion; open ends via `..`; reversed-end and malformed-input rejection with `ValueError`. Every token form is accepted on either side, standalone period tokens return their full span, and a lone date returns `(date, date)`.
+
+Added 30 tests in `tests/test_daterange.py` covering all seven SPEC items: closed ranges, month/week/year tokens (including leap February, week 53, year-crossing weeks), open ends, ordering errors, whitespace, and malformed dates, weeks, years, separators, and endpoints.
+
+Verification: `python3 -m unittest discover -s tests` passes all 30 tests; smoke-checked every SPEC example directly. No pytest installed; unittest is the working runner.
+
+END OF REPORT

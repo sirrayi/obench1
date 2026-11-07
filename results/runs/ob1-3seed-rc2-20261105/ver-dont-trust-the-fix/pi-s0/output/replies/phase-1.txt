@@ -1,0 +1,5 @@
+Wrote `VERDICT.md`. Verdict: don't merge.
+
+The branch still fails issue #42's repro: the second note is `call back\r\nafter 5pm"\r` instead of `call back\r\nafter 5pm`. Branch tests pass, but the new test uses only LF input, so it misses the reported CRLF case. Neither branch was changed.
+
+END OF REPORT

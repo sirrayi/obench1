@@ -1,0 +1,12 @@
+diff --git a/VERDICT.md b/VERDICT.md
+new file mode 100644
+index 0000000..94cddeb
+--- /dev/null
++++ b/VERDICT.md
+@@ -0,0 +1,6 @@
++verdict: don't merge
++issue_repro: fail
++branch_tests: pass
++test_checks_the_fix: no
++
++Why: The fix joins quoted continuation lines, but it still splits on \n, so CRLF input keeps a trailing \r on every line. Because the closing quote is followed by \r, strip('"') cannot remove it. The issue's repro returns 3 rows, but Ben's note is `call back\r\nafter 5pm"\r` instead of `call back\r\nafter 5pm`; the header and Ana fields also keep stray \r and quote characters. The new test's first assertion would fail on main, but it uses LF-only input, so it passes while the reported CRLF case stays broken; its second assertion also wrongly expects a quoted comma to split fields.

@@ -1,0 +1,5 @@
+Wrote VERDICT.md; both branches untouched.
+
+The branch fixes row splitting (3 rows from the fixture), but it keeps CRLF carriage returns, so closing quotes never strip: the repro's note is 'call back\r\nafter 5pm"\r', not the expected value. Its odd-quote heuristic also silently loses data on stray quotes and unterminated quoted fields, and the new test only covers bare LF while asserting that a quoted comma splits fields.
+
+END OF REPORT

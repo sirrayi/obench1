@@ -1,0 +1,9 @@
+Added `tally top N`.
+
+- `tally/report.py`: `top(rows, n)` sorts by amount descending, then date ascending, and clamps negative N to empty.
+- `tally/cli.py`: `top` subcommand prints `<date> <amount> <category>` with 2 decimals.
+- Tests cover ordering, tie-break, N beyond row count, and CLI output.
+
+`python3 -m unittest discover -s tests -t .`: 10 tests OK. On expenses.csv, `tally top 5` starts 2026-10-19 96.80 fun and the 42.00 tie block is date-ascending. Changes are left uncommitted.
+
+END OF REPORT

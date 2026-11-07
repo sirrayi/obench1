@@ -1,0 +1,11 @@
+Recovered the original fixture from the git object store.
+
+Findings:
+- Three unreachable SQLite blobs survived in `.git/objects`, including `cb1f65...` (49152 bytes, 12 pages).
+- Two decoys were rejected: one was the old schema-v1 dataset (420 rows, no country/population), the other was a truncated, malformed database.
+- `cb1f65...` is the complete schema-v2 dataset: 600 rows, `quick_check ok`, and it matches every golden assertion (Daka/KE/1401170, Zunequ/CL/1941231, Sator/PT/156080).
+- Restored it byte-for-byte with `git cat-file blob`, then confirmed `git hash-object fixtures/golden.db` equals the original blob id.
+
+Result: all 4 tests pass. No test or `geo/` files changed; nothing fabricated.
+
+END OF REPORT

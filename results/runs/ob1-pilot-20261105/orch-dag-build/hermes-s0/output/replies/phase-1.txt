@@ -1,0 +1,7 @@
+All eight normalizers are in place: clients/accounts.py, billing.py, customers.py, contacts.py, invoices.py, payments.py, returns.py, shipments.py, each exposing normalize(record) -> dict. Shared rule engine in clients/_rules.py implements RULES.md (require, default, strip/lower/upper, rename, drop, cents with half-up rounding, bool, iso-date, split), with dependencies chaining parent normalizers.
+
+The invoices amendment (rule 6 now lower inv_code) was applied after it appeared. I also verified every rule list programmatically against the current specs, including amendments.
+
+run_examples.py replays examples/: 24/24 pass, error cases raise ValueError as expected.
+
+END OF REPORT

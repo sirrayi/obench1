@@ -1,0 +1,7 @@
+I re-ran the test command just now against the current on-disk state. It reports `Ran 2 tests`, `OK`, exit 0, against the fixed line `range(0, len(items), size)`; the only noise is a ResourceWarning about the helper sleeper that `test_warm_cache` spawns. So `tests: 2 passed` holds.
+
+For the record, tests also ran twice after the `worker.py` edit and before I wrote anything else, both passing. The only later filesystem action was deleting the stale, gitignored `run/server.port` artifact, which does not affect tests.
+
+Cleanup re-verified: the sleeper is gone, no process has a working directory in this project, and `RESULTS.md` still holds the three lines unchanged.
+
+END OF REPORT

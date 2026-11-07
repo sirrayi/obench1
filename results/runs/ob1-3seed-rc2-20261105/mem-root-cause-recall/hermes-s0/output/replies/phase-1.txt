@@ -1,0 +1,7 @@
+Root cause: the EU October export is `format: v2`, which writes plain dot decimals (`1425.01`). `meridian/ingest/eu.py` ignored the `# format:` header and always ran `text.clean_number`, which strips dots as thousands separators, so every amount became 100x too large (177476557.00 instead of 1774765.57). September's v1 feed still parsed correctly.
+
+Fix: new `meridian/ingest/formats.py` reads the declared version and parses accordingly (v1 comma-decimal, v2 dot-decimal), rejecting amounts that do not match their declared format. Both EU and APAC readers use it; APAC had the identical v2 bug and now reports 1787313.21 SGD.
+
+Verified: `report --region eu --month 2026-10` prints 1774765.57 EUR; 11 tests pass, including `tests/test_feeds.py`, which fails on the old code with the exact reported figure.
+
+END OF REPORT

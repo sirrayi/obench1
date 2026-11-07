@@ -1,0 +1,10 @@
+Implemented the ISSUE.md fixes.
+
+- `edge.uploader.upload(readings, since=None)`: drops readings before the `since` day first, skips readings with `temp` `None`, and returns `sent`, `payload`, and `skipped`.
+- `web.export.export(readings, since=None)`: same filtering; returns `title`, `rows`, `skipped`, plus a translated `note` (`"%d readings skipped (no temperature)"`) only when skips occurred.
+- `since` is validated as `YYYY-MM-DD` via `edge.clock.parse_day` (edge) and a matching helper in web.
+- Added 9 tests covering skipping, zero-temperature, boundary days, pre-`since` drops not counted as skipped, and note suppression.
+
+Verification: 11 tests pass, `python3 tools/lint.py` reports ok, and edge files parse under the Python 3.6 grammar. No vendor changes, no TODO/FIXME/XXX markers.
+
+END OF REPORT

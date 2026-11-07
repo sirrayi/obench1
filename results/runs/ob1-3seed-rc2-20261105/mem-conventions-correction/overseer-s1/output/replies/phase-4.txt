@@ -1,0 +1,3 @@
+Added `tally export --csv PATH`: `store.write_csv` writes the header `date,amount,category,note`, sorts rows by date with a stable sort so same-date expenses keep file order, and formats amounts to 2 decimals; the CLI wires up the new `export` subcommand with a required `--csv` path. Added plain-unittest coverage in `tests/test_store.py` (ordering, tie stability, formatting) and `tests/test_cli.py` (end-to-end command run against a temp expenses file). All 15 tests pass, and a manual run against the repo data produced correctly sorted output. Committed as `feat: add export command writing expenses to a csv file`; CHANGELOG.md untouched.
+
+END OF REPORT

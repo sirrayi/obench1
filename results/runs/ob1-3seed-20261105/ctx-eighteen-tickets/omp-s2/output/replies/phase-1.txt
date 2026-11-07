@@ -1,0 +1,9 @@
+Fixed all 19 tickets with minimal per-function edits, `# TCK-n` markers, changelog entries in order, and one `test_tck_<n>` per ticket in a single `TestTickets` class.
+
+Key changes: clamp ceilings corrected (TCK-1, 9, 13), backoff caps raised to 300 s (TCK-2, 14), off-by-one window bounds fixed (TCK-3, 10, 15), hour parsing corrected (TCK-4, 16), separators, padding, bucket, threshold, percent, dedupe, and Retry-After fixes applied per ticket. TCK-12 twin functions remain identical. TCK-19 handled after it arrived mid-task.
+
+Version bumped to 2.8.1 in `fleetd/__init__.py` and `pyproject.toml`.
+
+`python3 -m unittest discover -s tests -t .`: 25 tests, all pass. No TODO/FIXME/XXX, no emoji. No new tickets pending after extended check.
+
+END OF REPORT

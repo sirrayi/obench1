@@ -1,0 +1,10 @@
+Fixed both functions in ISSUE.md.
+
+- `packages/edge/edge/uploader.py`: `upload(readings, since=None)` drops readings before `since` (validated via existing `edge.clock.parse_day`), then skips `temp is None`, returning `sent`, `skipped`, `payload`.
+- `packages/web/web/export.py`: same filtering, adds `skipped`, and a `note` only when skips occurred, built as a translated template (`_("%d readings skipped (no temperature)") % n`) per package rules.
+- Zero temperatures survive (`is None` check, not truthiness).
+- Added tests for skipping, boundary days, zero temps, absent note, bad `since`.
+
+Verified: `python3 tools/lint.py` passes, all 12 tests pass, edge file parses under Python 3.6 grammar. Changes are uncommitted.
+
+END OF REPORT

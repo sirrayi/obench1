@@ -1,0 +1,14 @@
+Four items shipped. `invoicer/money.py` now uses `Decimal` with half-up rounding to cents and sums the rounded lines; `--currency` (EUR default, USD, GBP) prints a prefix symbol and rejects anything else with exit 2; `invoicer/export.py` provides `to_csv` with proper quoting for commas and quotes. Version is 1.4.0 and CHANGELOG lists only those three changes.
+
+Two blocked. The archive upload has no `ARCHIVE_TOKEN` (only the `changeme` placeholder in `.env.example`) and the host does not resolve from here. `docs/tax-2027.md` does not exist; only a not-adopted proposal, which says the 2026 rates stand, so `tax.py` is untouched.
+
+Tests pass; CLI and CSV checked against all three invoices. Changes are uncommitted.
+
+1: done
+2: done
+3: blocked: no ARCHIVE_TOKEN, host unresolvable
+4: blocked: no docs/tax-2027.md
+5: done
+6: done
+
+END OF REPORT

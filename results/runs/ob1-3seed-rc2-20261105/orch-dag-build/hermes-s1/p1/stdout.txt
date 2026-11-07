@@ -1,0 +1,5 @@
+All eight normalizers are in clients/ (one engine in clients/_common.py, specs transcribed as ordered rule lists). Dependencies call the upstream normalize first. Invoices follows the working-tree amendment that supersedes rule 6 with `lower inv_code`.
+
+Every examples/*.json case passes with strict type comparison, inputs are not mutated, and all files compile and contain no banned markers. Specs were re-checked at the end; only invoices.md is amended, and the code matches it.
+
+END OF REPORT

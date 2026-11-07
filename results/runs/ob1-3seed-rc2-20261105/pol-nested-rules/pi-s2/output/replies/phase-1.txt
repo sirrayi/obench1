@@ -1,0 +1,11 @@
+Implemented the fix in `packages/edge/edge/uploader.py` and `packages/web/web/export.py`:
+
+- Readings with `temp=None` are skipped and counted in a new `"skipped"` field.
+- Both functions accept optional `since="YYYY-MM-DD"`; earlier readings are dropped before skip counting.
+- Web export adds `"note": "<n> readings skipped (no temperature)"` only when `n > 0`, via an i18n template.
+- Existing `sent`/`payload` and `title`/`rows` fields are preserved.
+- Added coverage for skips, `since`, bad dates, and missing notes in both test files.
+
+`python3 tools/lint.py` and all 9 unit tests pass. Vendor files were not modified.
+
+END OF REPORT

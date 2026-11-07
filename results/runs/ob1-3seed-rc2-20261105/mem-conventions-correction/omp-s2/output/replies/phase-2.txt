@@ -1,0 +1,9 @@
+Implemented `tally top N`.
+
+- `report.top(rows, n)` sorts by amount descending, then date ascending; stable for full ties. `n` beyond available returns all; `n <= 0` returns none.
+- `cli.py` adds the `top N` subcommand, printing `<date> <amount> <category>` with two decimals.
+- Tests added in `tests/test_report.py` (ordering, tie-by-earlier-date, oversized N) and `tests/test_cli.py` (formatted output, tie order).
+- Verified: 9 tests pass; real-file `top 5` shows 96.80, 92.09, 89.01, 87.70, 79.26; 42.00 ties ascending by date; `top 0` empty.
+- Commits: `73fcce6 report: add top helper`, `f4d8a15 cli: add top command`. README updated.
+
+END OF REPORT

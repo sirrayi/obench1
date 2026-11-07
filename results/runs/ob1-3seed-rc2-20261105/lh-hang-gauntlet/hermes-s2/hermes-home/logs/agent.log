@@ -1,0 +1,173 @@
+2026-11-05 19:41:04,765 INFO hermes_cli.plugins: Plugin 'browser-browser-use' registered browser provider: browser-use
+2026-11-05 19:41:04,771 INFO hermes_cli.plugins: Plugin 'browser-browserbase' registered browser provider: browserbase
+2026-11-05 19:41:04,775 INFO hermes_cli.plugins: Plugin 'browser-firecrawl' registered browser provider: firecrawl
+2026-11-05 19:41:04,911 INFO hermes_cli.plugins: Plugin 'default' registered delegation provider: default
+2026-11-05 19:41:04,917 INFO hermes_cli.plugins: Plugin 'deepinfra' registered image_gen provider: deepinfra
+2026-11-05 19:41:04,924 INFO hermes_cli.plugins: Plugin 'fal' registered image_gen provider: fal
+2026-11-05 19:41:04,926 INFO hermes_cli.plugins: Plugin 'krea' registered image_gen provider: krea
+2026-11-05 19:41:04,928 INFO hermes_cli.plugins: Plugin 'meta-ai-image-gen' registered image_gen provider: meta-ai
+2026-11-05 19:41:04,933 INFO hermes_cli.plugins: Plugin 'openai' registered image_gen provider: openai
+2026-11-05 19:41:04,935 INFO hermes_cli.plugins: Plugin 'openai-codex' registered image_gen provider: openai-codex
+2026-11-05 19:41:04,938 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: openrouter
+2026-11-05 19:41:04,938 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: nous
+2026-11-05 19:41:04,941 INFO hermes_cli.plugins: Plugin 'xai' registered image_gen provider: xai
+2026-11-05 19:41:04,951 INFO hermes_cli.plugins: Plugin 'deepinfra' registered video_gen provider: deepinfra
+2026-11-05 19:41:04,954 INFO hermes_cli.plugins: Plugin 'fal' registered video_gen provider: fal
+2026-11-05 19:41:04,956 INFO hermes_cli.plugins: Plugin 'openrouter' registered video_gen provider: openrouter
+2026-11-05 19:41:04,960 INFO hermes_cli.plugins: Plugin 'xai' registered video_gen provider: xai
+2026-11-05 19:41:04,967 INFO hermes_cli.plugins: Plugin 'web-brave-free' registered web provider: brave-free
+2026-11-05 19:41:04,971 INFO hermes_cli.plugins: Plugin 'web-ddgs' registered web provider: ddgs
+2026-11-05 19:41:04,973 INFO hermes_cli.plugins: Plugin 'web-exa' registered web provider: exa
+2026-11-05 19:41:04,976 INFO hermes_cli.plugins: Plugin 'web-firecrawl' registered web provider: firecrawl
+2026-11-05 19:41:04,977 INFO hermes_cli.plugins: Plugin 'web-keenable' registered web provider: keenable
+2026-11-05 19:41:04,979 INFO hermes_cli.plugins: Plugin 'web-openai-native' registered web provider: openai-native
+2026-11-05 19:41:04,981 INFO hermes_cli.plugins: Plugin 'web-parallel' registered web provider: parallel
+2026-11-05 19:41:04,983 INFO hermes_cli.plugins: Plugin 'web-perplexity' registered web provider: perplexity
+2026-11-05 19:41:04,984 INFO hermes_cli.plugins: Plugin 'web-searxng' registered web provider: searxng
+2026-11-05 19:41:04,986 INFO hermes_cli.plugins: Plugin 'web-tavily' registered web provider: tavily
+2026-11-05 19:41:04,989 INFO hermes_cli.plugins: Plugin 'web-xai' registered web provider: xai
+2026-11-05 19:41:04,990 INFO hermes_cli.plugins: Plugin discovery complete: 62 found, 58 enabled
+2026-11-05 19:41:05,009 INFO hermes_cli.gateway_multiplex_mode: Single-profile install: gateway.multiplex_profiles unset, serving the default profile only.
+2026-11-05 19:41:05,023 WARNING gateway.run: Another Hermes home's gateway owns this host (PID 83762 (no bound port; profiles: default)); starting this home's gateway beside it.
+2026-11-05 19:41:05,248 WARNING hermes.security_audit: Security posture audit found 1 issue(s) — review your deployment:
+2026-11-05 19:41:05,248 WARNING hermes.security_audit:   [security 1/1] SSH password authentication is ENABLED (default — no explicit directive). Password auth is brute-forceable and dangerous on an internet-facing box. Set 'PasswordAuthentication no' in sshd_config and use key-based auth.
+2026-11-05 19:41:05,526 INFO gateway.control_socket: Gateway control socket listening at /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/8c7d24f0bd4e/hermes-home/gateway.sock
+2026-11-05 19:41:05,700 INFO gateway.run: Starting Hermes Gateway...
+2026-11-05 19:41:05,701 INFO gateway.run: Session storage: /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/8c7d24f0bd4e/hermes-home/sessions
+2026-11-05 19:41:05,703 INFO gateway.run: Agent budget: max_iterations=unlimited (agent.max_turns from config.yaml, else the HERMES_MAX_ITERATIONS bridge)
+2026-11-05 19:41:05,703 INFO gateway.run: Secret redaction: ENABLED (tool output, logs, and chat responses are scrubbed before delivery)
+2026-11-05 19:41:05,726 WARNING gateway.run: No messaging platforms enabled.
+2026-11-05 19:41:05,726 INFO gateway.run: Gateway will continue running for cron job execution.
+2026-11-05 19:41:05,751 INFO run_agent: No .env file found. Using system environment variables.
+2026-11-05 19:41:05,769 INFO gateway.run: Channel directory built: 0 target(s)
+2026-11-05 19:41:05,894 INFO tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 19:41:05,895 INFO tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-11-05 19:41:05,897 INFO tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 19:41:05,897 INFO tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 19:41:05,898 INFO tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-11-05 19:41:05,903 INFO tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 19:41:05,904 INFO tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 19:41:05,905 INFO tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 19:41:05,906 INFO tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 19:41:05,907 INFO tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 19:41:05,908 INFO tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 19:41:05,916 INFO tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 19:41:05,924 INFO tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 19:41:05,947 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
+2026-11-05 19:41:05,947 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 19:41:05,947 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 19:41:05,956 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 19:41:05,956 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 19:41:05,956 INFO tools.registry: check_fn check_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 19:41:06,061 INFO tools.tool_search: tool_search activated (tier 1): 17 core/visible tools kept, 5 deferred (~3815 tokens), listing full (budget ~4000 tokens)
+2026-11-05 19:41:06,076 INFO agent.model_metadata: No model id provided for context length resolution — defaulting to 256,000 tokens.
+2026-11-05 19:41:06,076 INFO gateway.run: Model context warmed:  -> 256000 tokens (default)
+2026-11-05 19:41:06,076 INFO gateway.run: Turn machinery warmed in 0.3s (20 tool schema(s) materialized)
+2026-11-05 19:41:06,087 INFO gateway.run: Press Ctrl+C to stop
+2026-11-05 19:41:06,090 INFO gateway.run: kanban dispatcher: holding singleton dispatcher lock (/private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/8c7d24f0bd4e/hermes-home/kanban/.dispatcher.lock)
+2026-11-05 19:41:06,092 INFO gateway.run: Cron scheduler will tick 1 profile(s): ['default']
+2026-11-05 19:41:06,092 INFO cron.scheduler_provider: In-process cron scheduler started (interval=60s)
+2026-11-05 19:41:06,093 INFO gateway.run: Auto-started gateway: exits after 600s with no clients, adapters, cron/kanban work or admissions (gateway.unmanaged_idle_exit_seconds)
+2026-11-05 19:41:06,095 INFO gateway.run: Gateway housekeeping started (interval=60s)
+2026-11-05 19:41:06,095 INFO cron.scheduler_provider: Multiplex cron scheduler started for 1 profile(s): ['default'] (re-enumerated every cycle)
+2026-11-05 19:41:06,491 INFO tui_gateway.ws: ws accepted peer=127.0.0.1:55314
+2026-11-05 19:41:06,622 INFO tools.tool_search: tool_search activated (tier 1): 17 core/visible tools kept, 5 deferred (~3815 tokens), listing full (budget ~4000 tokens)
+2026-11-05 19:41:06,624 INFO tools.registry: check_fn _a2a_tools_available returned False; dependent tools will be unavailable this turn
+2026-11-05 19:41:06,625 INFO tools.registry: check_fn check_discord_tool_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 19:41:06,625 INFO tools.registry: check_fn _check_feishu returned False; dependent tools will be unavailable this turn
+2026-11-05 19:41:06,631 INFO tools.registry: check_fn _check_yuanbao returned False; dependent tools will be unavailable this turn
+2026-11-05 19:41:06,643 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 19:41:06,643 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 19:41:06,653 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 19:41:06,653 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 19:41:06,653 INFO tools.registry: check_fn check_video_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 19:41:06,663 INFO agent.credential_pool: credential pool: no available entries (all exhausted or empty)
+2026-11-05 19:41:06,667 INFO tools.registry: check_fn check_video_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 19:41:06,667 INFO tools.registry: check_fn _check_xai_video_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 19:41:06,670 INFO agent.credential_pool: credential pool: no available entries (all exhausted or empty)
+2026-11-05 19:41:06,673 INFO tools.registry: check_fn check_x_search_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 19:41:07,225 INFO gateway.run: inbound message: platform=local user=uid:502 chat=local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914 msg='Get relay checked end to end: set up the database, start the server, run the smo' reply_to_id=None reply_to_text=''
+2026-11-05 19:41:07,325 WARNING hermes_cli.source_releases: Could not resolve the stable source release: <urlopen error [Errno 1] Operation not permitted>
+2026-11-05 19:41:07,326 WARNING hermes_cli.source_releases: Could not resolve the stable source release: <urlopen error [Errno 1] Operation not permitted>
+2026-11-05 19:41:07,535 INFO run_agent: OpenAI client created (agent_init, shared=True) thread=hermes-gateway_3:481120448512 provider=opencode-go base_url=http://127.0.0.1:55298/v1 model=deepseek-v4.1-flash
+2026-11-05 19:41:11,092 INFO gateway.run: kanban dispatcher: embedded in gateway (interval=60.0s)
+2026-11-05 19:41:11,140 INFO agent.model_metadata: Could not detect context length for model 'deepseek-v4.1-flash' at http://127.0.0.1:55298/v1 — defaulting to 256,000 tokens (probe-down). Set model.context_length in config.yaml to override.
+2026-11-05 19:41:11,140 INFO agent.model_metadata: Using hardcoded context length 1,000,000 for model 'deepseek-v4.1-flash' (custom endpoint, catalog match on 'deepseek-v4.1-flash')
+2026-11-05 19:41:11,197 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.turn_context: conversation turn: session=local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914 model=deepseek-v4.1-flash provider=opencode-go platform=cli history=0 msg='Get relay checked end to end: set up the database, start the server, run the smo...'
+2026-11-05 19:41:11,361 INFO agent.auxiliary_client: Auxiliary auto-detect: using main provider opencode-go (deepseek-v4.1-flash)
+2026-11-05 19:41:11,369 INFO agent.auxiliary_client: Auxiliary title_generation: using opencode-go (deepseek-v4.1-flash) at http://127.0.0.1:55298/v1/
+2026-11-05 19:41:11,417 INFO run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=Thread-9 (<lambda>):481154101248 provider=opencode-go base_url=http://127.0.0.1:55298/v1 model=deepseek-v4.1-flash
+2026-11-05 19:41:12,128 WARNING agent.title_generator: Title generation failed: Error code: 400 - {'error': {'param': None, 'type': 'invalid_request_error', 'code': 'invalid_request_error', 'message': 'Upstream request failed: [invalid_request_error] this feature is not yet supported by atlas (request_id: gw-1a0162c07b61-c70dd)'}}
+2026-11-05 19:41:36,124 INFO hermes_cli.model_catalog: model catalog fetch failed (https://hermes-agent.nousresearch.com/docs/api/model-catalog.json): <urlopen error [Errno 1] Operation not permitted>
+2026-11-05 19:41:36,135 INFO hermes_cli.model_catalog: model catalog fetch failed (https://raw.githubusercontent.com/NousResearch/hermes-agent/main/website/static/api/model-catalog.json): <urlopen error [Errno 1] Operation not permitted>
+2026-11-05 19:41:36,143 INFO hermes_cli.model_catalog: model catalog fetch failed (https://hermes-agent.nousresearch.com/docs/api/model-catalog.json): <urlopen error [Errno 1] Operation not permitted>
+2026-11-05 19:41:36,145 INFO hermes_cli.model_catalog: model catalog fetch failed (https://raw.githubusercontent.com/NousResearch/hermes-agent/main/website/static/api/model-catalog.json): <urlopen error [Errno 1] Operation not permitted>
+2026-11-05 19:41:50,588 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.conversation_loop: API call #1: model=deepseek-v4.1-flash provider=opencode-go in=13829 out=128 total=13957 latency=39.2s id=chatcmpl-3bc6d1e6e109431bbe6cc5af02e99014
+2026-11-05 19:41:50,615 INFO tools.terminal_tool: Creating new local environment for task session:...
+2026-11-05 19:41:50,724 INFO tools.environments.base: Session snapshot created (session=7829a02619ba, cwd=/private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/8c7d24f0bd4e)
+2026-11-05 19:41:50,725 INFO tools.terminal_tool: local environment ready for task session:
+2026-11-05 19:41:50,870 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.tool_executor: tool terminal completed (0.27s, 629 chars)
+2026-11-05 19:41:52,250 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.tool_executor: tool search_files completed (1.38s, 1831 chars)
+2026-11-05 19:42:06,318 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.conversation_loop: API call #2: model=deepseek-v4.1-flash provider=opencode-go in=15041 out=264 total=15305 latency=14.1s cache=13568/15041 (90%) id=chatcmpl-bf437565069e41d7a0ee87ee31c7fbf6
+2026-11-05 19:42:06,358 INFO agent.tool_executor: tool read_file completed (0.03s, 590 chars)
+2026-11-05 19:42:06,362 INFO agent.tool_executor: tool read_file completed (0.03s, 378 chars)
+2026-11-05 19:42:06,363 INFO agent.tool_executor: tool read_file completed (0.03s, 1300 chars)
+2026-11-05 19:42:06,366 INFO agent.tool_executor: tool read_file completed (0.03s, 654 chars)
+2026-11-05 19:42:06,367 INFO agent.tool_executor: tool read_file completed (0.03s, 526 chars)
+2026-11-05 19:42:06,369 INFO agent.tool_executor: tool read_file completed (0.04s, 624 chars)
+2026-11-05 19:42:06,369 INFO agent.tool_executor: tool read_file completed (0.04s, 170 chars)
+2026-11-05 19:42:06,371 INFO agent.tool_executor: tool read_file completed (0.04s, 738 chars)
+2026-11-05 19:42:42,836 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.conversation_loop: API call #3: model=deepseek-v4.1-flash provider=opencode-go in=17123 out=880 total=18003 latency=36.4s cache=14848/17123 (87%) id=chatcmpl-a88ab5aecd3c425dbd13f9d5c36a58e4
+2026-11-05 19:42:43,229 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.tool_executor: tool terminal completed (0.38s, 274 chars)
+2026-11-05 19:45:43,436 WARNING [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.tool_executor: Tool terminal returned error (180.20s): {"output": "[Command timed out after 180s]", "exit_code": 124, "error": null, "hint": "Exit 124: the command hit its timeout. Raise timeout= (foreground max 600s) or run it with background=true and no
+2026-11-05 19:45:52,278 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.conversation_loop: API call #4: model=deepseek-v4.1-flash provider=opencode-go in=18209 out=227 total=18436 latency=8.8s cache=16896/18209 (93%) id=chatcmpl-52eb014eb4414d48ad3f156335a906f4
+2026-11-05 19:45:52,408 WARNING [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.tool_executor: Tool terminal returned error (0.12s): {"output": "/bin/bash: line 4: /bin/ps: Operation not permitted\n---\n/bin/bash: line 4: /bin/ps: Operation not permitted", "exit_code": 1, "error": null, "exit_code_meaning": "No matches found (not a
+2026-11-05 19:45:57,922 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.conversation_loop: API call #5: model=deepseek-v4.1-flash provider=opencode-go in=18513 out=112 total=18625 latency=5.5s cache=18048/18513 (97%) id=chatcmpl-0a8e928c98854663be821726d108b758
+2026-11-05 19:45:58,065 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.tool_executor: tool terminal completed (0.13s, 67 chars)
+2026-11-05 19:46:06,450 INFO tui_gateway.server: Reclaimed 1 orphaned active-session lease(s)
+2026-11-05 19:46:14,679 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.conversation_loop: API call #6: model=deepseek-v4.1-flash provider=opencode-go in=18662 out=421 total=19083 latency=16.6s cache=18304/18662 (98%) id=chatcmpl-f0f1d204c0f44fcebef591b4366988c2
+2026-11-05 19:46:17,592 WARNING [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.tool_executor: Tool terminal returned error (0.13s): {"output": "37107 /bin/zsh -c source /Users/r23/.claude/shell-snapshots/snapshot-zsh-1793740939547-mu5vx6.sh 2>/dev/null || true && setopt NO_EXTENDED_GLOB NO_BARE_GLOB_QUAL 2>/dev/null || true && { \
+2026-11-05 19:46:17,619 INFO agent.lsp.install: [install] npm install --prefix /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/8c7d24f0bd4e/hermes-home/lsp --silent --no-fund --no-audit pyright
+2026-11-05 19:46:17,702 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.tool_executor: tool patch completed (0.10s, 744 chars)
+2026-11-05 19:47:28,179 WARNING agent.lsp.install: [install] npm install failed for pyright: 
+2026-11-05 19:47:28,179 WARNING hermes.lint.lsp: lsp[pyright] server unavailable: pyright not found (install via `hermes lsp install <id>` or set lsp.servers.<id>.command)
+2026-11-05 19:48:19,727 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.conversation_loop: API call #7: model=deepseek-v4.1-flash provider=opencode-go in=24964 out=176 total=25140 latency=122.0s cache=18432/24964 (74%) id=chatcmpl-2226b01d9fda439abfc84d3d1f23412c
+2026-11-05 19:48:19,744 INFO hermes.lint.lsp: lsp[pyright] skipping /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/8c7d24f0bd4e/tests/test_worker.py: /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/8c7d24f0bd4e marked broken after an earlier failure (no diagnostics for this root until restart)
+2026-11-05 19:48:19,746 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.tool_executor: tool write_file completed (0.01s, 331 chars)
+2026-11-05 19:48:41,748 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.conversation_loop: API call #8: model=deepseek-v4.1-flash provider=opencode-go in=25291 out=212 total=25503 latency=22.0s cache=24704/25291 (98%) id=chatcmpl-b99ce16d24804235a0d2bc4b21f980c6
+2026-11-05 19:48:41,825 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.tool_executor: tool terminal completed (0.07s, 658 chars)
+2026-11-05 19:48:57,147 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.conversation_loop: API call #9: model=deepseek-v4.1-flash provider=opencode-go in=25683 out=136 total=25819 latency=15.3s cache=25088/25683 (98%) id=chatcmpl-54eb906a3e82477e93c826063a1d1773
+2026-11-05 19:48:57,355 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.tool_executor: tool terminal completed (0.19s, 81 chars)
+2026-11-05 19:48:58,055 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.tool_executor: tool terminal completed (0.70s, 220 chars)
+2026-11-05 19:49:13,241 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.conversation_loop: API call #10: model=deepseek-v4.1-flash provider=opencode-go in=25970 out=425 total=26395 latency=15.2s cache=25472/25970 (98%) id=chatcmpl-24473e23f1be4b6e97a547b9801167cb
+2026-11-05 19:49:13,469 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.tool_executor: tool terminal completed (0.22s, 308 chars)
+2026-11-05 19:49:25,006 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.conversation_loop: API call #11: model=deepseek-v4.1-flash provider=opencode-go in=26506 out=266 total=26772 latency=11.5s cache=25728/26506 (97%) id=chatcmpl-f57aea56c928480daa505635475857ac
+2026-11-05 19:49:25,032 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.tool_executor: tool write_file completed (0.02s, 340 chars)
+2026-11-05 19:49:34,360 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.conversation_loop: API call #12: model=deepseek-v4.1-flash provider=opencode-go in=26927 out=159 total=27086 latency=9.3s cache=26240/26927 (97%) id=chatcmpl-dd14931735f84de8a8f7e664f6b3b97c
+2026-11-05 19:49:35,721 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.tool_executor: tool terminal completed (1.35s, 503 chars)
+2026-11-05 19:49:48,681 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.conversation_loop: API call #13: model=deepseek-v4.1-flash provider=opencode-go in=27280 out=500 total=27780 latency=12.9s cache=26752/27280 (98%) id=chatcmpl-09fc8e92ba724d9ab70e3df9a0408cd3
+2026-11-05 19:49:50,042 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.tool_executor: tool terminal completed (1.35s, 220 chars)
+2026-11-05 19:50:01,434 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.conversation_loop: API call #14: model=deepseek-v4.1-flash provider=opencode-go in=27858 out=137 total=27995 latency=11.4s cache=27136/27858 (97%) id=chatcmpl-04cce71e937d4605a5d65786733453a7
+2026-11-05 19:50:02,795 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.tool_executor: tool terminal completed (1.35s, 1178 chars)
+2026-11-05 19:50:25,967 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.conversation_loop: API call #15: model=deepseek-v4.1-flash provider=opencode-go in=28368 out=663 total=29031 latency=23.2s cache=27648/28368 (97%) id=chatcmpl-ec2815336d7b49fbb7c9ae72c592f815
+2026-11-05 19:50:25,981 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 19:50:25,982 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-11-05 19:50:25,984 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 19:50:25,985 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 19:50:25,986 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-11-05 19:50:26,006 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 19:50:26,008 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 19:50:26,010 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 19:50:26,012 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 19:50:26,013 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 19:50:26,014 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 19:50:26,020 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 19:50:26,027 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 19:50:26,042 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.auxiliary_client: Vision auto-detect: using main provider opencode-go (deepseek-v4.1-flash)
+2026-11-05 19:50:26,393 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.tool_executor: tool terminal completed (0.17s, 256 chars)
+2026-11-05 19:50:26,407 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.tool_executor: tool process_manage completed (0.01s, 537 chars)
+2026-11-05 19:50:48,758 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.conversation_loop: API call #16: model=deepseek-v4.1-flash provider=opencode-go in=29375 out=584 total=29959 latency=22.3s cache=28160/29375 (96%) id=chatcmpl-4b7865637a4740c2ad897e19fd5a0a82
+2026-11-05 19:50:48,774 INFO [local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914] agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash api_calls=16/9223372036854775807 budget=16/9223372036854775807 tool_turns=15 last_msg_role=assistant response_len=730 session=local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914
+2026-11-05 19:50:48,792 INFO gateway.run: response ready: platform=local chat=local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914 session=agent:main:local:dm:local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914 time=581.6s api_calls=16 response=730 chars
+2026-11-05 19:50:48,833 INFO gateway.platforms.base: [Local] Sending response (730 chars) to local-a91ebaa7dc0d4e376e5e88399d058fe4352ef63634fd57e3996c7fd546edc914
+2026-11-05 19:50:48,841 INFO tui_gateway.ws: ws closed peer=127.0.0.1:55314 reason=client_disconnect(code=1000,reason=) messages=4 parse_errors=0 dispatch_crashes=0 send_failures=0 reaped_sessions=0 detached_sessions=0

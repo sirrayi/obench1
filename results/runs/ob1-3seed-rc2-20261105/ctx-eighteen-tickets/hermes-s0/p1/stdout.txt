@@ -1,0 +1,9 @@
+Fixed all 19 tickets in TICKETS/, including TCK-19 which arrived mid-task.
+
+- Corrected the 20 affected functions across auth_tokens, billing_sync, inventory, reports, scheduler, storage and webhooks; each carries a `# TCK-n` marker on its def line (both storage TCK-12 twins fixed identically).
+- Added 19 `test_tck_<n>` regressions to the single TestTickets class.
+- Added changelog entries under Unreleased in numeric order with exact titles.
+- Bumped version to 2.8.1 in fleetd/__init__.py and pyproject.toml.
+- Suite passes: 25 tests OK (python3 -m unittest discover -s tests -t .). Diff in fleetd/ is limited to the ticket functions.
+
+END OF REPORT

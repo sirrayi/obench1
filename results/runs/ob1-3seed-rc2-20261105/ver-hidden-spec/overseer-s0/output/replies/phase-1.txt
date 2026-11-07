@@ -1,0 +1,7 @@
+Implemented `parse_range` in daterange.py and expanded tests/test_daterange.py to 32 unittest cases covering every spec clause.
+
+Behavior: `A..B` with full ISO dates, open ends (`..B`, `A..`), reversed range error, and whole-input tokens `YYYY-MM`, `YYYY-Www` (Monday to Sunday, valid week numbers only), `YYYY`. Spaces around the text, around `..`, and around tokens are tolerated; empty input, `..`, bad dates, `2026-13`, `2026-W54`, extra separators and inner spaces raise ValueError. Under the spec's wording, month/week/year tokens are whole-input forms only, so `2026-10..2026-12` errors, and a bare date without `..` is not one of the listed forms.
+
+Verified with `python3 -m unittest discover -s tests -t .` (all pass) plus a manual run of representative valid and invalid inputs. Changes are uncommitted.
+
+END OF REPORT

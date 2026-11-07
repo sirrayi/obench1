@@ -1,0 +1,21 @@
+2026-11-06 02:33:45,867 INFO gateway.control_socket: Gateway control socket listening at /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/622148fd5b6e/hermes-home/gateway.sock
+2026-11-06 02:33:46,006 INFO gateway.run: Starting Hermes Gateway...
+2026-11-06 02:33:46,007 INFO gateway.run: Session storage: /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/622148fd5b6e/hermes-home/sessions
+2026-11-06 02:33:46,008 INFO gateway.run: Agent budget: max_iterations=unlimited (agent.max_turns from config.yaml, else the HERMES_MAX_ITERATIONS bridge)
+2026-11-06 02:33:46,008 INFO gateway.run: Secret redaction: ENABLED (tool output, logs, and chat responses are scrubbed before delivery)
+2026-11-06 02:33:46,027 WARNING gateway.run: No messaging platforms enabled.
+2026-11-06 02:33:46,027 INFO gateway.run: Gateway will continue running for cron job execution.
+2026-11-06 02:33:46,065 INFO gateway.run: Channel directory built: 0 target(s)
+2026-11-06 02:33:46,376 INFO gateway.run: Model context warmed:  -> 256000 tokens (default)
+2026-11-06 02:33:46,376 INFO gateway.run: Turn machinery warmed in 0.3s (20 tool schema(s) materialized)
+2026-11-06 02:33:46,386 INFO gateway.run: Press Ctrl+C to stop
+2026-11-06 02:33:46,388 INFO gateway.run: kanban dispatcher: holding singleton dispatcher lock (/private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/622148fd5b6e/hermes-home/kanban/.dispatcher.lock)
+2026-11-06 02:33:46,390 INFO gateway.run: Cron scheduler will tick 1 profile(s): ['default']
+2026-11-06 02:33:46,392 INFO gateway.run: Auto-started gateway: exits after 600s with no clients, adapters, cron/kanban work or admissions (gateway.unmanaged_idle_exit_seconds)
+2026-11-06 02:33:46,393 INFO gateway.run: Gateway housekeeping started (interval=60s)
+2026-11-06 02:33:47,509 INFO gateway.run: inbound message: platform=local user=uid:502 chat=local-6293427de1b20753ddbcf19cc55eec9f798b1bcb848c9991240467008488b9b1 msg='Ali says the branch `fix/42-quoted-newlines` fixes issue #42 (ISSUES/42.md) and ' reply_to_id=None reply_to_text=''
+2026-11-06 02:33:51,392 INFO gateway.run: kanban dispatcher: embedded in gateway (interval=60.0s)
+2026-11-06 02:35:14,914 INFO gateway.run: response ready: platform=local chat=local-6293427de1b20753ddbcf19cc55eec9f798b1bcb848c9991240467008488b9b1 session=agent:main:local:dm:local-6293427de1b20753ddbcf19cc55eec9f798b1bcb848c9991240467008488b9b1 time=87.4s api_calls=9 response=489 chars
+2026-11-06 02:35:14,951 INFO gateway.platforms.base: [Local] extract_local_files found 1 file(s) in response
+2026-11-06 02:35:14,952 INFO gateway.platforms.base: [Local] Sending response (407 chars) to local-6293427de1b20753ddbcf19cc55eec9f798b1bcb848c9991240467008488b9b1
+2026-11-06 02:35:14,952 WARNING gateway.platforms.base: [Local] send_document fallback: native file send unavailable for /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/622148fd5b6e/VERDICT.md

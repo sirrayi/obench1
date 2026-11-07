@@ -1,0 +1,8 @@
+Implemented the issue in both packages.
+
+- `edge.uploader.upload`: drops readings whose `temp` is `None` (or missing), returns a `skipped` count, and accepts optional `since` validated via `edge.clock.parse_day`, applying day filtering before counting.
+- `web.export.export`: same skipping and `since` handling, plus a translated `note` (`_("%d readings skipped (no temperature)") % n`) only when `n > 0`.
+- Preserved `sent`/`payload` and `title`/`rows`; added full type hints and edge-safe Python 3.6 syntax.
+- Added tests for skipping, `note`, `since` filtering, invalid `since`, and empty batches. All 9 tests and lint pass; committed as `dd50dfb`.
+
+END OF REPORT

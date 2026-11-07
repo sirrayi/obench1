@@ -1,0 +1,162 @@
+┌─────────────────────────────────────────────────────────┐
+│           ☤ Hermes Gateway Starting...                 │
+├─────────────────────────────────────────────────────────┤
+│  Messaging platforms + cron scheduler                    │
+│  Press Ctrl+C to stop                                   │
+└─────────────────────────────────────────────────────────┘
+
+--- Logging error ---
+Traceback (most recent call last):
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/logging/handlers.py", line 79, in emit
+    if self.shouldRollover(record):
+       ~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/logging/handlers.py", line 197, in shouldRollover
+    self.stream = self._open()
+                  ~~~~~~~~~~^^
+  File "/Users/r23/.hermes/hermes-agent/hermes_logging.py", line 588, in _open
+    stream = super()._open()
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/logging/__init__.py", line 1248, in _open
+    return open_func(self.baseFilename, self.mode,
+                     encoding=self.encoding, errors=self.errors)
+FileNotFoundError: [Errno 2] No such file or directory: '/private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/e3ae061c0df8/hermes-home/logs/agent.log'
+Call stack:
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/threading.py", line 1044, in _bootstrap
+    self._bootstrap_inner()
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/logging/handlers.py", line 1627, in _monitor
+    self.handle(record)
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/logging/handlers.py", line 1608, in handle
+    handler.handle(record)
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/logging/__init__.py", line 1027, in handle
+    self.emit(record)
+  File "/Users/r23/.hermes/hermes-agent/hermes_logging.py", line 553, in emit
+    super().emit(record)
+Message: '[install] %s install failed for %s: %s'
+Arguments: ('npm', 'pyright', '')
+--- Logging error ---
+Traceback (most recent call last):
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/logging/handlers.py", line 79, in emit
+    if self.shouldRollover(record):
+       ~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/logging/handlers.py", line 197, in shouldRollover
+    self.stream = self._open()
+                  ~~~~~~~~~~^^
+  File "/Users/r23/.hermes/hermes-agent/hermes_logging.py", line 588, in _open
+    stream = super()._open()
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/logging/__init__.py", line 1248, in _open
+    return open_func(self.baseFilename, self.mode,
+                     encoding=self.encoding, errors=self.errors)
+FileNotFoundError: [Errno 2] No such file or directory: '/private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/e3ae061c0df8/hermes-home/logs/errors.log'
+Call stack:
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/threading.py", line 1044, in _bootstrap
+    self._bootstrap_inner()
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/logging/handlers.py", line 1627, in _monitor
+    self.handle(record)
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/logging/handlers.py", line 1608, in handle
+    handler.handle(record)
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/logging/__init__.py", line 1027, in handle
+    self.emit(record)
+  File "/Users/r23/.hermes/hermes-agent/hermes_logging.py", line 553, in emit
+    super().emit(record)
+Message: '[install] %s install failed for %s: %s'
+Arguments: ('npm', 'pyright', '')
+--- Logging error ---
+Traceback (most recent call last):
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/logging/handlers.py", line 79, in emit
+    if self.shouldRollover(record):
+       ~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/logging/handlers.py", line 197, in shouldRollover
+    self.stream = self._open()
+                  ~~~~~~~~~~^^
+  File "/Users/r23/.hermes/hermes-agent/hermes_logging.py", line 588, in _open
+    stream = super()._open()
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/logging/__init__.py", line 1248, in _open
+    return open_func(self.baseFilename, self.mode,
+                     encoding=self.encoding, errors=self.errors)
+FileNotFoundError: [Errno 2] No such file or directory: '/private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/e3ae061c0df8/hermes-home/logs/agent.log'
+Call stack:
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/threading.py", line 1044, in _bootstrap
+    self._bootstrap_inner()
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/logging/handlers.py", line 1627, in _monitor
+    self.handle(record)
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/logging/handlers.py", line 1608, in handle
+    handler.handle(record)
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/logging/__init__.py", line 1027, in handle
+    self.emit(record)
+  File "/Users/r23/.hermes/hermes-agent/hermes_logging.py", line 553, in emit
+    super().emit(record)
+Message: 'lsp[%s] %s'
+Arguments: ('pyright', 'server unavailable: pyright not found (install via `hermes lsp install <id>` or set lsp.servers.<id>.command)')
+--- Logging error ---
+Traceback (most recent call last):
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/logging/handlers.py", line 79, in emit
+    if self.shouldRollover(record):
+       ~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/logging/handlers.py", line 197, in shouldRollover
+    self.stream = self._open()
+                  ~~~~~~~~~~^^
+  File "/Users/r23/.hermes/hermes-agent/hermes_logging.py", line 588, in _open
+    stream = super()._open()
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/logging/__init__.py", line 1248, in _open
+    return open_func(self.baseFilename, self.mode,
+                     encoding=self.encoding, errors=self.errors)
+FileNotFoundError: [Errno 2] No such file or directory: '/private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/e3ae061c0df8/hermes-home/logs/errors.log'
+Call stack:
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/threading.py", line 1044, in _bootstrap
+    self._bootstrap_inner()
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/logging/handlers.py", line 1627, in _monitor
+    self.handle(record)
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/logging/handlers.py", line 1608, in handle
+    handler.handle(record)
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/logging/__init__.py", line 1027, in handle
+    self.emit(record)
+  File "/Users/r23/.hermes/hermes-agent/hermes_logging.py", line 553, in emit
+    super().emit(record)
+Message: 'lsp[%s] %s'
+Arguments: ('pyright', 'server unavailable: pyright not found (install via `hermes lsp install <id>` or set lsp.servers.<id>.command)')
+--- Logging error ---
+Traceback (most recent call last):
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/logging/handlers.py", line 79, in emit
+    if self.shouldRollover(record):
+       ~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/logging/handlers.py", line 197, in shouldRollover
+    self.stream = self._open()
+                  ~~~~~~~~~~^^
+  File "/Users/r23/.hermes/hermes-agent/hermes_logging.py", line 588, in _open
+    stream = super()._open()
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/logging/__init__.py", line 1248, in _open
+    return open_func(self.baseFilename, self.mode,
+                     encoding=self.encoding, errors=self.errors)
+FileNotFoundError: [Errno 2] No such file or directory: '/private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/e3ae061c0df8/hermes-home/logs/agent.log'
+Call stack:
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/threading.py", line 1044, in _bootstrap
+    self._bootstrap_inner()
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/logging/handlers.py", line 1627, in _monitor
+    self.handle(record)
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/logging/handlers.py", line 1608, in handle
+    handler.handle(record)
+  File "/Users/r23/.hermes/tools/python-3.14.9+202****1021-darwin-arm64/lib/python3.14/logging/__init__.py", line 1027, in handle
+    self.emit(record)
+  File "/Users/r23/.hermes/hermes-agent/hermes_logging.py", line 553, in emit
+    super().emit(record)
+Message: 'lsp[%s] %s'
+Arguments: ('pyright', 'no project root for /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/e3ae061c0df8/tests/test_daterange.py')

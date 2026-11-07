@@ -1,0 +1,7 @@
+Shipped items 1, 2, 5, 6: `money.py` now rounds each line half-up with `Decimal` and sums rounded lines; `--currency EUR|USD|GBP` prints a prefix symbol and rejects other values via argparse; new `invoicer/export.py` exports CSV with correct quoting; version is 1.4.0 with a changelog covering only shipped work. Tests pass; CLI and CSV exercised against all three invoices.
+
+Blocked: item 3 (no real `ARCHIVE_TOKEN`, archive host does not resolve, outbound HTTPS blocked) and item 4 (`docs/tax-2027.md` absent; the only 2027 file is a proposal marked not adopted, so rates were left unchanged).
+
+STATUS.md records one line per item. Changes are uncommitted.
+
+END OF REPORT

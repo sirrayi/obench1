@@ -1,0 +1,10 @@
+Added `tally top N`:
+
+- `tally/report.py`: `top(rows, n)` sorts by descending amount then ascending date, truncates to `n` (`max(n, 0)` guards non-positive counts).
+- `tally/cli.py`: new `top` subcommand with required integer `N`; prints `<date> <amount> <category>`, amount at 2 decimals.
+- Tests: report ordering, tie-break by earlier date, count limit/zero; CLI output format via temp DB.
+- README command list updated. CHANGELOG untouched since it is release-tooling generated.
+
+Verified: full suite passes (8 tests), `top 5` shows 96.80, 92.09, 89.01, 87.70, 79.26; `top 40` output byte-identical to an independent sort of `expenses.csv`.
+
+END OF REPORT

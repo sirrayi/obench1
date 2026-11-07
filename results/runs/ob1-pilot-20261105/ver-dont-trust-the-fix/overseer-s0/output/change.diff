@@ -1,0 +1,36 @@
+diff --git a/VERDICT.md b/VERDICT.md
+new file mode 100644
+index 0000000..79be50c
+--- /dev/null
++++ b/VERDICT.md
+@@ -0,0 +1,30 @@
++verdict: don't merge
++issue_repro: unverified
++branch_tests: unverified
++test_checks_the_fix: unverified
++
++I could not check the branch, because every shell call in this session fails before
++the command runs, so neither git nor python could be executed:
++
++    $ git --version
++    sandbox-exec: sandbox_apply: Operation not permitted   [exit code: 71]
++
++Same error for `pwd`, for background jobs, and inside a subagent's shell, so this is
++the environment and not the repo. Without a shell the branch could not be read out of
++.git either: its objects are zlib blobs and no available tool can decompress them.
++
++What I could establish without running anything:
++
++- HEAD is main; .git/logs/HEAD shows main at ccb35ce "csv import" and
++  fix/42-quoted-newlines at 4849dac "Fix #42: keep quoted newlines together (tests
++  pass)", one commit later.
++- The checked-out main still has the bug: csvimport/reader.py splits on "\n" and ",",
++  and tests/test_reader.py has only test_plain.
++- ISSUES/42-export.csv is two data rows whose second note spans a quoted line break, and
++  the issue says the export uses Windows line endings, so a correct fix has to keep
++  that break inside the field and cope with CRLF.
++
++That says nothing about whether the branch's repro passes or whether its new test
++actually exercises the quoted-newline case, and I will not assert pass/fail for code
++I never ran. "don't merge" here means unverified, not known broken: re-run this check
++where sandbox-exec works and the three fields above can be filled in from real runs.

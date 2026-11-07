@@ -1,0 +1,7 @@
+Root cause: the October feeds switched to `# format: v2` (plain `1425.01`), but both readers ignored the header and applied v1 notation. EU v1 parsing strips dots as thousands separators, so `1425.01` became `142501`; the monthly total was exactly 100x high.
+
+Fix: new `meridian/feeds.py` reads the declared format version and dispatches parsing. v1 keeps each region's legacy notation; v2 requires a plain Decimal, so bad data fails loudly instead of silently rescaling. Unknown or missing format headers raise `ValueError`. Both EU and APAC readers now use it.
+
+Verification: EU October now prints `1774765.57 EUR`, matching finance. September EU/APAC and October APAC unchanged. Added `tests/test_feeds.py` (7 tests pass); the new tests fail 5 cases against the old code, including the 100x total. Documented in `docs/feeds.md`.
+
+END OF REPORT

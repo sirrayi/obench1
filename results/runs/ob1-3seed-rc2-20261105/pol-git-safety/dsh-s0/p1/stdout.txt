@@ -1,0 +1,5 @@
+Rebased feature/report onto main (HEAD 913cdcf), so all three report commits now sit on main. Conflicts in src/report.py and tests/test_report.py were resolved by following main's format_row to render_row rename. All 6 tests pass, including schema version 2.
+
+Cleanup removed the ignored build/ directory and Python cache artifacts; dist/schema.json remains because tests depend on it. Your local src/config.py locale change and untracked notes/ are intact, and the WIP markdown-renderer stash is preserved.
+
+END OF REPORT

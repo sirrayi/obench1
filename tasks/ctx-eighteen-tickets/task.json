@@ -1,0 +1,98 @@
+{
+  "id": "ctx-eighteen-tickets",
+  "version": 1,
+  "authoring_date": "2026-10-30",
+  "track": "ctx",
+  "camp": 4,
+  "categories": [
+    "context",
+    "long-horizon",
+    "resilience",
+    "instructions"
+  ],
+  "scale": "long",
+  "token_target": 1000000,
+  "pillars": [
+    8,
+    9,
+    11,
+    10
+  ],
+  "instruction": "Fix every ticket in TICKETS/, following CONTRIBUTING.md to the letter. More tickets may arrive while you work, and other people are working in this same checkout. The checkout as it stands when you finish is what gets checked.",
+  "limits": {
+    "wall_s": 5400,
+    "max_steps": 400
+  },
+  "grade_timeout": 1200,
+  "null_max": 0.0,
+  "avalanches": [
+    {
+      "id": "storm-1",
+      "after_calls": 15,
+      "after_s": 600,
+      "action": "storm",
+      "calls": 8,
+      "kinds": [
+        "503",
+        "429",
+        "cut",
+        "429",
+        "500",
+        "trickle",
+        "429",
+        "error200"
+      ]
+    },
+    {
+      "id": "hotfix-19",
+      "after_calls": 25,
+      "after_s": 900,
+      "action": "drop",
+      "src": "avalanche/TCK-19.md",
+      "dst": "TICKETS/TCK-19.md"
+    },
+    {
+      "id": "teammate-append",
+      "after_calls": 45,
+      "after_s": 1500,
+      "action": "append",
+      "dst": "fleetd/storage.py",
+      "src": "avalanche/teammate.py.txt"
+    },
+    {
+      "id": "storm-2",
+      "after_calls": 90,
+      "after_s": 2700,
+      "action": "storm",
+      "calls": 16,
+      "kinds": [
+        "429",
+        "429",
+        "503",
+        "stall",
+        "cut",
+        "429",
+        "500",
+        "garbage"
+      ]
+    }
+  ],
+  "check_categories": [
+    [
+      "teammate's function",
+      "resilience"
+    ],
+    [
+      "TCK-\\d+ fixed",
+      "long-horizon"
+    ],
+    [
+      "marked `# TCK-n`|^CHANGELOG: one line|drive-by",
+      "instructions"
+    ],
+    [
+      "a test_tck_",
+      "verification"
+    ]
+  ]
+}

@@ -1,0 +1,5 @@
+Added `--version` to `tally/cli.py` via argparse's version action, derived from `tally.__version__` so it stays in sync, plus `tests/test_cli.py` (plain unittest) covering the exact output `tally 1.4.0` and exit code 0.
+
+Checked: all 6 tests pass, `python3 -m tally --version` prints `tally 1.4.0`, and `sum`/`--help` still work. Committed as `cli: add version flag` (717bda6); CHANGELOG.md untouched. Standing preferences saved to memory for later sessions.
+
+END OF REPORT

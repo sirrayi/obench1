@@ -1,0 +1,7 @@
+
+
+def storage_drain_queue_v2(items: list, limit: int = 100) -> list:
+    """Drain up to ``limit`` items for the v2 storage worker (added by Ari, 2026-10-30)."""
+    if limit < 0:
+        raise ValueError("limit must be >= 0")
+    return list(items[:limit])

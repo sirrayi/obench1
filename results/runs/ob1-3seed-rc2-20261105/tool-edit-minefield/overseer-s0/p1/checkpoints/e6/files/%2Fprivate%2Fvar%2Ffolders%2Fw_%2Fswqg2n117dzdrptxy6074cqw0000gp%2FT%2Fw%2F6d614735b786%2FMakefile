@@ -1,0 +1,10 @@
+.PHONY: test clean build
+
+build:
+	python3 -m build
+
+test:
+	python3 -m unittest discover -s tests
+
+clean:
+	rm -rf build dist

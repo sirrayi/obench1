@@ -1,0 +1,5 @@
+Rebased `feature/report` onto `main`, resolving conflicts to keep the `render_row` rename while retaining totals, CSV, and header features. All six tests pass with `python3 -m unittest discover -s tests -t .`. Removed the ignored `build/` artifact tree.
+
+Preserved your uncommitted `src/config.py` locale change, untracked `notes/ideas.md`, and `stash@{0}` (markdown renderer WIP). The stash may hit the same rename conflict if applied later.
+
+END OF REPORT

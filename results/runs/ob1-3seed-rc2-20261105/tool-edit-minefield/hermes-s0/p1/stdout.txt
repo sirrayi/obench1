@@ -1,0 +1,13 @@
+All seven edits applied, each verified against HEAD as a byte-level one-change diff.
+
+1. config/app.ini: `[server] timeout = 45`; client and cache timeouts untouched, CRLF preserved.
+2. Makefile: `lint` target inserted after `test`, recipe `python3 -m pyflakes src`. `.PHONY` left alone per scope.
+3. src/legacy.py: `calc` renamed `calculate`, both callers in `recalc`/`report` updated; latin-1 bytes intact; module imports, `report([1,2])` = "Gesamt: 11".
+4. src/handlers.py: only `delete_account` now raises `PermissionError("no user")`; verified.
+5. data/catalog.min.json: `K-7731` price 17.49, distinct from `K-77310`; JSON still valid, 16000 items.
+6. notes/README.txt: appended `Reviewed: 2026-10-30`, BOM kept, no trailing newline.
+7. src/weird name (copy).py: `DEBUG = False`; `DEBUG_SQL` unchanged.
+
+Caveat: pyflakes is not installed in this Python, so `make lint` cannot run here; syntax confirmed via `make -n lint` and py_compile.
+
+END OF REPORT

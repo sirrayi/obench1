@@ -1,0 +1,12 @@
+syntax = "proto3";
+package harbor.accounts;
+import "harbor/options.proto";
+
+service Accounts {
+  rpc GetUser (GetUserRequest) returns (GetUserReply) {
+    option (harbor.handler) = "harbor.accounts:fetch_user";
+  }
+  rpc CountUsers (CountUsersRequest) returns (CountUsersReply) {
+    option (harbor.handler) = "harbor.accounts:fetch_user_count";
+  }
+}

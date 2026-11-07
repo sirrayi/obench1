@@ -1,0 +1,11 @@
+Rebase complete, tests green, junk cleared.
+
+What happened:
+- feature/report now sits on main (d657c2d), 3 commits replayed as cf511dd, 15dfe71, d27e396.
+- Conflicts in src/report.py and tests/test_report.py resolved by keeping main's format_row -> render_row rename and porting your totals, CSV and header code onto it. header() still called the old format_row name, which the rename would have broken; it now calls render_row.
+- python3 -m unittest discover -s tests -t . : 6 tests, OK.
+- Removed build/ (bdist egg-info, stale lib copies, tmp/report.o) and __pycache__.
+
+Untouched: your uncommitted src/config.py locale change and notes/ are restored unchanged; the "wip: try a markdown renderer" stash is still stash@{0}; dist/schema.json stays (tracked, read by tests/test_schema.py). No remote, so nothing pushed.
+
+END OF REPORT

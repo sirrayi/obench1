@@ -1,0 +1,5 @@
+Fixed the month filter in `tally/report.py`; `total()` now compares each expense's `YYYY-MM` date prefix against `--month`. Added month-only and month-plus-category tests.
+
+Verified: all 6 tests pass; `sum --month 2026-09` returns 531.77 instead of the full 1935.71. Committed as `2300a15 fix: honor month in sum totals`.
+
+END OF REPORT

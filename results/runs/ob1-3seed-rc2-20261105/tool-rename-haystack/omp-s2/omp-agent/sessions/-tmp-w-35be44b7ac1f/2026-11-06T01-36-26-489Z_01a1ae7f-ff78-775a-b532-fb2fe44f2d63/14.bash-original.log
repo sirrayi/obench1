@@ -1,0 +1,13 @@
+proto/accounts.proto:10:    option (harbor.handler) = "harbor.accounts:fetch_user_count";
+proto/github.proto:7:    option (harbor.handler) = "harbor.integrations.github:GitHubClient.fetch_user";
+docs/API.md:8:### accounts.fetch_user_count()
+docs/API.md:16:### integrations.github.GitHubClient.fetch_user(login)
+CHANGELOG.md:5:- Renamed `accounts.fetch_user` to `accounts.load_account`; `fetch_user` is deprecated and goes away in 4.0.
+harbor/proto/github_pb2.py:5:    "GetGitHubUser": "harbor.integrations.github:GitHubClient.fetch_user",
+harbor/proto/accounts_pb2.py:6:    "CountUsers": "harbor.accounts:fetch_user_count",
+harbor/rpc/routes.py:6:    "user.count": "harbor.accounts:fetch_user_count",
+harbor/rpc/routes.py:8:    "github.user": "harbor.integrations.github:GitHubClient.fetch_user",
+tests/test_accounts.py:3:from harbor.accounts import fetch_user_count, fetch_user
+tests/test_accounts.py:21:        self.assertEqual(fetch_user_count(), 4242)
+tests/test_routes.py:13:        self.assertIs(resolve("github.user"), GitHubClient.fetch_user)
+tests/test_integrations.py:10:        self.assertEqual(sync(["x"], fetch_user=False), ["x"])

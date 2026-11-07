@@ -1,0 +1,5 @@
+Added `tally export --csv PATH` in `tally/cli.py` and `store.export_csv` in `tally/store.py`. It writes the `date,amount,category,note` header, formats amounts to 2 decimals, and stable-sorts by date so same-date expenses retain file order. README updated; existing version/changelog left to release tooling.
+
+Verification: all 11 tests pass, including new CLI and store coverage. Smoke run over the 40-row `expenses.csv` confirmed sorted output, exact header, and 2-decimal amounts.
+
+END OF REPORT

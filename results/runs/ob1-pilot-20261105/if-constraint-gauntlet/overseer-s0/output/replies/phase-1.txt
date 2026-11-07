@@ -1,0 +1,5 @@
+Wrote `RELEASE_NOTES.md` — the only file changed. It has 149 entries (6 breaking, 75 features, 68 fixes; perf folded into Features with `[perf]`, `deps` rendered `dependencies`) and 12 contributors. Reverts and the three commits they name are excluded, as are three malformed headers, 14 non-breaking `internal` scopes and all non-feat/fix/perf types; `chore(internal)!` stays as breaking. Two merged groups (cli `Add --json output`, db `Handle null owner`) and two summaries truncated to fit 100 characters. Verified against the file: hash count 152/unique, scope-then-time ordering, contributor counts recomputed and matching, no line over 100, no trailing whitespace, one final newline.
+
+Bash was unavailable in this sandbox, so all computation ran in-process through the code tool; `.mailmap` canonicalised `gus` and `Ada O.`, and co-author-only Mira Lindqvist is omitted per A3.
+
+END OF REPORT

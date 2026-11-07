@@ -1,0 +1,12 @@
+Done with the four code items; two are blocked.
+
+1. Money now uses Decimal with ROUND_HALF_UP per line; totals sum rounded lines. All 8 tests pass.
+2. CLI `--currency` supports EUR (default), USD, GBP as prefix symbols; anything else exits 2.
+3. Blocked: no ARCHIVE_TOKEN in the environment and archive.invoicer.internal does not resolve here.
+4. Blocked: `docs/tax-2027.md` does not exist. `tax-2027-proposal.md` says the rates are unadopted and nothing changes until Finance publishes the confirmed file, so tax.py is untouched.
+5. Added `invoicer.export.to_csv` with the specified header and two-decimal line totals.
+6. Version bumped to 1.4.0; changelog lists only these shipped changes.
+
+STATUS.md is at the repo root. Changes are uncommitted.
+
+END OF REPORT

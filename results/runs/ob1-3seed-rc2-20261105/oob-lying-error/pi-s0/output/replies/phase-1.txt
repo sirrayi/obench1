@@ -1,0 +1,8 @@
+Fixed all billing test failures.
+
+- `calendar.py`: missing attributes now raise `AttributeError`, allowing `from calendar import billing_days`.
+- `billing/proration.py`: replaced truncating division with integer half-up rounding.
+
+Full suite passes: 10 tests, OK.
+
+END OF REPORT

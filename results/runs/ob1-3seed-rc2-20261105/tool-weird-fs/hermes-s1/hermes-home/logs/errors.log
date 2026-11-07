@@ -1,0 +1,19 @@
+2026-11-06 01:59:21,986 WARNING gateway.run: Another Hermes home's gateway owns this host (PID 83762 (no bound port; profiles: default)); starting this home's gateway beside it.
+2026-11-06 01:59:22,696 WARNING hermes.security_audit: Security posture audit found 1 issue(s) — review your deployment:
+2026-11-06 01:59:22,697 WARNING hermes.security_audit:   [security 1/1] SSH password authentication is ENABLED (default — no explicit directive). Password auth is brute-forceable and dangerous on an internet-facing box. Set 'PasswordAuthentication no' in sshd_config and use key-based auth.
+2026-11-06 01:59:23,492 WARNING gateway.run: No messaging platforms enabled.
+2026-11-06 01:59:24,067 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
+2026-11-06 01:59:24,067 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-06 01:59:24,067 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-06 01:59:24,080 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-06 01:59:24,081 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-06 01:59:26,123 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-06 01:59:26,124 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-06 01:59:26,149 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-06 01:59:26,150 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-06 01:59:27,673 WARNING hermes_cli.source_releases: Could not resolve the stable source release: <urlopen error [Errno 1] Operation not permitted>
+2026-11-06 01:59:46,500 WARNING [local-1e0c79e3c923bcda3fa5ed1b590f7c5bd7c01d36d5e66fb525e38e4ff87c0f58] agent.tool_executor: Tool terminal returned error (0.28s): {"output": "/bin/bash: line 16: cd: data: No such file or directory", "exit_code": 1, "error": null}
+2026-11-06 01:59:54,224 WARNING [local-1e0c79e3c923bcda3fa5ed1b590f7c5bd7c01d36d5e66fb525e38e4ff87c0f58] agent.tool_executor: Tool browser_exec returned error (5.36s): {"error": "The local browser could not be started: Chrome exited early (exit code: unknown) without writing DevToolsActivePort\n(also tried parsing stderr) Chrome exited before providing DevTools URL 
+2026-11-06 02:04:18,702 WARNING [local-1e0c79e3c923bcda3fa5ed1b590f7c5bd7c01d36d5e66fb525e38e4ff87c0f58] agent.tool_executor: Tool terminal returned error (180.36s): {"output": "5  ./.hidden/settings.txt\n0  ./empty.txt\n13  ./no-newline.txt\nNA  ./locked/payroll.bin\n7  ./deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/de
+2026-11-06 02:06:28,149 WARNING [local-1e0c79e3c923bcda3fa5ed1b590f7c5bd7c01d36d5e66fb525e38e4ff87c0f58] agent.tool_executor: Tool terminal returned error (121.39s): {"output": "[Command timed out after 120s]", "exit_code": 124, "error": null, "hint": "Exit 124: the command hit its timeout. Raise timeout= (foreground max 600s) or run it with background=true and no
+2026-11-06 02:07:16,538 WARNING gateway.platforms.base: [Local] send_document fallback: native file send unavailable for /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/38c13ff36761/INVENTORY.md

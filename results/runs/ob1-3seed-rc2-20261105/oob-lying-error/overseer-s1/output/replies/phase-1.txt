@@ -1,0 +1,9 @@
+Three bugs fixed, no test files touched.
+
+`billing/periods.py` imported `calendar`, which resolved to a repo-root `calendar.py` shadowing the stdlib module; that file also had a module-level `__getattr__` raising `ValueError` for any missing attribute, so even `billing_days` lookups blew up. I moved the helper into the package as `billing/calendar.py` (without the bogus `__getattr__`), deleted the shadowing root file, and switched the import to `from .calendar import billing_days`, so stdlib `calendar` is no longer hijacked.
+
+`billing/proration.py` truncated instead of rounding; it now uses exact integer arithmetic rounding halves up, giving 501 and 667 for the failing cases.
+
+`python3 -m unittest discover -s tests` passes all 10 tests; stdlib `calendar.monthrange` verified working.
+
+END OF REPORT

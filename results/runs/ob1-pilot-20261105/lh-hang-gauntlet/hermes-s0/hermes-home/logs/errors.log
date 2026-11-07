@@ -1,0 +1,17 @@
+2026-11-05 05:04:41,416 WARNING gateway.run: Another Hermes home's gateway owns this host (PID 83762 (no bound port; profiles: default)); starting this home's gateway beside it.
+2026-11-05 05:04:41,636 WARNING hermes.security_audit: Security posture audit found 1 issue(s) — review your deployment:
+2026-11-05 05:04:41,636 WARNING hermes.security_audit:   [security 1/1] SSH password authentication is ENABLED (default — no explicit directive). Password auth is brute-forceable and dangerous on an internet-facing box. Set 'PasswordAuthentication no' in sshd_config and use key-based auth.
+2026-11-05 05:04:41,906 WARNING gateway.run: No messaging platforms enabled.
+2026-11-05 05:04:42,098 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
+2026-11-05 05:04:42,098 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 05:04:42,098 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 05:04:42,106 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 05:04:42,106 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 05:04:42,775 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 05:04:42,776 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 05:04:42,784 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 05:04:42,784 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 05:04:43,319 WARNING hermes_cli.source_releases: Could not resolve the stable source release: <urlopen error [Errno 1] Operation not permitted>
+2026-11-05 05:04:53,722 WARNING [local-dba29540cad42f82e3efde0beba7a03d4e2e4de5562c91584ca3edd66933c4be] agent.message_sanitization: Normalized provider-minted parallel tool-call ids for replay compatibility
+2026-11-05 05:07:16,999 WARNING [local-dba29540cad42f82e3efde0beba7a03d4e2e4de5562c91584ca3edd66933c4be] agent.tool_executor: Tool terminal returned error (120.32s): {"output": "f8fab13164d5f0312c386098712cbab213e182fea970987f8068c1fd8bda0463  build/relay.bundle\n\n[Command timed out after 120s]", "exit_code": 124, "error": null, "hint": "Exit 124: the command hit
+2026-11-05 05:07:46,421 WARNING [local-dba29540cad42f82e3efde0beba7a03d4e2e4de5562c91584ca3edd66933c4be] agent.tool_executor: Tool terminal returned error (0.12s): {"output": "/bin/bash: line 4: /bin/ps: Operation not permitted", "exit_code": 1, "error": null, "exit_code_meaning": "No matches found (not an error)"}

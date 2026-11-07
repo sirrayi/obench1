@@ -1,0 +1,10 @@
+Added `--version` in `tally/cli.py` via argparse's version action, sourcing `tally.__version__` so output stays `tally 1.4.0`; no new public function, so docstring rule untouched.
+
+Verification:
+- `python3 -m tally --version` printed `tally 1.4.0`, exit 0.
+- Full suite: 5 tests OK, including new `tests/test_cli.py` (plain unittest) asserting output and exit code.
+- `tally list` still works.
+
+Committed as `cli: add --version flag` (53dbe8e). CHANGELOG.md untouched.
+
+END OF REPORT

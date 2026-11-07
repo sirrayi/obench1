@@ -1,0 +1,12 @@
+{
+  "name": "svc-07",
+  "team": "infra",
+  "exposure": "public",
+  "port": 8080,
+  "metrics_port": 8081,
+  "timeout_s": 30,
+  "retries": 2,
+  "log_level": "INFO",
+  "max_body_kb": 512,
+  "healthcheck": "/livez"
+}

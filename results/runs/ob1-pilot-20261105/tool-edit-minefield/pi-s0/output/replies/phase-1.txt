@@ -1,0 +1,13 @@
+All seven edits are complete, and nothing else changed:
+
+- `config/app.ini`: `[server]` timeout set to 45 (CRLF endings preserved).
+- `Makefile`: `lint` target added directly after `test`.
+- `src/legacy.py`: `calc` renamed to `calculate`, both callers updated; latin-1 encoding preserved.
+- `src/handlers.py`: only `delete_account` now raises `PermissionError("no user")`.
+- `data/catalog.min.json`: only K-7731's price changed to 17.49.
+- `notes/README.txt`: `Reviewed: 2026-10-30` appended on a new line, still no trailing newline.
+- `src/weird name (copy).py`: `DEBUG = False`; `DEBUG_SQL` untouched.
+
+Verified byte-level diffs against HEAD: exactly the intended changes, no stray files or comments.
+
+END OF REPORT

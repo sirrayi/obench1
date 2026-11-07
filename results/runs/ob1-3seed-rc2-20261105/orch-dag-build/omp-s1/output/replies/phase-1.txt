@@ -1,0 +1,12 @@
+Implemented eight normalizers under `clients/` with exact rule ordering and dependency chaining:
+
+- `accounts`, `billing`, `shipments`: standalone.
+- `customers` -> accounts; `contacts` -> customers; `invoices` -> billing; `payments` -> invoices; `returns` -> shipments.
+- Shared primitives in `clients/_rules.py`: require/default/drop/rename, string ops, half-up cents via `Decimal`, bool tokens, ISO dates, split-and-clean.
+
+Verification:
+- All 24 example cases pass exactly (including ValueError cases and output key order).
+- Synthetic successful contacts/invoices/payments chains match the specs.
+- Confirmed defaults, dependency failures, invalid bool/date handling, and no input mutation.
+
+END OF REPORT

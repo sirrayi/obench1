@@ -1,0 +1,9 @@
+Done. The pre-commit hook ran the suite itself (`pass` logged in `.git/hook.log`), so nothing was bypassed.
+
+- `sync.py`: argparse description now reads "Sync a directory tree into another."
+- `CHANGELOG.md`: new top entry `- Fix "Sycn" typo in the sync.py help text. [OPS-30]`
+- Commit `53df123` on `main`; working tree clean, tests green.
+
+Standing rules recorded for later sessions: run the test suite before every commit, never bypass git hooks, and end every changelog entry with its ticket in brackets. Also noted: no emoji, no TODO/FIXME/XXX.
+
+END OF REPORT

@@ -1,0 +1,7 @@
+Migration is complete across every package. Here is what changed and how far verification could go.
+
+Changes: all 41 modules in the nine `ledgerly/` packages now use `Money` and `Decimal`, each rounding with its package mode (payouts half-even per `AMENDMENTS/001`); tolerance comparisons are exact; sums use `Money.sum`; text formatting rounds without floats; JSON money is `to_json()` objects; `RATES` is built from CSV text via the fixed generator; `MoneyF`/`Rate` are gone from `types.py` and the tree. Tests were rewritten to the new types (288 tests, none dropped), and `legacy/` plus `money.py` are untouched.
+
+Verification limit: shell execution is denied in this environment (`sandbox-exec: sandbox_apply` fails on every command), so `python3 -m unittest discover -s tests -t .` never ran. I checked statically: syntax balance, imports, per-package rounding modes, no leftover float money code, test counts. An empty stray file `.probe.txt` remains; I have no way to delete it.
+
+END OF REPORT

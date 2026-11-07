@@ -1,0 +1,11 @@
+REVIEW.md written at /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/0da2dcb15e00/REVIEW.md with 8 findings on branch line numbers.
+
+Two blockers, both verified by running the branch code:
+- Bucket start stored with time.time() but compared with time.monotonic(), so buckets never reset and Retry-After came back as 1793934847 (about 57 years) in an end-to-end run.
+- X-Forwarded-For used raw as the key, so any client can rotate it and bypass the limit entirely.
+
+Majors: off-by-one admitting limit+1 requests, bucket lookup outside the lock (reproduced lost increments under threads), and no eviction despite the docs claiming a 10-minute drop. Three minors cover Retry-After rounding and tests that cannot catch these bugs.
+
+Branch unchanged; nothing committed.
+
+END OF REPORT

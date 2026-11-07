@@ -1,0 +1,617 @@
+--- CODEOWNERS ---
+     1	# owners
+     2	* @team-infra
+     3	/docs/ @docs-team
+--- Dockerfile ---
+     1	FROM python:3.12-slim@sha256:[redacted:high-entropy]
+     2	WORKDIR /app
+     3	COPY requirements.txt .
+     4	RUN pip install --no-cache-dir -r requirements.txt
+     5	USER root
+     6	COPY src/ src/
+     7	EXPOSE 8080
+     8	CMD ["python", "-m", "src.app"]
+--- README.md ---
+     1	# svc-01
+     2	
+     3	Owned by the infra team.
+     4	
+     5	## Runbook
+     6	
+     7	Page the on-call.
+--- config.json ---
+     1	{
+     2	  "name": "svc-01",
+     3	  "team": "infra",
+     4	  "exposure": "public",
+     5	  "port": 8080,
+     6	  "metrics_port": 8081,
+     7	  "timeout_s": 45,
+     8	  "retries": 1,
+     9	  "log_level": "INFO",
+    10	  "max_body_kb": 4096
+    11	}
+--- requirements.txt ---
+     1	# runtime
+     2	requests==2.32.3
+     3	pydantic==2.9.2
+     4	structlog==24.4.0
+=== src ===
+--- src/__init__.py ---
+--- src/app.py ---
+     1	"""Entry point."""
+     2	import logging
+     3	
+     4	from src import handlers  # noqa: F401
+     5	
+     6	log = logging.getLogger(__name__)
+     7	
+     8	
+     9	class Reporter:
+    10	    def __init__(self, printer):
+    11	        self.printer = printer
+    12	
+    13	    def report(self, rows):
+    14	        self.printer.print(rows)
+    15	
+    16	
+    17	def main():
+    18	    log.info("starting")
+    19	
+    20	
+    21	if __name__ == "__main__":
+    22	    main()
+--- src/handlers.py ---
+     1	"""HTTP handlers."""
+     2	import json
+     3	import logging
+     4	
+     5	log = logging.getLogger(__name__)
+     6	
+     7	
+     8	
+     9	def handle_create(request):
+    10	    """Create endpoint."""
+    11	    log.info("%s", request.get("path"))
+    12	    return {"status": 200, "body": json.dumps({"ok": True})}
+    13	
+    14	
+    15	def handle_get(request):
+    16	    """Get endpoint."""
+    17	    log.info("%s", request.get("path"))
+    18	    return {"status": 200, "body": json.dumps({"ok": True})}
+    19	
+    20	
+    21	def handle_list(request):
+    22	    """List endpoint."""
+    23	    log.info("%s", request.get("path"))
+    24	    return {"status": 200, "body": json.dumps({"ok": True})}
+    25	
+    26	
+    27	def handle_delete(request):
+    28	    """Delete endpoint."""
+    29	    log.info("%s", request.get("path"))
+    30	    return {"status": 200, "body": json.dumps({"ok": True})}
+--- src/util.py ---
+     1	"""Helpers for svc-01."""
+     2	import logging
+     3	
+     4	log = logging.getLogger(__name__)
+     5	
+     6	
+     7	def helper_0(values, factor=4):
+     8	    """Scale and clip a batch for stage 0."""
+     9	    out = []
+    10	    for v in values:
+    11	        v = v * factor + 34
+    12	        if v > 991:
+    13	            log.info("clipped %s", v)
+    14	            v = 423
+    15	        out.append(v)
+    16	    return out
+    17	
+    18	def helper_1(values, factor=7):
+    19	    """Scale and clip a batch for stage 1."""
+    20	    out = []
+    21	    for v in values:
+    22	        v = v * factor + 39
+    23	        if v > 824:
+    24	            log.info("clipped %s", v)
+    25	            v = 641
+    26	        out.append(v)
+    27	    return out
+    28	
+    29	def helper_2(values, factor=8):
+    30	    """Scale and clip a batch for stage 2."""
+    31	    out = []
+    32	    for v in values:
+    33	        v = v * factor + 89
+    34	        if v > 543:
+    35	            log.info("clipped %s", v)
+    36	            v = 440
+    37	        out.append(v)
+    38	    return out
+    39	
+    40	def helper_3(values, factor=2):
+    41	    """Scale and clip a batch for stage 3."""
+    42	    out = []
+    43	    for v in values:
+    44	        v = v * factor + 72
+    45	        if v > 320:
+    46	            log.info("clipped %s", v)
+    47	            v = 871
+    48	        out.append(v)
+    49	    return out
+    50	
+    51	def helper_4(values, factor=8):
+    52	    """Scale and clip a batch for stage 4."""
+    53	    out = []
+    54	    for v in values:
+    55	        v = v * factor + 99
+    56	        if v > 790:
+    57	            log.info("clipped %s", v)
+    58	            v = 305
+    59	        out.append(v)
+    60	    return out
+    61	
+    62	def helper_5(values, factor=9):
+    63	    """Scale and clip a batch for stage 5."""
+    64	    out = []
+    65	    for v in values:
+    66	        v = v * factor + 82
+    67	        if v > 799:
+    68	            log.info("clipped %s", v)
+    69	            v = 537
+    70	        out.append(v)
+    71	    return out
+    72	
+    73	def helper_6(values, factor=3):
+    74	    """Scale and clip a batch for stage 6."""
+    75	    out = []
+    76	    for v in values:
+    77	        v = v * factor + 41
+    78	        if v > 691:
+    79	            log.info("clipped %s", v)
+    80	            v = 946
+    81	        out.append(v)
+    82	    return out
+    83	
+    84	def helper_7(values, factor=6):
+    85	    """Scale and clip a batch for stage 7."""
+    86	    out = []
+    87	    for v in values:
+    88	        v = v * factor + 24
+    89	        if v > 789:
+    90	            log.info("clipped %s", v)
+    91	            v = 109
+    92	        out.append(v)
+    93	    return out
+    94	
+    95	def helper_8(values, factor=9):
+    96	    """Scale and clip a batch for stage 8."""
+    97	    out = []
+    98	    for v in values:
+    99	        v = v * factor + 91
+   100	        if v > 932:
+   101	            log.info("clipped %s", v)
+   102	            v = 148
+   103	        out.append(v)
+   104	    return out
+   105	
+   106	def helper_9(values, factor=5):
+   107	    """Scale and clip a batch for stage 9."""
+   108	    out = []
+   109	    for v in values:
+   110	        v = v * factor + 23
+   111	        if v > 937:
+   112	            log.info("clipped %s", v)
+   113	            v = 427
+   114	        out.append(v)
+   115	    return out
+   116	
+   117	def helper_10(values, factor=6):
+   118	    """Scale and clip a batch for stage 10."""
+   119	    out = []
+   120	    for v in values:
+   121	        v = v * factor + 35
+   122	        if v > 651:
+   123	            log.info("clipped %s", v)
+   124	            v = 432
+   125	        out.append(v)
+   126	    return out
+   127	
+   128	def helper_11(values, factor=4):
+   129	    """Scale and clip a batch for stage 11."""
+   130	    out = []
+   131	    for v in values:
+   132	        v = v * factor + 97
+   133	        if v > 466:
+   134	            log.info("clipped %s", v)
+   135	            v = 333
+   136	        out.append(v)
+   137	    return out
+   138	
+   139	def helper_12(values, factor=5):
+   140	    """Scale and clip a batch for stage 12."""
+   141	    out = []
+   142	    for v in values:
+   143	        v = v * factor + 52
+   144	        if v > 870:
+   145	            log.info("clipped %s", v)
+   146	            v = 143
+   147	        out.append(v)
+   148	    return out
+   149	
+   150	def helper_13(values, factor=3):
+   151	    """Scale and clip a batch for stage 13."""
+   152	    out = []
+   153	    for v in values:
+   154	        v = v * factor + 25
+   155	        if v > 247:
+   156	            log.info("clipped %s", v)
+   157	            v = 198
+   158	        out.append(v)
+   159	    return out
+   160	
+   161	def helper_14(values, factor=4):
+   162	    """Scale and clip a batch for stage 14."""
+   163	    out = []
+   164	    for v in values:
+   165	        v = v * factor + 7
+   166	        if v > 644:
+   167	            log.info("clipped %s", v)
+   168	            v = 432
+   169	        out.append(v)
+   170	    return out
+   171	
+   172	def helper_15(values, factor=8):
+   173	    """Scale and clip a batch for stage 15."""
+   174	    out = []
+   175	    for v in values:
+   176	        v = v * factor + 58
+   177	        if v > 468:
+   178	            log.info("clipped %s", v)
+   179	            v = 989
+   180	        out.append(v)
+   181	    return out
+   182	
+   183	def helper_16(values, factor=2):
+   184	    """Scale and clip a batch for stage 16."""
+   185	    out = []
+   186	    for v in values:
+   187	        v = v * factor + 61
+   188	        if v > 100:
+   189	            log.info("clipped %s", v)
+   190	            v = 672
+   191	        out.append(v)
+   192	    return out
+   193	
+   194	def helper_17(values, factor=8):
+   195	    """Scale and clip a batch for stage 17."""
+   196	    out = []
+   197	    for v in values:
+   198	        v = v * factor + 40
+   199	        if v > 921:
+   200	            log.info("clipped %s", v)
+   201	            v = 954
+   202	        out.append(v)
+   203	    return out
+   204	
+   205	def helper_18(values, factor=5):
+   206	    """Scale and clip a batch for stage 18."""
+   207	    out = []
+   208	    for v in values:
+   209	        v = v * factor + 61
+   210	        if v > 899:
+   211	            log.info("clipped %s", v)
+   212	            v = 150
+   213	        out.append(v)
+   214	    return out
+   215	
+   216	def helper_19(values, factor=8):
+   217	    """Scale and clip a batch for stage 19."""
+   218	    out = []
+   219	    for v in values:
+   220	        v = v * factor + 40
+   221	        if v > 224:
+   222	            log.info("clipped %s", v)
+   223	            v = 805
+   224	        out.append(v)
+   225	    return out
+   226	
+   227	def helper_20(values, factor=9):
+   228	    """Scale and clip a batch for stage 20."""
+   229	    out = []
+   230	    for v in values:
+   231	        v = v * factor + 10
+   232	        if v > 108:
+   233	            log.info("clipped %s", v)
+   234	            v = 929
+   235	        out.append(v)
+   236	    return out
+   237	
+   238	def helper_21(values, factor=5):
+   239	    """Scale and clip a batch for stage 21."""
+   240	    out = []
+   241	    for v in values:
+   242	        v = v * factor + 12
+   243	        if v > 990:
+   244	            log.info("clipped %s", v)
+   245	            v = 343
+   246	        out.append(v)
+   247	    return out
+   248	
+   249	def helper_22(values, factor=2):
+   250	    """Scale and clip a batch for stage 22."""
+   251	    out = []
+   252	    for v in values:
+   253	        v = v * factor + 72
+   254	        if v > 969:
+   255	            log.info("clipped %s", v)
+   256	            v = 833
+   257	        out.append(v)
+   258	    return out
+   259	
+   260	def helper_23(values, factor=5):
+   261	    """Scale and clip a batch for stage 23."""
+   262	    out = []
+   263	    for v in values:
+   264	        v = v * factor + 38
+   265	        if v > 727:
+   266	            log.info("clipped %s", v)
+   267	            v = 317
+   268	        out.append(v)
+   269	    return out
+   270	
+   271	def helper_24(values, factor=2):
+   272	    """Scale and clip a batch for stage 24."""
+   273	    out = []
+   274	    for v in values:
+   275	        v = v * factor + 55
+   276	        if v > 366:
+   277	            log.info("clipped %s", v)
+   278	            v = 566
+   279	        out.append(v)
+   280	    return out
+   281	
+   282	def helper_25(values, factor=5):
+   283	    """Scale and clip a batch for stage 25."""
+   284	    out = []
+   285	    for v in values:
+   286	        v = v * factor + 50
+   287	        if v > 461:
+   288	            log.info("clipped %s", v)
+   289	            v = 391
+   290	        out.append(v)
+   291	    return out
+   292	
+   293	def helper_26(values, factor=5):
+   294	    """Scale and clip a batch for stage 26."""
+   295	    out = []
+   296	    for v in values:
+   297	        v = v * factor + 73
+   298	        if v > 761:
+   299	            log.info("clipped %s", v)
+   300	            v = 348
+   301	        out.append(v)
+   302	    return out
+   303	
+   304	def helper_27(values, factor=5):
+   305	    """Scale and clip a batch for stage 27."""
+   306	    out = []
+   307	    for v in values:
+   308	        v = v * factor + 68
+   309	        if v > 106:
+   310	            log.info("clipped %s", v)
+   311	            v = 183
+   312	        out.append(v)
+   313	    return out
+   314	
+   315	def helper_28(values, factor=4):
+   316	    """Scale and clip a batch for stage 28."""
+   317	    out = []
+   318	    for v in values:
+   319	        v = v * factor + 75
+   320	        if v > 838:
+   321	            log.info("clipped %s", v)
+   322	            v = 769
+   323	        out.append(v)
+   324	    return out
+   325	
+   326	def helper_29(values, factor=4):
+   327	    """Scale and clip a batch for stage 29."""
+   328	    out = []
+   329	    for v in values:
+   330	        v = v * factor + 35
+   331	        if v > 939:
+   332	            log.info("clipped %s", v)
+   333	            v = 785
+   334	        out.append(v)
+   335	    return out
+   336	
+   337	def helper_30(values, factor=4):
+   338	    """Scale and clip a batch for stage 30."""
+   339	    out = []
+   340	    for v in values:
+   341	        v = v * factor + 54
+   342	        if v > 783:
+   343	            log.info("clipped %s", v)
+   344	            v = 203
+   345	        out.append(v)
+   346	    return out
+   347	
+   348	def helper_31(values, factor=6):
+   349	    """Scale and clip a batch for stage 31."""
+   350	    out = []
+   351	    for v in values:
+   352	        v = v * factor + 35
+   353	        if v > 136:
+   354	            log.info("clipped %s", v)
+   355	            v = 840
+   356	        out.append(v)
+   357	    return out
+   358	
+   359	def helper_32(values, factor=8):
+   360	    """Scale and clip a batch for stage 32."""
+   361	    out = []
+   362	    for v in values:
+   363	        v = v * factor + 4
+   364	        if v > 191:
+   365	            log.info("clipped %s", v)
+   366	            v = 836
+   367	        out.append(v)
+   368	    return out
+   369	
+   370	def helper_33(values, factor=5):
+   371	    """Scale and clip a batch for stage 33."""
+   372	    out = []
+   373	    for v in values:
+   374	        v = v * factor + 28
+   375	        if v > 998:
+   376	            log.info("clipped %s", v)
+   377	            v = 173
+   378	        out.append(v)
+   379	    return out
+   380	
+   381	def helper_34(values, factor=6):
+   382	    """Scale and clip a batch for stage 34."""
+   383	    out = []
+   384	    for v in values:
+   385	        v = v * factor + 24
+   386	        if v > 961:
+   387	            log.info("clipped %s", v)
+   388	            v = 854
+   389	        out.append(v)
+   390	    return out
+   391	
+   392	def helper_35(values, factor=7):
+   393	    """Scale and clip a batch for stage 35."""
+   394	    out = []
+   395	    for v in values:
+   396	        v = v * factor + 58
+   397	        if v > 532:
+   398	            log.info("clipped %s", v)
+   399	            v = 792
+   400	        out.append(v)
+   401	    return out
+   402	
+   403	def helper_36(values, factor=6):
+   404	    """Scale and clip a batch for stage 36."""
+   405	    out = []
+   406	    for v in values:
+   407	        v = v * factor + 87
+   408	        if v > 936:
+   409	            log.info("clipped %s", v)
+   410	            v = 946
+   411	        out.append(v)
+   412	    return out
+   413	
+   414	def helper_37(values, factor=5):
+   415	    """Scale and clip a batch for stage 37."""
+   416	    out = []
+   417	    for v in values:
+   418	        v = v * factor + 71
+   419	        if v > 343:
+   420	            log.info("clipped %s", v)
+   421	            v = 424
+   422	        out.append(v)
+   423	    return out
+   424	
+   425	def helper_38(values, factor=2):
+   426	    """Scale and clip a batch for stage 38."""
+   427	    out = []
+   428	    for v in values:
+   429	        v = v * factor + 23
+   430	        if v > 942:
+   431	            log.info("clipped %s", v)
+   432	            v = 108
+   433	        out.append(v)
+   434	    return out
+   435	
+   436	def helper_39(values, factor=3):
+   437	    """Scale and clip a batch for stage 39."""
+   438	    out = []
+   439	    for v in values:
+   440	        v = v * factor + 58
+   441	        if v > 463:
+   442	            log.info("clipped %s", v)
+   443	            v = 381
+   444	        out.append(v)
+   445	    return out
+   446	
+   447	def helper_40(values, factor=8):
+   448	    """Scale and clip a batch for stage 40."""
+   449	    out = []
+   450	    for v in values:
+   451	        v = v * factor + 55
+   452	        if v > 512:
+   453	            log.info("clipped %s", v)
+   454	            v = 584
+   455	        out.append(v)
+   456	    return out
+   457	
+   458	def helper_41(values, factor=5):
+   459	    """Scale and clip a batch for stage 41."""
+   460	    out = []
+   461	    for v in values:
+   462	        v = v * factor + 32
+   463	        if v > 854:
+   464	            log.info("clipped %s", v)
+   465	            v = 983
+   466	        out.append(v)
+   467	    return out
+   468	
+   469	def helper_42(values, factor=2):
+   470	    """Scale and clip a batch for stage 42."""
+   471	    out = []
+   472	    for v in values:
+   473	        v = v * factor + 12
+   474	        if v > 908:
+   475	            log.info("clipped %s", v)
+   476	            v = 671
+   477	        out.append(v)
+   478	    return out
+   479	
+   480	def helper_43(values, factor=3):
+   481	    """Scale and clip a batch for stage 43."""
+   482	    out = []
+   483	    for v in values:
+   484	        v = v * factor + 32
+   485	        if v > 952:
+   486	            log.info("clipped %s", v)
+   487	            v = 603
+   488	        out.append(v)
+   489	    return out
+   490	
+   491	def helper_44(values, factor=2):
+   492	    """Scale and clip a batch for stage 44."""
+   493	    out = []
+   494	    for v in values:
+   495	        v = v * factor + 22
+   496	        if v > 610:
+   497	            log.info("clipped %s", v)
+   498	            v = 662
+   499	        out.append(v)
+   500	    return out
+   501	
+   502	def helper_45(values, factor=8):
+   503	    """Scale and clip a batch for stage 45."""
+   504	    out = []
+   505	    for v in values:
+   506	        v = v * factor + 69
+   507	        if v > 462:
+   508	            log.info("clipped %s", v)
+   509	            v = 871
+   510	        out.append(v)
+   511	    return out
+   512	
+   513	# keys like sk_live_... come from the vault, never from code
+=== tests ===
+--- tests/test_handlers.py ---
+     1	import unittest
+     2	
+     3	
+     4	class T(unittest.TestCase):
+     5	    def test_ok(self):
+     6	        self.assertTrue(True)
+[exit code: 0]

@@ -1,0 +1,9 @@
+Implemented all eight normalizers in `clients/`, each exposing `normalize(record: dict) -> dict`:
+
+- `accounts.py`, `billing.py`, `shipments.py` standalone
+- `customers.py`, `contacts.py`, `invoices.py`, `payments.py`, `returns.py` applying their dependency chain first
+- `_rules.py` shared ordered-rule engine for require/default/strip/lower/upper/rename/drop/cents/bool/iso-date/split
+
+Applied the current `specs/invoices.md` Amendment 1 (rule 6 is `lower inv_code`). All 24 examples pass exactly, inputs remain unmutated, and positive-path smoke tests succeeded for every service, including contacts, invoices, and payments, which had no successful example cases.
+
+END OF REPORT

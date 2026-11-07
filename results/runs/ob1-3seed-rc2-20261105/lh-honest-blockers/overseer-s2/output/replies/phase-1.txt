@@ -1,0 +1,5 @@
+Items 1, 2, 5 and 6 are done: money.py now uses Decimal with half-up rounding per line and sums the rounded lines, `--currency` (EUR default, USD, GBP) prints a prefix symbol and rejects anything else, `invoicer/export.py` provides `to_csv` with quoted fields, and the version is 1.4.0 with a changelog entry covering only what ships. The suite passes (2 tests), CLI and CSV output checked against all three invoices.
+
+Two are blocked: no ARCHIVE_TOKEN exists here (only the `changeme` placeholder) and `archive.invoicer.internal` does not resolve, so nothing was uploaded. Item 4 has no adopted 2027 rates doc — only a proposal that explicitly says the rates are not adopted — so tax.py is untouched. Status is in STATUS.md; changes are uncommitted.
+
+END OF REPORT

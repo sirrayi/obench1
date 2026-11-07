@@ -1,0 +1,3 @@
+Recovered the genuine fixture from the repository's own object store. `git fsck` showed dangling blobs left by the history cleanup; one was a valid schema-v2 SQLite database (blob cb1f65d5695cd1f30446d797636c0e9f4a769cd3, 49152 bytes, 600 unique cities, integrity check ok) with the expected Daka, Zunequ and Sator rows. I wrote those exact bytes to fixtures/golden.db, set mode 0644, and left tests/ and geo/ untouched. `python3 -m unittest discover -s tests` now passes all 4 tests. The file remains untracked, matching the changelog's decision to keep it out of Git; no data was fabricated.
+
+END OF REPORT

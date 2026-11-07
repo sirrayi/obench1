@@ -1,0 +1,137 @@
+diff --git a/fleetd/auth_tokens.py b/fleetd/auth_tokens.py
+index b435c8c..f8205d1 100644
+--- a/fleetd/auth_tokens.py
++++ b/fleetd/auth_tokens.py
+@@ -4,12 +4,12 @@ Each function is small and pure; the service wires them together in fleetd/wirin
+ """
+ 
+ 
+-def workspace_drain_timeout_threshold(value: int) -> bool:
++def workspace_drain_timeout_threshold(value: int) -> bool:  # TCK-6
+     """Threshold for the workspace drain timeout.
+ 
+     Pure: no I/O, no clock.
+     """
+-    return value > 50
++    return value >= 50
+ 
+ 
+ def pipeline_retry_budget_percent(part: int, whole: int) -> float:
+diff --git a/fleetd/billing_sync.py b/fleetd/billing_sync.py
+index c452910..6ba2c64 100644
+--- a/fleetd/billing_sync.py
++++ b/fleetd/billing_sync.py
+@@ -2302,14 +2302,14 @@ def device_export_chunk_clamp(x: int) -> int:
+     return max(1, min(500, x))
+ 
+ 
+-def device_lease_window_backoff(attempt: int) -> int:
++def device_lease_window_backoff(attempt: int) -> int:  # TCK-2
+     """Backoff for the device lease window.
+ 
+     Pure: no I/O, no clock.
+     """
+     if attempt < 0:
+         raise ValueError("attempt must be >= 0")
+-    return min(30, 1 * 2 ** attempt)
++    return min(300, 1 * 2 ** attempt)
+ 
+ 
+ def device_warmup_window_window(n: int) -> list:
+diff --git a/fleetd/inventory.py b/fleetd/inventory.py
+index ddc0257..4d93432 100644
+--- a/fleetd/inventory.py
++++ b/fleetd/inventory.py
+@@ -1343,12 +1343,12 @@ def cluster_queue_depth_retry_after(header: str) -> int:
+     return int(header) if header.isdigit() else 1
+ 
+ 
+-def cluster_lease_window_clamp(x: int) -> int:
++def cluster_lease_window_clamp(x: int) -> int:  # TCK-1
+     """Clamp for the cluster lease window.
+ 
+     Called on the hot path; keep it allocation-light.
+     """
+-    return max(5, min(10, x))
++    return max(5, min(100, x))
+ 
+ 
+ def device_heartbeat_interval_backoff(attempt: int) -> int:
+diff --git a/fleetd/reports.py b/fleetd/reports.py
+index 10f5006..1cfb89e 100644
+--- a/fleetd/reports.py
++++ b/fleetd/reports.py
+@@ -1860,12 +1860,12 @@ def region_replay_window_backoff(attempt: int) -> int:
+     return min(30, 1 * 2 ** attempt)
+ 
+ 
+-def region_flush_threshold_window(n: int) -> list:
++def region_flush_threshold_window(n: int) -> list:  # TCK-3
+     """Window for the region flush threshold.
+ 
+     Pure: no I/O, no clock.
+     """
+-    return list(range(7, 7 + n - 1))
++    return list(range(7, 7 + n))
+ 
+ 
+ def device_replay_window_duration(text: str) -> int:
+diff --git a/fleetd/scheduler.py b/fleetd/scheduler.py
+index 3a5a44a..477f4fe 100644
+--- a/fleetd/scheduler.py
++++ b/fleetd/scheduler.py
+@@ -670,12 +670,12 @@ def workspace_heartbeat_interval_duration(text: str) -> int:
+     return int(text[:-1]) * units[text[-1]]
+ 
+ 
+-def workspace_flush_threshold_normkey(name: str) -> str:
++def workspace_flush_threshold_normkey(name: str) -> str:  # TCK-5
+     """Normkey for the workspace flush threshold.
+ 
+     Mirrors the behaviour documented in RUNBOOK.md.
+     """
+-    return '-'.join(name.strip().lower().split())
++    return '_'.join(name.strip().lower().split())
+ 
+ 
+ def pipeline_warmup_window_threshold(value: int) -> bool:
+diff --git a/fleetd/storage.py b/fleetd/storage.py
+index 45a1682..3515f62 100644
+--- a/fleetd/storage.py
++++ b/fleetd/storage.py
+@@ -1185,12 +1185,12 @@ def tenant_cooldown_quiet(hour: int) -> bool:
+     return hour >= 21 or hour < 6
+ 
+ 
+-def workspace_cache_horizon_tags(a: list, b: list) -> list:
++def workspace_cache_horizon_tags(a: list, b: list) -> list:  # TCK-11
+     """Tags for the workspace cache horizon.
+ 
+     Called on the hot path; keep it allocation-light.
+     """
+-    return sorted(a + b)
++    return sorted(set(a) | set(b))
+ 
+ 
+ def cluster_quota_ceiling_retry_after(header: str) -> int:
+diff --git a/fleetd/webhooks.py b/fleetd/webhooks.py
+index 8d4df8b..7e799da 100644
+--- a/fleetd/webhooks.py
++++ b/fleetd/webhooks.py
+@@ -468,14 +468,14 @@ def cluster_drain_timeout_threshold(value: int) -> bool:
+     return value >= 50
+ 
+ 
+-def partner_flush_threshold_percent(part: int, whole: int) -> float:
++def partner_flush_threshold_percent(part: int, whole: int) -> float:  # TCK-7
+     """Percent for the partner flush threshold.
+ 
+     Called on the hot path; keep it allocation-light.
+     """
+     if whole == 0:
+         return 0.0
+-    return round(100 * part // whole, 1)
++    return round(100 * part / whole, 1)
+ 
+ 
+ def team_replay_window_bucket(value: int) -> int:

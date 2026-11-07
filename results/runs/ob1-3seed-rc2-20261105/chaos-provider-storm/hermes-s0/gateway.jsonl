@@ -1,0 +1,37 @@
+{"ev": "other", "path": "/api/show", "bytes_in": 30, "t": 1793896156.206}
+{"n": 0, "ev": "done", "status": 404, "how": "ok", "bytes_out": 0, "ttfb_s": 0.345, "wall_s": 0.345, "t": 1793896156.552}
+{"n": 1, "ev": "call", "path": "/v1/chat/completions", "fault": "503", "bytes_in": 1926, "asked": {"thinking": {"type": "disabled"}, "reasoning_effort": null, "max_tokens": null}, "t": 1793896157.035}
+{"n": 2, "ev": "call", "path": "/v1/chat/completions", "fault": "error200", "bytes_in": 57029, "asked": {"thinking": null, "max_tokens": null}, "t": 1793896157.039}
+{"n": 3, "ev": "call", "path": "/v1/chat/completions", "fault": null, "bytes_in": 1926, "asked": {"thinking": {"type": "disabled"}, "reasoning_effort": null, "max_tokens": null}, "t": 1793896158.063}
+{"n": 4, "ev": "call", "path": "/v1/chat/completions", "fault": null, "bytes_in": 57029, "asked": {"thinking": null, "max_tokens": null}, "t": 1793896158.072}
+{"n": 3, "ev": "done", "status": 200, "how": "ok", "bytes_out": 1642, "ttfb_s": 4.191, "wall_s": 4.193, "prompt": 406, "cached": 0, "output": 243, "t": 1793896162.256}
+{"n": 4, "ev": "done", "status": 200, "how": "ok", "bytes_out": 4455, "ttfb_s": 5.446, "wall_s": 5.9, "prompt": 13782, "cached": 512, "output": 90, "t": 1793896163.971}
+{"n": 5, "ev": "call", "path": "/v1/chat/completions", "fault": "429", "bytes_in": 58503, "asked": {"thinking": null, "max_tokens": null}, "t": 1793896164.235}
+{"n": 6, "ev": "call", "path": "/v1/chat/completions", "fault": "429", "bytes_in": 58503, "asked": {"thinking": null, "max_tokens": null}, "t": 1793896167.364}
+{"n": 7, "ev": "call", "path": "/v1/chat/completions", "fault": "503", "bytes_in": 58503, "asked": {"thinking": null, "max_tokens": null}, "t": 1793896170.544}
+{"n": 8, "ev": "call", "path": "/v1/chat/completions", "fault": "500", "bytes_in": 58449, "asked": {"thinking": null, "max_tokens": null}, "t": 1793896170.578}
+{"n": 9, "ev": "call", "path": "/v1/chat/completions", "fault": "429", "bytes_in": 58503, "asked": {"thinking": null, "max_tokens": null}, "t": 1793896187.965}
+{"n": 10, "ev": "call", "path": "/v1/chat/completions", "fault": "garbage", "bytes_in": 58503, "asked": {"thinking": null, "max_tokens": null}, "t": 1793896191.128}
+{"n": 10, "ev": "done", "status": 200, "how": "client_gone", "bytes_out": 210, "ttfb_s": 2.493, "wall_s": 2.544, "t": 1793896193.67}
+{"n": 11, "ev": "call", "path": "/v1/chat/completions", "fault": null, "bytes_in": 58503, "asked": {"thinking": null, "max_tokens": null}, "t": 1793896198.211}
+{"n": 11, "ev": "done", "status": 200, "how": "ok", "bytes_out": 3544, "ttfb_s": 2.299, "wall_s": 2.518, "prompt": 14210, "cached": 14208, "output": 76, "t": 1793896200.729}
+{"n": 12, "ev": "call", "path": "/v1/chat/completions", "fault": null, "bytes_in": 59757, "asked": {"thinking": null, "max_tokens": null}, "t": 1793896200.793}
+{"n": 12, "ev": "done", "status": 200, "how": "ok", "bytes_out": 107378, "ttfb_s": 2.176, "wall_s": 16.779, "prompt": 14545, "cached": 14208, "output": 2060, "t": 1793896217.571}
+{"n": 13, "ev": "call", "path": "/v1/chat/completions", "fault": "error200", "bytes_in": 72011, "asked": {"thinking": null, "max_tokens": null}, "t": 1793896217.727}
+{"n": 14, "ev": "call", "path": "/v1/chat/completions", "fault": null, "bytes_in": 72011, "asked": {"thinking": null, "max_tokens": null}, "t": 1793896218.747}
+{"n": 14, "ev": "done", "status": 200, "how": "ok", "bytes_out": 58728, "ttfb_s": 3.536, "wall_s": 10.738, "prompt": 16889, "cached": 14464, "output": 1099, "t": 1793896229.484}
+{"n": 15, "ev": "call", "path": "/v1/chat/completions", "fault": "stall", "bytes_in": 76771, "asked": {"thinking": null, "max_tokens": null}, "t": 1793896229.89}
+{"n": 15, "ev": "done", "status": 200, "how": "ok", "bytes_out": 8131, "ttfb_s": 42.315, "wall_s": 43.247, "prompt": 18184, "cached": 16768, "output": 154, "t": 1793896273.136}
+{"n": 16, "ev": "call", "path": "/v1/chat/completions", "fault": "cut", "bytes_in": 78389, "asked": {"thinking": null, "max_tokens": null}, "t": 1793896273.342}
+{"n": 16, "ev": "done", "status": 200, "how": "cut", "bytes_out": 0, "ttfb_s": 2.141, "wall_s": 2.142, "t": 1793896275.483}
+{"n": 17, "ev": "call", "path": "/v1/chat/completions", "fault": "trickle", "bytes_in": 78389, "asked": {"thinking": null, "max_tokens": null}, "t": 1793896276.512}
+{"n": 17, "ev": "done", "status": 200, "how": "ok", "bytes_out": 31798, "ttfb_s": 2.197, "wall_s": 77.52, "prompt": 18566, "cached": 18560, "output": 602, "t": 1793896354.031}
+{"n": 18, "ev": "call", "path": "/v1/chat/completions", "fault": "cut", "bytes_in": 82113, "asked": {"thinking": null, "max_tokens": null}, "t": 1793896354.209}
+{"n": 18, "ev": "done", "status": 200, "how": "cut", "bytes_out": 0, "ttfb_s": 1.756, "wall_s": 1.757, "t": 1793896355.966}
+{"n": 19, "ev": "call", "path": "/v1/chat/completions", "fault": "error200", "bytes_in": 82113, "asked": {"thinking": null, "max_tokens": null}, "t": 1793896356.987}
+{"n": 20, "ev": "call", "path": "/v1/chat/completions", "fault": null, "bytes_in": 82113, "asked": {"thinking": null, "max_tokens": null}, "t": 1793896359.014}
+{"n": 20, "ev": "done", "status": 200, "how": "ok", "bytes_out": 10803, "ttfb_s": 3.392, "wall_s": 4.629, "prompt": 19477, "cached": 19456, "output": 176, "t": 1793896363.641}
+{"n": 21, "ev": "call", "path": "/v1/chat/completions", "fault": null, "bytes_in": 83394, "asked": {"thinking": null, "max_tokens": null}, "t": 1793896363.805}
+{"n": 21, "ev": "done", "status": 200, "how": "ok", "bytes_out": 15394, "ttfb_s": 2.917, "wall_s": 4.862, "prompt": 19835, "cached": 19456, "output": 270, "t": 1793896368.666}
+{"n": 22, "ev": "call", "path": "/v1/chat/completions", "fault": null, "bytes_in": 85067, "asked": {"thinking": null, "max_tokens": null}, "t": 1793896368.848}
+{"n": 22, "ev": "done", "status": 200, "how": "ok", "bytes_out": 9937, "ttfb_s": 3.065, "wall_s": 4.454, "prompt": 20155, "cached": 19712, "output": 146, "t": 1793896373.302}

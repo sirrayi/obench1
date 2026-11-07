@@ -1,0 +1,14 @@
+diff --git a/REVIEW.md b/REVIEW.md
+new file mode 100644
+index 0000000..bb4c549
+--- /dev/null
++++ b/REVIEW.md
+@@ -0,0 +1,8 @@
++app/handlers.py:11: blocker: client_key trusts the client-supplied X-Forwarded-For header, so any caller can rotate that value and bypass the limiter completely; verified 150 of 150 requests with distinct header values returned 200 despite limit=100.
++app/limiter.py:19: blocker: the comparison mixes clocks (now from time.monotonic(), b["start"] from time.time()), so now - b["start"] is always a huge negative number and the window branch never fires; once a client exceeds the limit it is blocked forever, verified still rejected after the window elapsed.
++app/limiter.py:37: major: retry_after subtracts an epoch timestamp from time.monotonic(), producing about 1.79e9 seconds; the handler then emits Retry-After: 1793934423 instead of a delay near the window.
++app/limiter.py:28: major: off-by-one boundary, the check is greater than limit + 1, so limit + 1 requests are admitted; verified limit=3 admits 4 and limit=100 admits 101.
++app/limiter.py:25: major: _bucket() is called outside the lock and writes to self.buckets, so concurrent requests for a new key each create their own bucket and the counts are lost; with limit=1, 6 concurrent requests were all admitted while the stored count stayed 1.
++app/limiter.py:12: major: buckets are never evicted and keys come from an attacker-controlled header, so memory grows without bound; 150 requests produced 150 buckets and nothing caps or prunes the dict.
++docs/limits.md:4: minor: states that idle buckets are dropped after 10 minutes, but no eviction exists anywhere in the limiter.
++tests/test_limiter.py:10: minor: only the admit path is asserted; there is no test for rejection, the limit boundary, or window expiry, which is why the two blockers above pass CI.

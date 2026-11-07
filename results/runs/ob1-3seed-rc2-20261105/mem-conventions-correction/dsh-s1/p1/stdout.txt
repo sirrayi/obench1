@@ -1,0 +1,3 @@
+Added `--version` to `tally/cli.py` using argparse's version action; it prints `tally 1.4.0` and exits 0, sourced from `tally.__version__` so it stays in sync. Tests went in the new `tests/test_cli.py` using plain unittest: exact output and exit code, output matching the package version, and confirmation that a subcommand is still required. Full suite passes (7 tests). Committed as `cli: add --version flag`; CHANGELOG.md untouched.
+
+END OF REPORT

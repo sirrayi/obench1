@@ -1,0 +1,3 @@
+Wrote findings/svc-01.json through findings/svc-24.json, covering SPEC.md rev 7 plus amendment 1 (C16). Audited the checkout at HEAD 95b3de8, including the teammate fix to svc-07; nothing under services/ was changed. Results: svc-05 compliant; svc-11 and svc-19 unverifiable because of Git LFS pointers; the other 21 have violations, listed in clause order. Checks used AST parsing for docstrings, print calls and secret literals, exact line and digest matching for Dockerfiles, READMEs, CODEOWNERS and requirements, and first-line pointer detection per service. All 24 report files were validated for schema, status consistency and clause ordering.
+
+END OF REPORT

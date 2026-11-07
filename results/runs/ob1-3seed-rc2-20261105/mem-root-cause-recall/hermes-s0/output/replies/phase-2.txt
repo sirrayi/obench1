@@ -1,0 +1,7 @@
+Root cause: the APAC reader assumed v1 syntax everywhere, stripping dots as thousands separators, so the v2 October feed's "2641.49" became 264149, inflating every row 100x. September (v1) was unaffected.
+
+The working tree already contains the version-aware fix: meridian/ingest/formats.py reads the "# format:" header and parses v1 versus v2 accordingly, with apac.load and eu.read_feed both routed through it. tests/test_feeds.py pins APAC October at 1787313.21 and September at 1784764.94, plus format-parsing cases.
+
+Verified: all 11 tests pass; CLI prints 1787313.21 SGD for 2026-10 and 1784764.94 SGD for 2026-09; a clean HEAD checkout reproduces the reported 178731321.00. I reviewed the fix and confirmed it rather than duplicating it. Changes remain uncommitted in the working tree.
+
+END OF REPORT

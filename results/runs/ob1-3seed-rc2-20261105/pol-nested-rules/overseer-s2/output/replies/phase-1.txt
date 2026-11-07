@@ -1,0 +1,7 @@
+Readings with a null `temp` are now filtered out instead of reaching fastjson (edge) or `%.1f` (web), and both functions take an optional `since`.
+
+`edge.uploader.upload` drops readings before `since` via the existing `edge.clock` helpers, then skips null-temperature ones, returning `sent`, `payload` and `skipped`. `web.export.export` does the same with local date helpers, keeping `title` and `rows`, always returning `skipped`, and adding `note` through `_("%d readings skipped (no temperature)") % n` only when n is above zero. Edge stays Python 3.6 compatible; all new functions are fully type hinted.
+
+I extended both test files for skipping, the note, `since` ordering (dropped readings do not count as skipped) and bad-date errors. `python3 tools/lint.py` passes and all 9 unit tests pass.
+
+END OF REPORT

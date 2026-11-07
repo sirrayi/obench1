@@ -1,0 +1,847 @@
+[40] return '-'.join(ref.strip().upper().replace('_', ' ').split())
+      [redacted:high-entropy].py:[redacted:high-entropy], ledgerly/billing/overage.py:normalize_overage_ref, ledgerly/billing/plans.py:normalize_plan_ref, [redacted:high-entropy].py:[redacted:high-entropy] ...
+
+[40] due = issued + datetime.timedelta(days=terms_days) | while due.weekday() >= 5:     due += datetime.timedelta(days=1) | return due
+      [redacted:high-entropy].py:coupon_due_date, ledgerly/billing/overage.py:overage_due_date, ledgerly/billing/plans.py:plan_due_date, [redacted:high-entropy].py:prorated_due_date ...
+
+[1] log.debug('format_coupon %s', amount) | return '%.*f %s' % (EXPONENT[currency], amount, currency)
+      [redacted:high-entropy].py:format_coupon 
+
+[1] log.debug('coupon_settled %s', paid) | return abs(paid - due) < 0.005
+      [redacted:high-entropy].py:coupon_settled 
+
+[1] if factor < 0:     raise ValueError('factor must not be negative') | log.debug('scaled_coupon %s', amount) | return round_money(amount * factor, currency)
+      [redacted:high-entropy].py:scaled_coupon 
+
+[1] if parts <= 0:     raise ValueError('parts must be positive') | log.debug('split_coupon %s', amount) | share = round_money(amount / parts, currency) | return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+      [redacted:high-entropy].py:split_coupon 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('net_coupon %s', gross) | return gross - round_money(gross * pct / 100, currency)
+      [redacted:high-entropy].py:net_coupon 
+
+[1] self.ref = [redacted:high-entropy](ref) | self.amount = amount | self.currency = currency
+      [redacted:high-entropy].py:__init__ 
+
+[1] return f'CouponRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      [redacted:high-entropy].py:__repr__ 
+
+[1] log.debug('overage_settled %s', paid) | return abs(paid - due) < 0.005
+      ledgerly/billing/overage.py:overage_settled 
+
+[1] if parts <= 0:     raise ValueError('parts must be positive') | log.debug('split_overage %s', amount) | share = round_money(amount / parts, currency) | return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+      ledgerly/billing/overage.py:split_overage 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('percent_of_overage %s', amount) | return round_money(amount * pct / 100, currency)
+      ledgerly/billing/overage.py:percent_of_overage 
+
+[1] log.debug('overage_exceeds %s', amount) | return amount > limit
+      ledgerly/billing/overage.py:overage_exceeds 
+
+[1] log.debug('total_overage %s', amounts) | return round_money(sum(amounts), currency)
+      ledgerly/billing/overage.py:total_overage 
+
+[1] self.ref = normalize_overage_ref(ref) | self.amount = amount | self.currency = currency
+      ledgerly/billing/overage.py:__init__ 
+
+[1] return f'OverageRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      ledgerly/billing/overage.py:__repr__ 
+
+[1] if days < 0:     raise ValueError('days must not be negative') | log.debug('accrued_plan %s', balance) | return round_money(balance * annual_rate / 100 * days / 365, currency)
+      ledgerly/billing/plans.py:accrued_plan 
+
+[1] log.debug('plan_settled %s', paid) | return abs(paid - due) < 0.005
+      ledgerly/billing/plans.py:plan_settled 
+
+[1] log.debug('format_plan %s', amount) | return '%.*f %s' % (EXPONENT[currency], amount, currency)
+      ledgerly/billing/plans.py:format_plan 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('net_plan %s', gross) | return gross - round_money(gross * pct / 100, currency)
+      ledgerly/billing/plans.py:net_plan 
+
+[1] if factor < 0:     raise ValueError('factor must not be negative') | log.debug('scaled_plan %s', amount) | return round_money(amount * factor, currency)
+      ledgerly/billing/plans.py:scaled_plan 
+
+[1] self.ref = normalize_plan_ref(ref) | self.amount = amount | self.currency = currency
+      ledgerly/billing/plans.py:__init__ 
+
+[1] return f'PlanRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      ledgerly/billing/plans.py:__repr__ 
+
+[1] log.debug('format_prorated %s', amount) | return '%.*f %s' % (EXPONENT[currency], amount, currency)
+      [redacted:high-entropy].py:format_prorated 
+
+[1] log.debug('prorated_settled %s', paid) | return abs(paid - due) < 0.005
+      [redacted:high-entropy].py:prorated_settled 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('percent_of_prorated %s', amount) | return round_money(amount * pct / 100, currency)
+      [redacted:high-entropy].py:percent_of_prorated 
+
+[1] log.debug('total_prorated %s', amounts) | return round_money(sum(amounts), currency)
+      [redacted:high-entropy].py:total_prorated 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('net_prorated %s', gross) | return gross - round_money(gross * pct / 100, currency)
+      [redacted:high-entropy].py:net_prorated 
+
+[1] self.ref = [redacted:high-entropy](ref) | self.amount = amount | self.currency = currency
+      [redacted:high-entropy].py:__init__ 
+
+[1] return f'ProratedRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      [redacted:high-entropy].py:__repr__ 
+
+[1] log.debug('usage_exceeds %s', amount) | return amount > limit
+      ledgerly/billing/usage.py:usage_exceeds 
+
+[1] if parts <= 0:     raise ValueError('parts must be positive') | log.debug('split_usage %s', amount) | share = round_money(amount / parts, currency) | return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+      ledgerly/billing/usage.py:split_usage 
+
+[1] if factor < 0:     raise ValueError('factor must not be negative') | log.debug('scaled_usage %s', amount) | return round_money(amount * factor, currency)
+      ledgerly/billing/usage.py:scaled_usage 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('percent_of_usage %s', amount) | return round_money(amount * pct / 100, currency)
+      ledgerly/billing/usage.py:percent_of_usage 
+
+[1] log.debug('format_usage %s', amount) | return '%.*f %s' % (EXPONENT[currency], amount, currency)
+      ledgerly/billing/usage.py:format_usage 
+
+[1] self.ref = normalize_usage_ref(ref) | self.amount = amount | self.currency = currency
+      ledgerly/billing/usage.py:__init__ 
+
+[1] return f'UsageRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      ledgerly/billing/usage.py:__repr__ 
+
+[1] log.debug('ledger_csv %s', rows) | out = ['date,memo,amount,currency\n'] | for (day, memo, amount) in rows:     out.append('%s,%s,%.*f,%s\n' % (day, memo, EXPONENT[currency], amount, currency)) | return ''.join(out)
+      [redacted:high-entropy].py:ledger_csv 
+
+[1] log.debug('format_csv %s', amount) | return '%.*f %s' % (EXPONENT[currency], amount, currency)
+      [redacted:high-entropy].py:format_csv 
+
+[1] log.debug('total_csv %s', amounts) | return round_money(sum(amounts), currency)
+      [redacted:high-entropy].py:total_csv 
+
+[1] self.ref = normalize_csv_ref(ref) | self.amount = amount | self.currency = currency
+      [redacted:high-entropy].py:__init__ 
+
+[1] return f'CsvRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      [redacted:high-entropy].py:__repr__ 
+
+[1] log.debug('invoice_json %s', lines) | total = round_money(sum((a for (_, a) in lines)), currency) | doc = {'currency': currency, 'lines': [{'sku': s, 'amount': round_money(a, currency)} for (s, a) in lines], 'total': total} | return json.dumps(doc, separators=(',', ':'))
+      [redacted:high-entropy].py:invoice_json 
+
+[1] log.debug('format_json %s', amount) | return '%.*f %s' % (EXPONENT[currency], amount, currency)
+      [redacted:high-entropy].py:format_json 
+
+[1] log.debug('total_json %s', amounts) | return round_money(sum(amounts), currency)
+      [redacted:high-entropy].py:total_json 
+
+[1] self.ref = normalize_json_ref(ref) | self.amount = amount | self.currency = currency
+      [redacted:high-entropy].py:__init__ 
+
+[1] return f'JsonRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      [redacted:high-entropy].py:__repr__ 
+
+[1] if (src, dst) not in RATES:     raise KeyError(f'no rate for {src}->{dst}') | log.debug('convert_conversion %s', amount) | return round_money(amount * RATES[src, dst], dst)
+      ledgerly/fx/convert.py:convert_conversion 
+
+[1] if (src, dst) not in RATES:     raise KeyError(f'no rate for {src}->{dst}') | log.debug('quote_conversion %s', amount) | return round_money(amount * RATES[src, dst] * (1 - spread_bp / 10000), dst)
+      ledgerly/fx/convert.py:quote_conversion 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('net_conversion %s', gross) | return gross - round_money(gross * pct / 100, currency)
+      ledgerly/fx/convert.py:net_conversion 
+
+[1] if factor < 0:     raise ValueError('factor must not be negative') | log.debug('scaled_conversion %s', amount) | return round_money(amount * factor, currency)
+      ledgerly/fx/convert.py:scaled_conversion 
+
+[1] log.debug('total_conversion %s', amounts) | return round_money(sum(amounts), currency)
+      ledgerly/fx/convert.py:total_conversion 
+
+[1] log.debug('convert_float %s', amount) | return round(amount * RATES[src, dst], EXPONENT[dst])
+      ledgerly/fx/convert.py:convert_float 
+
+[1] self.ref = [redacted:high-entropy](ref) | self.amount = amount | self.currency = currency
+      ledgerly/fx/convert.py:__init__ 
+
+[1] return f'ConversionRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      ledgerly/fx/convert.py:__repr__ 
+
+[1] if (src, dst) not in RATES:     raise KeyError(f'no rate for {src}->{dst}') | log.debug('convert_cross %s', amount) | return round_money(amount * RATES[src, dst], dst)
+      [redacted:high-entropy].py:convert_cross 
+
+[1] if (src, dst) not in RATES:     raise KeyError(f'no rate for {src}->{dst}') | log.debug('quote_cross %s', amount) | return round_money(amount * RATES[src, dst] * (1 - spread_bp / 10000), dst)
+      [redacted:high-entropy].py:quote_cross 
+
+[1] if days < 0:     raise ValueError('days must not be negative') | log.debug('accrued_cross %s', balance) | return round_money(balance * annual_rate / 100 * days / 365, currency)
+      [redacted:high-entropy].py:accrued_cross 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('net_cross %s', gross) | return gross - round_money(gross * pct / 100, currency)
+      [redacted:high-entropy].py:net_cross 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('percent_of_cross %s', amount) | return round_money(amount * pct / 100, currency)
+      [redacted:high-entropy].py:percent_of_cross 
+
+[1] self.ref = normalize_cross_ref(ref) | self.amount = amount | self.currency = currency
+      [redacted:high-entropy].py:__init__ 
+
+[1] return f'CrossRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      [redacted:high-entropy].py:__repr__ 
+
+[1] if (src, dst) not in RATES:     raise KeyError(f'no rate for {src}->{dst}') | log.debug('convert_quote %s', amount) | return round_money(amount * RATES[src, dst], dst)
+      ledgerly/fx/quotes.py:convert_quote 
+
+[1] if (src, dst) not in RATES:     raise KeyError(f'no rate for {src}->{dst}') | log.debug('quote_quote %s', amount) | return round_money(amount * RATES[src, dst] * (1 - spread_bp / 10000), dst)
+      ledgerly/fx/quotes.py:quote_quote 
+
+[1] log.debug('quote_exceeds %s', amount) | return amount > limit
+      ledgerly/fx/quotes.py:quote_exceeds 
+
+[1] if days < 0:     raise ValueError('days must not be negative') | log.debug('accrued_quote %s', balance) | return round_money(balance * annual_rate / 100 * days / 365, currency)
+      ledgerly/fx/quotes.py:accrued_quote 
+
+[1] if parts <= 0:     raise ValueError('parts must be positive') | log.debug('split_quote %s', amount) | share = round_money(amount / parts, currency) | return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+      ledgerly/fx/quotes.py:split_quote 
+
+[1] self.ref = normalize_quote_ref(ref) | self.amount = amount | self.currency = currency
+      ledgerly/fx/quotes.py:__init__ 
+
+[1] return f'QuoteRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      ledgerly/fx/quotes.py:__repr__ 
+
+[1] if (src, dst) not in RATES:     raise KeyError(f'no rate for {src}->{dst}') | log.debug('convert_revaluation %s', amount) | return round_money(amount * RATES[src, dst], dst)
+      [redacted:high-entropy].py:convert_revaluation 
+
+[1] if (src, dst) not in RATES:     raise KeyError(f'no rate for {src}->{dst}') | log.debug('quote_revaluation %s', amount) | return round_money(amount * RATES[src, dst] * (1 - spread_bp / 10000), dst)
+      [redacted:high-entropy].py:quote_revaluation 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('net_revaluation %s', gross) | return gross - round_money(gross * pct / 100, currency)
+      [redacted:high-entropy].py:net_revaluation 
+
+[1] if days < 0:     raise ValueError('days must not be negative') | log.debug('accrued_revaluation %s', balance) | return round_money(balance * annual_rate / 100 * days / 365, currency)
+      [redacted:high-entropy].py:accrued_revaluation 
+
+[1] if parts <= 0:     raise ValueError('parts must be positive') | log.debug('split_revaluation %s', amount) | share = round_money(amount / parts, currency) | return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+      [redacted:high-entropy].py:split_revaluation 
+
+[1] self.ref = [redacted:high-entropy](ref) | self.amount = amount | self.currency = currency
+      [redacted:high-entropy].py:__init__ 
+
+[1] return f'RevaluationRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      [redacted:high-entropy].py:__repr__ 
+
+[1] if (src, dst) not in RATES:     raise KeyError(f'no rate for {src}->{dst}') | log.debug('convert_spread %s', amount) | return round_money(amount * RATES[src, dst], dst)
+      ledgerly/fx/spreads.py:convert_spread 
+
+[1] if (src, dst) not in RATES:     raise KeyError(f'no rate for {src}->{dst}') | log.debug('quote_spread %s', amount) | return round_money(amount * RATES[src, dst] * (1 - spread_bp / 10000), dst)
+      ledgerly/fx/spreads.py:quote_spread 
+
+[1] if factor < 0:     raise ValueError('factor must not be negative') | log.debug('scaled_spread %s', amount) | return round_money(amount * factor, currency)
+      ledgerly/fx/spreads.py:scaled_spread 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('capped_spread %s', amount) | return min(round_money(amount * pct / 100, currency), cap)
+      ledgerly/fx/spreads.py:capped_spread 
+
+[1] log.debug('format_spread %s', amount) | return '%.*f %s' % (EXPONENT[currency], amount, currency)
+      ledgerly/fx/spreads.py:format_spread 
+
+[1] self.ref = [redacted:high-entropy](ref) | self.amount = amount | self.currency = currency
+      ledgerly/fx/spreads.py:__init__ 
+
+[1] return f'SpreadRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      ledgerly/fx/spreads.py:__repr__ 
+
+[1] log.debug('total_accrual %s', amounts) | return round_money(sum(amounts), currency)
+      [redacted:high-entropy].py:total_accrual 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('percent_of_accrual %s', amount) | return round_money(amount * pct / 100, currency)
+      [redacted:high-entropy].py:percent_of_accrual 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('capped_accrual %s', amount) | return min(round_money(amount * pct / 100, currency), cap)
+      [redacted:high-entropy].py:capped_accrual 
+
+[1] if factor < 0:     raise ValueError('factor must not be negative') | log.debug('scaled_accrual %s', amount) | return round_money(amount * factor, currency)
+      [redacted:high-entropy].py:scaled_accrual 
+
+[1] log.debug('accrual_settled %s', paid) | return abs(paid - due) < 0.005
+      [redacted:high-entropy].py:accrual_settled 
+
+[1] self.ref = [redacted:high-entropy](ref) | self.amount = amount | self.currency = currency
+      [redacted:high-entropy].py:__init__ 
+
+[1] return f'AccrualRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      [redacted:high-entropy].py:__repr__ 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('percent_of_late_fee %s', amount) | return round_money(amount * pct / 100, currency)
+      ledgerly/interest/late_fees.py:percent_of_late_fee 
+
+[1] log.debug('late_fee_exceeds %s', amount) | return amount > limit
+      ledgerly/interest/late_fees.py:late_fee_exceeds 
+
+[1] log.debug('late_fee_settled %s', paid) | return abs(paid - due) < 0.005
+      ledgerly/interest/late_fees.py:late_fee_settled 
+
+[1] if days < 0:     raise ValueError('days must not be negative') | log.debug('accrued_late_fee %s', balance) | return round_money(balance * annual_rate / 100 * days / 365, currency)
+      ledgerly/interest/late_fees.py:accrued_late_fee 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('capped_late_fee %s', amount) | return min(round_money(amount * pct / 100, currency), cap)
+      ledgerly/interest/late_fees.py:capped_late_fee 
+
+[1] self.ref = normalize_late_fee_ref(ref) | self.amount = amount | self.currency = currency
+      ledgerly/interest/late_fees.py:__init__ 
+
+[1] return f'LateFeeRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      ledgerly/interest/late_fees.py:__repr__ 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('percent_of_loan %s', amount) | return round_money(amount * pct / 100, currency)
+      [redacted:high-entropy].py:percent_of_loan 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('capped_loan %s', amount) | return min(round_money(amount * pct / 100, currency), cap)
+      [redacted:high-entropy].py:capped_loan 
+
+[1] if factor < 0:     raise ValueError('factor must not be negative') | log.debug('scaled_loan %s', amount) | return round_money(amount * factor, currency)
+      [redacted:high-entropy].py:scaled_loan 
+
+[1] log.debug('loan_exceeds %s', amount) | return amount > limit
+      [redacted:high-entropy].py:loan_exceeds 
+
+[1] if parts <= 0:     raise ValueError('parts must be positive') | log.debug('split_loan %s', amount) | share = round_money(amount / parts, currency) | return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+      [redacted:high-entropy].py:split_loan 
+
+[1] self.ref = normalize_loan_ref(ref) | self.amount = amount | self.currency = currency
+      [redacted:high-entropy].py:__init__ 
+
+[1] return f'LoanRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      [redacted:high-entropy].py:__repr__ 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('capped_penalty %s', amount) | return min(round_money(amount * pct / 100, currency), cap)
+      ledgerly/interest/penalties.py:capped_penalty 
+
+[1] log.debug('penalty_settled %s', paid) | return abs(paid - due) < 0.005
+      ledgerly/interest/penalties.py:penalty_settled 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('net_penalty %s', gross) | return gross - round_money(gross * pct / 100, currency)
+      ledgerly/interest/penalties.py:net_penalty 
+
+[1] log.debug('format_penalty %s', amount) | return '%.*f %s' % (EXPONENT[currency], amount, currency)
+      ledgerly/interest/penalties.py:format_penalty 
+
+[1] log.debug('penalty_exceeds %s', amount) | return amount > limit
+      ledgerly/interest/penalties.py:penalty_exceeds 
+
+[1] self.ref = [redacted:high-entropy](ref) | self.amount = amount | self.currency = currency
+      ledgerly/interest/penalties.py:__init__ 
+
+[1] return f'PenaltyRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      ledgerly/interest/penalties.py:__repr__ 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('capped_savings %s', amount) | return min(round_money(amount * pct / 100, currency), cap)
+      [redacted:high-entropy].py:capped_savings 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('percent_of_savings %s', amount) | return round_money(amount * pct / 100, currency)
+      [redacted:high-entropy].py:percent_of_savings 
+
+[1] log.debug('savings_exceeds %s', amount) | return amount > limit
+      [redacted:high-entropy].py:savings_exceeds 
+
+[1] if parts <= 0:     raise ValueError('parts must be positive') | log.debug('split_savings %s', amount) | share = round_money(amount / parts, currency) | return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+      [redacted:high-entropy].py:split_savings 
+
+[1] if days < 0:     raise ValueError('days must not be negative') | log.debug('accrued_savings %s', balance) | return round_money(balance * annual_rate / 100 * days / 365, currency)
+      [redacted:high-entropy].py:accrued_savings 
+
+[1] self.ref = [redacted:high-entropy](ref) | self.amount = amount | self.currency = currency
+      [redacted:high-entropy].py:__init__ 
+
+[1] return f'SavingsRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      [redacted:high-entropy].py:__repr__ 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('percent_of_credit %s', amount) | return round_money(amount * pct / 100, currency)
+      [redacted:high-entropy].py:percent_of_credit 
+
+[1] log.debug('credit_exceeds %s', amount) | return amount > limit
+      [redacted:high-entropy].py:credit_exceeds 
+
+[1] log.debug('credit_settled %s', paid) | return abs(paid - due) < 0.005
+      [redacted:high-entropy].py:credit_settled 
+
+[1] log.debug('format_credit %s', amount) | return '%.*f %s' % (EXPONENT[currency], amount, currency)
+      [redacted:high-entropy].py:format_credit 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('net_credit %s', gross) | return gross - round_money(gross * pct / 100, currency)
+      [redacted:high-entropy].py:net_credit 
+
+[1] self.ref = [redacted:high-entropy](ref) | self.amount = amount | self.currency = currency
+      [redacted:high-entropy].py:__init__ 
+
+[1] return f'CreditRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      [redacted:high-entropy].py:__repr__ 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('capped_deposit %s', amount) | return min(round_money(amount * pct / 100, currency), cap)
+      [redacted:high-entropy].py:capped_deposit 
+
+[1] log.debug('deposit_exceeds %s', amount) | return amount > limit
+      [redacted:high-entropy].py:deposit_exceeds 
+
+[1] if days < 0:     raise ValueError('days must not be negative') | log.debug('accrued_deposit %s', balance) | return round_money(balance * annual_rate / 100 * days / 365, currency)
+      [redacted:high-entropy].py:accrued_deposit 
+
+[1] log.debug('format_deposit %s', amount) | return '%.*f %s' % (EXPONENT[currency], amount, currency)
+      [redacted:high-entropy].py:format_deposit 
+
+[1] log.debug('deposit_settled %s', paid) | return abs(paid - due) < 0.005
+      [redacted:high-entropy].py:deposit_settled 
+
+[1] self.ref = [redacted:high-entropy](ref) | self.amount = amount | self.currency = currency
+      [redacted:high-entropy].py:__init__ 
+
+[1] return f'DepositRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      [redacted:high-entropy].py:__repr__ 
+
+[1] if factor < 0:     raise ValueError('factor must not be negative') | log.debug('scaled_discount %s', amount) | return round_money(amount * factor, currency)
+      [redacted:high-entropy].py:scaled_discount 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('capped_discount %s', amount) | return min(round_money(amount * pct / 100, currency), cap)
+      [redacted:high-entropy].py:capped_discount 
+
+[1] log.debug('discount_exceeds %s', amount) | return amount > limit
+      [redacted:high-entropy].py:discount_exceeds 
+
+[1] if parts <= 0:     raise ValueError('parts must be positive') | log.debug('split_discount %s', amount) | share = round_money(amount / parts, currency) | return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+      [redacted:high-entropy].py:split_discount 
+
+[1] log.debug('discount_settled %s', paid) | return abs(paid - due) < 0.005
+      [redacted:high-entropy].py:discount_settled 
+
+[1] self.ref = [redacted:high-entropy](ref) | self.amount = amount | self.currency = currency
+      [redacted:high-entropy].py:__init__ 
+
+[1] return f'DiscountRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      [redacted:high-entropy].py:__repr__ 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('net_line %s', gross) | return gross - round_money(gross * pct / 100, currency)
+      [redacted:high-entropy].py:net_line 
+
+[1] log.debug('line_exceeds %s', amount) | return amount > limit
+      [redacted:high-entropy].py:line_exceeds 
+
+[1] if factor < 0:     raise ValueError('factor must not be negative') | log.debug('scaled_line %s', amount) | return round_money(amount * factor, currency)
+      [redacted:high-entropy].py:scaled_line 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('capped_line %s', amount) | return min(round_money(amount * pct / 100, currency), cap)
+      [redacted:high-entropy].py:capped_line 
+
+[1] if days < 0:     raise ValueError('days must not be negative') | log.debug('accrued_line %s', balance) | return round_money(balance * annual_rate / 100 * days / 365, currency)
+      [redacted:high-entropy].py:accrued_line 
+
+[1] self.ref = normalize_line_ref(ref) | self.amount = amount | self.currency = currency
+      [redacted:high-entropy].py:__init__ 
+
+[1] return f'LineRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      [redacted:high-entropy].py:__repr__ 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('net_subtotal %s', gross) | return gross - round_money(gross * pct / 100, currency)
+      [redacted:high-entropy].py:net_subtotal 
+
+[1] if parts <= 0:     raise ValueError('parts must be positive') | log.debug('split_subtotal %s', amount) | share = round_money(amount / parts, currency) | return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+      [redacted:high-entropy].py:split_subtotal 
+
+[1] log.debug('subtotal_exceeds %s', amount) | return amount > limit
+      [redacted:high-entropy].py:subtotal_exceeds 
+
+[1] log.debug('total_subtotal %s', amounts) | return round_money(sum(amounts), currency)
+      [redacted:high-entropy].py:total_subtotal 
+
+[1] if factor < 0:     raise ValueError('factor must not be negative') | log.debug('scaled_subtotal %s', amount) | return round_money(amount * factor, currency)
+      [redacted:high-entropy].py:scaled_subtotal 
+
+[1] self.ref = [redacted:high-entropy](ref) | self.amount = amount | self.currency = currency
+      [redacted:high-entropy].py:__init__ 
+
+[1] return f'SubtotalRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      [redacted:high-entropy].py:__repr__ 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('capped_commission %s', amount) | return min(round_money(amount * pct / 100, currency), cap)
+      [redacted:high-entropy].py:capped_commission 
+
+[1] log.debug('total_commission %s', amounts) | return round_money(sum(amounts), currency)
+      [redacted:high-entropy].py:total_commission 
+
+[1] log.debug('format_commission %s', amount) | return '%.*f %s' % (EXPONENT[currency], amount, currency)
+      [redacted:high-entropy].py:format_commission 
+
+[1] if days < 0:     raise ValueError('days must not be negative') | log.debug('accrued_commission %s', balance) | return round_money(balance * annual_rate / 100 * days / 365, currency)
+      [redacted:high-entropy].py:accrued_commission 
+
+[1] log.debug('commission_settled %s', paid) | return abs(paid - due) < 0.005
+      [redacted:high-entropy].py:commission_settled 
+
+[1] self.ref = [redacted:high-entropy](ref) | self.amount = amount | self.currency = currency
+      [redacted:high-entropy].py:__init__ 
+
+[1] return f'CommissionRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      [redacted:high-entropy].py:__repr__ 
+
+[1] log.debug('fee_settled %s', paid) | return abs(paid - due) < 0.005
+      [redacted:high-entropy].py:fee_settled 
+
+[1] if parts <= 0:     raise ValueError('parts must be positive') | log.debug('split_fee %s', amount) | share = round_money(amount / parts, currency) | return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+      [redacted:high-entropy].py:split_fee 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('capped_fee %s', amount) | return min(round_money(amount * pct / 100, currency), cap)
+      [redacted:high-entropy].py:capped_fee 
+
+[1] if factor < 0:     raise ValueError('factor must not be negative') | log.debug('scaled_fee %s', amount) | return round_money(amount * factor, currency)
+      [redacted:high-entropy].py:scaled_fee 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('net_fee %s', gross) | return gross - round_money(gross * pct / 100, currency)
+      [redacted:high-entropy].py:net_fee 
+
+[1] self.ref = normalize_fee_ref(ref) | self.amount = amount | self.currency = currency
+      [redacted:high-entropy].py:__init__ 
+
+[1] return f'FeeRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      [redacted:high-entropy].py:__repr__ 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('capped_holdback %s', amount) | return min(round_money(amount * pct / 100, currency), cap)
+      [redacted:high-entropy].py:capped_holdback 
+
+[1] if factor < 0:     raise ValueError('factor must not be negative') | log.debug('scaled_holdback %s', amount) | return round_money(amount * factor, currency)
+      [redacted:high-entropy].py:scaled_holdback 
+
+[1] log.debug('format_holdback %s', amount) | return '%.*f %s' % (EXPONENT[currency], amount, currency)
+      [redacted:high-entropy].py:format_holdback 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('net_holdback %s', gross) | return gross - round_money(gross * pct / 100, currency)
+      [redacted:high-entropy].py:net_holdback 
+
+[1] if days < 0:     raise ValueError('days must not be negative') | log.debug('accrued_holdback %s', balance) | return round_money(balance * annual_rate / 100 * days / 365, currency)
+      [redacted:high-entropy].py:accrued_holdback 
+
+[1] self.ref = [redacted:high-entropy](ref) | self.amount = amount | self.currency = currency
+      [redacted:high-entropy].py:__init__ 
+
+[1] return f'HoldbackRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      [redacted:high-entropy].py:__repr__ 
+
+[1] if factor < 0:     raise ValueError('factor must not be negative') | log.debug('scaled_split %s', amount) | return round_money(amount * factor, currency)
+      [redacted:high-entropy].py:scaled_split 
+
+[1] if days < 0:     raise ValueError('days must not be negative') | log.debug('accrued_split %s', balance) | return round_money(balance * annual_rate / 100 * days / 365, currency)
+      [redacted:high-entropy].py:accrued_split 
+
+[1] log.debug('split_exceeds %s', amount) | return amount > limit
+      [redacted:high-entropy].py:split_exceeds 
+
+[1] log.debug('total_split %s', amounts) | return round_money(sum(amounts), currency)
+      [redacted:high-entropy].py:total_split 
+
+[1] log.debug('format_split %s', amount) | return '%.*f %s' % (EXPONENT[currency], amount, currency)
+      [redacted:high-entropy].py:format_split 
+
+[1] self.ref = normalize_split_ref(ref) | self.amount = amount | self.currency = currency
+      [redacted:high-entropy].py:__init__ 
+
+[1] return f'SplitRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      [redacted:high-entropy].py:__repr__ 
+
+[1] if days < 0:     raise ValueError('days must not be negative') | log.debug('accrued_transfer %s', balance) | return round_money(balance * annual_rate / 100 * days / 365, currency)
+      [redacted:high-entropy].py:accrued_transfer 
+
+[1] if parts <= 0:     raise ValueError('parts must be positive') | log.debug('split_transfer %s', amount) | share = round_money(amount / parts, currency) | return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+      [redacted:high-entropy].py:split_transfer 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('percent_of_transfer %s', amount) | return round_money(amount * pct / 100, currency)
+      [redacted:high-entropy].py:percent_of_transfer 
+
+[1] log.debug('transfer_exceeds %s', amount) | return amount > limit
+      [redacted:high-entropy].py:transfer_exceeds 
+
+[1] if factor < 0:     raise ValueError('factor must not be negative') | log.debug('scaled_transfer %s', amount) | return round_money(amount * factor, currency)
+      [redacted:high-entropy].py:scaled_transfer 
+
+[1] self.ref = [redacted:high-entropy](ref) | self.amount = amount | self.currency = currency
+      [redacted:high-entropy].py:__init__ 
+
+[1] return f'TransferRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      [redacted:high-entropy].py:__repr__ 
+
+[1] log.debug('cancellation_exceeds %s', amount) | return amount > limit
+      [redacted:high-entropy].py:cancellation_exceeds 
+
+[1] log.debug('cancellation_settled %s', paid) | return abs(paid - due) < 0.005
+      [redacted:high-entropy].py:cancellation_settled 
+
+[1] if days < 0:     raise ValueError('days must not be negative') | log.debug('accrued_cancellation %s', balance) | return round_money(balance * annual_rate / 100 * days / 365, currency)
+      [redacted:high-entropy].py:accrued_cancellation 
+
+[1] log.debug('format_cancellation %s', amount) | return '%.*f %s' % (EXPONENT[currency], amount, currency)
+      [redacted:high-entropy].py:format_cancellation 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('percent_of_cancellation %s', amount) | return round_money(amount * pct / 100, currency)
+      [redacted:high-entropy].py:percent_of_cancellation 
+
+[1] self.ref = [redacted:high-entropy](ref) | self.amount = amount | self.currency = currency
+      [redacted:high-entropy].py:__init__ 
+
+[1] return f'CancellationRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      [redacted:high-entropy].py:__repr__ 
+
+[1] if days < 0:     raise ValueError('days must not be negative') | log.debug('accrued_chargeback %s', balance) | return round_money(balance * annual_rate / 100 * days / 365, currency)
+      [redacted:high-entropy].py:accrued_chargeback 
+
+[1] if parts <= 0:     raise ValueError('parts must be positive') | log.debug('split_chargeback %s', amount) | share = round_money(amount / parts, currency) | return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+      [redacted:high-entropy].py:split_chargeback 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('net_chargeback %s', gross) | return gross - round_money(gross * pct / 100, currency)
+      [redacted:high-entropy].py:net_chargeback 
+
+[1] log.debug('chargeback_exceeds %s', amount) | return amount > limit
+      [redacted:high-entropy].py:chargeback_exceeds 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('[redacted:high-entropy] %s', amount) | return round_money(amount * pct / 100, currency)
+      [redacted:high-entropy].py:[redacted:high-entropy] 
+
+[1] self.ref = [redacted:high-entropy](ref) | self.amount = amount | self.currency = currency
+      [redacted:high-entropy].py:__init__ 
+
+[1] return f'ChargebackRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      [redacted:high-entropy].py:__repr__ 
+
+[1] log.debug('format_goodwill %s', amount) | return '%.*f %s' % (EXPONENT[currency], amount, currency)
+      [redacted:high-entropy].py:format_goodwill 
+
+[1] if parts <= 0:     raise ValueError('parts must be positive') | log.debug('split_goodwill %s', amount) | share = round_money(amount / parts, currency) | return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+      [redacted:high-entropy].py:split_goodwill 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('capped_goodwill %s', amount) | return min(round_money(amount * pct / 100, currency), cap)
+      [redacted:high-entropy].py:capped_goodwill 
+
+[1] if factor < 0:     raise ValueError('factor must not be negative') | log.debug('scaled_goodwill %s', amount) | return round_money(amount * factor, currency)
+      [redacted:high-entropy].py:scaled_goodwill 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('net_goodwill %s', gross) | return gross - round_money(gross * pct / 100, currency)
+      [redacted:high-entropy].py:net_goodwill 
+
+[1] self.ref = [redacted:high-entropy](ref) | self.amount = amount | self.currency = currency
+      [redacted:high-entropy].py:__init__ 
+
+[1] return f'GoodwillRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      [redacted:high-entropy].py:__repr__ 
+
+[1] log.debug('[redacted:high-entropy] %s', amount) | return amount > limit
+      [redacted:high-entropy].py:[redacted:high-entropy] 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('[redacted:high-entropy] %s', amount) | return min(round_money(amount * pct / 100, currency), cap)
+      [redacted:high-entropy].py:[redacted:high-entropy] 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('net_partial_refund %s', gross) | return gross - round_money(gross * pct / 100, currency)
+      [redacted:high-entropy].py:net_partial_refund 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('[redacted:high-entropy] %s', amount) | return round_money(amount * pct / 100, currency)
+      [redacted:high-entropy].py:[redacted:high-entropy] 
+
+[1] if parts <= 0:     raise ValueError('parts must be positive') | log.debug('[redacted:high-entropy] %s', amount) | share = round_money(amount / parts, currency) | return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+      [redacted:high-entropy].py:[redacted:high-entropy] 
+
+[1] self.ref = [redacted:high-entropy](ref) | self.amount = amount | self.currency = currency
+      [redacted:high-entropy].py:__init__ 
+
+[1] return f'PartialRefundRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      [redacted:high-entropy].py:__repr__ 
+
+[1] if factor < 0:     raise ValueError('factor must not be negative') | log.debug('scaled_return %s', amount) | return round_money(amount * factor, currency)
+      ledgerly/refunds/returns.py:scaled_return 
+
+[1] if days < 0:     raise ValueError('days must not be negative') | log.debug('accrued_return %s', balance) | return round_money(balance * annual_rate / 100 * days / 365, currency)
+      ledgerly/refunds/returns.py:accrued_return 
+
+[1] log.debug('format_return %s', amount) | return '%.*f %s' % (EXPONENT[currency], amount, currency)
+      ledgerly/refunds/returns.py:format_return 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('net_return %s', gross) | return gross - round_money(gross * pct / 100, currency)
+      ledgerly/refunds/returns.py:net_return 
+
+[1] log.debug('total_return %s', amounts) | return round_money(sum(amounts), currency)
+      ledgerly/refunds/returns.py:total_return 
+
+[1] self.ref = normalize_return_ref(ref) | self.amount = amount | self.currency = currency
+      ledgerly/refunds/returns.py:__init__ 
+
+[1] return f'ReturnRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      ledgerly/refunds/returns.py:__repr__ 
+
+[1] log.debug('aging_settled %s', paid) | return abs(paid - due) < 0.005
+      [redacted:high-entropy].py:aging_settled 
+
+[1] if factor < 0:     raise ValueError('factor must not be negative') | log.debug('scaled_aging %s', amount) | return round_money(amount * factor, currency)
+      [redacted:high-entropy].py:scaled_aging 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('net_aging %s', gross) | return gross - round_money(gross * pct / 100, currency)
+      [redacted:high-entropy].py:net_aging 
+
+[1] if days < 0:     raise ValueError('days must not be negative') | log.debug('accrued_aging %s', balance) | return round_money(balance * annual_rate / 100 * days / 365, currency)
+      [redacted:high-entropy].py:accrued_aging 
+
+[1] log.debug('total_aging %s', amounts) | return round_money(sum(amounts), currency)
+      [redacted:high-entropy].py:total_aging 
+
+[1] self.ref = normalize_aging_ref(ref) | self.amount = amount | self.currency = currency
+      [redacted:high-entropy].py:__init__ 
+
+[1] return f'AgingRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      [redacted:high-entropy].py:__repr__ 
+
+[1] log.debug('total_statement %s', amounts) | return round_money(sum(amounts), currency)
+      [redacted:high-entropy].py:total_statement 
+
+[1] log.debug('statement_settled %s', paid) | return abs(paid - due) < 0.005
+      [redacted:high-entropy].py:statement_settled 
+
+[1] log.debug('statement_exceeds %s', amount) | return amount > limit
+      [redacted:high-entropy].py:statement_exceeds 
+
+[1] if parts <= 0:     raise ValueError('parts must be positive') | log.debug('split_statement %s', amount) | share = round_money(amount / parts, currency) | return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+      [redacted:high-entropy].py:split_statement 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('net_statement %s', gross) | return gross - round_money(gross * pct / 100, currency)
+      [redacted:high-entropy].py:net_statement 
+
+[1] self.ref = [redacted:high-entropy](ref) | self.amount = amount | self.currency = currency
+      [redacted:high-entropy].py:__init__ 
+
+[1] return f'StatementRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      [redacted:high-entropy].py:__repr__ 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('capped_summary %s', amount) | return min(round_money(amount * pct / 100, currency), cap)
+      [redacted:high-entropy].py:capped_summary 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('net_summary %s', gross) | return gross - round_money(gross * pct / 100, currency)
+      [redacted:high-entropy].py:net_summary 
+
+[1] log.debug('summary_settled %s', paid) | return abs(paid - due) < 0.005
+      [redacted:high-entropy].py:summary_settled 
+
+[1] log.debug('summary_exceeds %s', amount) | return amount > limit
+      [redacted:high-entropy].py:summary_exceeds 
+
+[1] if factor < 0:     raise ValueError('factor must not be negative') | log.debug('scaled_summary %s', amount) | return round_money(amount * factor, currency)
+      [redacted:high-entropy].py:scaled_summary 
+
+[1] self.ref = [redacted:high-entropy](ref) | self.amount = amount | self.currency = currency
+      [redacted:high-entropy].py:__init__ 
+
+[1] return f'SummaryRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      [redacted:high-entropy].py:__repr__ 
+
+[1] if factor < 0:     raise ValueError('factor must not be negative') | log.debug('scaled_exemption %s', amount) | return round_money(amount * factor, currency)
+      [redacted:high-entropy].py:scaled_exemption 
+
+[1] if days < 0:     raise ValueError('days must not be negative') | log.debug('accrued_exemption %s', balance) | return round_money(balance * annual_rate / 100 * days / 365, currency)
+      [redacted:high-entropy].py:accrued_exemption 
+
+[1] log.debug('total_exemption %s', amounts) | return round_money(sum(amounts), currency)
+      [redacted:high-entropy].py:total_exemption 
+
+[1] if parts <= 0:     raise ValueError('parts must be positive') | log.debug('split_exemption %s', amount) | share = round_money(amount / parts, currency) | return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+      [redacted:high-entropy].py:split_exemption 
+
+[1] log.debug('exemption_exceeds %s', amount) | return amount > limit
+      [redacted:high-entropy].py:exemption_exceeds 
+
+[1] self.ref = [redacted:high-entropy](ref) | self.amount = amount | self.currency = currency
+      [redacted:high-entropy].py:__init__ 
+
+[1] return f'ExemptionRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      [redacted:high-entropy].py:__repr__ 
+
+[1] if days < 0:     raise ValueError('days must not be negative') | log.debug('accrued_reverse_charge %s', balance) | return round_money(balance * annual_rate / 100 * days / 365, currency)
+      [redacted:high-entropy].py:accrued_reverse_charge 
+
+[1] log.debug('reverse_charge_settled %s', paid) | return abs(paid - due) < 0.005
+      [redacted:high-entropy].py:reverse_charge_settled 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('capped_reverse_charge %s', amount) | return min(round_money(amount * pct / 100, currency), cap)
+      [redacted:high-entropy].py:capped_reverse_charge 
+
+[1] if parts <= 0:     raise ValueError('parts must be positive') | log.debug('split_reverse_charge %s', amount) | share = round_money(amount / parts, currency) | return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+      [redacted:high-entropy].py:split_reverse_charge 
+
+[1] log.debug('reverse_charge_exceeds %s', amount) | return amount > limit
+      [redacted:high-entropy].py:reverse_charge_exceeds 
+
+[1] self.ref = [redacted:high-entropy](ref) | self.amount = amount | self.currency = currency
+      [redacted:high-entropy].py:__init__ 
+
+[1] return f'ReverseChargeRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      [redacted:high-entropy].py:__repr__ 
+
+[1] log.debug('sales_tax_settled %s', paid) | return abs(paid - due) < 0.005
+      ledgerly/tax/sales_tax.py:sales_tax_settled 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('net_sales_tax %s', gross) | return gross - round_money(gross * pct / 100, currency)
+      ledgerly/tax/sales_tax.py:net_sales_tax 
+
+[1] log.debug('format_sales_tax %s', amount) | return '%.*f %s' % (EXPONENT[currency], amount, currency)
+      ledgerly/tax/sales_tax.py:format_sales_tax 
+
+[1] if days < 0:     raise ValueError('days must not be negative') | log.debug('accrued_sales_tax %s', balance) | return round_money(balance * annual_rate / 100 * days / 365, currency)
+      ledgerly/tax/sales_tax.py:accrued_sales_tax 
+
+[1] if factor < 0:     raise ValueError('factor must not be negative') | log.debug('scaled_sales_tax %s', amount) | return round_money(amount * factor, currency)
+      ledgerly/tax/sales_tax.py:scaled_sales_tax 
+
+[1] self.ref = [redacted:high-entropy](ref) | self.amount = amount | self.currency = currency
+      ledgerly/tax/sales_tax.py:__init__ 
+
+[1] return f'SalesTaxRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      ledgerly/tax/sales_tax.py:__repr__ 
+
+[1] log.debug('format_vat %s', amount) | return '%.*f %s' % (EXPONENT[currency], amount, currency)
+      ledgerly/tax/vat.py:format_vat 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('capped_vat %s', amount) | return min(round_money(amount * pct / 100, currency), cap)
+      ledgerly/tax/vat.py:capped_vat 
+
+[1] log.debug('vat_exceeds %s', amount) | return amount > limit
+      ledgerly/tax/vat.py:vat_exceeds 
+
+[1] log.debug('total_vat %s', amounts) | return round_money(sum(amounts), currency)
+      ledgerly/tax/vat.py:total_vat 
+
+[1] if parts <= 0:     raise ValueError('parts must be positive') | log.debug('split_vat %s', amount) | share = round_money(amount / parts, currency) | return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+      ledgerly/tax/vat.py:split_vat 
+
+[1] self.ref = normalize_vat_ref(ref) | self.amount = amount | self.currency = currency
+      ledgerly/tax/vat.py:__init__ 
+
+[1] return f'VatRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      ledgerly/tax/vat.py:__repr__ 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('net_withholding %s', gross) | return gross - round_money(gross * pct / 100, currency)
+      [redacted:high-entropy].py:net_withholding 
+
+[1] if factor < 0:     raise ValueError('factor must not be negative') | log.debug('scaled_withholding %s', amount) | return round_money(amount * factor, currency)
+      [redacted:high-entropy].py:scaled_withholding 
+
+[1] log.debug('withholding_exceeds %s', amount) | return amount > limit
+      [redacted:high-entropy].py:withholding_exceeds 
+
+[1] if parts <= 0:     raise ValueError('parts must be positive') | log.debug('split_withholding %s', amount) | share = round_money(amount / parts, currency) | return [share] * (parts - 1) + [round_money(amount - share * (parts - 1), currency)]
+      [redacted:high-entropy].py:split_withholding 
+
+[1] if not 0 <= pct <= 100:     raise ValueError('pct must be between 0 and 100') | log.debug('[redacted:high-entropy] %s', amount) | return round_money(amount * pct / 100, currency)
+      [redacted:high-entropy].py:[redacted:high-entropy] 
+
+[1] self.ref = [redacted:high-entropy](ref) | self.amount = amount | self.currency = currency
+      [redacted:high-entropy].py:__init__ 
+
+[1] return f'WithholdingRecord({self.ref!r}, {self.amount!r}, {self.currency!r})'
+      [redacted:high-entropy].py:__repr__ 
+
+[1] return round(x, EXPONENT[currency])
+      ledgerly/util.py:round_money 
+
+[1] return {'amount': convert_float(amount, src, dst), 'currency': dst}
+      legacy/v1_api.py:quote_v1 
+
+[1] return [quote_v1(a, src, dst) for a in amounts]
+      legacy/v1_api.py:batch_quote_v1 
+
+[exit code: 0]

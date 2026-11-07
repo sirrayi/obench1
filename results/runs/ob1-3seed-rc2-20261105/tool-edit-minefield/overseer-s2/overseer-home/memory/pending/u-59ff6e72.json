@@ -1,0 +1,22 @@
+{
+  "id": "u-59ff6e72",
+  "op": "add",
+  "target": "profile/scoped-edits-only.md",
+  "target_sha256": null,
+  "payload": {
+    "added": "2026-11-06",
+    "cues": [
+      "change nothing else",
+      "only this edit",
+      "minimal diff",
+      "make these edits"
+    ],
+    "layer": "profile",
+    "slug": "scoped-edits-only",
+    "source": "overseer:session/p1#e89",
+    "text": "Expects edits scoped strictly to what was asked: change only the named lines or targets and leave the rest of the file intact — surrounding code, comments, formatting, line endings and encoding included. No drive-by refactors, extra renames, or \"while I'm here\" fixes. When a request enumerates edits, treat the list as exhaustive."
+  },
+  "origin": "review:session:p1",
+  "reason": "review add",
+  "created": "2026-11-06T00:41:17Z"
+}

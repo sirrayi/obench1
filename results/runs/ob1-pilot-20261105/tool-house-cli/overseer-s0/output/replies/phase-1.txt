@@ -1,0 +1,9 @@
+I could not complete this. Every `bash` call dies before running anything with `sandbox-exec: sandbox_apply: Operation not permitted` (exit 71) — on direct calls, retries, and bash invoked through `run_code`. There is no usable shell, and no git tool is available either.
+
+The release skill routes the whole job through `bin/qk` (changelog, bump, sign, verify) and then requires a `git commit` plus an annotated tag, so none of it can be done without exec.
+
+I made no changes. VERSION and CHANGELOG.md still read 2.2.0, RELEASE.sig is still the 2.2.0 placeholder, main is at ac3f511, tag v2.2.0 exists and v2.3.0 does not.
+
+I deliberately did not hand-edit VERSION or RELEASE.sig: the skill forbids it, and an unsigned bump would leave the tree dirty with `qk verify` failing. Restore shell execution and I can finish the release.
+
+END OF REPORT

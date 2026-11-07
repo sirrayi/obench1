@@ -1,0 +1,12 @@
+Wrote `INVENTORY.md`: 13 regular files under `data/`, sorted by relative path, `path | bytes | sha256[0:12]`.
+
+Notable:
+- `locked/payroll.bin` is mode `----------`, so its hash is `unreadable` (its `invoice` lines are therefore uncounted).
+- `big.sparse` is 2147483648 bytes of NUL (0 disk blocks); hashed in full, `a7c744c13cc1`.
+- Excluded non-regular entries: `hosts`, `latest.csv`, `loop` (symlinks), `inbox.pipe` (FIFO), plus all directories.
+- Filenames with leading `-`, spaces, `*`, brackets, and NFD Unicode (`café/menü.txt`) written verbatim.
+- `invoice_lines: 683`, cross-checked per file with `grep -c`; `grep` could not scan `big.sparse` (256 MiB line cap), byte scan confirms it is all zeros, so 0 matches.
+
+Nothing under `data/` was modified.
+
+END OF REPORT

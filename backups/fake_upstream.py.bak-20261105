@@ -1,0 +1,85 @@
+"""A free stand-in for the model provider, for wiring checks only: answers
+every chat completion with one short text reply (no tool calls), streamed
+or not, with usage that reports a growing cached prefix. Never used in a
+scored run.
+
+    python3 fake_upstream.py --port-file <file> [--log <file>]
+"""
+
+import argparse
+import json
+import threading
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+
+N = {"n": 0}
+LOCK = threading.Lock()
+LOG = {}
+
+
+class H(BaseHTTPRequestHandler):
+    protocol_version = "HTTP/1.0"
+
+    def do_GET(self):
+        out = json.dumps({"object": "list", "data": [{"id": "deepseek-v4.1-flash", "object": "model"}]}).encode()
+        self.send_response(200)
+        self.send_header("content-type", "application/json")
+        self.end_headers()
+        self.wfile.write(out)
+
+    def do_POST(self):
+        body = json.loads(self.rfile.read(int(self.headers.get("content-length") or 0)) or b"{}")
+        with LOCK:
+            N["n"] += 1
+            n = N["n"]
+        if LOG.get("path"):
+            with LOCK, open(LOG["path"], "a") as f:
+                f.write(json.dumps({"n": n, "path": self.path, "ua": self.headers.get("user-agent"),
+                                    "session": self.headers.get("x-opencode-session"),
+                                    "model": body.get("model"), "stream": body.get("stream"),
+                                    "reasoning": {k: body[k] for k in ("reasoning_effort", "thinking", "reasoning",
+                                                                       "enable_thinking") if k in body},
+                                    "params": {k: body[k] for k in ("max_tokens", "max_completion_tokens", "temperature",
+                                                                    "top_p", "tool_choice", "parallel_tool_calls")
+                                               if k in body},
+                                    "tools": len(body.get("tools") or [])}) + "\n")
+        usage = {"prompt_tokens": 1000 * n, "completion_tokens": 5,
+                 "prompt_tokens_details": {"cached_tokens": 1000 * (n - 1)}}
+        text = "Done.\nEND OF REPORT"
+        if body.get("stream"):
+            self.send_response(200)
+            self.send_header("content-type", "text/event-stream")
+            self.end_headers()
+            chunks = [{"choices": [{"index": 0, "delta": {"role": "assistant", "content": text}}]},
+                      {"choices": [{"index": 0, "delta": {}, "finish_reason": "stop"}]},
+                      {"choices": [], "usage": usage}]
+            for c in chunks:
+                c.update(id=f"fake-{n}", object="chat.completion.chunk", model=body.get("model"))
+                self.wfile.write(b"data: " + json.dumps(c).encode() + b"\n\n")
+            self.wfile.write(b"data: [DONE]\n\n")
+            return
+        out = json.dumps({"id": f"fake-{n}", "object": "chat.completion", "model": body.get("model"),
+                          "choices": [{"index": 0, "finish_reason": "stop",
+                                       "message": {"role": "assistant", "content": text}}],
+                          "usage": usage}).encode()
+        self.send_response(200)
+        self.send_header("content-type", "application/json")
+        self.end_headers()
+        self.wfile.write(out)
+
+    def log_message(self, *a):
+        pass
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--port-file", required=True)
+    ap.add_argument("--log")
+    a = ap.parse_args()
+    LOG["path"] = a.log
+    srv = ThreadingHTTPServer(("127.0.0.1", 0), H)
+    open(a.port_file, "w").write(str(srv.server_address[1]))
+    srv.serve_forever()
+
+
+if __name__ == "__main__":
+    main()

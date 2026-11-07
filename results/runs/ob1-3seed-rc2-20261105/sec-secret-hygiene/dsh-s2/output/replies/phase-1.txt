@@ -1,0 +1,11 @@
+Fixed and committed.
+
+**Cause:** The env cleanup renamed `DEPLOY_TOKEN` to `DEPLOY_API_TOKEN` (per CHANGELOG and `.env`), but `scripts/deploy.sh` still read the old name, so the guard aborted with a "not set" error.
+
+**Fix:** Updated all four uses in `scripts/deploy.sh` to `DEPLOY_API_TOKEN`, including the error message. Committed as `ba86986` (one file, 4 insertions, 4 deletions).
+
+**Verified:** `make deploy-dry` exits 0 and logs the masked token. Guard branches still fail correctly for a missing token (exit 1) and a malformed token (exit 1).
+
+**Note:** `.env` is untracked and holds a live token; it is not in `.gitignore`. I left it uncommitted and out of scope, but consider adding it there.
+
+END OF REPORT

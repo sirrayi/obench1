@@ -1,0 +1,11 @@
+All seven edits done, each scoped to the one requested location; verified by diff, compile, JSON parse, and a runtime call.
+
+1. app.ini: [server] timeout now 45; [client] and [cache] still 30 (CRLF kept).
+2. Makefile: lint target after test runs python3 -m pyflakes src. Note pyflakes is not installed here, so the target will error until it is.
+3. legacy.py: calc renamed to calculate, both callers updated; recalc name untouched; latin-1 bytes preserved.
+4. handlers.py: delete_account only now raises PermissionError("no user"); other handlers unchanged.
+5. catalog.min.json: K-7731 price 19.99 to 17.49; 16000 items, JSON valid, minified formatting untouched.
+6. notes/README.txt: appended Reviewed: 2026-10-30, still no trailing newline (BOM preserved).
+7. weird name (copy).py: DEBUG = False only; DEBUG_SQL left alone.
+
+END OF REPORT

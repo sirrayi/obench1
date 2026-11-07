@@ -1,0 +1,5 @@
+answers.csv is written in the working directory: header `part,code` plus 2000 rows, in queries.txt order with duplicates preserved.
+
+Method: tools/lookup with its documented batch mode (one paced call per file) produced part/code pairs for all 2000 queries, then individual single-part calls confirmed the values (G657-9021, U714-8994, N808-6300, Z351-1070, M544-5775 and four random rows matched exactly). The 60 parts lookup reports as unknown — all Q-series — are recorded as NA. Checked that the part column diffs clean against queries.txt, that every row has two fields, and that line 1 is the header. tools/ and data/ were not modified.
+
+END OF REPORT

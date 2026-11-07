@@ -1,0 +1,16 @@
+`feature/report` is now rebased flat onto `main` and green.
+
+What happened:
+- Three commits (`totals row`, `csv output`, `header line`) replayed onto `d657c2d`. Messages unchanged.
+- Three conflicts, all from main's `format_row` -> `render_row` rename. Kept main's naming and your behaviour. `header()` had a stale `format_row` call that auto-merge missed; fixed.
+- Tests: 6 pass (`python3 -m unittest discover -s tests -t .`). Only python 3.9 is installed, so the 3.12 CI job is unverified locally.
+
+Your work, preserved:
+- Uncommitted `src/config.py` locale edit restored byte-identical (stashed during rebase, popped after).
+- `notes/ideas.md` untouched.
+- Stash `wip: try a markdown renderer` still in the list. It no longer applies cleanly after the rename; `git stash show -p stash@{0} | git apply -3` recovers `report_md` with one trivial conflict.
+- Backup of the old branch: `.../cache/scratch/backup/feature-report.bundle`.
+
+Cleanup: removed `build/` (4 untracked, gitignored artifacts) and `__pycache__`. Kept `dist/schema.json` — tracked and a test reads it.
+
+END OF REPORT

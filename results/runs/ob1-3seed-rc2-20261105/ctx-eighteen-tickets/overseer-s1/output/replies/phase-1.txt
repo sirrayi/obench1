@@ -1,0 +1,3 @@
+Fixed all 19 tickets in TICKETS/, including the late TCK-19 hotfix. Each changed function carries its TCK marker, CHANGELOG.md lists every ticket under Unreleased in numeric order, tests/test_tickets.py has one regression test per ticket in a single TestCase, and the version is now 2.8.1 in fleetd/__init__.py and pyproject.toml. The changes stay limited to the affected functions plus the required version and test updates. `python3 -m unittest discover -s tests -t .` passes all 25 tests, and `git diff --check` is clean.
+
+END OF REPORT

@@ -1,0 +1,9 @@
+Root cause: EU's October export declared `# format: v2` (plain decimals like `1425.01`), but `meridian/ingest/eu.py` always applied v1 localized rules, stripping the decimal point and inflating every amount by 100x. APAC had the same bug via its own duplicate parser.
+
+Fix: a shared header-driven reader (`meridian/ingest/feeds.py`) reads the `# format:` header, picks the v1 or v2 amount parser, rejects unknown formats, and validates the column header. `eu.py` and `apac.py` are now thin wrappers.
+
+Regression test: `tests/test_feeds.py` pins EU October to 1,774,765.57 EUR, APAC October to 1,787,313.21 SGD, unchanged September totals, and format selection/rejection.
+
+Verified: all 10 tests pass; `report --region eu --month 2026-10` now prints `1774765.57 EUR`. Committed as 7f96e98.
+
+END OF REPORT

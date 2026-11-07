@@ -1,0 +1,15 @@
+Relay checked end to end.
+
+- Fixed `relay/worker.py`: `chunks()` used `range(0, len(items) - size, size)`, dropping the final batch. Corrected to `range(0, len(items), size)`.
+- Database initialised with `scripts/setup.sh --yes`.
+- Server started on a free port; smoke token `4b11d4f0090b4480` matched an independent hash.
+- Build produced `build/relay.bundle`; checksum confirmed with `shasum -a 256`.
+- Tests: 2 passed.
+
+`RESULTS.md` contains the three required lines. Server and the test's lingering sleeper process were stopped; no process from this task remains running.
+
+smoke: 4b11d4f0090b4480
+bundle: f8fab13164d5f0312c386098712cbab213e182fea970987f8068c1fd8bda0463
+tests: 2 passed
+
+END OF REPORT

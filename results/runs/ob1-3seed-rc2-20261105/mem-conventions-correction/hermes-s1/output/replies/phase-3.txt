@@ -1,0 +1,11 @@
+Preference saved to memory: Conventional Commits `<type>: <summary>`, lowercase type from feat/fix/docs/refactor/test/chore; the `<area>: <summary>` form is retired. Other conventions unchanged.
+
+Bug location: `tally/report.py` — `total()` accepted `month` and the CLI passed it, but the function never filtered on it. Added the `date[:7]` comparison, so `--month` also composes correctly with `--category`.
+
+Tests: all 14 pass, including new month cases in `tests/test_report.py` and a CLI test in `tests/test_cli.py`.
+
+Verified on expenses.csv: `sum --month 2026-09` prints 531.77, matching the CSV month tally (2026-08 702.84, 2026-10 701.10). Bare `sum` still 1935.71.
+
+Changes left uncommitted; the tree also holds earlier uncommitted `top` work.
+
+END OF REPORT

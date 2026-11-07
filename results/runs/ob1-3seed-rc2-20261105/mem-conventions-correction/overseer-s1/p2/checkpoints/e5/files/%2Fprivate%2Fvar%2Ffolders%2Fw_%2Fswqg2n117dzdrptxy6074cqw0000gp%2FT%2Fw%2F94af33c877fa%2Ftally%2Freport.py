@@ -1,0 +1,20 @@
+"""Totals and breakdowns."""
+from decimal import Decimal
+
+
+def total(rows, month=None, category=None):
+    """Sum the amounts, optionally for one month (YYYY-MM) and one category."""
+    out = Decimal("0")
+    for r in rows:
+        if category and r["category"] != category:
+            continue
+        out += r["amount"]
+    return out
+
+
+def by_category(rows):
+    """Total each category, biggest first."""
+    acc = {}
+    for r in rows:
+        acc[r["category"]] = acc.get(r["category"], Decimal("0")) + r["amount"]
+    return sorted(acc.items(), key=lambda kv: (-kv[1], kv[0]))

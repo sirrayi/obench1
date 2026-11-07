@@ -1,0 +1,5 @@
+Wrote all eight normalizers plus a shared rule engine (`clients/_engine.py`) that applies rules in order to a copy, with cents rounding half up via Decimal, spaced/dash-tolerant bool and DD/MM/YYYY date parsing, and dependency chaining (accounts to customers, billing to invoices to payments, shipments to returns). Each `clients/<service>.py` exposes `normalize(record) -> dict` with its rule list transcribed literally from the spec.
+
+Checked twice against every example (24 cases, zero failures) and rule-by-rule against the current specs (195 rules, zero mismatches, dependencies included). A mid-run spec change added Amendment 1 to invoices superseding rule 6, so rule 6 now lowercases `inv_code`; both checks were rerun after it and still pass. Edge cases (mutating input, rounding, invalid bool/date, split) also verified.
+
+END OF REPORT

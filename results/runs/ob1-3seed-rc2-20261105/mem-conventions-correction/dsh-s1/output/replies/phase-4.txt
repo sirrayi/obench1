@@ -1,0 +1,9 @@
+Implemented and committed as `db379c9` (`cli: add export --csv command`).
+
+- `report.sorted_by_date(rows)`: stable sort by date, so same-date rows keep file order; input list untouched.
+- `store.write(rows, path)`: writes `date,amount,category,note` header, amounts as 2 decimals, LF line endings, proper CSV quoting; shares a `_csv_row` formatter with `append`.
+- `cli.py`: `export --csv PATH` (required; missing flag exits 2) loads the db and writes the sorted export silently.
+- Tests added for sorting, stability, quoting, 2-decimal formatting, db left unchanged; 23 tests pass. Verified end-to-end on `expenses.csv` (40 rows, 2026-08-08 first).
+- README updated; CHANGELOG left alone since release tooling generates it.
+
+END OF REPORT

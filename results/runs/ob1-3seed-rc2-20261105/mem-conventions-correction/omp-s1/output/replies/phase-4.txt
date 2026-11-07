@@ -1,0 +1,11 @@
+Implemented `tally export --csv PATH`.
+
+Changes:
+- `tally/store.py`: `export_csv()` writes `date,amount,category,note` with 2-decimal amounts, stably sorted by date.
+- `tally/cli.py`: new `export` subcommand with required `--csv PATH`.
+- `tests/test_cli.py`: covers date sorting, same-date file-order stability, and empty export header.
+- `README.md`: documents the command.
+
+Verified: all 12 tests pass; real export of `expenses.csv` produced 40 sorted rows with exact header, 2-decimal amounts, and preserved tie order.
+
+END OF REPORT

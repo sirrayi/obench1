@@ -1,0 +1,1451 @@
+./RENAME.md:11:       warnings.warn("fetch_user is deprecated, use load_account (removal in 4.0)", DeprecationWarning, stacklevel=2)
+./RENAME.md:19:       - Renamed `accounts.fetch_user` to `accounts.load_account`; `fetch_user` is deprecated and goes away in 4.0.
+./RENAME.md:1:# Rename: accounts.fetch_user → accounts.load_account (3.2)
+./RENAME.md:22:   - `fetch_user_count`, and anything else whose name merely contains fetch_user;
+./RENAME.md:23:   - other things called fetch_user that aren't this function (there are some);
+./RENAME.md:24:   - strings that aren't a lookup of the function: metric names (`accounts.fetch_user.latency` and friends feed
+./RENAME.md:28:   Comments that mention fetch_user may be updated or left. A file that doesn't reference the function
+./RENAME.md:3:`harbor.accounts.fetch_user` becomes `harbor.accounts.load_account`. Same behaviour, new name.
+./RENAME.md:5:1. Every reference to `harbor.accounts.fetch_user` in harbor/ and tests/ moves to `load_account`: calls,
+./RENAME.md:8:2. `fetch_user` stays importable from harbor.accounts for one release, as a wrapper that warns on every call
+./docs/API.md:16:### integrations.github.GitHubClient.fetch_user(login)
+./docs/API.md:3:### accounts.fetch_user(user_id, *, include_deleted=False)
+./docs/API.md:8:### accounts.fetch_user_count()
+.[redacted:high-entropy].py:18:def fetch_user_count():
+.[redacted:high-entropy].py:3:__all__ = ["fetch_user", "fetch_user_count", "account_tiers"]
+.[redacted:high-entropy].py:8:def fetch_user(user_id, *, include_deleted=False):
+./harbor/admin/shell.py:13:    return "%s:%s" % (email, fetch_user(email)["role"])
+./harbor/admin/shell.py:17:    u = accounts.fetch_user(uid)
+./harbor/admin/shell.py:7:def fetch_user(email):
+.[redacted:high-entropy].py:59:    u = getattr(accounts, "fetch_user")(uid)
+.[redacted:high-entropy].py:5:from harbor.accounts import fetch_user_count
+.[redacted:high-entropy].py:61:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:67:    return fetch_user_count() + 63
+.[redacted:high-entropy].py:58:    u = accounts.fetch_user(uid)
+.[redacted:high-entropy].py:34:    return fetch_user_count() + 85
+.[redacted:high-entropy].py:4:from harbor.accounts import fetch_user_count
+.[redacted:high-entropy].py:47:def prefetch_user(uid):
+.[redacted:high-entropy].py:34:    return fetch_user_count() + 33
+.[redacted:high-entropy].py:4:from harbor.accounts import fetch_user_count
+.[redacted:high-entropy].py:62:    u = accounts.fetch_user(uid)
+.[redacted:high-entropy].py:64:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:6:    fetch_user,
+.[redacted:high-entropy].py:70:    u = fetch_user(uid)
+.[redacted:high-entropy].py:72:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:78:    return fetch_user_count() + 32
+.[redacted:high-entropy].py:7:    fetch_user_count,
+.[redacted:high-entropy].py:81:def prefetch_user(uid):
+.[redacted:high-entropy].py:10:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:62:    u = accounts.fetch_user(uid)
+.[redacted:high-entropy].py:69:    u = acct.fetch_user(uid)
+.[redacted:high-entropy].py:6:from harbor.accounts import fetch_user as get_user
+.[redacted:high-entropy].py:35:    u = acct.fetch_user(uid)
+.[redacted:high-entropy].py:42:    u = fetch_user(uid)
+.[redacted:high-entropy].py:5:from harbor.accounts import fetch_user
+.[redacted:high-entropy].py:59:    u = acct.fetch_user(uid)
+.[redacted:high-entropy].py:66:    return telemetry.timer("accounts.fetch_user.errors")
+.[redacted:high-entropy].py:52:def merge_default_owner(uid, loader=accounts.fetch_user):
+.[redacted:high-entropy].py:60:    u = fetch_user(uid)
+.[redacted:high-entropy].py:9:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:44:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:4:from harbor.accounts import fetch_user as get_user
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:50:    u = fetch_user(uid, include_deleted=True)
+.[redacted:high-entropy].py:4:from harbor.accounts import fetch_user
+.[redacted:high-entropy].py:58:    u = fetch_user(uid)
+.[redacted:high-entropy].py:42:    u = getattr(accounts, "fetch_user")(uid, include_deleted=True)
+.[redacted:high-entropy].py:59:    u = fetch_user(uid)
+.[redacted:high-entropy].py:5:from harbor.accounts import fetch_user
+.[redacted:high-entropy].py:66:    return telemetry.timer("accounts.fetch_user.errors")
+.[redacted:high-entropy].py:50:    u = accounts.fetch_user(uid, include_deleted=True)
+.[redacted:high-entropy].py:52:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/audit/api.py:33:def api_default_owner(uid, loader=accounts.fetch_user):
+./harbor/audit/cron.py:34:    u = fetch_user(uid)
+./harbor/audit/cron.py:4:from harbor.accounts import fetch_user
+.[redacted:high-entropy].py:45:    u = accounts.fetch_user(uid)
+.[redacted:high-entropy].py:52:    u = fetch_user(uid, include_deleted=True)
+.[redacted:high-entropy].py:58:def [redacted:high-entropy](uid, loader=accounts.fetch_user):
+.[redacted:high-entropy].py:9:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:52:    u = getattr(accounts, "fetch_user")(uid, include_deleted=True)
+.[redacted:high-entropy].py:54:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/audit/merge.py:42:    u = fetch_user(uid, include_deleted=True)
+./harbor/audit/merge.py:4:from harbor.accounts import fetch_user
+.[redacted:high-entropy].py:10:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+.[redacted:high-entropy].py:12:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:55:    u = accounts.fetch_user(uid, include_deleted=True)
+.[redacted:high-entropy].py:62:    u = acct.fetch_user(uid)
+.[redacted:high-entropy].py:69:    return telemetry.timer("accounts.fetch_user.calls")
+.[redacted:high-entropy].py:57:def [redacted:high-entropy](uid, loader=accounts.fetch_user):
+.[redacted:high-entropy].py:60:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/audit/retry.py:4:from harbor.accounts import fetch_user_count
+./harbor/audit/retry.py:58:    return fetch_user_count() + 89
+./harbor/audit/rules.py:52:    u = acct.fetch_user(uid, include_deleted=True)
+./harbor/audit/rules.py:54:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/audit/rules.py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:37:    u = fetch_user(uid, include_deleted=True)
+.[redacted:high-entropy].py:39:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:45:    return fetch_user_count() + 22
+.[redacted:high-entropy].py:5:    fetch_user,
+.[redacted:high-entropy].py:6:    fetch_user_count,
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:45:    u = acct.fetch_user(uid, include_deleted=True)
+.[redacted:high-entropy].py:47:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:55:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:60:def [redacted:high-entropy](uid, loader=accounts.fetch_user):
+.[redacted:high-entropy].py:63:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:9:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+./harbor/audit/util.py:34:    u = accounts.fetch_user(uid, include_deleted=True)
+./harbor/audit/util.py:40:def prefetch_user(uid):
+.[redacted:high-entropy].py:34:    return telemetry.timer("accounts.fetch_user.errors")
+.[redacted:high-entropy].py:54:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:8:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+.[redacted:high-entropy].py:45:    u = acct.fetch_user(uid, include_deleted=True)
+.[redacted:high-entropy].py:47:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:55:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:5:from harbor.accounts import fetch_user as get_user
+.[redacted:high-entropy].py:9:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:4:from harbor.accounts import fetch_user_count
+.[redacted:high-entropy].py:58:    return fetch_user_count() + 6
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:4:from harbor.accounts import fetch_user as get_user
+.[redacted:high-entropy].py:44:    u = fetch_user(uid)
+.[redacted:high-entropy].py:50:def queue_default_owner(uid, loader=accounts.fetch_user):
+.[redacted:high-entropy].py:9:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+.[redacted:high-entropy].py:40:def prefetch_user(uid):
+.[redacted:high-entropy].py:4:from harbor.accounts import fetch_user as get_user
+./harbor/billing/signals.py:34:    return telemetry.timer("accounts.fetch_user.latency")
+.[redacted:high-entropy].py:58:    return telemetry.timer("accounts.fetch_user.errors")
+.[redacted:high-entropy].py:4:from harbor.accounts import fetch_user_count
+.[redacted:high-entropy].py:50:    return fetch_user_count() + 90
+.[redacted:high-entropy].py:8:_load_api_partial_owner = functools.partial(accounts.fetch_user, include_deleted=True)
+.[redacted:high-entropy].py:51:    u = fetch_user(uid, include_deleted=True)
+.[redacted:high-entropy].py:58:    return telemetry.timer("accounts.fetch_user.calls")
+.[redacted:high-entropy].py:5:from harbor.accounts import fetch_user
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/comments/cache.py:34:def cache_default_owner(uid, loader=accounts.fetch_user):
+./harbor/comments/cache.py:42:    u = acct.fetch_user(uid, include_deleted=True)
+./harbor/comments/core.py:47:def prefetch_user(uid):
+./harbor/comments/cron.py:34:    u = accounts.fetch_user(uid)
+./harbor/comments/cron.py:41:    u = getattr(accounts, "fetch_user")(uid)
+.[redacted:high-entropy].py:58:    u = acct.fetch_user(uid)
+.[redacted:high-entropy].py:45:    return fetch_user_count() + 24
+.[redacted:high-entropy].py:49:    return telemetry.timer("accounts.fetch_user.calls")
+.[redacted:high-entropy].py:5:from harbor.accounts import fetch_user_count
+.[redacted:high-entropy].py:9:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:34:    u = fetch_user(uid)
+.[redacted:high-entropy].py:4:from harbor.accounts import fetch_user
+.[redacted:high-entropy].py:4:from harbor.accounts import fetch_user
+.[redacted:high-entropy].py:50:    u = fetch_user(uid)
+.[redacted:high-entropy].py:56:def prefetch_user(uid):
+.[redacted:high-entropy].py:58:    u = fetch_user(uid)
+.[redacted:high-entropy].py:60:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:4:from harbor.accounts import fetch_user
+.[redacted:high-entropy].py:50:    u = fetch_user(uid)
+.[redacted:high-entropy].py:52:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/comments/store.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/export/batch.py:42:def batch_default_owner(uid, loader=accounts.fetch_user):
+./harbor/export/batch.py:5:from harbor.accounts import fetch_user as get_user
+./harbor/export/cache.py:58:    u = accounts.fetch_user(uid)
+./harbor/export/cache.py:60:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/export/forms.py:39:def prefetch_user(uid):
+./harbor/export/merge.py:58:    return telemetry.timer("accounts.fetch_user.latency")
+./harbor/export/notes.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/export/owners.py:42:    return fetch_user_count() + 15
+./harbor/export/owners.py:45:def prefetch_user(uid):
+./harbor/export/owners.py:4:from harbor.accounts import fetch_user_count
+.[redacted:high-entropy].py:4:from harbor.accounts import fetch_user as get_user
+.[redacted:high-entropy].py:42:    u = acct.fetch_user(uid, include_deleted=True)
+.[redacted:high-entropy].py:44:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/export/queue.py:58:    u = acct.fetch_user(uid, include_deleted=True)
+./harbor/export/retry.py:35:    u = acct.fetch_user(uid, include_deleted=True)
+./harbor/export/retry.py:42:    u = accounts.fetch_user(uid)
+./harbor/export/retry.py:49:    u = getattr(accounts, "fetch_user")(uid)
+.[redacted:high-entropy].py:34:    u = getattr(accounts, "fetch_user")(uid, include_deleted=True)
+.[redacted:high-entropy].py:36:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/export/stats.py:57:def prefetch_user(uid):
+./harbor/export/stats.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/export/store.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:4:from harbor.accounts import fetch_user as get_user
+./harbor/export/tags.py:42:    return telemetry.timer("accounts.fetch_user.errors")
+./harbor/export/util.py:50:    return telemetry.timer("accounts.fetch_user.calls")
+.[redacted:high-entropy].py:34:    u = accounts.fetch_user(uid)
+./harbor/feeds/events.py:42:    u = accounts.fetch_user(uid)
+./harbor/feeds/events.py:48:def [redacted:high-entropy](uid, loader=accounts.fetch_user):
+./harbor/feeds/events.py:56:    u = getattr(accounts, "fetch_user")(uid)
+.[redacted:high-entropy].py:58:    u = accounts.fetch_user(uid, include_deleted=True)
+.[redacted:high-entropy].py:60:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:65:def prefetch_user(uid):
+./harbor/feeds/owners.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:61:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+.[redacted:high-entropy].py:63:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:9:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:34:    return telemetry.timer("accounts.fetch_user.calls")
+./harbor/feeds/retry.py:8:_load_retry_partial_owner = functools.partial(accounts.fetch_user, include_deleted=True)
+./harbor/feeds/rules.py:4:from harbor.accounts import fetch_user_count
+./harbor/feeds/rules.py:58:    return fetch_user_count() + 34
+./harbor/feeds/schema.py:4:from harbor.accounts import fetch_user as get_user
+./harbor/feeds/tasks.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/feeds/views.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/imports/api.py:34:    return telemetry.timer("accounts.fetch_user.errors")
+.[redacted:high-entropy].py:55:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:61:    u = acct.fetch_user(uid)
+.[redacted:high-entropy].py:63:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:9:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+./harbor/imports/core.py:43:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+./harbor/imports/core.py:5:from harbor.accounts import fetch_user as get_user
+./harbor/imports/cron.py:50:def cron_default_owner(uid, loader=accounts.fetch_user):
+./harbor/imports/cron.py:58:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:42:    u = acct.fetch_user(uid)
+.[redacted:high-entropy].py:42:def notes_default_owner(uid, loader=accounts.fetch_user):
+.[redacted:high-entropy].py:50:    u = fetch_user(uid)
+.[redacted:high-entropy].py:5:from harbor.accounts import fetch_user
+.[redacted:high-entropy].py:37:    u = fetch_user(uid)
+.[redacted:high-entropy].py:44:    u = accounts.fetch_user(uid)
+.[redacted:high-entropy].py:9:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:50:    u = accounts.fetch_user(uid, include_deleted=True)
+.[redacted:high-entropy].py:42:    return fetch_user_count() + 20
+.[redacted:high-entropy].py:4:from harbor.accounts import fetch_user_count
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/imports/retry.py:46:    u = fetch_user(uid, include_deleted=True)
+./harbor/imports/retry.py:48:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/imports/retry.py:54:    u = getattr(accounts, "fetch_user")(uid)
+./harbor/imports/retry.py:56:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/imports/retry.py:62:    return fetch_user_count() + 4
+./harbor/imports/retry.py:6:    fetch_user,
+./harbor/imports/retry.py:7:    fetch_user_count,
+.[redacted:high-entropy].py:43:    return fetch_user_count() + 11
+.[redacted:high-entropy].py:47:    return telemetry.timer("accounts.fetch_user.latency")
+.[redacted:high-entropy].py:5:from harbor.accounts import fetch_user_count
+.[redacted:high-entropy].py:50:    return telemetry.timer("accounts.fetch_user.errors")
+.[redacted:high-entropy].py:44:    u = fetch_user(uid, include_deleted=True)
+.[redacted:high-entropy].py:4:from harbor.accounts import fetch_user
+.[redacted:high-entropy].py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:37:    u = fetch_user(uid, include_deleted=True)
+.[redacted:high-entropy].py:44:    return fetch_user_count() + 74
+.[redacted:high-entropy].py:5:    fetch_user,
+.[redacted:high-entropy].py:6:    fetch_user_count,
+./harbor/imports/stats.py:53:    u = fetch_user(uid)
+./harbor/imports/stats.py:5:    fetch_user,
+./harbor/imports/stats.py:60:    return fetch_user_count() + 16
+./harbor/imports/stats.py:6:    fetch_user_count,
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/imports/tags.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:59:    return fetch_user_count() + 27
+.[redacted:high-entropy].py:5:from harbor.accounts import fetch_user_count
+.[redacted:high-entropy].py:63:    return telemetry.timer("accounts.fetch_user.errors")
+.[redacted:high-entropy].py:43:def admin_default_owner(uid, loader=accounts.fetch_user):
+.[redacted:high-entropy].py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:68:    return telemetry.timer("accounts.fetch_user.calls")
+.[redacted:high-entropy].py:9:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+./harbor/insights/batch.py:8:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+./harbor/insights/cron.py:43:    u = accounts.fetch_user(uid, include_deleted=True)
+./harbor/insights/cron.py:50:    u = fetch_user(uid)
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:4:from harbor.accounts import fetch_user_count
+.[redacted:high-entropy].py:58:    return fetch_user_count() + 25
+.[redacted:high-entropy].py:45:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+.[redacted:high-entropy].py:52:    u = fetch_user(uid, include_deleted=True)
+.[redacted:high-entropy].py:59:    u = acct.fetch_user(uid)
+.[redacted:high-entropy].py:6:from harbor.accounts import fetch_user
+.[redacted:high-entropy].py:50:    return telemetry.timer("accounts.fetch_user.calls")
+./harbor/insights/notes.py:38:    u = fetch_user(uid)
+./harbor/insights/notes.py:45:    u = accounts.fetch_user(uid)
+./harbor/insights/notes.py:52:    return fetch_user_count() + 66
+./harbor/insights/notes.py:6:    fetch_user,
+./harbor/insights/notes.py:7:    fetch_user_count,
+.[redacted:high-entropy].py:45:    u = fetch_user(uid)
+.[redacted:high-entropy].py:52:    return fetch_user_count() + 43
+.[redacted:high-entropy].py:5:    fetch_user,
+.[redacted:high-entropy].py:6:    fetch_user_count,
+.[redacted:high-entropy].py:49:def prefetch_user(uid):
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:59:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+.[redacted:high-entropy].py:61:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:66:def render_default_owner(uid, loader=accounts.fetch_user):
+.[redacted:high-entropy].py:69:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/insights/scoring.py:43:    u = getattr(accounts, "fetch_user")(uid)
+./harbor/insights/scoring.py:45:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/insights/scoring.py:51:    u = fetch_user(uid)
+./harbor/insights/scoring.py:53:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/insights/scoring.py:5:from harbor.accounts import fetch_user
+.[redacted:high-entropy].py:4:from harbor.accounts import fetch_user_count
+.[redacted:high-entropy].py:50:    return fetch_user_count() + 86
+.[redacted:high-entropy].py:10:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:45:    u = accounts.fetch_user(uid)
+.[redacted:high-entropy].py:52:    return telemetry.timer("accounts.fetch_user.calls")
+.[redacted:high-entropy].py:6:from harbor.accounts import fetch_user as get_user
+.[redacted:high-entropy].py:43:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+.[redacted:high-entropy].py:45:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:5:    def fetch_user(self, login):
+.[redacted:high-entropy].py:8:    def fetch_user_repos(self, login):
+.[redacted:high-entropy].py:5:def sync(logins, *, fetch_user=True):
+.[redacted:high-entropy].py:7:    return [client.fetch_user(x)["login"] if fetch_user else x for x in logins]
+.[redacted:high-entropy].py:57:def prefetch_user(uid):
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:4:from harbor.accounts import fetch_user
+.[redacted:high-entropy].py:58:    u = fetch_user(uid)
+.[redacted:high-entropy].py:64:def prefetch_user(uid):
+./harbor/invoices/cache.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:12:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+.[redacted:high-entropy].py:47:    u = fetch_user(uid)
+.[redacted:high-entropy].py:54:    return fetch_user_count() + 31
+.[redacted:high-entropy].py:7:    fetch_user,
+.[redacted:high-entropy].py:8:    fetch_user_count,
+.[redacted:high-entropy].py:42:    u = fetch_user(uid)
+.[redacted:high-entropy].py:44:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:43:    u = accounts.fetch_user(uid)
+.[redacted:high-entropy].py:50:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+.[redacted:high-entropy].py:4:from harbor.accounts import fetch_user as get_user
+.[redacted:high-entropy].py:50:    return telemetry.timer("accounts.fetch_user.calls")
+.[redacted:high-entropy].py:44:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+.[redacted:high-entropy].py:51:    return fetch_user_count() + 96
+.[redacted:high-entropy].py:5:from harbor.accounts import fetch_user_count
+.[redacted:high-entropy].py:58:    u = acct.fetch_user(uid)
+.[redacted:high-entropy].py:5:    fetch_user,
+.[redacted:high-entropy].py:61:    u = fetch_user(uid, include_deleted=True)
+.[redacted:high-entropy].py:68:    return fetch_user_count() + 3
+.[redacted:high-entropy].py:6:    fetch_user_count,
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:42:    return fetch_user_count() + 89
+.[redacted:high-entropy].py:4:from harbor.accounts import fetch_user_count
+./harbor/jobs/admin.py:38:    u = getattr(accounts, "fetch_user")(uid, include_deleted=True)
+./harbor/jobs/admin.py:40:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/jobs/admin.py:46:    u = fetch_user(uid)
+./harbor/jobs/admin.py:48:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/jobs/admin.py:54:    return fetch_user_count() + 50
+./harbor/jobs/admin.py:6:    fetch_user,
+./harbor/jobs/admin.py:7:    fetch_user_count,
+./harbor/jobs/api.py:4:from harbor.accounts import fetch_user_count
+./harbor/jobs/api.py:58:    return fetch_user_count() + 78
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/jobs/batch.py:4:from harbor.accounts import fetch_user_count
+./harbor/jobs/batch.py:50:    return fetch_user_count() + 86
+./harbor/jobs/cron.py:38:    u = fetch_user(uid)
+./harbor/jobs/cron.py:40:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/jobs/cron.py:46:    u = acct.fetch_user(uid, include_deleted=True)
+./harbor/jobs/cron.py:48:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/jobs/cron.py:54:    return fetch_user_count() + 27
+./harbor/jobs/cron.py:6:    fetch_user,
+./harbor/jobs/cron.py:7:    fetch_user_count,
+./harbor/jobs/digest.py:4:from harbor.accounts import fetch_user
+./harbor/jobs/digest.py:58:    u = fetch_user(uid, include_deleted=True)
+.[redacted:high-entropy].py:41:def prefetch_user(uid):
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/jobs/forms.py:34:    u = getattr(accounts, "fetch_user")(uid)
+./harbor/jobs/owners.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/jobs/render.py:41:def render_default_owner(uid, loader=accounts.fetch_user):
+./harbor/jobs/render.py:44:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/jobs/tasks.py:5:    fetch_user,
+./harbor/jobs/tasks.py:61:    u = fetch_user(uid)
+./harbor/jobs/tasks.py:63:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/jobs/tasks.py:69:    return fetch_user_count() + 79
+./harbor/jobs/tasks.py:6:    fetch_user_count,
+./harbor/jobs/util.py:42:    return fetch_user_count() + 98
+./harbor/jobs/util.py:4:from harbor.accounts import fetch_user_count
+./harbor/jobs/views.py:37:    u = fetch_user(uid, include_deleted=True)
+./harbor/jobs/views.py:6:from harbor.accounts import fetch_user
+./harbor/jobs/views.py:9:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+.[redacted:high-entropy].py:35:    u = fetch_user(uid)
+.[redacted:high-entropy].py:42:    u = getattr(accounts, "fetch_user")(uid, include_deleted=True)
+.[redacted:high-entropy].py:48:def admin_default_owner(uid, loader=accounts.fetch_user):
+./harbor/ledger/api.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/ledger/core.py:8:_load_core_partial_owner = functools.partial(accounts.fetch_user, include_deleted=True)
+.[redacted:high-entropy].py:59:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+.[redacted:high-entropy].py:61:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/ledger/forms.py:34:    return telemetry.timer("accounts.fetch_user.latency")
+./harbor/ledger/hooks.py:44:    u = acct.fetch_user(uid)
+./harbor/ledger/hooks.py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/ledger/merge.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/ledger/models.py:14:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/ledger/models.py:58:    u = fetch_user(uid)
+./harbor/ledger/models.py:65:    u = acct.fetch_user(uid)
+./harbor/ledger/models.py:72:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+./harbor/ledger/models.py:79:    return fetch_user_count() + 10
+./harbor/ledger/models.py:7:    fetch_user,
+./harbor/ledger/models.py:8:    fetch_user_count,
+./harbor/ledger/owners.py:58:    u = getattr(accounts, "fetch_user")(uid, include_deleted=True)
+.[redacted:high-entropy].py:42:    u = accounts.fetch_user(uid, include_deleted=True)
+.[redacted:high-entropy].py:44:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/ledger/render.py:8:_load_render_partial_owner = functools.partial(accounts.fetch_user, include_deleted=True)
+./harbor/ledger/retry.py:46:    u = accounts.fetch_user(uid)
+./harbor/ledger/retry.py:53:    u = fetch_user(uid, include_deleted=True)
+./harbor/ledger/retry.py:59:def retry_default_owner(uid, loader=accounts.fetch_user):
+./harbor/ledger/retry.py:67:    return fetch_user_count() + 61
+./harbor/ledger/retry.py:6:    fetch_user,
+./harbor/ledger/retry.py:7:    fetch_user_count,
+./harbor/ledger/rules.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:34:    u = getattr(accounts, "fetch_user")(uid)
+.[redacted:high-entropy].py:54:    u = fetch_user(uid)
+.[redacted:high-entropy].py:61:    return fetch_user_count() + 56
+.[redacted:high-entropy].py:65:    return telemetry.timer("accounts.fetch_user.calls")
+.[redacted:high-entropy].py:6:    fetch_user,
+.[redacted:high-entropy].py:7:    fetch_user_count,
+./harbor/ledger/stats.py:4:from harbor.accounts import fetch_user_count
+./harbor/ledger/stats.py:50:    return fetch_user_count() + 4
+./harbor/ledger/store.py:4:from harbor.accounts import fetch_user_count
+./harbor/ledger/store.py:58:    return fetch_user_count() + 70
+.[redacted:high-entropy].py:61:    u = getattr(accounts, "fetch_user")(uid)
+.[redacted:high-entropy].py:75:    u = acct.fetch_user(uid)
+.[redacted:high-entropy].py:9:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+./harbor/ledger/tags.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/ledger/util.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/ledger/worker.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/mail/admin.py:4:from harbor.accounts import fetch_user
+./harbor/mail/admin.py:50:    u = fetch_user(uid, include_deleted=True)
+.[redacted:high-entropy].py:38:    u = fetch_user(uid, include_deleted=True)
+.[redacted:high-entropy].py:45:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+.[redacted:high-entropy].py:51:def [redacted:high-entropy](uid, loader=accounts.fetch_user):
+.[redacted:high-entropy].py:59:    return fetch_user_count() + 11
+.[redacted:high-entropy].py:63:    return telemetry.timer("accounts.fetch_user.latency")
+.[redacted:high-entropy].py:66:def prefetch_user(uid):
+.[redacted:high-entropy].py:6:from harbor.accounts import fetch_user
+.[redacted:high-entropy].py:7:from harbor.accounts import fetch_user_count
+./harbor/mail/cron.py:47:def prefetch_user(uid):
+./harbor/mail/limits.py:58:def [redacted:high-entropy](uid, loader=accounts.fetch_user):
+./harbor/mail/limits.py:5:from harbor.accounts import fetch_user
+./harbor/mail/limits.py:61:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/mail/limits.py:67:    u = fetch_user(uid)
+./harbor/mail/limits.py:69:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/mail/merge.py:48:def prefetch_user(uid):
+./harbor/mail/merge.py:4:from harbor.accounts import fetch_user as get_user
+./harbor/mail/notes.py:42:    u = fetch_user(uid, include_deleted=True)
+./harbor/mail/paging.py:43:    u = getattr(accounts, "fetch_user")(uid)
+./harbor/mail/paging.py:45:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/mail/paging.py:51:    u = acct.fetch_user(uid)
+./harbor/mail/paging.py:53:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/mail/queue.py:34:    u = acct.fetch_user(uid, include_deleted=True)
+./harbor/mail/render.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/mail/rules.py:42:    return telemetry.timer("accounts.fetch_user.errors")
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/mail/signals.py:35:    u = fetch_user(uid)
+./harbor/mail/signals.py:37:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/mail/signals.py:43:    u = getattr(accounts, "fetch_user")(uid, include_deleted=True)
+./harbor/mail/signals.py:45:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/mail/sync.py:34:    u = getattr(accounts, "fetch_user")(uid)
+./harbor/mail/sync.py:36:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/mail/tags.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/mail/worker.py:4:from harbor.accounts import fetch_user
+./harbor/mail/worker.py:50:    u = fetch_user(uid)
+./harbor/mail/worker.py:52:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:58:    u = accounts.fetch_user(uid)
+./harbor/notify/batch.py:47:def prefetch_user(uid):
+./harbor/notify/core.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/notify/cron.py:50:    return telemetry.timer("accounts.fetch_user.errors")
+.[redacted:high-entropy].py:4:from harbor.accounts import fetch_user as get_user
+.[redacted:high-entropy].py:42:    u = acct.fetch_user(uid)
+.[redacted:high-entropy].py:49:def forms_default_owner(uid, loader=accounts.fetch_user):
+./harbor/notify/hooks.py:36:    return telemetry.timer("accounts.fetch_user.calls")
+./harbor/notify/hooks.py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:34:def [redacted:high-entropy](uid, loader=accounts.fetch_user):
+.[redacted:high-entropy].py:42:    u = fetch_user(uid)
+.[redacted:high-entropy].py:5:from harbor.accounts import fetch_user
+.[redacted:high-entropy].py:34:    return telemetry.timer("accounts.fetch_user.calls")
+.[redacted:high-entropy].py:4:from harbor.accounts import fetch_user_count
+.[redacted:high-entropy].py:52:    return fetch_user_count() + 19
+.[redacted:high-entropy].py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/notify/render.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/notify/tags.py:52:    u = getattr(accounts, "fetch_user")(uid)
+./harbor/notify/tags.py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/notify/util.py:42:    u = fetch_user(uid, include_deleted=True)
+./harbor/notify/util.py:44:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/notify/util.py:4:from harbor.accounts import fetch_user
+./harbor/onboarding/admin.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/onboarding/api.py:50:    u = fetch_user(uid, include_deleted=True)
+./harbor/onboarding/api.py:56:def prefetch_user(uid):
+.[redacted:high-entropy].py:4:from harbor.accounts import fetch_user
+.[redacted:high-entropy].py:60:    u = fetch_user(uid)
+.[redacted:high-entropy].py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/onboarding/batch.py:37:    u = fetch_user(uid, include_deleted=True)
+./harbor/onboarding/batch.py:44:    return fetch_user_count() + 76
+./harbor/onboarding/batch.py:5:    fetch_user,
+./harbor/onboarding/batch.py:6:    fetch_user_count,
+./harbor/onboarding/cache.py:4:from harbor.accounts import fetch_user_count
+./harbor/onboarding/cache.py:58:    return fetch_user_count() + 10
+./harbor/onboarding/core.py:34:    return telemetry.timer("accounts.fetch_user.latency")
+./harbor/onboarding/cron.py:42:    return telemetry.timer("accounts.fetch_user.calls")
+.[redacted:high-entropy].py:46:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:8:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+./harbor/onboarding/notes.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:4:from harbor.accounts import fetch_user as get_user
+.[redacted:high-entropy].py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/onboarding/signals.py:11:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/onboarding/signals.py:57:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/onboarding/signals.py:63:    u = accounts.fetch_user(uid, include_deleted=True)
+./harbor/onboarding/signals.py:65:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/onboarding/signals.py:71:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+./harbor/onboarding/signals.py:73:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/onboarding/signals.py:8:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+./harbor/onboarding/store.py:58:    u = getattr(accounts, "fetch_user")(uid)
+.[redacted:high-entropy].py:12:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:40:    u = fetch_user(uid, include_deleted=True)
+.[redacted:high-entropy].py:42:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:47:def [redacted:high-entropy](uid, loader=accounts.fetch_user):
+.[redacted:high-entropy].py:50:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:56:    return fetch_user_count() + 68
+.[redacted:high-entropy].py:6:    fetch_user,
+.[redacted:high-entropy].py:7:    fetch_user_count,
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:51:    u = fetch_user(uid)
+.[redacted:high-entropy].py:53:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:59:    return telemetry.timer("accounts.fetch_user.errors")
+.[redacted:high-entropy].py:5:from harbor.accounts import fetch_user
+./harbor/orgs/admin.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:42:    return fetch_user_count() + 81
+.[redacted:high-entropy].py:4:from harbor.accounts import fetch_user as get_user
+.[redacted:high-entropy].py:5:from harbor.accounts import fetch_user_count
+./harbor/orgs/batch.py:44:    u = fetch_user(uid)
+./harbor/orgs/batch.py:6:from harbor.accounts import fetch_user
+./harbor/orgs/batch.py:9:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+./harbor/orgs/cache.py:51:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+./harbor/orgs/cache.py:53:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/orgs/core.py:55:def prefetch_user(uid):
+./harbor/orgs/cron.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/orgs/events.py:5:from harbor.accounts import fetch_user
+./harbor/orgs/events.py:60:    u = getattr(accounts, "fetch_user")(uid)
+./harbor/orgs/events.py:67:    u = fetch_user(uid)
+./harbor/orgs/events.py:6:from harbor.accounts import fetch_user_count
+./harbor/orgs/events.py:74:    return fetch_user_count() + 1
+./harbor/orgs/filters.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/orgs/forms.py:34:    u = accounts.fetch_user(uid)
+./harbor/orgs/forms.py:40:def prefetch_user(uid):
+./harbor/orgs/models.py:36:    u = fetch_user(uid)
+./harbor/orgs/models.py:43:    u = accounts.fetch_user(uid)
+./harbor/orgs/models.py:50:    return fetch_user_count() + 58
+./harbor/orgs/models.py:5:from harbor.accounts import fetch_user
+./harbor/orgs/models.py:6:from harbor.accounts import fetch_user_count
+./harbor/orgs/paging.py:4:from harbor.accounts import fetch_user as get_user
+./harbor/orgs/policy.py:39:def prefetch_user(uid):
+./harbor/orgs/schema.py:34:    u = accounts.fetch_user(uid)
+./harbor/orgs/schema.py:36:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/orgs/scoring.py:34:    return telemetry.timer("accounts.fetch_user.calls")
+./harbor/orgs/signals.py:42:    return fetch_user_count() + 2
+./harbor/orgs/signals.py:4:from harbor.accounts import fetch_user_count
+./harbor/orgs/stats.py:5:    fetch_user,
+./harbor/orgs/stats.py:61:    u = fetch_user(uid)
+./harbor/orgs/stats.py:68:    return fetch_user_count() + 52
+./harbor/orgs/stats.py:6:    fetch_user_count,
+./harbor/orgs/summary.py:55:    u = acct.fetch_user(uid, include_deleted=True)
+./harbor/orgs/summary.py:62:    u = fetch_user(uid, include_deleted=True)
+./harbor/orgs/summary.py:69:    u = accounts.fetch_user(uid)
+./harbor/orgs/summary.py:76:    return fetch_user_count() + 70
+./harbor/orgs/summary.py:7:    fetch_user,
+./harbor/orgs/summary.py:8:    fetch_user_count,
+./harbor/orgs/tags.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/orgs/worker.py:58:    return telemetry.timer("accounts.fetch_user.latency")
+.[redacted:high-entropy].py:4:from harbor.accounts import fetch_user_count
+.[redacted:high-entropy].py:52:    return fetch_user_count() + 92
+.[redacted:high-entropy].py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:49:def [redacted:high-entropy](uid, loader=accounts.fetch_user):
+.[redacted:high-entropy].py:58:    return telemetry.timer("accounts.fetch_user.latency")
+.[redacted:high-entropy].py:51:    u = getattr(accounts, "fetch_user")(uid)
+.[redacted:high-entropy].py:6:from harbor.accounts import fetch_user as get_user
+.[redacted:high-entropy].py:9:_load_cron_partial_owner = functools.partial(accounts.fetch_user, include_deleted=True)
+.[redacted:high-entropy].py:37:    u = fetch_user(uid)
+.[redacted:high-entropy].py:44:    return fetch_user_count() + 98
+.[redacted:high-entropy].py:5:    fetch_user,
+.[redacted:high-entropy].py:6:    fetch_user_count,
+.[redacted:high-entropy].py:60:    return telemetry.timer("accounts.fetch_user.errors")
+.[redacted:high-entropy].py:9:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:57:def [redacted:high-entropy](uid, loader=accounts.fetch_user):
+.[redacted:high-entropy].py:34:    return fetch_user_count() + 63
+.[redacted:high-entropy].py:37:def prefetch_user(uid):
+.[redacted:high-entropy].py:4:from harbor.accounts import fetch_user_count
+.[redacted:high-entropy].py:58:    return telemetry.timer("accounts.fetch_user.errors")
+.[redacted:high-entropy].py:54:    u = fetch_user(uid)
+.[redacted:high-entropy].py:61:    u = acct.fetch_user(uid)
+.[redacted:high-entropy].py:68:    return fetch_user_count() + 18
+.[redacted:high-entropy].py:6:    fetch_user,
+.[redacted:high-entropy].py:7:    fetch_user_count,
+.[redacted:high-entropy].py:41:def [redacted:high-entropy](uid, loader=accounts.fetch_user):
+.[redacted:high-entropy].py:44:    u = getattr(accounts, "fetch_user")(uid)
+.[redacted:high-entropy].py:51:    return telemetry.timer("accounts.fetch_user.calls")
+.[redacted:high-entropy].py:54:def prefetch_user(uid):
+.[redacted:high-entropy].py:9:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+.[redacted:high-entropy].py:58:    u = acct.fetch_user(uid)
+.[redacted:high-entropy].py:5:from harbor.accounts import fetch_user as get_user
+.[redacted:high-entropy].py:49:def views_default_owner(uid, loader=accounts.fetch_user):
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/plans/forms.py:48:def prefetch_user(uid):
+./harbor/plans/forms.py:4:from harbor.accounts import fetch_user as get_user
+.[redacted:high-entropy].py:10:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+.[redacted:high-entropy].py:54:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+.[redacted:high-entropy].py:68:    u = acct.fetch_user(uid)
+./harbor/plans/merge.py:8:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+.[redacted:high-entropy].py:5:from harbor.accounts import fetch_user
+.[redacted:high-entropy].py:61:    u = fetch_user(uid)
+.[redacted:high-entropy].py:68:    return telemetry.timer("accounts.fetch_user.calls")
+.[redacted:high-entropy].py:9:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/plans/queue.py:45:    u = fetch_user(uid)
+./harbor/plans/queue.py:47:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/plans/queue.py:53:    return fetch_user_count() + 71
+./harbor/plans/queue.py:5:    fetch_user,
+./harbor/plans/queue.py:6:    fetch_user_count,
+./harbor/plans/render.py:42:    return telemetry.timer("accounts.fetch_user.calls")
+./harbor/plans/render.py:5:from harbor.accounts import fetch_user as get_user
+./harbor/plans/retry.py:4:from harbor.accounts import fetch_user_count
+./harbor/plans/retry.py:50:    return fetch_user_count() + 99
+./harbor/plans/rules.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/plans/store.py:44:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/plans/store.py:4:from harbor.accounts import fetch_user as get_user
+.[redacted:high-entropy].py:55:def prefetch_user(uid):
+./harbor/plans/sync.py:42:    return telemetry.timer("accounts.fetch_user.latency")
+./harbor/plans/sync.py:45:def prefetch_user(uid):
+./harbor/plans/tags.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/plans/tasks.py:4:from harbor.accounts import fetch_user as get_user
+./harbor/plans/worker.py:36:    return telemetry.timer("accounts.fetch_user.latency")
+./harbor/plans/worker.py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:44:    u = getattr(accounts, "fetch_user")(uid)
+.[redacted:high-entropy].py:51:    u = accounts.fetch_user(uid, include_deleted=True)
+.[redacted:high-entropy].py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/presence/batch.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/presence/cache.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/presence/core.py:4:from harbor.accounts import fetch_user as get_user
+./harbor/presence/core.py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/presence/cron.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:4:from harbor.accounts import fetch_user_count
+.[redacted:high-entropy].py:50:    return fetch_user_count() + 61
+./harbor/presence/events.py:50:    u = getattr(accounts, "fetch_user")(uid)
+.[redacted:high-entropy].py:34:    return telemetry.timer("accounts.fetch_user.calls")
+.[redacted:high-entropy].py:34:    return fetch_user_count() + 88
+.[redacted:high-entropy].py:4:from harbor.accounts import fetch_user_count
+./harbor/presence/notes.py:50:    return telemetry.timer("accounts.fetch_user.errors")
+./harbor/presence/queue.py:10:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+./harbor/presence/queue.py:38:    u = fetch_user(uid)
+./harbor/presence/queue.py:52:    return telemetry.timer("accounts.fetch_user.calls")
+./harbor/presence/queue.py:7:from harbor.accounts import fetch_user
+./harbor/presence/retry.py:57:def prefetch_user(uid):
+./harbor/presence/retry.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/presence/rules.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/presence/stats.py:57:def prefetch_user(uid):
+./harbor/presence/stats.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:42:    return telemetry.timer("accounts.fetch_user.latency")
+.[redacted:high-entropy].py:4:from harbor.accounts import fetch_user_count
+.[redacted:high-entropy].py:50:    return fetch_user_count() + 44
+.[redacted:high-entropy].py:42:    u = fetch_user(uid)
+./harbor/profiles/core.py:47:def prefetch_user(uid):
+.[redacted:high-entropy].py:34:    u = accounts.fetch_user(uid)
+.[redacted:high-entropy].py:36:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:42:    return telemetry.timer("accounts.fetch_user.errors")
+.[redacted:high-entropy].py:42:    return telemetry.timer("accounts.fetch_user.latency")
+./harbor/profiles/forms.py:47:def prefetch_user(uid):
+.[redacted:high-entropy].py:43:    u = getattr(accounts, "fetch_user")(uid, include_deleted=True)
+.[redacted:high-entropy].py:45:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:51:    u = acct.fetch_user(uid, include_deleted=True)
+.[redacted:high-entropy].py:53:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:47:def prefetch_user(uid):
+.[redacted:high-entropy].py:36:    u = getattr(accounts, "fetch_user")(uid, include_deleted=True)
+.[redacted:high-entropy].py:38:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:44:    u = acct.fetch_user(uid, include_deleted=True)
+.[redacted:high-entropy].py:46:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:52:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+.[redacted:high-entropy].py:54:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:8:_load_render_partial_owner = functools.partial(accounts.fetch_user, include_deleted=True)
+.[redacted:high-entropy].py:34:    return telemetry.timer("accounts.fetch_user.latency")
+.[redacted:high-entropy].py:36:    return telemetry.timer("accounts.fetch_user.latency")
+.[redacted:high-entropy].py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:50:    return telemetry.timer("accounts.fetch_user.calls")
+.[redacted:high-entropy].py:47:def prefetch_user(uid):
+.[redacted:high-entropy].py:42:    return telemetry.timer("accounts.fetch_user.errors")
+.[redacted:high-entropy].py:51:    u = getattr(accounts, "fetch_user")(uid)
+.[redacted:high-entropy].py:58:    u = fetch_user(uid, include_deleted=True)
+.[redacted:high-entropy].py:59:    u = fetch_user(uid)
+.[redacted:high-entropy].py:5:from harbor.accounts import fetch_user
+.[redacted:high-entropy].py:66:    u = accounts.fetch_user(uid, include_deleted=True)
+.[redacted:high-entropy].py:51:    u = accounts.fetch_user(uid)
+.[redacted:high-entropy].py:8:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+.[redacted:high-entropy].py:47:def prefetch_user(uid):
+.[redacted:high-entropy].py:5:    "GetUser": "harbor.accounts:fetch_user",
+.[redacted:high-entropy].py:6:    "CountUsers": "harbor.accounts:fetch_user_count",
+.[redacted:high-entropy].py:5:    "GetPayer": "harbor.accounts:fetch_user",
+.[redacted:high-entropy].py:5:    "GetGitHubUser": "harbor.integrations.github:GitHubClient.fetch_user",
+.[redacted:high-entropy].py:58:    u = accounts.fetch_user(uid)
+./harbor/push/batch.py:34:    u = fetch_user(uid, include_deleted=True)
+./harbor/push/cache.py:34:    u = fetch_user(uid, include_deleted=True)
+./harbor/push/cache.py:4:from harbor.accounts import fetch_user
+./harbor/push/core.py:39:def prefetch_user(uid):
+./harbor/push/digest.py:4:from harbor.accounts import fetch_user
+./harbor/push/digest.py:51:    u = fetch_user(uid)
+./harbor/push/digest.py:53:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/push/digest.py:59:    return fetch_user_count() + 6
+./harbor/push/digest.py:5:from harbor.accounts import fetch_user_count
+./harbor/push/events.py:42:    return telemetry.timer("accounts.fetch_user.errors")
+.[redacted:high-entropy].py:44:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+.[redacted:high-entropy].py:46:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:52:    u = accounts.fetch_user(uid, include_deleted=True)
+.[redacted:high-entropy].py:54:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:60:    u = fetch_user(uid)
+.[redacted:high-entropy].py:62:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/push/merge.py:35:    u = fetch_user(uid)
+./harbor/push/merge.py:42:    return fetch_user_count() + 96
+./harbor/push/merge.py:4:from harbor.accounts import fetch_user
+./harbor/push/merge.py:5:from harbor.accounts import fetch_user_count
+./harbor/push/notes.py:52:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+./harbor/push/notes.py:54:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/push/notes.py:60:    return telemetry.timer("accounts.fetch_user.calls")
+./harbor/push/owners.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/push/queue.py:11:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+./harbor/push/queue.py:57:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/push/queue.py:65:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/push/queue.py:71:    return fetch_user_count() + 86
+./harbor/push/queue.py:75:    return telemetry.timer("accounts.fetch_user.errors")
+./harbor/push/queue.py:7:from harbor.accounts import fetch_user as get_user
+./harbor/push/queue.py:8:from harbor.accounts import fetch_user_count
+./harbor/push/render.py:59:    u = acct.fetch_user(uid)
+./harbor/push/render.py:66:    return telemetry.timer("accounts.fetch_user.calls")
+./harbor/push/rules.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:8:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+./harbor/push/stats.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/push/summary.py:45:    u = fetch_user(uid, include_deleted=True)
+./harbor/push/summary.py:52:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+./harbor/push/summary.py:59:    return telemetry.timer("accounts.fetch_user.errors")
+./harbor/push/summary.py:6:from harbor.accounts import fetch_user
+./harbor/push/sync.py:52:    u = fetch_user(uid, include_deleted=True)
+./harbor/push/sync.py:59:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+./harbor/push/tasks.py:43:    u = fetch_user(uid)
+./harbor/push/tasks.py:49:def tasks_default_owner(uid, loader=accounts.fetch_user):
+./harbor/push/util.py:34:    return telemetry.timer("accounts.fetch_user.errors")
+./harbor/quotas/api.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/quotas/batch.py:4:from harbor.accounts import fetch_user as get_user
+./harbor/quotas/cache.py:50:    return telemetry.timer("accounts.fetch_user.calls")
+./harbor/quotas/core.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/quotas/cron.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:45:    u = accounts.fetch_user(uid)
+.[redacted:high-entropy].py:52:    u = fetch_user(uid, include_deleted=True)
+.[redacted:high-entropy].py:6:from harbor.accounts import fetch_user
+.[redacted:high-entropy].py:9:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+./harbor/quotas/hooks.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:8:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+.[redacted:high-entropy].py:50:    u = fetch_user(uid)
+.[redacted:high-entropy].py:52:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:33:def prefetch_user(uid):
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/quotas/retry.py:5:    fetch_user,
+./harbor/quotas/retry.py:61:    u = fetch_user(uid)
+./harbor/quotas/retry.py:68:    return fetch_user_count() + 46
+./harbor/quotas/retry.py:6:    fetch_user_count,
+.[redacted:high-entropy].py:34:    return telemetry.timer("accounts.fetch_user.latency")
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/quotas/stats.py:4:from harbor.accounts import fetch_user as get_user
+./harbor/quotas/summary.py:36:def [redacted:high-entropy](uid, loader=accounts.fetch_user):
+./harbor/quotas/summary.py:51:    return fetch_user_count() + 18
+./harbor/quotas/summary.py:6:from harbor.accounts import fetch_user_count
+./harbor/quotas/summary.py:9:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+./harbor/quotas/sync.py:58:    return telemetry.timer("accounts.fetch_user.latency")
+.[redacted:high-entropy].py:62:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:8:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+./harbor/reports/api.py:35:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+.[redacted:high-entropy].py:47:def prefetch_user(uid):
+.[redacted:high-entropy].py:42:    return telemetry.timer("accounts.fetch_user.latency")
+./harbor/reports/cache.py:39:def prefetch_user(uid):
+./harbor/reports/core.py:58:    u = accounts.fetch_user(uid, include_deleted=True)
+./harbor/reports/core.py:60:        log.warning("fetch_user returned nothing for %s", uid)
+.[redacted:high-entropy].py:34:    return telemetry.timer("accounts.fetch_user.errors")
+./harbor/reports/forms.py:58:    u = accounts.fetch_user(uid)
+.[redacted:high-entropy].py:33:def [redacted:high-entropy](uid, loader=accounts.fetch_user):
+.[redacted:high-entropy].py:42:    return telemetry.timer("accounts.fetch_user.latency")
+./harbor/reports/render.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/reports/retry.py:39:def prefetch_user(uid):
+./harbor/reports/rules.py:4:from harbor.accounts import fetch_user as get_user
+./harbor/reports/schema.py:47:def prefetch_user(uid):
+.[redacted:high-entropy].py:43:    u = getattr(accounts, "fetch_user")(uid)
+.[redacted:high-entropy].py:50:    u = acct.fetch_user(uid)
+.[redacted:high-entropy].py:4:from harbor.accounts import fetch_user_count
+.[redacted:high-entropy].py:58:    return fetch_user_count() + 33
+./harbor/reports/store.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/reports/sync.py:35:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+./harbor/reports/tags.py:33:def tags_default_owner(uid, loader=accounts.fetch_user):
+./harbor/reports/tasks.py:62:    u = fetch_user(uid)
+./harbor/reports/tasks.py:64:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/reports/tasks.py:6:    fetch_user,
+./harbor/reports/tasks.py:70:    u = getattr(accounts, "fetch_user")(uid)
+./harbor/reports/tasks.py:72:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/reports/tasks.py:78:    u = accounts.fetch_user(uid, include_deleted=True)
+./harbor/reports/tasks.py:7:    fetch_user_count,
+./harbor/reports/tasks.py:80:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/reports/tasks.py:86:    return fetch_user_count() + 16
+./harbor/reports/views.py:34:    return telemetry.timer("accounts.fetch_user.calls")
+./harbor/rpc/routes.py:5:    "user.get": "harbor.accounts:fetch_user",
+./harbor/rpc/routes.py:6:    "user.count": "harbor.accounts:fetch_user_count",
+./harbor/rpc/routes.py:8:    "github.user": "harbor.integrations.github:GitHubClient.fetch_user",
+.[redacted:high-entropy].py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:31:def prefetch_user(uid):
+.[redacted:high-entropy].py:31:def prefetch_user(uid):
+./harbor/search/cache.py:6:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/search/core.py:34:    return telemetry.timer("accounts.fetch_user.errors")
+./harbor/search/cron.py:53:    u = acct.fetch_user(uid)
+./harbor/search/cron.py:60:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+./harbor/search/cron.py:9:_load_cron_partial_owner = functools.partial(accounts.fetch_user, include_deleted=True)
+.[redacted:high-entropy].py:42:    return fetch_user_count() + 75
+.[redacted:high-entropy].py:4:from harbor.accounts import fetch_user_count
+./harbor/search/hooks.py:4:from harbor.accounts import fetch_user_count
+./harbor/search/hooks.py:50:    return fetch_user_count() + 63
+./harbor/search/merge.py:4:from harbor.accounts import fetch_user as get_user
+./harbor/search/merge.py:62:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/search/merge.py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:4:from harbor.accounts import fetch_user
+.[redacted:high-entropy].py:50:    u = fetch_user(uid, include_deleted=True)
+.[redacted:high-entropy].py:34:    u = accounts.fetch_user(uid)
+./harbor/search/render.py:4:from harbor.accounts import fetch_user_count
+./harbor/search/render.py:50:    return fetch_user_count() + 45
+./harbor/search/rules.py:35:    u = fetch_user(uid)
+./harbor/search/rules.py:37:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/search/rules.py:43:    u = accounts.fetch_user(uid)
+./harbor/search/rules.py:45:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/search/rules.py:5:from harbor.accounts import fetch_user
+.[redacted:high-entropy].py:34:    return fetch_user_count() + 17
+.[redacted:high-entropy].py:4:from harbor.accounts import fetch_user_count
+./harbor/search/stats.py:50:    u = acct.fetch_user(uid)
+./harbor/search/summary.py:36:    u = fetch_user(uid)
+./harbor/search/summary.py:38:        log.warning("fetch_user returned nothing for %s", uid)
+./harbor/search/summary.py:4:from harbor.accounts import fetch_user
+./harbor/search/summary.py:8:# fetch_user is cached upstream; don't wrap it in another cache.
+./harbor/search/tags.py:58:    u = accounts.fetch_user(uid, include_deleted=True)
+./harbor/search/util.py:34:    return telemetry.timer("accounts.fetch_user.latency")
+./harbor/search/views.py:44:    u = fetch_user(uid, include_deleted=True)
+./harbor/search/views.py:51:    u = acct.fetch_user(uid)
+./harbor/search/views.py:57:def views_default_owner(uid, loader=accounts.fetch_user):
+./harbor/sessions/admin.py:5:from harbor.accounts import fetch_user as get_user
+./harbor/sessions/admin.py:60:    return telemetry.timer("accounts.fetch_user.latency")
+./harbor/sessions/admin.py:9:# fetch_user is cached upstream; don't wrap it in another cache.
+.[redacted:high-entropy].py:34:    u = accounts.fetch_user(uid, include_deleted=True)
+./harbor/sessions/cache.py:59:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+./harbor/sessions/cron.py:42:    return telemetry.timer("accounts.fetch_user.latency")
+./harbor/sessions/filters.py:60:    u = accounts.fetch_user(uid, **[redacted:high-entropy])
+./harbor/sessions/filters.py:8:[redacted:high-entropy] = functools.partial(accounts.fetch_user, include_deleted=True)
+./harbor/sessions/forms.py:42:    return fetch_user_count() + 67
+./harbor/sessions/forms.py:4:from harbor.accounts import fetch_user_count
+./harbor/sessions/notes.py:47:    u = accounts.fetch_user(uid, include_deleted=True)
+./harbor/sessions/notes.py:54:    u = fetch_user(uid)
+./harbor/sessions/notes.py:61:    u = acct.fetch_user(uid, include_deleted=True)
+./harbor/sessions/notes.py:68:    return fetch_user_count() + 10
+./harbor/sessions/notes.py:7:    fetch_user,
+./harbor/sessions/notes.py:8:    fetch_user_count,
+./harbor/sessions/paging.py:50:    u = fetch_user(uid)
+./harbor/sessions/paging.py:56:def prefetch_user(uid):
+./harbor/
+[... 36168352 bytes not captured ...]
+2026-10-13T02:01:28Z rpc=user.get handler=harbor.accounts:fetch_user user=90971 ms=476
+./logs/rpc.log:99494:2026-10-08T10:41:36Z rpc=user.count handler=harbor.accounts:fetch_user_count user=94213 ms=472
+./logs/rpc.log:99495:2026-10-22T16:01:51Z rpc=user.get handler=harbor.accounts:fetch_user user=87200 ms=374
+./logs/rpc.log:99496:2026-10-14T05:01:51Z rpc=user.get handler=harbor.accounts:fetch_user user=79507 ms=155
+./logs/rpc.log:99497:2026-10-14T13:08:11Z rpc=user.get handler=harbor.accounts:fetch_user user=90037 ms=372
+./logs/rpc.log:99498:2026-10-12T05:52:11Z rpc=user.count handler=harbor.accounts:fetch_user_count user=78525 ms=236
+./logs/rpc.log:99499:2026-10-26T03:12:00Z rpc=user.count handler=harbor.accounts:fetch_user_count user=54079 ms=796
+./logs/rpc.log:9949:2026-10-02T10:06:32Z rpc=user.get handler=harbor.accounts:fetch_user user=90639 ms=94
+./logs/rpc.log:994:2026-10-17T05:51:42Z rpc=user.get handler=harbor.accounts:fetch_user user=50597 ms=236
+./logs/rpc.log:99500:2026-10-16T03:50:08Z rpc=user.get handler=harbor.accounts:fetch_user user=31472 ms=739
+./logs/rpc.log:99501:2026-10-08T04:41:42Z rpc=user.count handler=harbor.accounts:fetch_user_count user=29885 ms=778
+./logs/rpc.log:99502:2026-10-11T07:13:35Z rpc=user.get handler=harbor.accounts:fetch_user user=83 ms=500
+./logs/rpc.log:99503:2026-10-20T19:42:06Z rpc=user.get handler=harbor.accounts:fetch_user user=7826 ms=677
+./logs/rpc.log:99504:2026-10-09T17:46:37Z rpc=user.get handler=harbor.accounts:fetch_user user=36601 ms=804
+./logs/rpc.log:99505:2026-10-08T11:25:56Z rpc=user.get handler=harbor.accounts:fetch_user user=71207 ms=202
+./logs/rpc.log:99506:2026-10-01T01:52:41Z rpc=user.get handler=harbor.accounts:fetch_user user=59010 ms=434
+./logs/rpc.log:99507:2026-10-04T08:23:08Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=71504 ms=375
+./logs/rpc.log:9950:2026-10-15T20:40:32Z rpc=user.get handler=harbor.accounts:fetch_user user=91848 ms=511
+./logs/rpc.log:99510:2026-10-11T18:16:05Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=55648 ms=456
+./logs/rpc.log:99511:2026-10-05T03:11:57Z rpc=user.get handler=harbor.accounts:fetch_user user=571 ms=869
+./logs/rpc.log:99512:2026-10-28T04:59:31Z rpc=user.get handler=harbor.accounts:fetch_user user=78009 ms=251
+./logs/rpc.log:99513:2026-10-20T07:44:31Z rpc=user.get handler=harbor.accounts:fetch_user user=4265 ms=248
+./logs/rpc.log:99515:2026-10-29T18:31:52Z rpc=user.count handler=harbor.accounts:fetch_user_count user=1462 ms=693
+./logs/rpc.log:99516:2026-10-09T10:18:48Z rpc=user.get handler=harbor.accounts:fetch_user user=52172 ms=734
+./logs/rpc.log:99517:2026-10-01T11:22:26Z rpc=user.get handler=harbor.accounts:fetch_user user=29716 ms=186
+./logs/rpc.log:99518:2026-10-03T04:13:21Z rpc=user.get handler=harbor.accounts:fetch_user user=23615 ms=149
+./logs/rpc.log:99519:2026-10-02T23:05:00Z rpc=user.get handler=harbor.accounts:fetch_user user=78639 ms=413
+./logs/rpc.log:9951:2026-10-25T17:58:27Z rpc=user.get handler=harbor.accounts:fetch_user user=14546 ms=102
+./logs/rpc.log:99520:2026-10-19T11:27:45Z rpc=user.get handler=harbor.accounts:fetch_user user=43980 ms=644
+./logs/rpc.log:99521:2026-10-04T01:54:13Z rpc=user.get handler=harbor.accounts:fetch_user user=29408 ms=134
+./logs/rpc.log:99522:2026-10-09T10:14:49Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=23271 ms=215
+./logs/rpc.log:99523:2026-10-08T23:37:34Z rpc=user.get handler=harbor.accounts:fetch_user user=53582 ms=85
+./logs/rpc.log:99524:2026-10-23T16:42:31Z rpc=user.get handler=harbor.accounts:fetch_user user=32799 ms=446
+./logs/rpc.log:99525:2026-10-05T16:12:01Z rpc=user.get handler=harbor.accounts:fetch_user user=67989 ms=655
+./logs/rpc.log:99527:2026-10-21T04:45:39Z rpc=user.count handler=harbor.accounts:fetch_user_count user=52407 ms=836
+./logs/rpc.log:99528:2026-10-05T11:15:56Z rpc=user.count handler=harbor.accounts:fetch_user_count user=88039 ms=190
+./logs/rpc.log:99529:2026-10-17T04:38:46Z rpc=user.get handler=harbor.accounts:fetch_user user=72160 ms=139
+./logs/rpc.log:9952:2026-10-10T13:24:36Z rpc=user.get handler=harbor.accounts:fetch_user user=8374 ms=431
+./logs/rpc.log:99530:2026-10-01T19:55:34Z rpc=user.get handler=harbor.accounts:fetch_user user=22594 ms=353
+./logs/rpc.log:99531:2026-10-05T13:12:50Z rpc=user.get handler=harbor.accounts:fetch_user user=35359 ms=563
+./logs/rpc.log:99532:2026-10-08T02:02:07Z rpc=user.get handler=harbor.accounts:fetch_user user=78953 ms=120
+./logs/rpc.log:99533:2026-10-12T18:50:04Z rpc=user.get handler=harbor.accounts:fetch_user user=76057 ms=86
+./logs/rpc.log:99534:2026-10-05T13:46:00Z rpc=user.get handler=harbor.accounts:fetch_user user=12169 ms=597
+./logs/rpc.log:99535:2026-10-03T05:57:44Z rpc=user.get handler=harbor.accounts:fetch_user user=59805 ms=185
+./logs/rpc.log:99536:2026-10-06T07:31:43Z rpc=user.get handler=harbor.accounts:fetch_user user=2007 ms=388
+./logs/rpc.log:99537:2026-10-01T22:34:51Z rpc=user.get handler=harbor.accounts:fetch_user user=52081 ms=739
+./logs/rpc.log:99538:2026-10-14T14:54:13Z rpc=user.get handler=harbor.accounts:fetch_user user=65317 ms=597
+./logs/rpc.log:99539:2026-10-04T19:57:38Z rpc=user.get handler=harbor.accounts:fetch_user user=56832 ms=603
+./logs/rpc.log:9953:2026-10-26T08:26:53Z rpc=user.get handler=harbor.accounts:fetch_user user=99843 ms=34
+./logs/rpc.log:99540:2026-10-28T00:31:06Z rpc=user.get handler=harbor.accounts:fetch_user user=65627 ms=744
+./logs/rpc.log:99541:2026-10-08T21:21:08Z rpc=user.get handler=harbor.accounts:fetch_user user=41752 ms=574
+./logs/rpc.log:99542:2026-10-10T22:25:42Z rpc=user.get handler=harbor.accounts:fetch_user user=69774 ms=683
+./logs/rpc.log:99543:2026-10-10T05:16:33Z rpc=user.get handler=harbor.accounts:fetch_user user=38855 ms=105
+./logs/rpc.log:99544:2026-10-15T21:59:42Z rpc=user.get handler=harbor.accounts:fetch_user user=79972 ms=361
+./logs/rpc.log:99545:2026-10-25T22:48:57Z rpc=user.get handler=harbor.accounts:fetch_user user=38213 ms=435
+./logs/rpc.log:99546:2026-10-02T14:05:16Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=72230 ms=275
+./logs/rpc.log:99547:2026-10-10T08:02:50Z rpc=user.count handler=harbor.accounts:fetch_user_count user=60046 ms=479
+./logs/rpc.log:99548:2026-10-29T20:09:48Z rpc=user.get handler=harbor.accounts:fetch_user user=59196 ms=619
+./logs/rpc.log:99549:2026-10-12T18:19:50Z rpc=user.get handler=harbor.accounts:fetch_user user=93891 ms=569
+./logs/rpc.log:9954:2026-10-02T21:36:52Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=42463 ms=472
+./logs/rpc.log:99550:2026-10-25T09:58:57Z rpc=user.count handler=harbor.accounts:fetch_user_count user=91219 ms=203
+./logs/rpc.log:99552:2026-10-22T14:02:45Z rpc=user.get handler=harbor.accounts:fetch_user user=86194 ms=897
+./logs/rpc.log:99553:2026-10-03T07:28:18Z rpc=user.get handler=harbor.accounts:fetch_user user=48113 ms=251
+./logs/rpc.log:99554:2026-10-20T17:12:15Z rpc=user.get handler=harbor.accounts:fetch_user user=76048 ms=753
+./logs/rpc.log:99555:2026-10-14T09:53:45Z rpc=user.get handler=harbor.accounts:fetch_user user=98157 ms=163
+./logs/rpc.log:99556:2026-10-18T22:35:04Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=56705 ms=705
+./logs/rpc.log:99557:2026-10-22T01:15:32Z rpc=user.get handler=harbor.accounts:fetch_user user=10592 ms=751
+./logs/rpc.log:99558:2026-10-15T09:45:53Z rpc=user.get handler=harbor.accounts:fetch_user user=94679 ms=270
+./logs/rpc.log:99559:2026-10-26T14:48:35Z rpc=user.get handler=harbor.accounts:fetch_user user=86233 ms=469
+./logs/rpc.log:9955:2026-10-05T02:49:26Z rpc=user.get handler=harbor.accounts:fetch_user user=51507 ms=95
+./logs/rpc.log:99560:2026-10-16T08:59:00Z rpc=user.get handler=harbor.accounts:fetch_user user=65261 ms=558
+./logs/rpc.log:99561:2026-10-14T04:18:18Z rpc=user.get handler=harbor.accounts:fetch_user user=78729 ms=303
+./logs/rpc.log:99562:2026-10-26T19:27:11Z rpc=user.get handler=harbor.accounts:fetch_user user=93923 ms=713
+./logs/rpc.log:99563:2026-10-28T14:02:39Z rpc=user.get handler=harbor.accounts:fetch_user user=544 ms=687
+./logs/rpc.log:99564:2026-10-14T00:24:46Z rpc=user.get handler=harbor.accounts:fetch_user user=48549 ms=451
+./logs/rpc.log:99565:2026-10-15T18:22:58Z rpc=user.count handler=harbor.accounts:fetch_user_count user=45905 ms=505
+./logs/rpc.log:99566:2026-10-11T14:38:31Z rpc=user.get handler=harbor.accounts:fetch_user user=99982 ms=649
+./logs/rpc.log:99567:2026-10-10T07:17:57Z rpc=user.get handler=harbor.accounts:fetch_user user=59298 ms=232
+./logs/rpc.log:99568:2026-10-06T16:02:41Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=31270 ms=14
+./logs/rpc.log:99569:2026-10-29T08:56:14Z rpc=user.get handler=harbor.accounts:fetch_user user=35688 ms=451
+./logs/rpc.log:9956:2026-10-12T03:31:25Z rpc=user.get handler=harbor.accounts:fetch_user user=63828 ms=211
+./logs/rpc.log:99570:2026-10-09T13:23:45Z rpc=user.get handler=harbor.accounts:fetch_user user=41349 ms=806
+./logs/rpc.log:99571:2026-10-25T00:37:22Z rpc=user.get handler=harbor.accounts:fetch_user user=75981 ms=9
+./logs/rpc.log:99572:2026-10-08T22:02:35Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=42675 ms=812
+./logs/rpc.log:99573:2026-10-29T16:07:42Z rpc=user.get handler=harbor.accounts:fetch_user user=38841 ms=230
+./logs/rpc.log:99574:2026-10-02T17:49:22Z rpc=user.get handler=harbor.accounts:fetch_user user=14467 ms=822
+./logs/rpc.log:99575:2026-10-15T08:54:45Z rpc=user.get handler=harbor.accounts:fetch_user user=23850 ms=161
+./logs/rpc.log:99576:2026-10-04T13:28:38Z rpc=user.get handler=harbor.accounts:fetch_user user=75784 ms=747
+./logs/rpc.log:99577:2026-10-04T14:00:31Z rpc=user.get handler=harbor.accounts:fetch_user user=82872 ms=416
+./logs/rpc.log:99578:2026-10-29T12:43:51Z rpc=user.get handler=harbor.accounts:fetch_user user=13595 ms=118
+./logs/rpc.log:99579:2026-10-13T11:53:36Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=53599 ms=231
+./logs/rpc.log:99580:2026-10-22T14:53:45Z rpc=user.get handler=harbor.accounts:fetch_user user=13598 ms=119
+./logs/rpc.log:99581:2026-10-10T02:01:35Z rpc=user.get handler=harbor.accounts:fetch_user user=59759 ms=392
+./logs/rpc.log:99582:2026-10-27T19:01:19Z rpc=user.get handler=harbor.accounts:fetch_user user=10564 ms=175
+./logs/rpc.log:99583:2026-10-10T13:22:47Z rpc=user.get handler=harbor.accounts:fetch_user user=98633 ms=510
+./logs/rpc.log:99584:2026-10-25T18:44:23Z rpc=user.get handler=harbor.accounts:fetch_user user=73169 ms=84
+./logs/rpc.log:99585:2026-10-20T18:33:37Z rpc=user.count handler=harbor.accounts:fetch_user_count user=30064 ms=373
+./logs/rpc.log:99586:2026-10-21T06:14:08Z rpc=user.get handler=harbor.accounts:fetch_user user=36463 ms=313
+./logs/rpc.log:99587:2026-10-28T13:48:05Z rpc=user.get handler=harbor.accounts:fetch_user user=65612 ms=892
+./logs/rpc.log:99588:2026-10-12T09:39:34Z rpc=user.get handler=harbor.accounts:fetch_user user=9793 ms=237
+./logs/rpc.log:99589:2026-10-18T07:12:18Z rpc=user.get handler=harbor.accounts:fetch_user user=44292 ms=396
+./logs/rpc.log:9958:2026-10-25T21:49:41Z rpc=user.get handler=harbor.accounts:fetch_user user=60356 ms=801
+./logs/rpc.log:99590:2026-10-19T19:46:54Z rpc=user.get handler=harbor.accounts:fetch_user user=98670 ms=312
+./logs/rpc.log:99591:2026-10-23T13:26:37Z rpc=user.get handler=harbor.accounts:fetch_user user=53898 ms=881
+./logs/rpc.log:99592:2026-10-17T15:03:54Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=20413 ms=127
+./logs/rpc.log:99593:2026-10-04T09:54:09Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=99985 ms=879
+./logs/rpc.log:99594:2026-10-20T18:01:26Z rpc=user.get handler=harbor.accounts:fetch_user user=71256 ms=131
+./logs/rpc.log:99595:2026-10-04T13:32:55Z rpc=user.get handler=harbor.accounts:fetch_user user=57152 ms=138
+./logs/rpc.log:99596:2026-10-08T12:57:42Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=14263 ms=694
+./logs/rpc.log:99597:2026-10-25T09:44:22Z rpc=user.get handler=harbor.accounts:fetch_user user=47234 ms=63
+./logs/rpc.log:99598:2026-10-13T01:08:18Z rpc=user.get handler=harbor.accounts:fetch_user user=58351 ms=891
+./logs/rpc.log:99599:2026-10-17T10:33:41Z rpc=user.get handler=harbor.accounts:fetch_user user=60898 ms=170
+./logs/rpc.log:9959:2026-10-21T19:33:21Z rpc=user.get handler=harbor.accounts:fetch_user user=41252 ms=516
+./logs/rpc.log:99600:2026-10-02T18:27:02Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=31983 ms=388
+./logs/rpc.log:99601:2026-10-11T00:03:38Z rpc=user.get handler=harbor.accounts:fetch_user user=56880 ms=151
+./logs/rpc.log:99602:2026-10-28T05:35:22Z rpc=user.get handler=harbor.accounts:fetch_user user=42724 ms=814
+./logs/rpc.log:99603:2026-10-22T19:00:36Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=57845 ms=555
+./logs/rpc.log:99604:2026-10-23T10:53:09Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=16381 ms=682
+./logs/rpc.log:99605:2026-10-13T10:54:23Z rpc=user.get handler=harbor.accounts:fetch_user user=94371 ms=553
+./logs/rpc.log:99606:2026-10-17T12:55:40Z rpc=user.get handler=harbor.accounts:fetch_user user=43185 ms=709
+./logs/rpc.log:99607:2026-10-29T14:05:10Z rpc=user.get handler=harbor.accounts:fetch_user user=92948 ms=415
+./logs/rpc.log:99608:2026-10-12T06:09:39Z rpc=user.get handler=harbor.accounts:fetch_user user=60323 ms=784
+./logs/rpc.log:99609:2026-10-18T00:43:17Z rpc=user.count handler=harbor.accounts:fetch_user_count user=40077 ms=423
+./logs/rpc.log:99610:2026-10-25T12:23:53Z rpc=user.get handler=harbor.accounts:fetch_user user=47911 ms=824
+./logs/rpc.log:99611:2026-10-26T09:41:59Z rpc=user.get handler=harbor.accounts:fetch_user user=63906 ms=71
+./logs/rpc.log:99612:2026-10-29T00:13:52Z rpc=user.get handler=harbor.accounts:fetch_user user=86929 ms=790
+./logs/rpc.log:99613:2026-10-17T11:48:46Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=2960 ms=870
+./logs/rpc.log:99614:2026-10-03T18:55:03Z rpc=user.get handler=harbor.accounts:fetch_user user=45706 ms=19
+./logs/rpc.log:99615:2026-10-20T17:05:05Z rpc=user.get handler=harbor.accounts:fetch_user user=25338 ms=94
+./logs/rpc.log:99616:2026-10-17T14:06:34Z rpc=user.get handler=harbor.accounts:fetch_user user=85726 ms=774
+./logs/rpc.log:99617:2026-10-04T03:07:28Z rpc=user.get handler=harbor.accounts:fetch_user user=62382 ms=301
+./logs/rpc.log:99618:2026-10-25T10:27:26Z rpc=user.get handler=harbor.accounts:fetch_user user=49549 ms=67
+./logs/rpc.log:99619:2026-10-25T14:14:45Z rpc=user.get handler=harbor.accounts:fetch_user user=99162 ms=233
+./logs/rpc.log:99620:2026-10-19T02:40:39Z rpc=user.count handler=harbor.accounts:fetch_user_count user=11845 ms=406
+./logs/rpc.log:99621:2026-10-05T14:20:27Z rpc=user.count handler=harbor.accounts:fetch_user_count user=85708 ms=92
+./logs/rpc.log:99622:2026-10-26T16:53:26Z rpc=user.get handler=harbor.accounts:fetch_user user=32142 ms=288
+./logs/rpc.log:99623:2026-10-01T12:42:25Z rpc=user.get handler=harbor.accounts:fetch_user user=42962 ms=187
+./logs/rpc.log:99624:2026-10-04T04:45:33Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=16453 ms=798
+./logs/rpc.log:99625:2026-10-13T06:33:14Z rpc=user.get handler=harbor.accounts:fetch_user user=76448 ms=379
+./logs/rpc.log:99626:2026-10-03T13:49:27Z rpc=user.get handler=harbor.accounts:fetch_user user=70888 ms=81
+./logs/rpc.log:99627:2026-10-12T22:52:48Z rpc=user.get handler=harbor.accounts:fetch_user user=23226 ms=454
+./logs/rpc.log:99628:2026-10-11T05:56:06Z rpc=user.get handler=harbor.accounts:fetch_user user=13153 ms=110
+./logs/rpc.log:99629:2026-10-22T22:26:45Z rpc=user.count handler=harbor.accounts:fetch_user_count user=43249 ms=782
+./logs/rpc.log:9962:2026-10-13T22:58:08Z rpc=user.get handler=harbor.accounts:fetch_user user=41722 ms=297
+./logs/rpc.log:99630:2026-10-06T07:33:42Z rpc=user.get handler=harbor.accounts:fetch_user user=78457 ms=678
+./logs/rpc.log:99631:2026-10-02T05:18:37Z rpc=user.get handler=harbor.accounts:fetch_user user=63677 ms=313
+./logs/rpc.log:99632:2026-10-03T20:34:59Z rpc=user.get handler=harbor.accounts:fetch_user user=70182 ms=725
+./logs/rpc.log:99633:2026-10-07T01:57:52Z rpc=user.get handler=harbor.accounts:fetch_user user=42411 ms=852
+./logs/rpc.log:99634:2026-10-02T01:56:39Z rpc=user.get handler=harbor.accounts:fetch_user user=13258 ms=247
+./logs/rpc.log:99635:2026-10-15T22:48:00Z rpc=user.get handler=harbor.accounts:fetch_user user=44635 ms=585
+./logs/rpc.log:99636:2026-10-11T10:10:22Z rpc=user.get handler=harbor.accounts:fetch_user user=62776 ms=680
+./logs/rpc.log:99637:2026-10-17T12:54:10Z rpc=user.get handler=harbor.accounts:fetch_user user=97502 ms=503
+./logs/rpc.log:99638:2026-10-12T23:35:36Z rpc=user.get handler=harbor.accounts:fetch_user user=95369 ms=154
+./logs/rpc.log:99639:2026-10-05T22:57:11Z rpc=user.get handler=harbor.accounts:fetch_user user=39993 ms=441
+./logs/rpc.log:99641:2026-10-05T12:35:09Z rpc=user.get handler=harbor.accounts:fetch_user user=61823 ms=108
+./logs/rpc.log:99642:2026-10-26T02:20:40Z rpc=user.get handler=harbor.accounts:fetch_user user=29141 ms=668
+./logs/rpc.log:99643:2026-10-18T14:10:58Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=91471 ms=438
+./logs/rpc.log:99644:2026-10-16T03:58:00Z rpc=user.get handler=harbor.accounts:fetch_user user=53978 ms=656
+./logs/rpc.log:99645:2026-10-15T15:56:10Z rpc=user.get handler=harbor.accounts:fetch_user user=87263 ms=880
+./logs/rpc.log:99646:2026-10-06T19:46:47Z rpc=user.get handler=harbor.accounts:fetch_user user=64398 ms=846
+./logs/rpc.log:99647:2026-10-28T03:20:37Z rpc=user.get handler=harbor.accounts:fetch_user user=21125 ms=719
+./logs/rpc.log:99648:2026-10-20T21:58:59Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=22844 ms=831
+./logs/rpc.log:99649:2026-10-09T22:07:18Z rpc=user.get handler=harbor.accounts:fetch_user user=41374 ms=77
+./logs/rpc.log:99650:2026-10-06T03:44:35Z rpc=user.get handler=harbor.accounts:fetch_user user=74771 ms=596
+./logs/rpc.log:99651:2026-10-04T03:09:31Z rpc=user.get handler=harbor.accounts:fetch_user user=91082 ms=178
+./logs/rpc.log:99652:2026-10-02T20:33:38Z rpc=user.get handler=harbor.accounts:fetch_user user=69395 ms=217
+./logs/rpc.log:99653:2026-10-28T12:21:55Z rpc=user.get handler=harbor.accounts:fetch_user user=32768 ms=781
+./logs/rpc.log:99654:2026-10-05T00:54:05Z rpc=user.get handler=harbor.accounts:fetch_user user=17479 ms=337
+./logs/rpc.log:99655:2026-10-01T22:38:02Z rpc=user.get handler=harbor.accounts:fetch_user user=51521 ms=263
+./logs/rpc.log:99656:2026-10-10T07:56:54Z rpc=user.get handler=harbor.accounts:fetch_user user=63568 ms=56
+./logs/rpc.log:99657:2026-10-17T05:21:48Z rpc=user.get handler=harbor.accounts:fetch_user user=86474 ms=857
+./logs/rpc.log:99658:2026-10-19T23:20:19Z rpc=user.get handler=harbor.accounts:fetch_user user=23732 ms=333
+./logs/rpc.log:99659:2026-10-21T02:21:19Z rpc=user.get handler=harbor.accounts:fetch_user user=23387 ms=782
+./logs/rpc.log:9965:2026-10-24T06:18:01Z rpc=user.get handler=harbor.accounts:fetch_user user=17521 ms=751
+./logs/rpc.log:99660:2026-10-03T19:13:40Z rpc=user.get handler=harbor.accounts:fetch_user user=28263 ms=700
+./logs/rpc.log:99661:2026-10-26T09:35:32Z rpc=user.get handler=harbor.accounts:fetch_user user=9034 ms=354
+./logs/rpc.log:99662:2026-10-28T07:58:07Z rpc=user.get handler=harbor.accounts:fetch_user user=48781 ms=109
+./logs/rpc.log:99663:2026-10-16T19:31:12Z rpc=user.get handler=harbor.accounts:fetch_user user=93031 ms=874
+./logs/rpc.log:99664:2026-10-01T22:24:28Z rpc=user.count handler=harbor.accounts:fetch_user_count user=57197 ms=601
+./logs/rpc.log:99665:2026-10-25T03:40:52Z rpc=user.get handler=harbor.accounts:fetch_user user=70341 ms=850
+./logs/rpc.log:99666:2026-10-29T09:14:52Z rpc=user.get handler=harbor.accounts:fetch_user user=33910 ms=434
+./logs/rpc.log:99667:2026-10-08T06:03:32Z rpc=user.get handler=harbor.accounts:fetch_user user=55252 ms=615
+./logs/rpc.log:99668:2026-10-20T11:50:26Z rpc=user.get handler=harbor.accounts:fetch_user user=36459 ms=64
+./logs/rpc.log:99669:2026-10-17T17:28:33Z rpc=user.get handler=harbor.accounts:fetch_user user=16325 ms=30
+./logs/rpc.log:9966:2026-10-20T22:11:05Z rpc=user.get handler=harbor.accounts:fetch_user user=91413 ms=754
+./logs/rpc.log:99670:2026-10-12T15:34:18Z rpc=user.get handler=harbor.accounts:fetch_user user=11241 ms=535
+./logs/rpc.log:99671:2026-10-23T12:18:36Z rpc=user.get handler=harbor.accounts:fetch_user user=21101 ms=174
+./logs/rpc.log:99672:2026-10-29T05:56:59Z rpc=user.get handler=harbor.accounts:fetch_user user=25114 ms=538
+./logs/rpc.log:99673:2026-10-09T02:38:30Z rpc=user.get handler=harbor.accounts:fetch_user user=69329 ms=255
+./logs/rpc.log:99674:2026-10-15T21:44:53Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=91152 ms=691
+./logs/rpc.log:99676:2026-10-13T23:08:10Z rpc=user.count handler=harbor.accounts:fetch_user_count user=88162 ms=678
+./logs/rpc.log:99677:2026-10-15T07:17:37Z rpc=user.get handler=harbor.accounts:fetch_user user=48869 ms=661
+./logs/rpc.log:99678:2026-10-13T06:42:55Z rpc=user.count handler=harbor.accounts:fetch_user_count user=99341 ms=595
+./logs/rpc.log:99679:2026-10-26T01:28:23Z rpc=user.get handler=harbor.accounts:fetch_user user=41 ms=102
+./logs/rpc.log:9967:2026-10-21T02:30:15Z rpc=user.get handler=harbor.accounts:fetch_user user=57927 ms=265
+./logs/rpc.log:99680:2026-10-14T21:07:20Z rpc=user.get handler=harbor.accounts:fetch_user user=55953 ms=517
+./logs/rpc.log:99681:2026-10-05T04:33:32Z rpc=user.get handler=harbor.accounts:fetch_user user=71014 ms=468
+./logs/rpc.log:99683:2026-10-05T05:31:46Z rpc=user.get handler=harbor.accounts:fetch_user user=48249 ms=647
+./logs/rpc.log:99684:2026-10-21T10:02:33Z rpc=user.get handler=harbor.accounts:fetch_user user=15072 ms=833
+./logs/rpc.log:99686:2026-10-16T02:05:41Z rpc=user.get handler=harbor.accounts:fetch_user user=99439 ms=631
+./logs/rpc.log:99688:2026-10-20T03:48:15Z rpc=user.get handler=harbor.accounts:fetch_user user=75536 ms=774
+./logs/rpc.log:9968:2026-10-24T23:56:06Z rpc=user.get handler=harbor.accounts:fetch_user user=72264 ms=73
+./logs/rpc.log:99690:2026-10-08T03:31:16Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=45320 ms=860
+./logs/rpc.log:99691:2026-10-06T20:56:13Z rpc=user.get handler=harbor.accounts:fetch_user user=2321 ms=95
+./logs/rpc.log:99692:2026-10-27T14:55:36Z rpc=user.get handler=harbor.accounts:fetch_user user=55599 ms=824
+./logs/rpc.log:99693:2026-10-26T08:12:42Z rpc=user.get handler=harbor.accounts:fetch_user user=17687 ms=892
+./logs/rpc.log:99694:2026-10-24T21:25:48Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=24253 ms=341
+./logs/rpc.log:99695:2026-10-04T09:07:15Z rpc=user.get handler=harbor.accounts:fetch_user user=13425 ms=211
+./logs/rpc.log:99696:2026-10-24T17:57:41Z rpc=user.count handler=harbor.accounts:fetch_user_count user=24000 ms=8
+./logs/rpc.log:99697:2026-10-08T00:21:44Z rpc=user.count handler=harbor.accounts:fetch_user_count user=42215 ms=712
+./logs/rpc.log:99699:2026-10-05T12:19:10Z rpc=user.get handler=harbor.accounts:fetch_user user=17252 ms=585
+./logs/rpc.log:996:2026-10-09T02:13:11Z rpc=user.get handler=harbor.accounts:fetch_user user=98742 ms=439
+./logs/rpc.log:99700:2026-10-25T20:13:26Z rpc=user.get handler=harbor.accounts:fetch_user user=97765 ms=173
+./logs/rpc.log:99701:2026-10-27T06:50:11Z rpc=user.get handler=harbor.accounts:fetch_user user=95543 ms=801
+./logs/rpc.log:99702:2026-10-06T12:45:20Z rpc=user.get handler=harbor.accounts:fetch_user user=92666 ms=464
+./logs/rpc.log:99703:2026-10-07T00:06:46Z rpc=user.count handler=harbor.accounts:fetch_user_count user=69844 ms=612
+./logs/rpc.log:99704:2026-10-20T02:08:16Z rpc=user.get handler=harbor.accounts:fetch_user user=56352 ms=134
+./logs/rpc.log:99706:2026-10-17T22:09:56Z rpc=user.get handler=harbor.accounts:fetch_user user=15349 ms=141
+./logs/rpc.log:99707:2026-10-16T22:28:37Z rpc=user.get handler=harbor.accounts:fetch_user user=49982 ms=797
+./logs/rpc.log:99708:2026-10-26T02:41:37Z rpc=user.get handler=harbor.accounts:fetch_user user=76940 ms=539
+./logs/rpc.log:99709:2026-10-16T07:27:29Z rpc=user.get handler=harbor.accounts:fetch_user user=59352 ms=527
+./logs/rpc.log:9970:2026-10-25T20:55:45Z rpc=user.get handler=harbor.accounts:fetch_user user=7869 ms=313
+./logs/rpc.log:99710:2026-10-11T06:02:57Z rpc=user.get handler=harbor.accounts:fetch_user user=10818 ms=600
+./logs/rpc.log:99711:2026-10-11T17:17:27Z rpc=user.get handler=harbor.accounts:fetch_user user=47898 ms=622
+./logs/rpc.log:99712:2026-10-19T13:42:45Z rpc=user.get handler=harbor.accounts:fetch_user user=25539 ms=315
+./logs/rpc.log:99713:2026-10-09T03:58:10Z rpc=user.get handler=harbor.accounts:fetch_user user=1911 ms=127
+./logs/rpc.log:99714:2026-10-17T03:08:04Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=86156 ms=797
+./logs/rpc.log:99715:2026-10-29T14:35:53Z rpc=user.get handler=harbor.accounts:fetch_user user=17095 ms=1
+./logs/rpc.log:99716:2026-10-16T09:18:30Z rpc=user.count handler=harbor.accounts:fetch_user_count user=85690 ms=15
+./logs/rpc.log:99717:2026-10-25T02:44:15Z rpc=user.get handler=harbor.accounts:fetch_user user=20723 ms=873
+./logs/rpc.log:99718:2026-10-01T23:25:42Z rpc=user.get handler=harbor.accounts:fetch_user user=51244 ms=142
+./logs/rpc.log:99719:2026-10-15T10:24:02Z rpc=user.get handler=harbor.accounts:fetch_user user=45653 ms=603
+./logs/rpc.log:9971:2026-10-29T14:42:00Z rpc=user.get handler=harbor.accounts:fetch_user user=13981 ms=230
+./logs/rpc.log:99720:2026-10-21T10:35:38Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=67527 ms=351
+./logs/rpc.log:99721:2026-10-11T06:25:00Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=80181 ms=594
+./logs/rpc.log:99722:2026-10-20T19:36:18Z rpc=user.get handler=harbor.accounts:fetch_user user=19707 ms=629
+./logs/rpc.log:99723:2026-10-08T12:18:29Z rpc=user.get handler=harbor.accounts:fetch_user user=49620 ms=103
+./logs/rpc.log:99724:2026-10-06T05:37:16Z rpc=user.count handler=harbor.accounts:fetch_user_count user=21214 ms=395
+./logs/rpc.log:99725:2026-10-11T11:42:49Z rpc=user.get handler=harbor.accounts:fetch_user user=28006 ms=581
+./logs/rpc.log:99726:2026-10-16T15:22:03Z rpc=user.get handler=harbor.accounts:fetch_user user=82214 ms=272
+./logs/rpc.log:99727:2026-10-25T02:59:26Z rpc=user.get handler=harbor.accounts:fetch_user user=77818 ms=95
+./logs/rpc.log:99728:2026-10-05T08:58:31Z rpc=user.get handler=harbor.accounts:fetch_user user=33080 ms=56
+./logs/rpc.log:99729:2026-10-08T03:42:03Z rpc=user.get handler=harbor.accounts:fetch_user user=66193 ms=239
+./logs/rpc.log:9972:2026-10-22T11:52:28Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=14760 ms=78
+./logs/rpc.log:99730:2026-10-14T06:21:41Z rpc=user.get handler=harbor.accounts:fetch_user user=45637 ms=96
+./logs/rpc.log:99731:2026-10-14T01:24:40Z rpc=user.get handler=harbor.accounts:fetch_user user=28513 ms=876
+./logs/rpc.log:99732:2026-10-08T01:39:01Z rpc=user.get handler=harbor.accounts:fetch_user user=25670 ms=256
+./logs/rpc.log:99733:2026-10-28T12:14:36Z rpc=user.get handler=harbor.accounts:fetch_user user=17626 ms=620
+./logs/rpc.log:99734:2026-10-18T23:06:07Z rpc=user.get handler=harbor.accounts:fetch_user user=48475 ms=3
+./logs/rpc.log:99735:2026-10-05T23:14:59Z rpc=user.get handler=harbor.accounts:fetch_user user=56796 ms=255
+./logs/rpc.log:99736:2026-10-13T17:27:58Z rpc=user.get handler=harbor.accounts:fetch_user user=70776 ms=439
+./logs/rpc.log:99737:2026-10-17T14:29:58Z rpc=user.get handler=harbor.accounts:fetch_user user=67451 ms=534
+./logs/rpc.log:99738:2026-10-15T08:04:03Z rpc=user.get handler=harbor.accounts:fetch_user user=88074 ms=224
+./logs/rpc.log:99739:2026-10-08T02:36:04Z rpc=user.get handler=harbor.accounts:fetch_user user=15206 ms=770
+./logs/rpc.log:9973:2026-10-13T23:12:52Z rpc=user.get handler=harbor.accounts:fetch_user user=35466 ms=191
+./logs/rpc.log:99741:2026-10-23T16:31:33Z rpc=user.get handler=harbor.accounts:fetch_user user=20184 ms=512
+./logs/rpc.log:99742:2026-10-16T22:35:30Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=58555 ms=825
+./logs/rpc.log:99743:2026-10-18T15:05:21Z rpc=user.count handler=harbor.accounts:fetch_user_count user=64181 ms=586
+./logs/rpc.log:99744:2026-10-04T10:13:40Z rpc=user.get handler=harbor.accounts:fetch_user user=99918 ms=305
+./logs/rpc.log:99745:2026-10-10T06:58:16Z rpc=user.get handler=harbor.accounts:fetch_user user=79798 ms=275
+./logs/rpc.log:99746:2026-10-28T19:32:21Z rpc=user.count handler=harbor.accounts:fetch_user_count user=50753 ms=623
+./logs/rpc.log:99747:2026-10-13T23:05:20Z rpc=user.get handler=harbor.accounts:fetch_user user=60715 ms=9
+./logs/rpc.log:99748:2026-10-13T01:38:34Z rpc=user.get handler=harbor.accounts:fetch_user user=8792 ms=635
+./logs/rpc.log:99749:2026-10-21T13:03:40Z rpc=user.count handler=harbor.accounts:fetch_user_count user=72480 ms=305
+./logs/rpc.log:9974:2026-10-29T05:57:55Z rpc=user.get handler=harbor.accounts:fetch_user user=51955 ms=265
+./logs/rpc.log:99751:2026-10-23T07:17:36Z rpc=user.get handler=harbor.accounts:fetch_user user=56975 ms=334
+./logs/rpc.log:99752:2026-10-05T02:45:52Z rpc=user.get handler=harbor.accounts:fetch_user user=14524 ms=58
+./logs/rpc.log:99753:2026-10-09T16:41:37Z rpc=user.get handler=harbor.accounts:fetch_user user=27036 ms=19
+./logs/rpc.log:99754:2026-10-25T22:06:30Z rpc=user.get handler=harbor.accounts:fetch_user user=83679 ms=795
+./logs/rpc.log:99755:2026-10-11T14:30:15Z rpc=user.get handler=harbor.accounts:fetch_user user=16618 ms=381
+./logs/rpc.log:99756:2026-10-08T16:46:22Z rpc=user.get handler=harbor.accounts:fetch_user user=88904 ms=198
+./logs/rpc.log:99757:2026-10-04T23:05:35Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=10460 ms=529
+./logs/rpc.log:99758:2026-10-17T10:22:13Z rpc=user.get handler=harbor.accounts:fetch_user user=98832 ms=420
+./logs/rpc.log:99759:2026-10-06T05:16:37Z rpc=user.get handler=harbor.accounts:fetch_user user=94027 ms=112
+./logs/rpc.log:9975:2026-10-28T01:34:15Z rpc=user.get handler=harbor.accounts:fetch_user user=79547 ms=390
+./logs/rpc.log:99760:2026-10-09T04:02:31Z rpc=user.get handler=harbor.accounts:fetch_user user=31284 ms=510
+./logs/rpc.log:99762:2026-10-28T07:19:54Z rpc=user.get handler=harbor.accounts:fetch_user user=83124 ms=718
+./logs/rpc.log:99763:2026-10-29T13:55:32Z rpc=user.get handler=harbor.accounts:fetch_user user=44883 ms=209
+./logs/rpc.log:99764:2026-10-23T01:15:13Z rpc=user.get handler=harbor.accounts:fetch_user user=17886 ms=641
+./logs/rpc.log:99766:2026-10-25T08:19:56Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=9708 ms=98
+./logs/rpc.log:99767:2026-10-07T05:40:10Z rpc=user.get handler=harbor.accounts:fetch_user user=36736 ms=195
+./logs/rpc.log:99769:2026-10-04T04:54:59Z rpc=user.get handler=harbor.accounts:fetch_user user=46704 ms=529
+./logs/rpc.log:9976:2026-10-19T04:14:22Z rpc=user.get handler=harbor.accounts:fetch_user user=40617 ms=607
+./logs/rpc.log:99770:2026-10-20T03:01:41Z rpc=user.get handler=harbor.accounts:fetch_user user=58147 ms=26
+./logs/rpc.log:99771:2026-10-16T21:16:55Z rpc=user.get handler=harbor.accounts:fetch_user user=32063 ms=775
+./logs/rpc.log:99772:2026-10-01T05:17:39Z rpc=user.get handler=harbor.accounts:fetch_user user=62492 ms=223
+./logs/rpc.log:99773:2026-10-28T09:14:07Z rpc=user.get handler=harbor.accounts:fetch_user user=40004 ms=159
+./logs/rpc.log:99774:2026-10-21T03:25:02Z rpc=user.get handler=harbor.accounts:fetch_user user=25294 ms=262
+./logs/rpc.log:99775:2026-10-22T08:51:04Z rpc=user.get handler=harbor.accounts:fetch_user user=43428 ms=526
+./logs/rpc.log:99776:2026-10-22T09:29:05Z rpc=user.get handler=harbor.accounts:fetch_user user=97089 ms=884
+./logs/rpc.log:99777:2026-10-28T18:39:32Z rpc=user.get handler=harbor.accounts:fetch_user user=52878 ms=559
+./logs/rpc.log:99778:2026-10-23T21:56:45Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=23055 ms=590
+./logs/rpc.log:99779:2026-10-19T04:20:38Z rpc=user.count handler=harbor.accounts:fetch_user_count user=98148 ms=867
+./logs/rpc.log:9977:2026-10-19T20:19:34Z rpc=user.get handler=harbor.accounts:fetch_user user=46106 ms=70
+./logs/rpc.log:99780:2026-10-23T21:51:17Z rpc=user.get handler=harbor.accounts:fetch_user user=70096 ms=288
+./logs/rpc.log:99781:2026-10-13T10:55:57Z rpc=user.get handler=harbor.accounts:fetch_user user=21245 ms=547
+./logs/rpc.log:99782:2026-10-10T23:31:37Z rpc=user.get handler=harbor.accounts:fetch_user user=59079 ms=434
+./logs/rpc.log:99783:2026-10-20T11:19:13Z rpc=user.get handler=harbor.accounts:fetch_user user=98698 ms=83
+./logs/rpc.log:99784:2026-10-23T18:05:53Z rpc=user.get handler=harbor.accounts:fetch_user user=33240 ms=269
+./logs/rpc.log:99785:2026-10-09T02:35:33Z rpc=user.get handler=harbor.accounts:fetch_user user=97720 ms=861
+./logs/rpc.log:99786:2026-10-14T04:25:47Z rpc=user.get handler=harbor.accounts:fetch_user user=66990 ms=794
+./logs/rpc.log:99787:2026-10-05T08:51:36Z rpc=user.get handler=harbor.accounts:fetch_user user=55284 ms=236
+./logs/rpc.log:99788:2026-10-14T16:47:44Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=58097 ms=365
+./logs/rpc.log:9978:2026-10-09T21:58:19Z rpc=user.get handler=harbor.accounts:fetch_user user=96832 ms=467
+./logs/rpc.log:99790:2026-10-06T02:51:56Z rpc=user.get handler=harbor.accounts:fetch_user user=60656 ms=443
+./logs/rpc.log:99791:2026-10-11T18:28:35Z rpc=user.get handler=harbor.accounts:fetch_user user=39838 ms=530
+./logs/rpc.log:99792:2026-10-13T10:41:50Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=85362 ms=207
+./logs/rpc.log:99793:2026-10-14T09:20:41Z rpc=user.get handler=harbor.accounts:fetch_user user=18772 ms=309
+./logs/rpc.log:99794:2026-10-13T00:14:09Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=61240 ms=485
+./logs/rpc.log:99795:2026-10-08T21:05:15Z rpc=user.get handler=harbor.accounts:fetch_user user=78041 ms=395
+./logs/rpc.log:99796:2026-10-10T19:06:11Z rpc=user.get handler=harbor.accounts:fetch_user user=71834 ms=637
+./logs/rpc.log:99797:2026-10-21T21:50:38Z rpc=user.get handler=harbor.accounts:fetch_user user=3143 ms=829
+./logs/rpc.log:99798:2026-10-12T21:40:50Z rpc=user.get handler=harbor.accounts:fetch_user user=1727 ms=70
+./logs/rpc.log:99799:2026-10-21T06:48:16Z rpc=user.get handler=harbor.accounts:fetch_user user=13096 ms=614
+./logs/rpc.log:9979:2026-10-13T10:07:58Z rpc=user.get handler=harbor.accounts:fetch_user user=34695 ms=520
+./logs/rpc.log:997:2026-10-18T03:28:54Z rpc=user.get handler=harbor.accounts:fetch_user user=56592 ms=888
+./logs/rpc.log:99800:2026-10-26T18:50:19Z rpc=user.get handler=harbor.accounts:fetch_user user=26281 ms=486
+./logs/rpc.log:99801:2026-10-18T06:58:02Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=93666 ms=391
+./logs/rpc.log:99802:2026-10-07T05:03:35Z rpc=user.get handler=harbor.accounts:fetch_user user=62296 ms=608
+./logs/rpc.log:99803:2026-10-05T07:59:48Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=93052 ms=123
+./logs/rpc.log:99804:2026-10-17T21:49:17Z rpc=user.get handler=harbor.accounts:fetch_user user=88032 ms=797
+./logs/rpc.log:99805:2026-10-14T03:07:30Z rpc=user.get handler=harbor.accounts:fetch_user user=29969 ms=111
+./logs/rpc.log:99806:2026-10-06T17:47:50Z rpc=user.count handler=harbor.accounts:fetch_user_count user=81332 ms=693
+./logs/rpc.log:99807:2026-10-25T10:13:18Z rpc=user.get handler=harbor.accounts:fetch_user user=7868 ms=639
+./logs/rpc.log:99808:2026-10-02T07:53:22Z rpc=user.get handler=harbor.accounts:fetch_user user=77456 ms=354
+./logs/rpc.log:99809:2026-10-28T18:54:27Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=82838 ms=819
+./logs/rpc.log:9980:2026-10-10T07:11:42Z rpc=user.get handler=harbor.accounts:fetch_user user=26169 ms=633
+./logs/rpc.log:99810:2026-10-12T05:31:48Z rpc=user.get handler=harbor.accounts:fetch_user user=91923 ms=64
+./logs/rpc.log:99811:2026-10-04T03:17:08Z rpc=user.get handler=harbor.accounts:fetch_user user=38676 ms=134
+./logs/rpc.log:99812:2026-10-27T04:26:59Z rpc=user.get handler=harbor.accounts:fetch_user user=52439 ms=512
+./logs/rpc.log:99813:2026-10-29T15:05:27Z rpc=user.get handler=harbor.accounts:fetch_user user=63998 ms=393
+./logs/rpc.log:99815:2026-10-04T08:21:46Z rpc=user.get handler=harbor.accounts:fetch_user user=84387 ms=457
+./logs/rpc.log:99816:2026-10-07T15:41:34Z rpc=user.get handler=harbor.accounts:fetch_user user=76937 ms=351
+./logs/rpc.log:99817:2026-10-29T19:10:24Z rpc=user.get handler=harbor.accounts:fetch_user user=47057 ms=835
+./logs/rpc.log:99818:2026-10-05T04:51:33Z rpc=user.get handler=harbor.accounts:fetch_user user=37633 ms=672
+./logs/rpc.log:99819:2026-10-17T09:59:43Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=43767 ms=570
+./logs/rpc.log:9981:2026-10-17T10:20:32Z rpc=user.get handler=harbor.accounts:fetch_user user=42579 ms=597
+./logs/rpc.log:99820:2026-10-28T20:51:29Z rpc=user.count handler=harbor.accounts:fetch_user_count user=80738 ms=126
+./logs/rpc.log:99821:2026-10-08T18:10:40Z rpc=user.get handler=harbor.accounts:fetch_user user=76731 ms=445
+./logs/rpc.log:99823:2026-10-23T19:24:18Z rpc=user.get handler=harbor.accounts:fetch_user user=98951 ms=117
+./logs/rpc.log:99824:2026-10-28T21:07:07Z rpc=user.get handler=harbor.accounts:fetch_user user=61847 ms=39
+./logs/rpc.log:99825:2026-10-01T21:31:26Z rpc=user.get handler=harbor.accounts:fetch_user user=68486 ms=103
+./logs/rpc.log:99826:2026-10-25T11:38:27Z rpc=user.count handler=harbor.accounts:fetch_user_count user=4457 ms=843
+./logs/rpc.log:99827:2026-10-09T19:24:59Z rpc=user.count handler=harbor.accounts:fetch_user_count user=53672 ms=348
+./logs/rpc.log:99828:2026-10-08T19:42:29Z rpc=user.get handler=harbor.accounts:fetch_user user=6556 ms=354
+./logs/rpc.log:9982:2026-10-05T18:36:02Z rpc=user.get handler=harbor.accounts:fetch_user user=60576 ms=279
+./logs/rpc.log:99830:2026-10-08T12:52:21Z rpc=user.get handler=harbor.accounts:fetch_user user=3729 ms=870
+./logs/rpc.log:99831:2026-10-05T00:25:19Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=13228 ms=741
+./logs/rpc.log:99832:2026-10-16T07:18:46Z rpc=user.get handler=harbor.accounts:fetch_user user=68330 ms=613
+./logs/rpc.log:99833:2026-10-01T14:46:51Z rpc=user.get handler=harbor.accounts:fetch_user user=59507 ms=292
+./logs/rpc.log:99834:2026-10-21T06:27:20Z rpc=user.get handler=harbor.accounts:fetch_user user=76431 ms=658
+./logs/rpc.log:99835:2026-10-12T03:27:59Z rpc=user.get handler=harbor.accounts:fetch_user user=89139 ms=533
+./logs/rpc.log:99836:2026-10-26T02:04:06Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=69425 ms=656
+./logs/rpc.log:99837:2026-10-26T01:24:23Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=12501 ms=8
+./logs/rpc.log:99838:2026-10-06T15:49:32Z rpc=user.get handler=harbor.accounts:fetch_user user=42460 ms=574
+./logs/rpc.log:99839:2026-10-27T15:32:43Z rpc=user.get handler=harbor.accounts:fetch_user user=16397 ms=634
+./logs/rpc.log:9983:2026-10-22T17:44:48Z rpc=user.get handler=harbor.accounts:fetch_user user=56910 ms=368
+./logs/rpc.log:99840:2026-10-03T05:51:06Z rpc=user.get handler=harbor.accounts:fetch_user user=26729 ms=779
+./logs/rpc.log:99841:2026-10-08T20:08:23Z rpc=user.count handler=harbor.accounts:fetch_user_count user=56697 ms=801
+./logs/rpc.log:99842:2026-10-28T16:09:06Z rpc=user.get handler=harbor.accounts:fetch_user user=64922 ms=369
+./logs/rpc.log:99843:2026-10-28T10:47:16Z rpc=user.get handler=harbor.accounts:fetch_user user=51437 ms=339
+./logs/rpc.log:99844:2026-10-19T12:48:50Z rpc=user.get handler=harbor.accounts:fetch_user user=36601 ms=530
+./logs/rpc.log:99846:2026-10-07T10:58:32Z rpc=user.get handler=harbor.accounts:fetch_user user=24868 ms=492
+./logs/rpc.log:99847:2026-10-09T08:32:26Z rpc=user.get handler=harbor.accounts:fetch_user user=32184 ms=381
+./logs/rpc.log:99848:2026-10-05T15:29:01Z rpc=user.get handler=harbor.accounts:fetch_user user=32049 ms=496
+./logs/rpc.log:99849:2026-10-18T17:46:00Z rpc=user.count handler=harbor.accounts:fetch_user_count user=43559 ms=340
+./logs/rpc.log:9984:2026-10-04T13:16:06Z rpc=user.get handler=harbor.accounts:fetch_user user=21234 ms=777
+./logs/rpc.log:99850:2026-10-17T13:22:34Z rpc=user.get handler=harbor.accounts:fetch_user user=863 ms=211
+./logs/rpc.log:99851:2026-10-07T21:14:38Z rpc=user.get handler=harbor.accounts:fetch_user user=40258 ms=28
+./logs/rpc.log:99853:2026-10-02T18:17:59Z rpc=user.get handler=harbor.accounts:fetch_user user=63676 ms=236
+./logs/rpc.log:99854:2026-10-21T19:04:47Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=38909 ms=155
+./logs/rpc.log:99855:2026-10-08T14:58:10Z rpc=user.get handler=harbor.accounts:fetch_user user=75559 ms=704
+./logs/rpc.log:99856:2026-10-01T17:05:19Z rpc=user.get handler=harbor.accounts:fetch_user user=62219 ms=387
+./logs/rpc.log:99857:2026-10-21T09:51:43Z rpc=user.get handler=harbor.accounts:fetch_user user=53621 ms=166
+./logs/rpc.log:99858:2026-10-07T02:05:46Z rpc=user.get handler=harbor.accounts:fetch_user user=98702 ms=362
+./logs/rpc.log:99859:2026-10-06T10:56:46Z rpc=user.get handler=harbor.accounts:fetch_user user=36012 ms=276
+./logs/rpc.log:9985:2026-10-25T04:14:13Z rpc=user.get handler=harbor.accounts:fetch_user user=8140 ms=263
+./logs/rpc.log:99860:2026-10-17T17:57:51Z rpc=user.get handler=harbor.accounts:fetch_user user=1072 ms=337
+./logs/rpc.log:99861:2026-10-14T16:44:59Z rpc=user.get handler=harbor.accounts:fetch_user user=90387 ms=560
+./logs/rpc.log:99862:2026-10-19T17:28:05Z rpc=user.get handler=harbor.accounts:fetch_user user=7253 ms=157
+./logs/rpc.log:99863:2026-10-17T01:52:00Z rpc=user.get handler=harbor.accounts:fetch_user user=33276 ms=478
+./logs/rpc.log:99865:2026-10-27T11:57:09Z rpc=user.get handler=harbor.accounts:fetch_user user=10104 ms=747
+./logs/rpc.log:99866:2026-10-20T20:18:11Z rpc=user.count handler=harbor.accounts:fetch_user_count user=30322 ms=883
+./logs/rpc.log:99867:2026-10-26T08:25:38Z rpc=user.get handler=harbor.accounts:fetch_user user=86908 ms=135
+./logs/rpc.log:99868:2026-10-17T15:27:36Z rpc=user.get handler=harbor.accounts:fetch_user user=41416 ms=447
+./logs/rpc.log:99869:2026-10-13T09:14:30Z rpc=user.get handler=harbor.accounts:fetch_user user=27051 ms=630
+./logs/rpc.log:9986:2026-10-04T08:00:40Z rpc=user.get handler=harbor.accounts:fetch_user user=50251 ms=301
+./logs/rpc.log:99870:2026-10-10T12:02:59Z rpc=user.get handler=harbor.accounts:fetch_user user=77848 ms=651
+./logs/rpc.log:99871:2026-10-03T04:27:53Z rpc=user.get handler=harbor.accounts:fetch_user user=32381 ms=217
+./logs/rpc.log:99872:2026-10-22T17:27:47Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=33999 ms=597
+./logs/rpc.log:99873:2026-10-09T09:37:59Z rpc=user.get handler=harbor.accounts:fetch_user user=9307 ms=323
+./logs/rpc.log:99874:2026-10-03T04:15:19Z rpc=user.get handler=harbor.accounts:fetch_user user=9896 ms=44
+./logs/rpc.log:99875:2026-10-22T21:34:22Z rpc=user.get handler=harbor.accounts:fetch_user user=35028 ms=81
+./logs/rpc.log:99876:2026-10-04T04:22:03Z rpc=user.get handler=harbor.accounts:fetch_user user=5279 ms=636
+./logs/rpc.log:99877:2026-10-28T22:12:41Z rpc=user.count handler=harbor.accounts:fetch_user_count user=14181 ms=720
+./logs/rpc.log:99878:2026-10-25T03:52:05Z rpc=user.get handler=harbor.accounts:fetch_user user=774 ms=742
+./logs/rpc.log:99879:2026-10-28T22:23:52Z rpc=user.get handler=harbor.accounts:fetch_user user=19545 ms=263
+./logs/rpc.log:9987:2026-10-16T06:51:25Z rpc=user.get handler=harbor.accounts:fetch_user user=84778 ms=330
+./logs/rpc.log:99880:2026-10-22T06:37:03Z rpc=user.get handler=harbor.accounts:fetch_user user=23302 ms=584
+./logs/rpc.log:99881:2026-10-16T23:55:45Z rpc=user.get handler=harbor.accounts:fetch_user user=34220 ms=832
+./logs/rpc.log:99883:2026-10-04T01:51:36Z rpc=user.get handler=harbor.accounts:fetch_user user=19692 ms=344
+./logs/rpc.log:99884:2026-10-10T01:36:27Z rpc=user.count handler=harbor.accounts:fetch_user_count user=80642 ms=375
+./logs/rpc.log:99885:2026-10-06T10:22:45Z rpc=user.get handler=harbor.accounts:fetch_user user=16742 ms=458
+./logs/rpc.log:99886:2026-10-14T10:39:55Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=65710 ms=498
+./logs/rpc.log:99887:2026-10-13T18:23:27Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=30859 ms=792
+./logs/rpc.log:99888:2026-10-10T06:53:03Z rpc=user.get handler=harbor.accounts:fetch_user user=92724 ms=2
+./logs/rpc.log:99889:2026-10-19T15:07:30Z rpc=user.get handler=harbor.accounts:fetch_user user=57011 ms=15
+./logs/rpc.log:9988:2026-10-06T18:39:08Z rpc=user.get handler=harbor.accounts:fetch_user user=36748 ms=139
+./logs/rpc.log:99890:2026-10-25T16:55:06Z rpc=user.get handler=harbor.accounts:fetch_user user=45118 ms=614
+./logs/rpc.log:99891:2026-10-24T00:22:50Z rpc=user.get handler=harbor.accounts:fetch_user user=22550 ms=824
+./logs/rpc.log:99892:2026-10-11T03:03:38Z rpc=user.get handler=harbor.accounts:fetch_user user=28958 ms=452
+./logs/rpc.log:99893:2026-10-18T14:01:21Z rpc=user.get handler=harbor.accounts:fetch_user user=31297 ms=112
+./logs/rpc.log:99895:2026-10-20T18:45:20Z rpc=user.get handler=harbor.accounts:fetch_user user=21195 ms=33
+./logs/rpc.log:99896:2026-10-02T06:42:26Z rpc=user.get handler=harbor.accounts:fetch_user user=40796 ms=487
+./logs/rpc.log:99897:2026-10-29T06:52:25Z rpc=user.get handler=harbor.accounts:fetch_user user=1679 ms=116
+./logs/rpc.log:99898:2026-10-12T12:01:02Z rpc=user.count handler=harbor.accounts:fetch_user_count user=46960 ms=363
+./logs/rpc.log:99899:2026-10-16T18:56:12Z rpc=user.get handler=harbor.accounts:fetch_user user=82704 ms=737
+./logs/rpc.log:9989:2026-10-25T12:15:34Z rpc=user.get handler=harbor.accounts:fetch_user user=42863 ms=594
+./logs/rpc.log:998:2026-10-12T22:54:10Z rpc=user.get handler=harbor.accounts:fetch_user user=58457 ms=94
+./logs/rpc.log:99900:2026-10-15T14:50:25Z rpc=user.get handler=harbor.accounts:fetch_user user=44738 ms=815
+./logs/rpc.log:99901:2026-10-16T20:15:19Z rpc=user.get handler=harbor.accounts:fetch_user user=21570 ms=515
+./logs/rpc.log:99902:2026-10-22T19:30:07Z rpc=user.get handler=harbor.accounts:fetch_user user=83849 ms=450
+./logs/rpc.log:99903:2026-10-12T03:50:03Z rpc=user.get handler=harbor.accounts:fetch_user user=50981 ms=83
+./logs/rpc.log:99904:2026-10-04T21:46:22Z rpc=user.get handler=harbor.accounts:fetch_user user=92468 ms=256
+./logs/rpc.log:99905:2026-10-13T13:24:05Z rpc=user.get handler=harbor.accounts:fetch_user user=67031 ms=168
+./logs/rpc.log:99906:2026-10-25T20:13:22Z rpc=user.get handler=harbor.accounts:fetch_user user=3378 ms=839
+./logs/rpc.log:99907:2026-10-08T21:25:51Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=59041 ms=898
+./logs/rpc.log:99908:2026-10-22T08:15:56Z rpc=user.get handler=harbor.accounts:fetch_user user=59305 ms=818
+./logs/rpc.log:99909:2026-10-10T09:22:33Z rpc=user.get handler=harbor.accounts:fetch_user user=48165 ms=80
+./logs/rpc.log:9990:2026-10-27T08:11:30Z rpc=user.get handler=harbor.accounts:fetch_user user=62628 ms=239
+./logs/rpc.log:99910:2026-10-22T03:24:25Z rpc=user.get handler=harbor.accounts:fetch_user user=34425 ms=373
+./logs/rpc.log:99911:2026-10-23T03:11:33Z rpc=user.get handler=harbor.accounts:fetch_user user=11717 ms=408
+./logs/rpc.log:99912:2026-10-05T08:13:29Z rpc=user.get handler=harbor.accounts:fetch_user user=46707 ms=321
+./logs/rpc.log:99913:2026-10-20T02:43:20Z rpc=user.get handler=harbor.accounts:fetch_user user=28435 ms=339
+./logs/rpc.log:99914:2026-10-19T04:27:33Z rpc=user.get handler=harbor.accounts:fetch_user user=4076 ms=528
+./logs/rpc.log:99915:2026-10-03T22:15:43Z rpc=user.get handler=harbor.accounts:fetch_user user=48012 ms=292
+./logs/rpc.log:99916:2026-10-18T05:03:23Z rpc=user.get handler=harbor.accounts:fetch_user user=7894 ms=380
+./logs/rpc.log:99917:2026-10-09T19:49:08Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=55350 ms=381
+./logs/rpc.log:99918:2026-10-08T23:48:30Z rpc=user.get handler=harbor.accounts:fetch_user user=44342 ms=768
+./logs/rpc.log:99919:2026-10-03T07:22:47Z rpc=user.get handler=harbor.accounts:fetch_user user=76846 ms=449
+./logs/rpc.log:9991:2026-10-12T07:53:29Z rpc=user.get handler=harbor.accounts:fetch_user user=35099 ms=497
+./logs/rpc.log:99920:2026-10-25T00:08:11Z rpc=user.get handler=harbor.accounts:fetch_user user=26777 ms=787
+./logs/rpc.log:99921:2026-10-07T01:30:00Z rpc=user.get handler=harbor.accounts:fetch_user user=72923 ms=430
+./logs/rpc.log:99922:2026-10-05T11:31:43Z rpc=user.get handler=harbor.accounts:fetch_user user=99031 ms=424
+./logs/rpc.log:99923:2026-10-16T16:41:57Z rpc=user.get handler=harbor.accounts:fetch_user user=84270 ms=300
+./logs/rpc.log:99924:2026-10-26T05:41:34Z rpc=user.get handler=harbor.accounts:fetch_user user=99585 ms=660
+./logs/rpc.log:99925:2026-10-16T08:29:52Z rpc=user.get handler=harbor.accounts:fetch_user user=93343 ms=646
+./logs/rpc.log:99926:2026-10-15T13:44:47Z rpc=user.get handler=harbor.accounts:fetch_user user=28368 ms=234
+./logs/rpc.log:99927:2026-10-13T10:42:57Z rpc=user.get handler=harbor.accounts:fetch_user user=17530 ms=247
+./logs/rpc.log:99928:2026-10-28T07:39:28Z rpc=user.get handler=harbor.accounts:fetch_user user=32282 ms=140
+./logs/rpc.log:99929:2026-10-18T21:55:25Z rpc=user.get handler=harbor.accounts:fetch_user user=52813 ms=742
+./logs/rpc.log:9992:2026-10-05T14:20:29Z rpc=user.get handler=harbor.accounts:fetch_user user=22663 ms=602
+./logs/rpc.log:99930:2026-10-26T05:08:12Z rpc=user.get handler=harbor.accounts:fetch_user user=93278 ms=351
+./logs/rpc.log:99931:2026-10-01T13:21:40Z rpc=user.get handler=harbor.accounts:fetch_user user=73821 ms=694
+./logs/rpc.log:99932:2026-10-04T08:24:38Z rpc=user.get handler=harbor.accounts:fetch_user user=71673 ms=8
+./logs/rpc.log:99933:2026-10-27T05:22:33Z rpc=user.get handler=harbor.accounts:fetch_user user=15385 ms=511
+./logs/rpc.log:99934:2026-10-08T13:10:26Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=89417 ms=279
+./logs/rpc.log:99935:2026-10-28T14:16:54Z rpc=user.get handler=harbor.accounts:fetch_user user=67808 ms=64
+./logs/rpc.log:99936:2026-10-21T19:10:24Z rpc=user.get handler=harbor.accounts:fetch_user user=95356 ms=710
+./logs/rpc.log:99937:2026-10-09T23:46:16Z rpc=user.get handler=harbor.accounts:fetch_user user=43673 ms=476
+./logs/rpc.log:99938:2026-10-26T18:25:53Z rpc=user.get handler=harbor.accounts:fetch_user user=33648 ms=843
+./logs/rpc.log:99939:2026-10-01T03:31:21Z rpc=user.count handler=harbor.accounts:fetch_user_count user=65061 ms=696
+./logs/rpc.log:9993:2026-10-13T02:26:18Z rpc=user.count handler=harbor.accounts:fetch_user_count user=56518 ms=320
+./logs/rpc.log:99940:2026-10-07T08:16:06Z rpc=user.get handler=harbor.accounts:fetch_user user=42989 ms=15
+./logs/rpc.log:99941:2026-10-03T20:02:29Z rpc=user.get handler=harbor.accounts:fetch_user user=40337 ms=724
+./logs/rpc.log:99942:2026-10-09T22:39:17Z rpc=user.get handler=harbor.accounts:fetch_user user=88767 ms=779
+./logs/rpc.log:99943:2026-10-26T23:49:48Z rpc=user.get handler=harbor.accounts:fetch_user user=37413 ms=423
+./logs/rpc.log:99944:2026-10-15T16:26:29Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=38931 ms=272
+./logs/rpc.log:99945:2026-10-11T12:28:19Z rpc=user.get handler=harbor.accounts:fetch_user user=52127 ms=296
+./logs/rpc.log:99946:2026-10-03T17:38:51Z rpc=user.get handler=harbor.accounts:fetch_user user=37722 ms=455
+./logs/rpc.log:99947:2026-10-18T08:37:58Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=2737 ms=827
+./logs/rpc.log:99948:2026-10-18T21:07:43Z rpc=user.get handler=harbor.accounts:fetch_user user=31937 ms=613
+./logs/rpc.log:99949:2026-10-21T17:22:40Z rpc=user.get handler=harbor.accounts:fetch_user user=88477 ms=657
+./logs/rpc.log:9994:2026-10-22T04:31:57Z rpc=user.get handler=harbor.accounts:fetch_user user=25258 ms=635
+./logs/rpc.log:99950:2026-10-14T05:04:42Z rpc=user.get handler=harbor.accounts:fetch_user user=66430 ms=256
+./logs/rpc.log:99951:2026-10-19T19:27:58Z rpc=user.get handler=harbor.accounts:fetch_user user=58213 ms=154
+./logs/rpc.log:99952:2026-10-25T02:06:20Z rpc=user.get handler=harbor.accounts:fetch_user user=50883 ms=163
+./logs/rpc.log:99953:2026-10-18T20:53:13Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=72705 ms=69
+./logs/rpc.log:99955:2026-10-21T06:28:10Z rpc=user.get handler=harbor.accounts:fetch_user user=75986 ms=199
+./logs/rpc.log:99956:2026-10-08T15:15:52Z rpc=user.get handler=harbor.accounts:fetch_user user=2300 ms=397
+./logs/rpc.log:99957:2026-10-05T00:07:07Z rpc=user.get handler=harbor.accounts:fetch_user user=34579 ms=774
+./logs/rpc.log:99958:2026-10-01T03:34:48Z rpc=user.get handler=harbor.accounts:fetch_user user=87399 ms=635
+./logs/rpc.log:99959:2026-10-19T17:20:49Z rpc=user.get handler=harbor.accounts:fetch_user user=12931 ms=856
+./logs/rpc.log:9995:2026-10-06T05:55:19Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=76166 ms=378
+./logs/rpc.log:99961:2026-10-12T01:16:02Z rpc=user.get handler=harbor.accounts:fetch_user user=38747 ms=447
+./logs/rpc.log:99962:2026-10-08T13:23:58Z rpc=user.get handler=harbor.accounts:fetch_user user=30426 ms=689
+./logs/rpc.log:99963:2026-10-28T19:03:33Z rpc=user.get handler=harbor.accounts:fetch_user user=25765 ms=413
+./logs/rpc.log:99964:2026-10-03T23:39:22Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=41668 ms=858
+./logs/rpc.log:99965:2026-10-20T18:42:53Z rpc=user.get handler=harbor.accounts:fetch_user user=34150 ms=739
+./logs/rpc.log:99966:2026-10-26T03:16:36Z rpc=user.get handler=harbor.accounts:fetch_user user=11636 ms=375
+./logs/rpc.log:99967:2026-10-04T10:25:17Z rpc=user.get handler=harbor.accounts:fetch_user user=28385 ms=751
+./logs/rpc.log:99968:2026-10-28T13:20:42Z rpc=user.get handler=harbor.accounts:fetch_user user=6143 ms=44
+./logs/rpc.log:99969:2026-10-15T01:59:08Z rpc=user.count handler=harbor.accounts:fetch_user_count user=9073 ms=421
+./logs/rpc.log:9996:2026-10-19T13:29:12Z rpc=user.get handler=harbor.accounts:fetch_user user=6244 ms=400
+./logs/rpc.log:99970:2026-10-09T09:49:47Z rpc=user.get handler=harbor.accounts:fetch_user user=84295 ms=367
+./logs/rpc.log:99971:2026-10-03T13:12:40Z rpc=user.get handler=harbor.accounts:fetch_user user=56524 ms=80
+./logs/rpc.log:99972:2026-10-13T23:07:20Z rpc=user.get handler=harbor.accounts:fetch_user user=78346 ms=884
+./logs/rpc.log:99973:2026-10-05T22:19:50Z rpc=user.get handler=harbor.accounts:fetch_user user=66851 ms=664
+./logs/rpc.log:99974:2026-10-04T19:09:47Z rpc=user.get handler=harbor.accounts:fetch_user user=3726 ms=77
+./logs/rpc.log:99975:2026-10-26T17:12:11Z rpc=user.get handler=harbor.accounts:fetch_user user=42846 ms=863
+./logs/rpc.log:99976:2026-10-16T16:34:14Z rpc=github.user handler=harbor.integrations.github:GitHubClient.fetch_user user=57498 ms=655
+./logs/rpc.log:99977:2026-10-15T08:38:10Z rpc=user.get handler=harbor.accounts:fetch_user user=72834 ms=636
+./logs/rpc.log:99978:2026-10-28T20:20:33Z rpc=user.get handler=harbor.accounts:fetch_user user=30698 ms=679
+./logs/rpc.log:99979:2026-10-04T11:25:17Z rpc=user.get handler=harbor.accounts:fetch_user user=23159 ms=897
+./logs/rpc.log:9997:2026-10-20T18:32:44Z rpc=user.get handler=harbor.accounts:fetch_user user=68563 ms=88
+./logs/rpc.log:99980:2026-10-13T13:37:22Z rpc=user.get handler=harbor.accounts:fetch_user user=25721 ms=781
+./logs/rpc.log:99982:2026-10-20T11:20:21Z rpc=user.get handler=harbor.accounts:fetch_user user=65664 ms=90
+./logs/rpc.log:99983:2026-10-28T20:41:53Z rpc=user.count handler=harbor.accounts:fetch_user_count user=60147 ms=112
+./logs/rpc.log:99984:2026-10-19T04:52:29Z rpc=user.get handler=harbor.accounts:fetch_user user=3546 ms=520
+./logs/rpc.log:99985:2026-10-28T14:44:12Z rpc=user.get handler=harbor.accounts:fetch_user user=67431 ms=467
+./logs/rpc.log:99986:2026-10-28T13:09:21Z rpc=user.get handler=harbor.accounts:fetch_user user=57825 ms=893
+./logs/rpc.log:99988:2026-10-20T07:05:05Z rpc=user.get handler=harbor.accounts:fetch_user user=42463 ms=607
+./logs/rpc.log:99989:2026-10-24T20:17:09Z rpc=user.get handler=harbor.accounts:fetch_user user=22050 ms=644
+./logs/rpc.log:99990:2026-10-06T19:17:38Z rpc=user.get handler=harbor.accounts:fetch_user user=91486 ms=106
+./logs/rpc.log:99991:2026-10-12T00:57:18Z rpc=user.get handler=harbor.accounts:fetch_user user=63898 ms=461
+./logs/rpc.log:99992:2026-10-25T23:52:57Z rpc=user.get handler=harbor.accounts:fetch_user user=93212 ms=649
+./logs/rpc.log:99993:2026-10-01T17:42:15Z rpc=user.get handler=harbor.accounts:fetch_user user=80830 ms=214
+./logs/rpc.log:99994:2026-10-24T01:26:33Z rpc=user.get handler=harbor.accounts:fetch_user user=48700 ms=847
+./logs/rpc.log:99995:2026-10-06T18:39:41Z rpc=user.get handler=harbor.accounts:fetch_user user=55935 ms=116
+./logs/rpc.log:99996:2026-10-06T10:29:37Z rpc=user.count handler=harbor.accounts:fetch_user_count user=73645 ms=149
+./logs/rpc.log:99997:2026-10-23T07:36:01Z rpc=user.get handler=harbor.accounts:fetch_user user=24536 ms=631
+./logs/rpc.log:99998:2026-10-09T16:50:39Z rpc=user.get handler=harbor.accounts:fetch_user user=4762 ms=435
+./logs/rpc.log:99999:2026-10-26T05:02:25Z rpc=user.get handler=harbor.accounts:fetch_user user=89823 ms=338
+./logs/rpc.log:9999:2026-10-16T07:44:44Z rpc=user.count handler=harbor.accounts:fetch_user_count user=9722 ms=689
+./logs/rpc.log:999:2026-10-11T15:28:23Z rpc=user.get handler=harbor.accounts:fetch_user user=84464 ms=47
+./logs/rpc.log:99:2026-10-15T08:32:46Z rpc=user.get handler=harbor.accounts:fetch_user user=41822 ms=429
+./logs/rpc.log:9:2026-10-15T09:06:08Z rpc=user.get handler=harbor.accounts:fetch_user user=83044 ms=268
+./proto/accounts.proto:10:    option (harbor.handler) = "harbor.accounts:fetch_user_count";
+./proto/accounts.proto:7:    option (harbor.handler) = "harbor.accounts:fetch_user";
+./proto/billing.proto:7:    option (harbor.handler) = "harbor.accounts:fetch_user";
+./proto/github.proto:7:    option (harbor.handler) = "harbor.integrations.github:GitHubClient.fetch_user";
+./tests/test_accounts.py:11:        self.assertIsNone(fetch_user(14))
+./tests/test_accounts.py:14:        self.assertTrue(fetch_user(14, include_deleted=True)["deleted"])
+./tests/test_accounts.py:18:            fetch_user(0)
+./tests/test_accounts.py:21:        self.assertEqual(fetch_user_count(), 4242)
+./tests/test_accounts.py:3:from harbor.accounts import fetch_user_count, fetch_user
+./tests/test_accounts.py:8:        self.assertEqual(fetch_user(5)["name"], "user5")
+./tests/test_analytics.py:12:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+./tests/test_analytics.py:20:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+./tests/test_audit.py:16:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+./tests/test_export.py:14:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+./tests/test_export.py:26:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+./tests/test_feeds.py:12:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+./tests/test_feeds.py:24:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+./tests/test_imports.py:21:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+./tests/test_imports.py:29:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+./tests/test_insights.py:21:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+./tests/test_insights.py:29:        with mock.patch("harbor.insights.policy.fetch_user", return_value=MOCK):
+./tests/test_integrations.py:10:        self.assertEqual(sync(["x"], fetch_user=False), ["x"])
+./tests/test_invoices.py:13:        with mock.patch("harbor.invoices.store.fetch_user", return_value=MOCK):
+./tests/test_invoices.py:25:        with mock.patch("harbor.invoices.events.fetch_user", return_value=MOCK):
+./tests/test_jobs.py:13:        with mock.patch("harbor.jobs.views.fetch_user", return_value=MOCK):
+./tests/test_jobs.py:25:        with mock.patch("harbor.jobs.tasks.fetch_user", return_value=MOCK):
+./tests/test_jobs.py:33:        with mock.patch("harbor.jobs.digest.fetch_user", return_value=MOCK):
+./tests/test_ledger.py:18:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+./tests/test_mail.py:14:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+./tests/test_mail.py:22:        with mock.patch("harbor.mail.admin.fetch_user", return_value=MOCK):
+./tests/test_notify.py:26:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+.[redacted:high-entropy].py:14:        with mock.patch("harbor.onboarding.views.fetch_user", return_value=MOCK):
+.[redacted:high-entropy].py:30:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+./tests/test_orgs.py:13:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+./tests/test_orgs.py:21:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+./tests/test_orgs.py:29:        with mock.patch("harbor.orgs.events.fetch_user", return_value=MOCK):
+./tests/test_payments.py:29:        with mock.patch("harbor.payments.rules.fetch_user", return_value=MOCK):
+./tests/test_plans.py:38:        with mock.patch("harbor.plans.models.fetch_user", return_value=MOCK):
+./tests/test_presence.py:21:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+./tests/test_presence.py:29:        with mock.patch("harbor.presence.queue.fetch_user", return_value=MOCK):
+./tests/test_profiles.py:13:        with mock.patch("harbor.profiles.tasks.fetch_user", return_value=MOCK):
+./tests/test_profiles.py:21:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+./tests/test_profiles.py:29:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+./tests/test_profiles.py:37:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+./tests/test_proto.py:10:        self.assertEqual(accounts_pb2.HANDLERS["GetUser"], "harbor.accounts:fetch_user")
+./tests/test_proto.py:11:        self.assertEqual(billing_pb2.HANDLERS["GetPayer"], "harbor.accounts:fetch_user")
+./tests/test_push.py:24:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+./tests/test_quotas.py:12:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+./tests/test_quotas.py:20:        with mock.patch("harbor.quotas.events.fetch_user", return_value=MOCK):
+./tests/test_reports.py:12:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+./tests/test_reports.py:20:        with mock.patch("harbor.reports.tasks.fetch_user", return_value=MOCK):
+./tests/test_reports.py:28:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+./tests/test_reports.py:36:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+./tests/test_routes.py:10:        self.assertIs(resolve("user.get"), accounts.fetch_user)
+./tests/test_routes.py:13:        self.assertIs(resolve("github.user"), GitHubClient.fetch_user)
+./tests/test_search.py:24:        with mock.patch("harbor.search.rules.fetch_user", return_value=MOCK):
+./tests/test_sessions.py:12:        with mock.patch("harbor.sessions.views.fetch_user", return_value=MOCK):
+./tests/test_sessions.py:20:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+./tests/test_sessions.py:32:        with mock.patch("harbor.sessions.tasks.fetch_user", return_value=MOCK):
+./tests/test_sso.py:12:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+./tests/test_sso.py:24:        with mock.patch("harbor.sso.policy.fetch_user", return_value=MOCK):
+./tests/test_support.py:12:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+./tests/test_support.py:20:        with mock.patch("harbor.support.views.fetch_user", return_value=MOCK):
+./tests/test_support.py:32:        with mock.patch("harbor.support.policy.fetch_user", return_value=MOCK):
+./tests/test_teams.py:17:        with mock.patch("harbor.teams.digest.fetch_user", return_value=MOCK):
+./tests/test_teams.py:25:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+./tests/test_uploads.py:13:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+./tests/test_uploads.py:21:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+./tests/test_uploads.py:37:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+./tests/test_webhooks.py:24:        with mock.patch("harbor.accounts.fetch_user", return_value=MOCK):
+.[redacted:high-entropy].py:2:    def fetch_user(self, login):
+
+[stdout: 36299424 bytes, 36168352 not captured]
+[exit code: 0]

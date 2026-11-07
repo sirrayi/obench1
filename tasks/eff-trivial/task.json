@@ -1,0 +1,15 @@
+{
+  "id": "eff-trivial",
+  "version": 1,
+  "authoring_date": "2026-10-30",
+  "track": "eff", "camp": 1, "categories": ["tools"],
+  "pillars": [10, 20],
+  "instruction": "Write the exact product of 48271 and 69621 to a file named answer.txt in the current directory: digits only, followed by a single newline. Create no other files.",
+  "limits": {"wall_s": 300, "max_steps": 10},
+  "metric_checks": [
+    {"name": "input tokens at most 8K", "metric": "tokens_in", "max": 8000, "weight": 1},
+    {"name": "at most 2 model calls", "metric": "steps", "max": 2, "weight": 1},
+    {"name": "done within 12 s", "metric": "wall_s", "max": 12, "weight": 1}
+  ],
+  "null_max": 0.0
+}

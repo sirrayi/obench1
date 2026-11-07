@@ -1,0 +1,5 @@
+VERDICT.md written at /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/622148fd5b6e/VERDICT.md
+
+Verdict: don't merge. The repro returns 3 rows, but Ben's note is call back\r\nafter 5pm"\r (stray quote and CR), so issue_repro fails. Branch tests pass, but the new test uses LF-only input, never CRLF, and asserts that quoted commas split into extra fields, so it does not catch the actual defect and would stay green with the issue unfixed. Both branches untouched.
+
+END OF REPORT

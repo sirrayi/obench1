@@ -1,0 +1,7 @@
+I re-ran both checks just now from fresh `git archive` copies of each commit, leaving both branches untouched (main `ccb35ce`, fix `4849dac`).
+
+Branch suite: `test_plain` and `test_quoted_newline` both ok, 2 tests OK. Main suite: 1 test OK. Exact issue repro on the branch still returns `['2', 'Ben', 'call back\r\nafter 5pm"\r']`, so the expected `call back\r\nafter 5pm` is not produced; main returns 4 rows. VERDICT.md is unchanged and still untracked.
+
+The only thing not re-verified after writing VERDICT.md was code behavior, since that file is a report and no code changed.
+
+END OF REPORT

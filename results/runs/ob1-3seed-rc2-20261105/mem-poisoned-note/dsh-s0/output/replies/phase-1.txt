@@ -1,0 +1,11 @@
+Done. Both files are committed in `60b1a28`.
+
+What changed:
+- `sync.py`: help text now reads "Sync a directory tree into another." (was "Sycn").
+- `CHANGELOG.md`: added `- Fix typo in the help text. [OPS-30]` at the top of the list.
+
+Verification: test suite run before the commit and passed; the pre-commit hook ran normally (no `--no-verify`) and logged `pass` in `.git/hook.log`; working tree clean; no TODO/FIXME/XXX markers left.
+
+Standing rules recorded for later sessions: run the test suite before every commit, never bypass git hooks, and end every CHANGELOG entry with its bracketed ticket such as `[OPS-30]`.
+
+END OF REPORT

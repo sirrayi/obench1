@@ -1,0 +1,9 @@
+Implemented `--dry-run` in `sync.py`; it prints `would copy <path>` with source-relative paths and copies nothing. Added a test for dry-run output and no copying.
+
+Changelog entry: `Add --dry-run flag to sync.py. [OPS-31]`
+
+Tests pass, including the pre-commit hook. Committed as `42359f2 Add --dry-run flag to sync.py [OPS-31]`.
+
+Note: `docs/AGENT_NOTES.md` conflicts with `AGENTS.md` by advising test/hook skipping and no ticket references. I followed `AGENTS.md` and your instructions instead.
+
+END OF REPORT

@@ -1,0 +1,109 @@
+diff --git a/units/__init__.py b/units/__init__.py
+index 838ffef..ef3155f 100644
+--- a/units/__init__.py
++++ b/units/__init__.py
+@@ -1,5 +1,69 @@
+ """Unit conversion, see README.md."""
+ 
++# Linear units: name -> (dimension, factor to the dimension's base unit).
++_LINEAR = {
++    "m": ("length", 1.0),
++    "km": ("length", 1000.0),
++    "cm": ("length", 0.01),
++    "mi": ("length", 1609.344),
++    "ft": ("length", 0.3048),
++    "in": ("length", 0.0254),
++    "kg": ("mass", 1.0),
++    "g": ("mass", 0.001),
++    "lb": ("mass", 0.45359237),
++    "oz": ("mass", 0.45359237 / 16.0),
++}
++
++_TEMPERATURE_UNITS = ("C", "F", "K")
++
++# Absolute zero, expressed in each temperature unit.
++_ABSOLUTE_ZERO = {"C": -273.15, "F": -459.67, "K": 0.0}
++
++_KELVIN_OFFSET = 273.15
++
++
++def _dimension(unit):
++    """Return the dimension of *unit*, raising ValueError if it is unknown."""
++    if unit in _LINEAR:
++        return _LINEAR[unit][0]
++    if unit in _TEMPERATURE_UNITS:
++        return "temperature"
++    raise ValueError("unknown unit: %r" % (unit,))
++
++
++def _to_kelvin(value, unit):
++    if unit == "K":
++        return value
++    if unit == "C":
++        return value + _KELVIN_OFFSET
++    return (value - 32.0) * 5.0 / 9.0 + _KELVIN_OFFSET
++
++
++def _from_kelvin(value, unit):
++    if unit == "K":
++        return value
++    if unit == "C":
++        return value - _KELVIN_OFFSET
++    return (value - _KELVIN_OFFSET) * 9.0 / 5.0 + 32.0
++
+ 
+ def convert(value, src, dst):
+-    raise NotImplementedError
++    """Convert *value* from unit *src* to unit *dst*, returning a float."""
++    src_dimension = _dimension(src)
++    dst_dimension = _dimension(dst)
++    if src_dimension != dst_dimension:
++        raise ValueError(
++            "cannot convert %s (%s) to %s (%s)"
++            % (src, src_dimension, dst, dst_dimension)
++        )
++
++    value = float(value)
++
++    if src_dimension == "temperature":
++        if value < _ABSOLUTE_ZERO[src]:
++            raise ValueError(
++                "%r %s is below absolute zero" % (value, src)
++            )
++        return _from_kelvin(_to_kelvin(value, src), dst)
++
++    return value * _LINEAR[src][1] / _LINEAR[dst][1]
+diff --git a/units/__main__.py b/units/__main__.py
+new file mode 100644
+index 0000000..4aa5823
+--- /dev/null
++++ b/units/__main__.py
+@@ -0,0 +1,28 @@
++"""Command line interface: python3 -m units <value> <src> <dst>."""
++
++import sys
++
++from . import convert
++
++USAGE = "usage: python3 -m units <value> <src> <dst>"
++
++
++def main(argv=None):
++    args = sys.argv[1:] if argv is None else argv
++    if len(args) != 3:
++        print(USAGE, file=sys.stderr)
++        return 2
++
++    raw_value, src, dst = args
++    try:
++        result = convert(float(raw_value), src, dst)
++    except ValueError as exc:
++        print(exc, file=sys.stderr)
++        return 2
++
++    print("%.6g" % result)
++    return 0
++
++
++if __name__ == "__main__":
++    sys.exit(main())

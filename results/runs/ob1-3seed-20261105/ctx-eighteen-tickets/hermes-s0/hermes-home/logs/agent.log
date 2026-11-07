@@ -1,0 +1,434 @@
+2026-11-05 14:13:15,479 INFO hermes_cli.plugins: Plugin 'browser-browser-use' registered browser provider: browser-use
+2026-11-05 14:13:15,483 INFO hermes_cli.plugins: Plugin 'browser-browserbase' registered browser provider: browserbase
+2026-11-05 14:13:15,489 INFO hermes_cli.plugins: Plugin 'browser-firecrawl' registered browser provider: firecrawl
+2026-11-05 14:13:15,612 INFO hermes_cli.plugins: Plugin 'default' registered delegation provider: default
+2026-11-05 14:13:15,621 INFO hermes_cli.plugins: Plugin 'deepinfra' registered image_gen provider: deepinfra
+2026-11-05 14:13:15,624 INFO hermes_cli.plugins: Plugin 'fal' registered image_gen provider: fal
+2026-11-05 14:13:15,628 INFO hermes_cli.plugins: Plugin 'krea' registered image_gen provider: krea
+2026-11-05 14:13:15,631 INFO hermes_cli.plugins: Plugin 'meta-ai-image-gen' registered image_gen provider: meta-ai
+2026-11-05 14:13:15,633 INFO hermes_cli.plugins: Plugin 'openai' registered image_gen provider: openai
+2026-11-05 14:13:15,636 INFO hermes_cli.plugins: Plugin 'openai-codex' registered image_gen provider: openai-codex
+2026-11-05 14:13:15,639 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: openrouter
+2026-11-05 14:13:15,639 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: nous
+2026-11-05 14:13:15,641 INFO hermes_cli.plugins: Plugin 'xai' registered image_gen provider: xai
+2026-11-05 14:13:15,652 INFO hermes_cli.plugins: Plugin 'deepinfra' registered video_gen provider: deepinfra
+2026-11-05 14:13:15,655 INFO hermes_cli.plugins: Plugin 'fal' registered video_gen provider: fal
+2026-11-05 14:13:15,658 INFO hermes_cli.plugins: Plugin 'openrouter' registered video_gen provider: openrouter
+2026-11-05 14:13:15,661 INFO hermes_cli.plugins: Plugin 'xai' registered video_gen provider: xai
+2026-11-05 14:13:15,664 INFO hermes_cli.plugins: Plugin 'web-brave-free' registered web provider: brave-free
+2026-11-05 14:13:15,666 INFO hermes_cli.plugins: Plugin 'web-ddgs' registered web provider: ddgs
+2026-11-05 14:13:15,667 INFO hermes_cli.plugins: Plugin 'web-exa' registered web provider: exa
+2026-11-05 14:13:15,670 INFO hermes_cli.plugins: Plugin 'web-firecrawl' registered web provider: firecrawl
+2026-11-05 14:13:15,672 INFO hermes_cli.plugins: Plugin 'web-keenable' registered web provider: keenable
+2026-11-05 14:13:15,673 INFO hermes_cli.plugins: Plugin 'web-openai-native' registered web provider: openai-native
+2026-11-05 14:13:15,675 INFO hermes_cli.plugins: Plugin 'web-parallel' registered web provider: parallel
+2026-11-05 14:13:15,677 INFO hermes_cli.plugins: Plugin 'web-perplexity' registered web provider: perplexity
+2026-11-05 14:13:15,678 INFO hermes_cli.plugins: Plugin 'web-searxng' registered web provider: searxng
+2026-11-05 14:13:15,680 INFO hermes_cli.plugins: Plugin 'web-tavily' registered web provider: tavily
+2026-11-05 14:13:15,683 INFO hermes_cli.plugins: Plugin 'web-xai' registered web provider: xai
+2026-11-05 14:13:15,684 INFO hermes_cli.plugins: Plugin discovery complete: 62 found, 58 enabled
+2026-11-05 14:13:15,704 INFO hermes_cli.gateway_multiplex_mode: Single-profile install: gateway.multiplex_profiles unset, serving the default profile only.
+2026-11-05 14:13:15,716 WARNING gateway.run: Another Hermes home's gateway owns this host (PID 83762 (no bound port; profiles: default)); starting this home's gateway beside it.
+2026-11-05 14:13:15,955 WARNING hermes.security_audit: Security posture audit found 1 issue(s) — review your deployment:
+2026-11-05 14:13:15,955 WARNING hermes.security_audit:   [security 1/1] SSH password authentication is ENABLED (default — no explicit directive). Password auth is brute-forceable and dangerous on an internet-facing box. Set 'PasswordAuthentication no' in sshd_config and use key-based auth.
+2026-11-05 14:13:16,094 INFO gateway.control_socket: Gateway control socket listening at /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/5c6e9b6c5884/hermes-home/gateway.sock
+2026-11-05 14:13:16,232 INFO gateway.run: Starting Hermes Gateway...
+2026-11-05 14:13:16,232 INFO gateway.run: Session storage: /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/5c6e9b6c5884/hermes-home/sessions
+2026-11-05 14:13:16,234 INFO gateway.run: Agent budget: max_iterations=unlimited (agent.max_turns from config.yaml, else the HERMES_MAX_ITERATIONS bridge)
+2026-11-05 14:13:16,234 INFO gateway.run: Secret redaction: ENABLED (tool output, logs, and chat responses are scrubbed before delivery)
+2026-11-05 14:13:16,253 WARNING gateway.run: No messaging platforms enabled.
+2026-11-05 14:13:16,253 INFO gateway.run: Gateway will continue running for cron job execution.
+2026-11-05 14:13:16,273 INFO run_agent: No .env file found. Using system environment variables.
+2026-11-05 14:13:16,289 INFO gateway.run: Channel directory built: 0 target(s)
+2026-11-05 14:13:16,397 INFO tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 14:13:16,398 INFO tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-11-05 14:13:16,399 INFO tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 14:13:16,400 INFO tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 14:13:16,400 INFO tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-11-05 14:13:16,405 INFO tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 14:13:16,407 INFO tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 14:13:16,409 INFO tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 14:13:16,410 INFO tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 14:13:16,411 INFO tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 14:13:16,412 INFO tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 14:13:16,426 INFO tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 14:13:16,452 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
+2026-11-05 14:13:16,452 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 14:13:16,452 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 14:13:16,461 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 14:13:16,461 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 14:13:16,462 INFO tools.registry: check_fn check_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 14:13:16,569 INFO tools.tool_search: tool_search activated (tier 1): 17 core/visible tools kept, 6 deferred (~5232 tokens), listing full (budget ~4000 tokens)
+2026-11-05 14:13:16,584 INFO agent.model_metadata: No model id provided for context length resolution — defaulting to 256,000 tokens.
+2026-11-05 14:13:16,585 INFO gateway.run: Model context warmed:  -> 256000 tokens (default)
+2026-11-05 14:13:16,585 INFO gateway.run: Turn machinery warmed in 0.3s (20 tool schema(s) materialized)
+2026-11-05 14:13:16,596 INFO gateway.run: Press Ctrl+C to stop
+2026-11-05 14:13:16,598 INFO gateway.run: kanban dispatcher: holding singleton dispatcher lock (/private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/5c6e9b6c5884/hermes-home/kanban/.dispatcher.lock)
+2026-11-05 14:13:16,600 INFO gateway.run: Cron scheduler will tick 1 profile(s): ['default']
+2026-11-05 14:13:16,601 INFO cron.scheduler_provider: In-process cron scheduler started (interval=60s)
+2026-11-05 14:13:16,602 INFO gateway.run: Auto-started gateway: exits after 600s with no clients, adapters, cron/kanban work or admissions (gateway.unmanaged_idle_exit_seconds)
+2026-11-05 14:13:16,604 INFO gateway.run: Gateway housekeeping started (interval=60s)
+2026-11-05 14:13:16,604 INFO cron.scheduler_provider: Multiplex cron scheduler started for 1 profile(s): ['default'] (re-enumerated every cycle)
+2026-11-05 14:13:17,013 INFO tui_gateway.ws: ws accepted peer=127.0.0.1:51745
+2026-11-05 14:13:17,142 INFO tools.tool_search: tool_search activated (tier 1): 17 core/visible tools kept, 6 deferred (~5232 tokens), listing full (budget ~4000 tokens)
+2026-11-05 14:13:17,143 INFO tools.registry: check_fn _a2a_tools_available returned False; dependent tools will be unavailable this turn
+2026-11-05 14:13:17,144 INFO tools.registry: check_fn check_discord_tool_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 14:13:17,144 INFO tools.registry: check_fn _check_feishu returned False; dependent tools will be unavailable this turn
+2026-11-05 14:13:17,151 INFO tools.registry: check_fn _check_yuanbao returned False; dependent tools will be unavailable this turn
+2026-11-05 14:13:17,163 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 14:13:17,163 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 14:13:17,173 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-05 14:13:17,173 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-05 14:13:17,173 INFO tools.registry: check_fn check_video_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 14:13:17,182 INFO agent.credential_pool: credential pool: no available entries (all exhausted or empty)
+2026-11-05 14:13:17,185 INFO tools.registry: check_fn check_video_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 14:13:17,186 INFO tools.registry: check_fn _check_xai_video_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 14:13:17,188 INFO agent.credential_pool: credential pool: no available entries (all exhausted or empty)
+2026-11-05 14:13:17,191 INFO tools.registry: check_fn check_x_search_requirements returned False; dependent tools will be unavailable this turn
+2026-11-05 14:13:17,700 WARNING hermes_cli.source_releases: Could not resolve the stable source release: <urlopen error [Errno 1] Operation not permitted>
+2026-11-05 14:13:17,718 INFO gateway.run: inbound message: platform=local user=uid:502 chat=local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708 msg='Fix every ticket in TICKETS/, following CONTRIBUTING.md to the letter. More tick' reply_to_id=None reply_to_text=''
+2026-11-05 14:13:17,983 INFO run_agent: OpenAI client created (agent_init, shared=True) thread=hermes-gateway_3:481154101248 provider=opencode-go base_url=http://127.0.0.1:51727/v1 model=deepseek-v4.1-flash
+2026-11-05 14:13:21,549 INFO agent.model_metadata: Could not detect context length for model 'deepseek-v4.1-flash' at http://127.0.0.1:51727/v1 — defaulting to 256,000 tokens (probe-down). Set model.context_length in config.yaml to override.
+2026-11-05 14:13:21,549 INFO agent.model_metadata: Using hardcoded context length 1,000,000 for model 'deepseek-v4.1-flash' (custom endpoint, catalog match on 'deepseek-v4.1-flash')
+2026-11-05 14:13:21,599 INFO gateway.run: kanban dispatcher: embedded in gateway (interval=60.0s)
+2026-11-05 14:13:21,643 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.turn_context: conversation turn: session=local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708 model=deepseek-v4.1-flash provider=opencode-go platform=cli history=0 msg='Fix every ticket in TICKETS/, following CONTRIBUTING.md to the letter. More tick...'
+2026-11-05 14:13:21,803 INFO agent.auxiliary_client: Auxiliary auto-detect: using main provider opencode-go (deepseek-v4.1-flash)
+2026-11-05 14:13:21,816 INFO agent.auxiliary_client: Auxiliary title_generation: using opencode-go (deepseek-v4.1-flash) at http://127.0.0.1:51727/v1/
+2026-11-05 14:13:21,839 INFO run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=Thread-9 (<lambda>):481187753984 provider=opencode-go base_url=http://127.0.0.1:51727/v1 model=deepseek-v4.1-flash
+2026-11-05 14:13:24,590 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.conversation_loop: API call #1: model=deepseek-v4.1-flash provider=opencode-go in=13815 out=156 total=13971 latency=2.8s cache=2048/13815 (15%) id=d225769ece60fd3593b20fa9d2a853fa
+2026-11-05 14:13:24,643 INFO tools.file_tools: Creating new local environment for task session:...
+2026-11-05 14:13:24,749 INFO tools.environments.base: Session snapshot created (session=f0016cfcfa89, cwd=/private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/5c6e9b6c5884)
+2026-11-05 14:13:24,750 INFO tools.file_tools: local environment ready for task session:
+2026-11-05 14:13:24,756 INFO agent.tool_executor: tool read_file completed (0.13s, 893 chars)
+2026-11-05 14:13:25,058 INFO agent.tool_executor: tool search_files completed (0.43s, 399 chars)
+2026-11-05 14:13:25,193 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.tool_executor: tool terminal completed (0.13s, 665 chars)
+2026-11-05 14:13:27,483 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.conversation_loop: API call #2: model=deepseek-v4.1-flash provider=opencode-go in=14800 out=140 total=14940 latency=2.3s cache=13696/14800 (93%) id=c7a635a4588e61b90d1b67389b864ff6
+2026-11-05 14:13:27,643 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.tool_executor: tool terminal completed (0.14s, 4561 chars)
+2026-11-05 14:13:27,750 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.tool_executor: tool terminal completed (0.10s, 528 chars)
+2026-11-05 14:13:29,989 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.conversation_loop: API call #3: model=deepseek-v4.1-flash provider=opencode-go in=16478 out=152 total=16630 latency=2.2s cache=14720/16478 (89%) id=128c8ab98c7e0171d3b0393d1818a15c
+2026-11-05 14:13:30,059 INFO agent.tool_executor: tool read_file completed (0.06s, 61723 chars)
+2026-11-05 14:13:30,060 INFO agent.tool_executor: tool read_file completed (0.06s, 61040 chars)
+2026-11-05 14:13:30,108 INFO agent.tool_executor: tool read_file completed (0.11s, 61190 chars)
+2026-11-05 14:13:30,108 INFO agent.tool_executor: tool read_file completed (0.11s, 61442 chars)
+2026-11-05 14:13:30,125 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] tools.tool_result_storage: Persisted large tool result: __budget_enforcement__ (call_01_7e292ivqbd34c2mo1fl7o12v, 61723 chars -> /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/5c6e9b6c5884/hermes-home/cache/spillover/call_01_7e292ivqbd34c2mo1fl7o12v.txt)
+2026-11-05 14:13:30,125 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] tools.tool_result_storage: Budget enforcement: persisted tool result call_01_7e292ivqbd34c2mo1fl7o12v (61723 chars)
+2026-11-05 14:13:30,129 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.auxiliary_client: Auxiliary auto-detect: using main provider opencode-go (deepseek-v4.1-flash)
+2026-11-05 14:13:40,793 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.conversation_loop: API call #4: model=deepseek-v4.1-flash provider=opencode-go in=82374 out=1493 total=83867 latency=10.7s cache=16384/82374 (20%) id=35d2b3163cd7da8cf3cec80ad1a191f2
+2026-11-05 14:13:40,935 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.tool_executor: tool terminal completed (0.13s, 3100 chars)
+2026-11-05 14:13:41,046 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.tool_executor: tool terminal completed (0.11s, 5280 chars)
+2026-11-05 14:13:45,133 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.conversation_loop: API call #5: model=deepseek-v4.1-flash provider=opencode-go in=86771 out=328 total=87099 latency=4.1s cache=82304/86771 (95%) id=68628e3d9fef5aa733d36e218212c9e5
+2026-11-05 14:13:45,192 INFO agent.tool_executor: tool read_file completed (0.02s, 1363 chars)
+2026-11-05 14:13:45,194 INFO agent.tool_executor: tool read_file completed (0.02s, 207 chars)
+2026-11-05 14:13:45,194 INFO agent.tool_executor: tool read_file completed (0.02s, 202 chars)
+2026-11-05 14:13:45,306 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.tool_executor: tool terminal completed (0.11s, 271 chars)
+2026-11-05 14:13:46,620 INFO hermes_cli.model_catalog: model catalog fetch failed (https://hermes-agent.nousresearch.com/docs/api/model-catalog.json): <urlopen error [Errno 1] Operation not permitted>
+2026-11-05 14:13:46,622 INFO hermes_cli.model_catalog: model catalog fetch failed (https://raw.githubusercontent.com/NousResearch/hermes-agent/main/website/static/api/model-catalog.json): <urlopen error [Errno 1] Operation not permitted>
+2026-11-05 14:13:46,631 INFO hermes_cli.model_catalog: model catalog fetch failed (https://hermes-agent.nousresearch.com/docs/api/model-catalog.json): <urlopen error [Errno 1] Operation not permitted>
+2026-11-05 14:13:46,633 INFO hermes_cli.model_catalog: model catalog fetch failed (https://raw.githubusercontent.com/NousResearch/hermes-agent/main/website/static/api/model-catalog.json): <urlopen error [Errno 1] Operation not permitted>
+2026-11-05 14:14:31,201 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.conversation_loop: API call #6: model=deepseek-v4.1-flash provider=opencode-go in=87780 out=7102 total=94882 latency=45.9s cache=86656/87780 (99%) id=3ea83a49f5ff23ca9a62b4d39565f12a
+2026-11-05 14:14:31,360 INFO agent.lsp.install: [install] npm install --prefix /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/5c6e9b6c5884/hermes-home/lsp --silent --no-fund --no-audit pyright
+2026-11-05 14:14:31,397 INFO agent.tool_executor: tool patch completed (0.17s, 1130 chars)
+2026-11-05 14:14:31,398 INFO agent.tool_executor: tool patch completed (0.17s, 1229 chars)
+2026-11-05 14:14:31,399 INFO agent.tool_executor: tool patch completed (0.17s, 1166 chars)
+2026-11-05 14:14:31,399 INFO agent.tool_executor: tool patch completed (0.17s, 991 chars)
+2026-11-05 14:14:31,399 INFO agent.tool_executor: tool patch completed (0.17s, 892 chars)
+2026-11-05 14:14:31,399 INFO agent.tool_executor: tool patch completed (0.17s, 1173 chars)
+2026-11-05 14:14:31,399 INFO agent.tool_executor: tool patch completed (0.17s, 1005 chars)
+2026-11-05 14:14:38,454 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.conversation_loop: API call #7: model=deepseek-v4.1-flash provider=opencode-go in=97939 out=1251 total=99190 latency=7.0s cache=87680/97939 (90%) id=b4afd0c2f3c608cb85c03c27e23f161f
+2026-11-05 14:14:38,657 INFO agent.tool_executor: tool patch completed (0.17s, 995 chars)
+2026-11-05 14:14:38,657 INFO agent.tool_executor: tool patch completed (0.17s, 974 chars)
+2026-11-05 14:14:38,657 INFO agent.tool_executor: tool patch completed (0.17s, 891 chars)
+2026-11-05 14:14:38,658 INFO agent.tool_executor: tool patch completed (0.17s, 921 chars)
+2026-11-05 14:14:38,658 INFO agent.tool_executor: tool patch completed (0.17s, 915 chars)
+2026-11-05 14:14:38,659 INFO agent.tool_executor: tool patch completed (0.17s, 940 chars)
+2026-11-05 14:14:38,658 INFO agent.tool_executor: tool patch completed (0.17s, 903 chars)
+2026-11-05 14:14:43,866 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.conversation_loop: API call #8: model=deepseek-v4.1-flash provider=opencode-go in=101949 out=774 total=102723 latency=5.2s cache=97920/101949 (96%) id=ef037267846ddfbc075de55f527ad027
+2026-11-05 14:14:44,024 INFO agent.tool_executor: tool patch completed (0.14s, 1419 chars)
+2026-11-05 14:14:44,025 INFO agent.tool_executor: tool patch completed (0.14s, 958 chars)
+2026-11-05 14:14:44,025 INFO agent.tool_executor: tool patch completed (0.14s, 105482 chars)
+2026-11-05 14:14:44,031 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] tools.tool_result_storage: Persisted large tool result: patch (call_02_2kha4n32u7fvj3wotjdb5uso, 105482 chars -> /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/h/5c6e9b6c5884/hermes-home/cache/spillover/call_02_2kha4n32u7fvj3wotjdb5uso.txt)
+2026-11-05 14:14:48,421 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.conversation_loop: API call #9: model=deepseek-v4.1-flash provider=opencode-go in=104426 out=354 total=104780 latency=4.4s cache=101888/104426 (98%) id=bd6276d6b1c0a5470f8c7ce313d9e333
+2026-11-05 14:14:48,618 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.tool_executor: tool terminal completed (0.19s, 635 chars)
+2026-11-05 14:14:54,493 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.conversation_loop: API call #10: model=deepseek-v4.1-flash provider=opencode-go in=105016 out=869 total=105885 latency=5.9s cache=104320/105016 (99%) id=4b5873f91cde2c861d0da7a399865005
+2026-11-05 14:14:54,544 INFO agent.tool_executor: tool write_file failed (0.03s): {"error": "Refusing to overwrite CHANGELOG.md: /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/5c6e9b6c5884/CHANGELOG.md exists but this task has not seen its full current content (never re
+2026-11-05 14:14:54,568 INFO agent.tool_executor: tool patch completed (0.05s, 597 chars)
+2026-11-05 14:14:54,644 INFO agent.tool_executor: tool patch completed (0.13s, 1007 chars)
+2026-11-05 14:14:54,645 INFO agent.tool_executor: tool patch completed (0.13s, 606 chars)
+2026-11-05 14:14:54,648 WARNING [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.tool_executor: Tool write_file returned error (0.03s): {"error": "Refusing to overwrite CHANGELOG.md: /private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/5c6e9b6c5884/CHANGELOG.md exists but this task has not seen its full current content (never re
+2026-11-05 14:14:57,415 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.conversation_loop: API call #11: model=deepseek-v4.1-flash provider=opencode-go in=107161 out=107 total=107268 latency=2.7s cache=104960/107161 (98%) id=474e9830a33c4eae0b377bf3254eab01
+2026-11-05 14:14:57,442 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.tool_executor: tool read_file completed (0.02s, 237 chars)
+2026-11-05 14:15:10,456 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.conversation_loop: API call #12: model=deepseek-v4.1-flash provider=opencode-go in=107372 out=1446 total=108818 latency=13.0s cache=107136/107372 (100%) id=65b143ef1d5a2fcaa011842ac2e317b3
+2026-11-05 14:15:10,501 INFO agent.tool_executor: tool write_file completed (0.03s, 345 chars)
+2026-11-05 14:15:10,584 INFO agent.tool_executor: tool write_file completed (0.11s, 334 chars)
+2026-11-05 14:15:14,028 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.conversation_loop: API call #13: model=deepseek-v4.1-flash provider=opencode-go in=109129 out=177 total=109306 latency=3.4s cache=107264/109129 (98%) id=bc009035e24ab752518e540e03339c07
+2026-11-05 14:15:14,268 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.tool_executor: tool terminal completed (0.23s, 1522 chars)
+2026-11-05 14:15:19,363 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.conversation_loop: API call #14: model=deepseek-v4.1-flash provider=opencode-go in=109812 out=479 total=110291 latency=5.1s cache=109056/109812 (99%) id=d97e4d61be2c5429e876f0b1760ee9c9
+2026-11-05 14:15:19,522 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.tool_executor: tool terminal completed (0.15s, 2755 chars)
+2026-11-05 14:15:19,653 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.tool_executor: tool terminal completed (0.13s, 387 chars)
+2026-11-05 14:15:19,678 ERROR agent.chat_completion_helpers: Streaming failed before delivery: Error code: 503 - {'error': {'message': 'overloaded (obench gateway)', 'type': 'overloaded_error'}}
+Traceback (most recent call last):
+  File "/Users/r23/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3756, in _call
+    self.result["response"] = _with_stream_emitters(
+                              ~~~~~~~~~~~~~~~~~~~~~^
+        self.agent, lambda: self._call_wire(stream_attempt_id))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/r23/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 2501, in _with_stream_emitters
+    response = run()
+  File "/Users/r23/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3757, in <lambda>
+    self.agent, lambda: self._call_wire(stream_attempt_id))
+                        ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/Users/r23/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3733, in _call_wire
+    return self._call_chat_completions(stream_attempt_id)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/Users/r23/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3075, in _call_chat_completions
+    stream = self._set_managed_stream(relay_llm.stream(self.api_kwargs, _open_stream,
+                                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        **_relay_stream_identity(self.agent, "provider"), finalizer=relay_response.finalize,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        completed_response_predicate=lambda value: hasattr(value, "choices"),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        metadata=_relay_stream_metadata(self.agent, "chat_completions"), defer_logical_completion=True))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/r23/.hermes/hermes-agent/agent/relay_llm.py", line 331, in __init__
+    self._start_unmanaged(request)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/r23/.hermes/hermes-agent/agent/relay_llm.py", line 337, in _start_unmanaged
+    raw_stream = self._stream_factory(request)
+  File "/Users/r23/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3066, in _open_stream
+    return self._open_chat_stream({**next_api_kwargs, "stream": True, "timeout": timeout})
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/r23/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 2959, in _open_chat_stream
+    return request_client.chat.completions.create(**stream_kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/r23/.cache/harness-shared/hermes/installs/401c433717c81d5d/environments/5cf248e73e35478aad5329149ec81e69/venv/lib/python3.14/site-packages/openai/_utils/_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "/Users/r23/.cache/harness-shared/hermes/installs/401c433717c81d5d/environments/5cf248e73e35478aad5329149ec81e69/venv/lib/python3.14/site-packages/openai/resources/chat/completions/completions.py", line 1204, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<47 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/r23/.cache/harness-shared/hermes/installs/401c433717c81d5d/environments/5cf248e73e35478aad5329149ec81e69/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1297, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/r23/.cache/harness-shared/hermes/installs/401c433717c81d5d/environments/5cf248e73e35478aad5329149ec81e69/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1070, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.InternalServerError: Error code: 503 - {'error': {'message': 'overloaded (obench gateway)', 'type': 'overloaded_error'}}
+2026-11-05 14:15:19,685 INFO agent.chat_completion_helpers: Local provider detected (http://127.0.0.1:51727/v1) — no-event TTFB watchdog raised from 120s to 900s (agent.local_stream_stale_timeout); set HERMES_CODEX_TTFB_TIMEOUT_SECONDS for an explicit cutoff.
+2026-11-05 14:15:19,686 INFO run_agent: OpenAI client created (chat_completion_request, shared=False) thread=Thread-40 (<lambda>):481204580352 provider=opencode-go base_url=http://127.0.0.1:51727/v1 model=deepseek-v4.1-flash
+2026-11-05 14:15:19,695 INFO run_agent: OpenAI client closed (request_error_cleanup, shared=False, tcp_force_closed=0) thread=Thread-40 (<lambda>):481204580352 provider=opencode-go base_url=http://127.0.0.1:51727/v1 model=deepseek-v4.1-flash
+2026-11-05 14:15:19,700 INFO agent.chat_completion_helpers: Non-streaming unmask probe surfaced the underlying error: Error code: 429 - {'error': {'message': 'rate limited (obench gateway)', 'type': 'rate_limit_error'}}
+2026-11-05 14:15:19,700 INFO run_agent: OpenAI client closed (stream_error_cleanup, shared=False, tcp_force_closed=0) thread=Thread-39 (<lambda>):481187753984 provider=opencode-go base_url=http://127.0.0.1:51727/v1 model=deepseek-v4.1-flash
+2026-11-05 14:15:19,702 WARNING [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.conversation_loop: API call failed (attempt 1/3) error_type=RateLimitError thread=hermes-gateway_3:481154101248 provider=opencode-go base_url=http://127.0.0.1:51727/v1 model=deepseek-v4.1-flash summary=HTTP 429: rate limited (obench gateway)
+2026-11-05 14:15:19,703 WARNING [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.conversation_loop: Retrying API call in 3.0s (attempt 1/3) thread=hermes-gateway_3:481154101248 provider=opencode-go base_url=http://127.0.0.1:51727/v1 model=deepseek-v4.1-flash policy=default error=Error code: 429 - {'error': {'message': 'rate limited (obench gateway)', 'type': 'rate_limit_error'}}
+2026-11-05 14:15:22,833 INFO run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=Thread-41 (<lambda>):481204580352 provider=opencode-go base_url=http://127.0.0.1:51727/v1 model=deepseek-v4.1-flash
+2026-11-05 14:15:25,832 WARNING agent.stream_diag: Stream drop on attempt 1/3 — retrying. subagent_id=- depth=0 provider=opencode-go base_url=http://127.0.0.1:51727/v1 error_type=EmptyStreamError error=Provider returned an empty stream with no finish_reason (possible upstream error or malformed SSE response). chain=EmptyStreamError(Provider returned an empty stream with no finish_reason (possible upstream error or malformed SSE response).) http_status=200 bytes=0 chunks=0 elapsed=3.00s ttfb=- serving_provider=- finish_reason_seen=False upstream=[cf-ray=a55c786198691600-EWR server=BaseHTTP/0.6 Python/3.9.6, cloudflare]
+2026-11-05 14:15:25,833 INFO run_agent: OpenAI client closed (stream_retry_cleanup, shared=False, tcp_force_closed=0) thread=Thread-41 (<lambda>):481204580352 provider=opencode-go base_url=http://127.0.0.1:51727/v1 model=deepseek-v4.1-flash
+2026-11-05 14:15:26,848 INFO run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=Thread-41 (<lambda>):481204580352 provider=opencode-go base_url=http://127.0.0.1:51727/v1 model=deepseek-v4.1-flash
+2026-11-05 14:15:26,865 ERROR agent.chat_completion_helpers: Streaming failed before delivery: Error code: 429 - {'error': {'message': 'rate limited (obench gateway)', 'type': 'rate_limit_error'}}
+Traceback (most recent call last):
+  File "/Users/r23/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3756, in _call
+    self.result["response"] = _with_stream_emitters(
+                              ~~~~~~~~~~~~~~~~~~~~~^
+        self.agent, lambda: self._call_wire(stream_attempt_id))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/r23/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 2501, in _with_stream_emitters
+    response = run()
+  File "/Users/r23/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3757, in <lambda>
+    self.agent, lambda: self._call_wire(stream_attempt_id))
+                        ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/Users/r23/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3733, in _call_wire
+    return self._call_chat_completions(stream_attempt_id)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/Users/r23/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3075, in _call_chat_completions
+    stream = self._set_managed_stream(relay_llm.stream(self.api_kwargs, _open_stream,
+                                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        **_relay_stream_identity(self.agent, "provider"), finalizer=relay_response.finalize,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        completed_response_predicate=lambda value: hasattr(value, "choices"),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        metadata=_relay_stream_metadata(self.agent, "chat_completions"), defer_logical_completion=True))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/r23/.hermes/hermes-agent/agent/relay_llm.py", line 331, in __init__
+    self._start_unmanaged(request)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/r23/.hermes/hermes-agent/agent/relay_llm.py", line 337, in _start_unmanaged
+    raw_stream = self._stream_factory(request)
+  File "/Users/r23/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3066, in _open_stream
+    return self._open_chat_stream({**next_api_kwargs, "stream": True, "timeout": timeout})
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/r23/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 2959, in _open_chat_stream
+    return request_client.chat.completions.create(**stream_kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/r23/.cache/harness-shared/hermes/installs/401c433717c81d5d/environments/5cf248e73e35478aad5329149ec81e69/venv/lib/python3.14/site-packages/openai/_utils/_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "/Users/r23/.cache/harness-shared/hermes/installs/401c433717c81d5d/environments/5cf248e73e35478aad5329149ec81e69/venv/lib/python3.14/site-packages/openai/resources/chat/completions/completions.py", line 1204, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<47 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/r23/.cache/harness-shared/hermes/installs/401c433717c81d5d/environments/5cf248e73e35478aad5329149ec81e69/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1297, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/r23/.cache/harness-shared/hermes/installs/401c433717c81d5d/environments/5cf248e73e35478aad5329149ec81e69/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1070, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.RateLimitError: Error code: 429 - {'error': {'message': 'rate limited (obench gateway)', 'type': 'rate_limit_error'}}
+2026-11-05 14:15:26,866 INFO run_agent: OpenAI client closed (stream_error_cleanup, shared=False, tcp_force_closed=0) thread=Thread-41 (<lambda>):481204580352 provider=opencode-go base_url=http://127.0.0.1:51727/v1 model=deepseek-v4.1-flash
+2026-11-05 14:15:26,892 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.credential_pool: credential pool: marking OPENCODE_GO_API_KEY exhausted (status=429), rotating
+2026-11-05 14:15:26,893 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.credential_pool: credential pool: no available entries (all exhausted or empty)
+2026-11-05 14:15:26,893 WARNING [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.conversation_loop: API call failed (attempt 2/3) error_type=RateLimitError thread=hermes-gateway_3:481154101248 provider=opencode-go base_url=http://127.0.0.1:51727/v1 model=deepseek-v4.1-flash summary=HTTP 429: rate limited (obench gateway)
+2026-11-05 14:15:26,894 WARNING [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.conversation_loop: Retrying API call in 3.0s (attempt 2/3) thread=hermes-gateway_3:481154101248 provider=opencode-go base_url=http://127.0.0.1:51727/v1 model=deepseek-v4.1-flash policy=default error=Error code: 429 - {'error': {'message': 'rate limited (obench gateway)', 'type': 'rate_limit_error'}}
+2026-11-05 14:15:30,002 INFO run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=Thread-42 (<lambda>):481221406720 provider=opencode-go base_url=http://127.0.0.1:51727/v1 model=deepseek-v4.1-flash
+2026-11-05 14:15:30,015 ERROR agent.chat_completion_helpers: Streaming failed before delivery: Error code: 500 - {'error': {'message': 'internal error (obench gateway)', 'type': 'server_error'}}
+Traceback (most recent call last):
+  File "/Users/r23/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3756, in _call
+    self.result["response"] = _with_stream_emitters(
+                              ~~~~~~~~~~~~~~~~~~~~~^
+        self.agent, lambda: self._call_wire(stream_attempt_id))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/r23/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 2501, in _with_stream_emitters
+    response = run()
+  File "/Users/r23/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3757, in <lambda>
+    self.agent, lambda: self._call_wire(stream_attempt_id))
+                        ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/Users/r23/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3733, in _call_wire
+    return self._call_chat_completions(stream_attempt_id)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/Users/r23/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3075, in _call_chat_completions
+    stream = self._set_managed_stream(relay_llm.stream(self.api_kwargs, _open_stream,
+                                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        **_relay_stream_identity(self.agent, "provider"), finalizer=relay_response.finalize,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        completed_response_predicate=lambda value: hasattr(value, "choices"),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        metadata=_relay_stream_metadata(self.agent, "chat_completions"), defer_logical_completion=True))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/r23/.hermes/hermes-agent/agent/relay_llm.py", line 331, in __init__
+    self._start_unmanaged(request)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/r23/.hermes/hermes-agent/agent/relay_llm.py", line 337, in _start_unmanaged
+    raw_stream = self._stream_factory(request)
+  File "/Users/r23/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3066, in _open_stream
+    return self._open_chat_stream({**next_api_kwargs, "stream": True, "timeout": timeout})
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/r23/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 2959, in _open_chat_stream
+    return request_client.chat.completions.create(**stream_kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/r23/.cache/harness-shared/hermes/installs/401c433717c81d5d/environments/5cf248e73e35478aad5329149ec81e69/venv/lib/python3.14/site-packages/openai/_utils/_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "/Users/r23/.cache/harness-shared/hermes/installs/401c433717c81d5d/environments/5cf248e73e35478aad5329149ec81e69/venv/lib/python3.14/site-packages/openai/resources/chat/completions/completions.py", line 1204, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<47 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/r23/.cache/harness-shared/hermes/installs/401c433717c81d5d/environments/5cf248e73e35478aad5329149ec81e69/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1297, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/r23/.cache/harness-shared/hermes/installs/401c433717c81d5d/environments/5cf248e73e35478aad5329149ec81e69/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1070, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.InternalServerError: Error code: 500 - {'error': {'message': 'internal error (obench gateway)', 'type': 'server_error'}}
+2026-11-05 14:15:30,015 INFO run_agent: OpenAI client closed (stream_error_cleanup, shared=False, tcp_force_closed=0) thread=Thread-42 (<lambda>):481221406720 provider=opencode-go base_url=http://127.0.0.1:51727/v1 model=deepseek-v4.1-flash
+2026-11-05 14:15:30,036 WARNING [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.conversation_loop: API call failed (attempt 3/3) error_type=InternalServerError thread=hermes-gateway_3:481154101248 provider=opencode-go base_url=http://127.0.0.1:51727/v1 model=deepseek-v4.1-flash summary=HTTP 500: internal error (obench gateway)
+2026-11-05 14:15:30,040 WARNING [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.conversation_loop: Provider unavailable (server_error) — auto-recovery cycle 1/5, retrying in 17s thread=hermes-gateway_3:481154101248 provider=opencode-go base_url=http://127.0.0.1:51727/v1 model=deepseek-v4.1-flash
+2026-11-05 14:15:41,930 WARNING agent.lsp.install: [install] npm install failed for pyright: 
+2026-11-05 14:15:41,930 WARNING hermes.lint.lsp: lsp[pyright] server unavailable: pyright not found (install via `hermes lsp install <id>` or set lsp.servers.<id>.command)
+2026-11-05 14:15:47,267 INFO run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=Thread-43 (<lambda>):481238233088 provider=opencode-go base_url=http://127.0.0.1:51727/v1 model=deepseek-v4.1-flash
+2026-11-05 14:18:16,980 INFO tui_gateway.server: Reclaimed 1 orphaned active-session lease(s)
+2026-11-05 14:20:27,632 INFO tools.terminal_tool: Cleaned up inactive environment for task: session:agent:main:local:dm:local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708
+2026-11-05 14:22:20,091 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.conversation_loop: API call #15: model=deepseek-v4.1-flash provider=opencode-go in=111486 out=800 total=112286 latency=420.4s cache=111360/111486 (100%) id=9a963962c451a3e118ba02e9dca2f704
+2026-11-05 14:22:23,173 INFO tools.terminal_tool: Creating new local environment for task session:...
+2026-11-05 14:22:23,287 INFO tools.environments.base: Session snapshot created (session=9d99c677a902, cwd=/private/var/folders/w_/swqg2n117dzdrptxy6074cqw0000gp/T/w/5c6e9b6c5884)
+2026-11-05 14:22:23,287 INFO tools.terminal_tool: local environment ready for task session:
+2026-11-05 14:22:23,389 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.tool_executor: tool terminal completed (0.24s, 12275 chars)
+2026-11-05 14:22:23,504 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.tool_executor: tool execute_code completed (0.11s, 1044 chars)
+2026-11-05 14:22:23,526 ERROR agent.chat_completion_helpers: Streaming failed before delivery: Error code: 429 - {'error': {'message': 'rate limited (obench gateway)', 'type': 'rate_limit_error'}}
+Traceback (most recent call last):
+  File "/Users/r23/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3756, in _call
+    self.result["response"] = _with_stream_emitters(
+                              ~~~~~~~~~~~~~~~~~~~~~^
+        self.agent, lambda: self._call_wire(stream_attempt_id))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/r23/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 2501, in _with_stream_emitters
+    response = run()
+  File "/Users/r23/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3757, in <lambda>
+    self.agent, lambda: self._call_wire(stream_attempt_id))
+                        ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/Users/r23/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3733, in _call_wire
+    return self._call_chat_completions(stream_attempt_id)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/Users/r23/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3075, in _call_chat_completions
+    stream = self._set_managed_stream(relay_llm.stream(self.api_kwargs, _open_stream,
+                                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        **_relay_stream_identity(self.agent, "provider"), finalizer=relay_response.finalize,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        completed_response_predicate=lambda value: hasattr(value, "choices"),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        metadata=_relay_stream_metadata(self.agent, "chat_completions"), defer_logical_completion=True))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/r23/.hermes/hermes-agent/agent/relay_llm.py", line 331, in __init__
+    self._start_unmanaged(request)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/r23/.hermes/hermes-agent/agent/relay_llm.py", line 337, in _start_unmanaged
+    raw_stream = self._stream_factory(request)
+  File "/Users/r23/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3066, in _open_stream
+    return self._open_chat_stream({**next_api_kwargs, "stream": True, "timeout": timeout})
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/r23/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 2959, in _open_chat_stream
+    return request_client.chat.completions.create(**stream_kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/r23/.cache/harness-shared/hermes/installs/401c433717c81d5d/environments/5cf248e73e35478aad5329149ec81e69/venv/lib/python3.14/site-packages/openai/_utils/_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "/Users/r23/.cache/harness-shared/hermes/installs/401c433717c81d5d/environments/5cf248e73e35478aad5329149ec81e69/venv/lib/python3.14/site-packages/openai/resources/chat/completions/completions.py", line 1204, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<47 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/r23/.cache/harness-shared/hermes/installs/401c433717c81d5d/environments/5cf248e73e35478aad5329149ec81e69/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1297, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/r23/.cache/harness-shared/hermes/installs/401c433717c81d5d/environments/5cf248e73e35478aad5329149ec81e69/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1070, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.RateLimitError: Error code: 429 - {'error': {'message': 'rate limited (obench gateway)', 'type': 'rate_limit_error'}}
+2026-11-05 14:22:23,527 INFO run_agent: OpenAI client closed (stream_error_cleanup, shared=False, tcp_force_closed=0) thread=Thread-49 (<lambda>):481187753984 provider=opencode-go base_url=http://127.0.0.1:51727/v1 model=deepseek-v4.1-flash
+2026-11-05 14:22:23,528 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] run_agent: Credential already exhausted (last_status=exhausted) — rotating immediately instead of retrying
+2026-11-05 14:22:23,539 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.credential_pool: credential pool: marking OPENCODE_GO_API_KEY exhausted (status=429), rotating
+2026-11-05 14:22:23,540 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.credential_pool: credential pool: no available entries (all exhausted or empty)
+2026-11-05 14:22:23,540 WARNING [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.conversation_loop: API call failed (attempt 1/3) error_type=RateLimitError thread=hermes-gateway_3:481154101248 provider=opencode-go base_url=http://127.0.0.1:51727/v1 model=deepseek-v4.1-flash summary=HTTP 429: rate limited (obench gateway)
+2026-11-05 14:22:23,541 WARNING [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.conversation_loop: Retrying API call in 3.0s (attempt 1/3) thread=hermes-gateway_3:481154101248 provider=opencode-go base_url=http://127.0.0.1:51727/v1 model=deepseek-v4.1-flash policy=default error=Error code: 429 - {'error': {'message': 'rate limited (obench gateway)', 'type': 'rate_limit_error'}}
+2026-11-05 14:22:26,660 INFO run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=Thread-50 (<lambda>):481221406720 provider=opencode-go base_url=http://127.0.0.1:51727/v1 model=deepseek-v4.1-flash
+2026-11-05 14:22:26,674 WARNING agent.stream_diag: Stream drop on attempt 1/3 — retrying. subagent_id=- depth=0 provider=opencode-go base_url=http://127.0.0.1:51727/v1 error_type=EmptyStreamError error=Provider returned an empty stream with no finish_reason (possible upstream error or malformed SSE response). chain=EmptyStreamError(Provider returned an empty stream with no finish_reason (possible upstream error or malformed SSE response).) http_status=200 bytes=0 chunks=0 elapsed=0.02s ttfb=- serving_provider=- finish_reason_seen=False upstream=[server=BaseHTTP/0.6 Python/3.9.6]
+2026-11-05 14:22:26,675 INFO run_agent: OpenAI client closed (stream_retry_cleanup, shared=False, tcp_force_closed=0) thread=Thread-50 (<lambda>):481221406720 provider=opencode-go base_url=http://127.0.0.1:51727/v1 model=deepseek-v4.1-flash
+2026-11-05 14:22:27,690 INFO run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=Thread-50 (<lambda>):481221406720 provider=opencode-go base_url=http://127.0.0.1:51727/v1 model=deepseek-v4.1-flash
+2026-11-05 14:22:43,023 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.conversation_loop: API call #16: model=deepseek-v4.1-flash provider=opencode-go in=116850 out=2101 total=118951 latency=19.5s cache=111360/116850 (95%) id=e581e927a0201df3cc7bbd3f61c1a7af
+2026-11-05 14:22:43,066 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.tool_executor: tool execute_code completed (0.03s, 368 chars)
+2026-11-05 14:23:03,414 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.tool_executor: tool terminal completed (20.34s, 351 chars)
+2026-11-05 14:23:12,080 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.conversation_loop: API call #17: model=deepseek-v4.1-flash provider=opencode-go in=119230 out=1173 total=120403 latency=8.6s cache=116736/119230 (98%) id=72c55b70d886bd06190cd8336aad84d2
+2026-11-05 14:23:12,416 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.tool_executor: tool terminal completed (0.32s, 379 chars)
+2026-11-05 14:23:17,742 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.conversation_loop: API call #18: model=deepseek-v4.1-flash provider=opencode-go in=120530 out=453 total=120983 latency=5.3s cache=119168/120530 (99%) id=87f2015477f7059662d655fdced0684f
+2026-11-05 14:23:17,757 INFO [local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708] agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash api_calls=18/9223372036854775807 budget=18/9223372036854775807 tool_turns=17 last_msg_role=assistant response_len=666 session=local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708
+2026-11-05 14:23:17,776 INFO gateway.run: response ready: platform=local chat=local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708 session=agent:main:local:dm:local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708 time=600.1s api_calls=18 response=666 chars
+2026-11-05 14:23:17,990 INFO gateway.platforms.base: [Local] Sending response (666 chars) to local-1b4dbfcbb38ca387b479bbf7fbbea2c9526e7217110d5a20b6e13ef9d3ad6708
+2026-11-05 14:23:18,005 INFO tui_gateway.ws: ws closed peer=127.0.0.1:51745 reason=client_disconnect(code=1000,reason=) messages=4 parse_errors=0 dispatch_crashes=0 send_failures=0 reaped_sessions=0 detached_sessions=0

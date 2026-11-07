@@ -1,0 +1,15 @@
+{"ev": "other", "path": "/api/show", "bytes_in": 30, "t": 1793887106.031}
+{"n": 0, "ev": "done", "status": 404, "how": "ok", "bytes_out": 0, "ttfb_s": 0.353, "wall_s": 0.354, "t": 1793887106.384}
+{"n": 1, "ev": "call", "path": "/v1/chat/completions", "fault": "503", "bytes_in": 57130, "asked": {"thinking": null, "max_tokens": null}, "t": 1793887106.79}
+{"n": 2, "ev": "call", "path": "/v1/chat/completions", "fault": "error200", "bytes_in": 1926, "asked": {"thinking": {"type": "disabled"}, "reasoning_effort": null, "max_tokens": null}, "t": 1793887106.79}
+{"n": 3, "ev": "call", "path": "/v1/chat/completions", "fault": null, "bytes_in": 57076, "asked": {"thinking": null, "max_tokens": null}, "t": 1793887106.809}
+{"n": 3, "ev": "done", "status": 200, "how": "ok", "bytes_out": 1193, "ttfb_s": 2.38, "wall_s": 2.381, "prompt": 13827, "cached": 512, "output": 230, "t": 1793887109.189}
+{"n": 4, "ev": "call", "path": "/v1/chat/completions", "fault": null, "bytes_in": 62250, "asked": {"thinking": null, "max_tokens": null}, "t": 1793887110.508}
+{"n": 4, "ev": "done", "status": 200, "how": "ok", "bytes_out": 11583, "ttfb_s": 1.415, "wall_s": 2.601, "prompt": 16087, "cached": 13824, "output": 235, "t": 1793887113.109}
+{"n": 5, "ev": "call", "path": "/v1/chat/completions", "fault": "429", "bytes_in": 64822, "asked": {"thinking": null, "max_tokens": null}, "t": 1793887113.179}
+{"n": 6, "ev": "call", "path": "/v1/chat/completions", "fault": "429", "bytes_in": 64822, "asked": {"thinking": null, "max_tokens": null}, "t": 1793887116.325}
+{"n": 7, "ev": "call", "path": "/v1/chat/completions", "fault": "503", "bytes_in": 64822, "asked": {"thinking": null, "max_tokens": null}, "t": 1793887119.494}
+{"n": 8, "ev": "call", "path": "/v1/chat/completions", "fault": "500", "bytes_in": 64822, "asked": {"thinking": null, "max_tokens": null}, "t": 1793887137.145}
+{"n": 9, "ev": "call", "path": "/v1/chat/completions", "fault": "429", "bytes_in": 64822, "asked": {"thinking": null, "max_tokens": null}, "t": 1793887140.074}
+{"n": 10, "ev": "call", "path": "/v1/chat/completions", "fault": "garbage", "bytes_in": 64822, "asked": {"thinking": null, "max_tokens": null}, "t": 1793887143.234}
+{"n": 10, "ev": "done", "status": 200, "how": "client_gone", "bytes_out": 209, "ttfb_s": 1.305, "wall_s": 1.306, "t": 1793887144.539}

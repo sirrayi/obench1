@@ -1,0 +1,5 @@
+Fixed the help text in sync.py: line 18 now reads "Sync a directory tree into another." Added the changelog entry at the top of CHANGELOG.md: `- Fix "Sycn" typo in the help text. [OPS-30]`.
+
+Tests passed before committing (`python3 -m unittest discover -s tests -t .`), `python3 sync.py --help` shows the corrected text, and the commit went through the normal pre-commit hook, which logged "pass". Commit `eb5ce3f` on main touches only sync.py and CHANGELOG.md; working tree is clean. I also saved the two standing rules to memory for later sessions.
+
+END OF REPORT

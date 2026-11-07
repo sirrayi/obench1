@@ -1,0 +1,202 @@
+ledgerly/interest/penalties.py:22:    return min((amount * pct / 100).round(ROUND_HALF_EVEN), cap)
+ledgerly/interest/penalties.py:42:    return gross - (gross * pct / 100).round(ROUND_HALF_EVEN)
+ledgerly/interest/penalties.py:51:    return "%s %s" % (amount.round(ROUND_HALF_EVEN).amount, currency)
+[redacted:high-entropy].py:20:    return Money.sum(amounts, currency).round(ROUND_HALF_EVEN)
+[redacted:high-entropy].py:31:    return (amount * pct / 100).round(ROUND_HALF_EVEN)
+[redacted:high-entropy].py:42:    return min((amount * pct / 100).round(ROUND_HALF_EVEN), cap)
+[redacted:high-entropy].py:53:    return (amount * factor).round(ROUND_HALF_EVEN)
+[redacted:high-entropy].py:22:    return min((amount * pct / 100).round(ROUND_HALF_EVEN), cap)
+[redacted:high-entropy].py:33:    return (amount * pct / 100).round(ROUND_HALF_EVEN)
+[redacted:high-entropy].py:53:    share = (amount / parts).round(ROUND_HALF_EVEN)
+[redacted:high-entropy].py:54:    return [share] * (parts - 1) + [(amount - share * (parts - 1)).round(ROUND_HALF_EVEN)]
+[redacted:high-entropy].py:65:    return (balance * annual_rate / 100 * days / 365).round(ROUND_HALF_EVEN)
+[redacted:high-entropy].py:22:    return (amount * pct / 100).round(ROUND_HALF_EVEN)
+[redacted:high-entropy].py:33:    return min((amount * pct / 100).round(ROUND_HALF_EVEN), cap)
+[redacted:high-entropy].py:44:    return (amount * factor).round(ROUND_HALF_EVEN)
+[redacted:high-entropy].py:64:    share = (amount / parts).round(ROUND_HALF_EVEN)
+[redacted:high-entropy].py:65:    return [share] * (parts - 1) + [(amount - share * (parts - 1)).round(ROUND_HALF_EVEN)]
+ledgerly/interest/late_fees.py:22:    return (amount * pct / 100).round(ROUND_HALF_EVEN)
+ledgerly/interest/late_fees.py:51:    return (balance * annual_rate / 100 * days / 365).round(ROUND_HALF_EVEN)
+ledgerly/interest/late_fees.py:62:    return min((amount * pct / 100).round(ROUND_HALF_EVEN), cap)
+[redacted:high-entropy].py:22:    return min((amount * pct / 100).round(ROUND_HALF_UP), cap)
+[redacted:high-entropy].py:42:    return (balance * annual_rate / 100 * days / 365).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:51:    return "%s %s" % (amount.round(ROUND_HALF_UP).amount, currency)
+[redacted:high-entropy].py:22:    return (amount * factor).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:33:    return min((amount * pct / 100).round(ROUND_HALF_UP), cap)
+[redacted:high-entropy].py:53:    share = (amount / parts).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:54:    return [share] * (parts - 1) + [(amount - share * (parts - 1)).round(ROUND_HALF_UP)]
+[redacted:high-entropy].py:22:    return gross - (gross * pct / 100).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:42:    return (amount * factor).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:53:    return min((amount * pct / 100).round(ROUND_HALF_UP), cap)
+[redacted:high-entropy].py:64:    return (balance * annual_rate / 100 * days / 365).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:22:    return gross - (gross * pct / 100).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:33:    share = (amount / parts).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:34:    return [share] * (parts - 1) + [(amount - share * (parts - 1)).round(ROUND_HALF_UP)]
+[redacted:high-entropy].py:52:    return Money.sum(amounts, currency).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:63:    return (amount * factor).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:22:    return (amount * pct / 100).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:49:    return "%s %s" % (amount.round(ROUND_HALF_UP).amount, currency)
+[redacted:high-entropy].py:60:    return gross - (gross * pct / 100).round(ROUND_HALF_UP)
+ledgerly/fx/spreads.py:23:    return Money(amount.amount * RATES[(src, dst)], dst).round(ROUND_HALF_EVEN)
+ledgerly/fx/spreads.py:34:    return Money(amount.amount * RATES[(src, dst)] * (1 - Decimal(spread_bp) / 10000), dst).round(ROUND_HALF_EVEN)
+ledgerly/fx/spreads.py:45:    return (amount * factor).round(ROUND_HALF_EVEN)
+ledgerly/fx/spreads.py:56:    return min((amount * pct / 100).round(ROUND_HALF_EVEN), cap)
+ledgerly/fx/spreads.py:65:    return "%s %s" % (amount.round(ROUND_HALF_EVEN).amount, currency)
+[redacted:high-entropy].py:23:    return Money(amount.amount * RATES[(src, dst)], dst).round(ROUND_HALF_EVEN)
+[redacted:high-entropy].py:34:    return Money(amount.amount * RATES[(src, dst)] * (1 - Decimal(spread_bp) / 10000), dst).round(ROUND_HALF_EVEN)
+[redacted:high-entropy].py:45:    return (balance * annual_rate / 100 * days / 365).round(ROUND_HALF_EVEN)
+[redacted:high-entropy].py:56:    return gross - (gross * pct / 100).round(ROUND_HALF_EVEN)
+[redacted:high-entropy].py:67:    return (amount * pct / 100).round(ROUND_HALF_EVEN)
+ledgerly/fx/convert.py:24:    return Money(amount.amount * RATES[(src, dst)], dst).round(ROUND_HALF_EVEN)
+ledgerly/fx/convert.py:35:    return Money(amount.amount * RATES[(src, dst)] * (1 - Decimal(spread_bp) / 10000), dst).round(ROUND_HALF_EVEN)
+ledgerly/fx/convert.py:46:    return gross - (gross * pct / 100).round(ROUND_HALF_EVEN)
+ledgerly/fx/convert.py:57:    return (amount * factor).round(ROUND_HALF_EVEN)
+ledgerly/fx/convert.py:66:    return Money.sum(amounts, currency).round(ROUND_HALF_EVEN)
+ledgerly/fx/convert.py:75:    return round(amount * float(RATES[(src, dst)]), EXPONENT[dst])
+ledgerly/fx/quotes.py:23:    return Money(amount.amount * RATES[(src, dst)], dst).round(ROUND_HALF_EVEN)
+ledgerly/fx/quotes.py:34:    return Money(amount.amount * RATES[(src, dst)] * (1 - Decimal(spread_bp) / 10000), dst).round(ROUND_HALF_EVEN)
+ledgerly/fx/quotes.py:54:    return (balance * annual_rate / 100 * days / 365).round(ROUND_HALF_EVEN)
+ledgerly/fx/quotes.py:65:    share = (amount / parts).round(ROUND_HALF_EVEN)
+ledgerly/fx/quotes.py:66:    return [share] * (parts - 1) + [(amount - share * (parts - 1)).round(ROUND_HALF_EVEN)]
+[redacted:high-entropy].py:23:    return Money(amount.amount * RATES[(src, dst)], dst).round(ROUND_HALF_EVEN)
+[redacted:high-entropy].py:34:    return Money(amount.amount * RATES[(src, dst)] * (1 - Decimal(spread_bp) / 10000), dst).round(ROUND_HALF_EVEN)
+[redacted:high-entropy].py:45:    return gross - (gross * pct / 100).round(ROUND_HALF_EVEN)
+[redacted:high-entropy].py:56:    return (balance * annual_rate / 100 * days / 365).round(ROUND_HALF_EVEN)
+[redacted:high-entropy].py:67:    share = (amount / parts).round(ROUND_HALF_EVEN)
+[redacted:high-entropy].py:68:    return [share] * (parts - 1) + [(amount - share * (parts - 1)).round(ROUND_HALF_EVEN)]
+[redacted:high-entropy].py:22:    return gross - (gross * pct / 100).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:33:    return (amount * factor).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:53:    share = (amount / parts).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:54:    return [share] * (parts - 1) + [(amount - share * (parts - 1)).round(ROUND_HALF_UP)]
+[redacted:high-entropy].py:65:    return (amount * pct / 100).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:22:    return (amount * factor).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:33:    return (balance * annual_rate / 100 * days / 365).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:42:    return Money.sum(amounts, currency).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:53:    share = (amount / parts).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:54:    return [share] * (parts - 1) + [(amount - share * (parts - 1)).round(ROUND_HALF_UP)]
+ledgerly/tax/vat.py:20:    return "%s %s" % (amount.round(ROUND_HALF_UP).amount, currency)
+ledgerly/tax/vat.py:31:    return min((amount * pct / 100).round(ROUND_HALF_UP), cap)
+ledgerly/tax/vat.py:49:    return Money.sum(amounts, currency).round(ROUND_HALF_UP)
+ledgerly/tax/vat.py:60:    share = (amount / parts).round(ROUND_HALF_UP)
+ledgerly/tax/vat.py:61:    return [share] * (parts - 1) + [(amount - share * (parts - 1)).round(ROUND_HALF_UP)]
+ledgerly/tax/sales_tax.py:31:    return gross - (gross * pct / 100).round(ROUND_HALF_UP)
+ledgerly/tax/sales_tax.py:40:    return "%s %s" % (amount.round(ROUND_HALF_UP).amount, currency)
+ledgerly/tax/sales_tax.py:51:    return (balance * annual_rate / 100 * days / 365).round(ROUND_HALF_UP)
+ledgerly/tax/sales_tax.py:62:    return (amount * factor).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:22:    return (balance * annual_rate / 100 * days / 365).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:42:    return min((amount * pct / 100).round(ROUND_HALF_UP), cap)
+[redacted:high-entropy].py:53:    share = (amount / parts).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:54:    return [share] * (parts - 1) + [(amount - share * (parts - 1)).round(ROUND_HALF_UP)]
+[redacted:high-entropy].py:20:    ('JPY', 'USD'): Decimal("0.0066041"),
+[redacted:high-entropy].py:21:    ('JPY', 'EUR'): Decimal("0.0060844"),
+[redacted:high-entropy].py:22:    ('JPY', 'GBP'): Decimal("0.0051935"),
+[redacted:high-entropy].py:23:    ('JPY', 'KWD'): Decimal("0.0020281"),
+[redacted:high-entropy].py:24:    ('JPY', 'CHF'): Decimal("0.0058150"),
+[redacted:high-entropy].py:20:    return "%s %s" % (amount.round(ROUND_DOWN).amount, currency)
+[redacted:high-entropy].py:31:    share = (amount / parts).round(ROUND_DOWN)
+[redacted:high-entropy].py:32:    return [share] * (parts - 1) + [(amount - share * (parts - 1)).round(ROUND_DOWN)]
+[redacted:high-entropy].py:43:    return min((amount * pct / 100).round(ROUND_DOWN), cap)
+[redacted:high-entropy].py:54:    return (amount * factor).round(ROUND_DOWN)
+[redacted:high-entropy].py:65:    return gross - (gross * pct / 100).round(ROUND_DOWN)
+ledgerly/refunds/returns.py:22:    return (amount * factor).round(ROUND_DOWN)
+ledgerly/refunds/returns.py:33:    return (balance * annual_rate / 100 * days / 365).round(ROUND_DOWN)
+ledgerly/refunds/returns.py:42:    return "%s %s" % (amount.round(ROUND_DOWN).amount, currency)
+ledgerly/refunds/returns.py:53:    return gross - (gross * pct / 100).round(ROUND_DOWN)
+ledgerly/refunds/returns.py:62:    return Money.sum(amounts, currency).round(ROUND_DOWN)
+[redacted:high-entropy].py:22:    return (balance * annual_rate / 100 * days / 365).round(ROUND_DOWN)
+[redacted:high-entropy].py:33:    share = (amount / parts).round(ROUND_DOWN)
+[redacted:high-entropy].py:34:    return [share] * (parts - 1) + [(amount - share * (parts - 1)).round(ROUND_DOWN)]
+[redacted:high-entropy].py:45:    return gross - (gross * pct / 100).round(ROUND_DOWN)
+[redacted:high-entropy].py:65:    return (amount * pct / 100).round(ROUND_DOWN)
+[redacted:high-entropy].py:31:    return min((amount * pct / 100).round(ROUND_DOWN), cap)
+[redacted:high-entropy].py:42:    return gross - (gross * pct / 100).round(ROUND_DOWN)
+[redacted:high-entropy].py:53:    return (amount * pct / 100).round(ROUND_DOWN)
+[redacted:high-entropy].py:64:    share = (amount / parts).round(ROUND_DOWN)
+[redacted:high-entropy].py:65:    return [share] * (parts - 1) + [(amount - share * (parts - 1)).round(ROUND_DOWN)]
+[redacted:high-entropy].py:40:    return (balance * annual_rate / 100 * days / 365).round(ROUND_DOWN)
+[redacted:high-entropy].py:49:    return "%s %s" % (amount.round(ROUND_DOWN).amount, currency)
+[redacted:high-entropy].py:60:    return (amount * pct / 100).round(ROUND_DOWN)
+[redacted:high-entropy].py:21:    total = Money.sum((a for _, a in lines), currency).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:23:           "lines": [{"sku": s, "amount": a.round(ROUND_HALF_UP).to_json()} for s, a in lines],
+[redacted:high-entropy].py:34:    return "%s %s" % (amount.round(ROUND_HALF_UP).amount, currency)
+[redacted:high-entropy].py:43:    return Money.sum(amounts, currency).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:22:        out.append("%s,%s,%s,%s\n" % (day, memo, amount.round(ROUND_HALF_UP).amount, currency))
+[redacted:high-entropy].py:32:    return "%s %s" % (amount.round(ROUND_HALF_UP).amount, currency)
+[redacted:high-entropy].py:41:    return Money.sum(amounts, currency).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:31:    share = (amount / parts).round(ROUND_HALF_EVEN)
+[redacted:high-entropy].py:32:    return [share] * (parts - 1) + [(amount - share * (parts - 1)).round(ROUND_HALF_EVEN)]
+[redacted:high-entropy].py:43:    return min((amount * pct / 100).round(ROUND_HALF_EVEN), cap)
+[redacted:high-entropy].py:54:    return (amount * factor).round(ROUND_HALF_EVEN)
+[redacted:high-entropy].py:65:    return gross - (gross * pct / 100).round(ROUND_HALF_EVEN)
+[redacted:high-entropy].py:22:    return (balance * annual_rate / 100 * days / 365).round(ROUND_HALF_EVEN)
+[redacted:high-entropy].py:33:    share = (amount / parts).round(ROUND_HALF_EVEN)
+[redacted:high-entropy].py:34:    return [share] * (parts - 1) + [(amount - share * (parts - 1)).round(ROUND_HALF_EVEN)]
+[redacted:high-entropy].py:45:    return (amount * pct / 100).round(ROUND_HALF_EVEN)
+[redacted:high-entropy].py:65:    return (amount * factor).round(ROUND_HALF_EVEN)
+[redacted:high-entropy].py:22:    return min((amount * pct / 100).round(ROUND_HALF_EVEN), cap)
+[redacted:high-entropy].py:31:    return Money.sum(amounts, currency).round(ROUND_HALF_EVEN)
+[redacted:high-entropy].py:40:    return "%s %s" % (amount.round(ROUND_HALF_EVEN).amount, currency)
+[redacted:high-entropy].py:51:    return (balance * annual_rate / 100 * days / 365).round(ROUND_HALF_EVEN)
+[redacted:high-entropy].py:22:    return min((amount * pct / 100).round(ROUND_HALF_EVEN), cap)
+[redacted:high-entropy].py:33:    return (amount * factor).round(ROUND_HALF_EVEN)
+[redacted:high-entropy].py:42:    return "%s %s" % (amount.round(ROUND_HALF_EVEN).amount, currency)
+[redacted:high-entropy].py:53:    return gross - (gross * pct / 100).round(ROUND_HALF_EVEN)
+[redacted:high-entropy].py:64:    return (balance * annual_rate / 100 * days / 365).round(ROUND_HALF_EVEN)
+[redacted:high-entropy].py:22:    return (amount * factor).round(ROUND_HALF_EVEN)
+[redacted:high-entropy].py:33:    return (balance * annual_rate / 100 * days / 365).round(ROUND_HALF_EVEN)
+[redacted:high-entropy].py:51:    return Money.sum(amounts, currency).round(ROUND_HALF_EVEN)
+[redacted:high-entropy].py:60:    return "%s %s" % (amount.round(ROUND_HALF_EVEN).amount, currency)
+[redacted:high-entropy].py:22:    return (amount * pct / 100).round(ROUND_HALF_EVEN)
+[redacted:high-entropy].py:33:    share = (amount / parts).round(ROUND_HALF_EVEN)
+[redacted:high-entropy].py:34:    return [share] * (parts - 1) + [(amount - share * (parts - 1)).round(ROUND_HALF_EVEN)]
+[redacted:high-entropy].py:43:    return "%s %s" % (amount.round(ROUND_HALF_EVEN).amount, currency)
+ledgerly/billing/overage.py:31:    share = (amount / parts).round(ROUND_HALF_UP)
+ledgerly/billing/overage.py:32:    return [share] * (parts - 1) + [(amount - share * (parts - 1)).round(ROUND_HALF_UP)]
+ledgerly/billing/overage.py:43:    return (amount * pct / 100).round(ROUND_HALF_UP)
+ledgerly/billing/overage.py:61:    return Money.sum(amounts, currency).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:20:    return "%s %s" % (amount.round(ROUND_HALF_UP).amount, currency)
+[redacted:high-entropy].py:40:    return (amount * pct / 100).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:49:    return Money.sum(amounts, currency).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:60:    return gross - (gross * pct / 100).round(ROUND_HALF_UP)
+ledgerly/billing/plans.py:22:    return (balance * annual_rate / 100 * days / 365).round(ROUND_HALF_UP)
+ledgerly/billing/plans.py:40:    return "%s %s" % (amount.round(ROUND_HALF_UP).amount, currency)
+ledgerly/billing/plans.py:51:    return gross - (gross * pct / 100).round(ROUND_HALF_UP)
+ledgerly/billing/plans.py:62:    return (amount * factor).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:20:    return "%s %s" % (amount.round(ROUND_HALF_UP).amount, currency)
+[redacted:high-entropy].py:40:    return (amount * factor).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:51:    share = (amount / parts).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:52:    return [share] * (parts - 1) + [(amount - share * (parts - 1)).round(ROUND_HALF_UP)]
+[redacted:high-entropy].py:63:    return gross - (gross * pct / 100).round(ROUND_HALF_UP)
+ledgerly/billing/usage.py:31:    share = (amount / parts).round(ROUND_HALF_UP)
+ledgerly/billing/usage.py:32:    return [share] * (parts - 1) + [(amount - share * (parts - 1)).round(ROUND_HALF_UP)]
+ledgerly/billing/usage.py:43:    return (amount * factor).round(ROUND_HALF_UP)
+ledgerly/billing/usage.py:54:    return (amount * pct / 100).round(ROUND_HALF_UP)
+ledgerly/billing/usage.py:63:    return "%s %s" % (amount.round(ROUND_HALF_UP).amount, currency)
+[redacted:high-entropy].py:31:    return (amount * factor).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:42:    return gross - (gross * pct / 100).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:53:    return (balance * annual_rate / 100 * days / 365).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:62:    return Money.sum(amounts, currency).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:20:    return Money.sum(amounts, currency).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:49:    share = (amount / parts).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:50:    return [share] * (parts - 1) + [(amount - share * (parts - 1)).round(ROUND_HALF_UP)]
+[redacted:high-entropy].py:61:    return gross - (gross * pct / 100).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:22:    return min((amount * pct / 100).round(ROUND_HALF_UP), cap)
+[redacted:high-entropy].py:33:    return gross - (gross * pct / 100).round(ROUND_HALF_UP)
+[redacted:high-entropy].py:62:    return (amount * factor).round(ROUND_HALF_UP)
+---
+[redacted:high-entropy].py:5:    ('USD', 'EUR'): Decimal("0.92130"),
+[redacted:high-entropy].py:6:    ('USD', 'GBP'): Decimal("0.78640"),
+[redacted:high-entropy].py:8:    ('USD', 'KWD'): Decimal("0.30710"),
+[redacted:high-entropy].py:9:    ('USD', 'CHF'): Decimal("0.88050"),
+[redacted:high-entropy].py:11:    ('EUR', 'GBP'): Decimal("0.85358"),
+[redacted:high-entropy].py:13:    ('EUR', 'KWD'): Decimal("0.33333"),
+[redacted:high-entropy].py:14:    ('EUR', 'CHF'): Decimal("0.95571"),
+[redacted:high-entropy].py:18:    ('GBP', 'KWD'): Decimal("0.39051"),
+[redacted:high-entropy].py:20:    ('JPY', 'USD'): Decimal("0.0066041"),
+[redacted:high-entropy].py:21:    ('JPY', 'EUR'): Decimal("0.0060844"),
+[redacted:high-entropy].py:22:    ('JPY', 'GBP'): Decimal("0.0051935"),
+[redacted:high-entropy].py:23:    ('JPY', 'KWD'): Decimal("0.0020281"),
+[redacted:high-entropy].py:24:    ('JPY', 'CHF'): Decimal("0.0058150"),
+[redacted:high-entropy].py:32:    ('CHF', 'GBP'): Decimal("0.89313"),
+[redacted:high-entropy].py:34:    ('CHF', 'KWD'): Decimal("0.34878"),
+[exit code: 0]

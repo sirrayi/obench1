@@ -1,0 +1,7 @@
+Rebased `feature/report` onto `main` (3 commits replayed). Conflicts resolved by keeping main's `render_row` rename and all branch features: totals, CSV, header. All 6 tests pass, including schema v2. Smoke-checked totals/CSV/header output.
+
+Removed `build/` (stale bdist, lib copies, `report.o`); no pycache or object files remain. `dist/schema.json` is tracked and kept.
+
+Preserved your work: uncommitted `src/config.py` locale edit restored, untracked `notes/ideas.md` untouched, markdown-renderer stash intact as `stash@{0}` (not dropped or applied).
+
+END OF REPORT

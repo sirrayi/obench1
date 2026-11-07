@@ -1,0 +1,5 @@
+INCIDENT.md written.
+
+Evidence: the 06:58:41.337Z checkout reload changed `cache.ttl_s` and `db.pool_size`; the latter went 40 to 4. Pool-capacity warnings begin at 07:06, the first pool-exhaustion failure is at 07:31:10.409Z, and reverting `db.pool_size` to 40 at 14:20:05 stops the failures. All 3653 "db pool exhausted" failures map to gateway 502s for the same request IDs; the other 549 gateway 502s are pre-existing inventory timeouts unrelated to this change.
+
+END OF REPORT

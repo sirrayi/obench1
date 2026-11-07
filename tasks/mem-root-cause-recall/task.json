@@ -1,0 +1,46 @@
+{
+  "id": "mem-root-cause-recall",
+  "version": 1,
+  "authoring_date": "2026-10-30",
+  "track": "mem",
+  "camp": 3,
+  "categories": [
+    "memory"
+  ],
+  "pillars": [
+    7,
+    10,
+    17
+  ],
+  "phases": [
+    {
+      "instruction": "Work through ISSUE-1.md."
+    },
+    {
+      "instruction": "Work through ISSUE-2.md.",
+      "between": "between.py"
+    }
+  ],
+  "limits": {
+    "wall_s": 1200,
+    "max_steps": 80
+  },
+  "grade_timeout": 300,
+  "null_max": 0.0,
+  "metric_checks": [
+    {
+      "name": "session 2 needs at most 60% of session 1's input tokens (it has seen this before)",
+      "metric": "tokens_in",
+      "ratio": [
+        2,
+        1
+      ],
+      "max": 0.6,
+      "weight": 1.5
+    }
+  ],
+  "calibration": "the 0.6 ratio is a first guess, not yet calibrated on a paid run",
+  "allows": [
+    "commit"
+  ]
+}

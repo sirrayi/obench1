@@ -1,0 +1,2 @@
+- [drift] [workspace drift] since your last step: the owner changed src/report.py since you last wrote it — re-read it before editing it again. Nothing was reverted — adapt, or ask the owner before overwriting.
+- [drift] [workspace drift] since your last step: the owner changed src/report.py, tests/test_report.py since you last wrote them — re-read each before editing them again. Nothing was reverted — adapt, or ask the owner before overwriting.

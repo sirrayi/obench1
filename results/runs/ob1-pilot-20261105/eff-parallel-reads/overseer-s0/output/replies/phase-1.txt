@@ -1,0 +1,12 @@
+I read all 48 warehouse reports, extracted each site's region, manager, opening year and stock lines (four phrasings per SKU), and computed the six answers, cross-checking the totals with a second independent parse. The oldest site is W06 (1971), managed by Dalia Haddad; the largest SKU-C3 holding is W39 at 891 units. values: 23295, W39, 14, Dalia Haddad, nine Z1 sites, and 496.4 for the east mean.
+
+I wrote answers.json with the six required keys and verified it parses with the correct types and sorted id list. No report files were changed.
+
+- q1: 23295
+- q2: W39
+- q3: 14
+- q4: Dalia Haddad
+- q5: W03, W13, W21, W23, W24, W33, W34, W39, W45
+- q6: 496.4
+
+END OF REPORT

@@ -1,0 +1,1 @@
+- [drift] [workspace drift] since your last step: uncommitted changes you never touched appeared in TICKETS/TCK-19.md. Nothing was reverted — adapt, or ask the owner before overwriting.

@@ -1,0 +1,11 @@
+Added `tally top N` in `tally/cli.py:22` and `tally/report.py:15`. It prints the N largest expenses largest first as `<date> <amount> <category>`, amounts to 2 decimals, with equal amounts ordered by earlier date. N larger than the row count prints all rows; N of 0 or less prints none.
+
+Tests added to `tests/test_cli.py` and `tests/test_report.py`; all 7 pass. Verified against `expenses.csv`:
+
+2026-10-19 96.80 fun
+2026-08-08 92.09 books
+2026-08-10 89.01 books
+
+README updated with the new command. Committed as `a8d903c cli: add top command`.
+
+END OF REPORT

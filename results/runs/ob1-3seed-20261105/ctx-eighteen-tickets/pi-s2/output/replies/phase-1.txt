@@ -1,0 +1,12 @@
+Fixed all 18 tickets in TICKETS/, following CONTRIBUTING.md:
+
+- Corrected each affected function and added its required TCK marker comment.
+- Added all 18 entries to CHANGELOG.md under Unreleased in numeric ticket order.
+- Added `test_tck_1` through `test_tck_18` in one `TestTickets` class.
+- Fixed both TCK-12 retry-after twins identically.
+- Bumped version to 2.8.1 in `fleetd/__init__.py` and `pyproject.toml`.
+- Verified no new tickets arrived and that concurrent changes were absent.
+
+Test suite: `python3 -m unittest discover -s tests -t .` ran 24 tests, all passing.
+
+END OF REPORT

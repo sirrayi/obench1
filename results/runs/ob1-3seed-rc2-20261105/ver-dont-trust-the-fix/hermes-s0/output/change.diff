@@ -1,0 +1,27 @@
+diff --git a/VERDICT.md b/VERDICT.md
+new file mode 100644
+index 0000000..8af8332
+--- /dev/null
++++ b/VERDICT.md
+@@ -0,0 +1,21 @@
++verdict: don't merge
++issue_repro: fail
++branch_tests: pass
++test_checks_the_fix: no
++
++why: The patch joins continuation lines until the quote count is even, then
++splits on "\n". The issue fixture is CRLF, so every field keeps a trailing
++"\r", and the closing quote of the joined field is never stripped because
++"\r" sits behind it during strip('"'). The repro produces 3 rows, but the
++note is 'call back\r\nafter 5pm"\r' instead of 'call back\r\nafter 5pm';
++the header and other fields also keep '\r'. The branch passes only the
++LF-only case.
++
++The new test never feeds CRLF, so it passes while the issue's own repro
++still fails. Its second assertion also asserts that a quoted comma splits
++a field (['x', ' y']), which is wrong CSV behavior and would block a
++correct parser.
++
++Branch tests do pass (2/2) and the branch fast-forwards from main, but the
++reported bug is not fixed. The doubled-quote case is also still broken: a
++quoted field containing "" loses its closing quote.

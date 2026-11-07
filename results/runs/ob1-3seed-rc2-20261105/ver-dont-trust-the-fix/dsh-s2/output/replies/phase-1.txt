@@ -1,0 +1,8 @@
+VERDICT.md is written; both branches are unchanged (checks ran in throwaway detached worktrees).
+
+- verdict: don't merge
+- issue_repro: fail. The repro returns 3 rows, but the note is `call back\r\nafter 5pm"\r`, not `call back\r\nafter 5pm`; other fields keep stray `\r`/`"` too.
+- branch_tests: pass (2 tests OK).
+- test_checks_the_fix: no. The new test uses LF-only input with nothing after the closing quote, so it passes while the CRLF repro still fails; its second assertion even asserts broken quoted-comma splitting.
+
+END OF REPORT

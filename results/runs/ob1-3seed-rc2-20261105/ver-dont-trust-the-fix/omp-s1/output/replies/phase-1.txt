@@ -1,0 +1,7 @@
+VERDICT.md written: don't merge.
+
+Issue repro fails on the branch: 3 rows are returned, but row 2's note is `call back\r\nafter 5pm"\r` instead of `call back\r\nafter 5pm`; the header also keeps `\r`. Cause: `split("\n")` leaves `\r` before the closing quote, so `strip('"')` misses it.
+
+Branch suite passes (2 tests). The new test only feeds LF input; it misses the CRLF export and one assertion enshrines comma-inside-quotes splitting. No branch changes made.
+
+END OF REPORT

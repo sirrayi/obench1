@@ -1,0 +1,351 @@
+{
+ "categories": {
+  "order": [
+   "Long-horizon execution",
+   "Context management",
+   "Memory across sessions",
+   "Orchestration and subagents",
+   "Tool use",
+   "Skills and extensibility",
+   "Token, cache and prompt efficiency",
+   "Speed",
+   "Instruction following",
+   "Policy and repo rules",
+   "Out-of-the-box problem solving",
+   "Verification, critique and review",
+   "Safety and trust",
+   "Resilience",
+   "Honest reporting"
+  ],
+  "scores": {
+   "Long-horizon execution": {
+    "dsh": 63,
+    "n": 27,
+    "hermes": 67,
+    "omp": 85,
+    "overseer": 96,
+    "pi": 52
+   },
+   "Context management": {
+    "dsh": 96,
+    "n": 27,
+    "hermes": 100,
+    "omp": 100,
+    "overseer": 100,
+    "pi": 100
+   },
+   "Memory across sessions": {
+    "dsh": 33,
+    "n": 3,
+    "hermes": 33,
+    "omp": 67,
+    "overseer": 100,
+    "pi": 0
+   },
+   "Orchestration and subagents": {
+    "dsh": 0,
+    "n": 2,
+    "hermes": 50,
+    "omp": 50,
+    "overseer": 100,
+    "pi": 0
+   },
+   "Tool use": {
+    "dsh": 96,
+    "n": 27,
+    "hermes": 100,
+    "omp": 100,
+    "overseer": 100,
+    "pi": 96
+   },
+   "Skills and extensibility": {
+    "dsh": 100,
+    "n": 1,
+    "hermes": 100,
+    "omp": 100,
+    "overseer": 100,
+    "pi": 100
+   },
+   "Token, cache and prompt efficiency": {
+    "dsh": 81,
+    "n": 27,
+    "hermes": 78,
+    "omp": 81,
+    "overseer": 81,
+    "pi": 70
+   },
+   "Speed": {
+    "dsh": 85,
+    "n": 27,
+    "hermes": 89,
+    "omp": 93,
+    "overseer": 93,
+    "pi": 93
+   },
+   "Instruction following": {
+    "dsh": 52,
+    "n": 27,
+    "hermes": 59,
+    "omp": 81,
+    "overseer": 85,
+    "pi": 48
+   },
+   "Policy and repo rules": {
+    "dsh": 68,
+    "n": 22,
+    "hermes": 91,
+    "omp": 95,
+    "overseer": 91,
+    "pi": 73
+   },
+   "Out-of-the-box problem solving": {
+    "dsh": 33,
+    "n": 3,
+    "hermes": 67,
+    "omp": 67,
+    "overseer": 67,
+    "pi": 0
+   },
+   "Verification, critique and review": {
+    "dsh": 45,
+    "n": 11,
+    "hermes": 55,
+    "omp": 55,
+    "overseer": 73,
+    "pi": 27
+   },
+   "Safety and trust": {
+    "dsh": 96,
+    "n": 27,
+    "hermes": 70,
+    "omp": 81,
+    "overseer": 100,
+    "pi": 96
+   },
+   "Resilience": {
+    "dsh": 63,
+    "n": 27,
+    "hermes": 85,
+    "omp": 85,
+    "overseer": 100,
+    "pi": 52
+   },
+   "Honest reporting": {
+    "dsh": 67,
+    "n": 3,
+    "hermes": 100,
+    "omp": 100,
+    "overseer": 100,
+    "pi": 33
+   }
+  }
+ },
+ "per_arm": {
+  "overseer": {
+   "cells": 81,
+   "calls": 1742,
+   "answered": 1685,
+   "real429": 57,
+   "other_err": 0,
+   "faults": 144,
+   "prompt": 41495490,
+   "cached": 39023872,
+   "out": 1505152,
+   "usd": 1.39087,
+   "busy_h": 9.869722222222222,
+   "peak": 148369,
+   "out_per_call": 893.2652818991098,
+   "ttfb_med": 1.529
+  },
+  "omp": {
+   "cells": 81,
+   "calls": 1853,
+   "answered": 1586,
+   "real429": 266,
+   "other_err": 0,
+   "faults": 153,
+   "prompt": 43073701,
+   "cached": 40066432,
+   "out": 1066530,
+   "usd": 1.21117,
+   "busy_h": 9.768888888888888,
+   "peak": 174388,
+   "out_per_call": 672.4653215636822,
+   "ttfb_med": 1.8105
+  },
+  "dsh": {
+   "cells": 81,
+   "calls": 1486,
+   "answered": 1400,
+   "real429": 86,
+   "other_err": 0,
+   "faults": 66,
+   "prompt": 27427968,
+   "cached": 24651264,
+   "out": 849994,
+   "usd": 1.00046,
+   "busy_h": 8.592777777777778,
+   "peak": 93913,
+   "out_per_call": 607.1385714285715,
+   "ttfb_med": 2.0075000000000003
+  },
+  "pi": {
+   "cells": 81,
+   "calls": 1078,
+   "answered": 1000,
+   "real429": 78,
+   "other_err": 0,
+   "faults": 61,
+   "prompt": 23903573,
+   "cached": 21611776,
+   "out": 717889,
+   "usd": 0.83932,
+   "busy_h": 9.095833333333333,
+   "peak": 128746,
+   "out_per_call": 717.889,
+   "ttfb_med": 1.7614999999999998
+  },
+  "hermes": {
+   "cells": 81,
+   "calls": 1783,
+   "answered": 1601,
+   "real429": 173,
+   "other_err": 9,
+   "faults": 145,
+   "prompt": 59395627,
+   "cached": 55647616,
+   "out": 1019479,
+   "usd": 1.34079,
+   "busy_h": 9.762222222222222,
+   "peak": 144443,
+   "out_per_call": 636.7763897564023,
+   "ttfb_med": 2.341
+  }
+ },
+ "report": {
+  "dsh": {
+   "approved": 42.9,
+   "lo": 28.1,
+   "hi": 57.8,
+   "raw": 74.0,
+   "solved": 42,
+   "cells": 81,
+   "gates": 0,
+   "infra": 0,
+   "usd_point": 0.0009,
+   "tok_point": 23655,
+   "s_point": 13.6,
+   "calls_med": 14,
+   "cache": 89.9,
+   "steady": 93.0,
+   "reliable": 4,
+   "lowest": 0
+  },
+  "hermes": {
+   "approved": 44.3,
+   "lo": 29.6,
+   "hi": 60.1,
+   "raw": 85.5,
+   "solved": 49,
+   "cells": 81,
+   "gates": 0,
+   "infra": 0,
+   "usd_point": 0.0011,
+   "tok_point": 49694,
+   "s_point": 21.6,
+   "calls_med": 13,
+   "cache": 93.7,
+   "steady": 95.9,
+   "reliable": 5,
+   "lowest": 33
+  },
+  "omp": {
+   "approved": 54.1,
+   "lo": 37.0,
+   "hi": 69.8,
+   "raw": 87.2,
+   "solved": 50,
+   "cells": 81,
+   "gates": 1,
+   "infra": 0,
+   "usd_point": 0.0008,
+   "tok_point": 29512,
+   "s_point": 14.6,
+   "calls_med": 15,
+   "cache": 93.0,
+   "steady": 94.7,
+   "reliable": 6,
+   "lowest": 50
+  },
+  "overseer": {
+   "approved": 68.8,
+   "lo": 54.0,
+   "hi": 82.7,
+   "raw": 95.2,
+   "solved": 61,
+   "cells": 81,
+   "gates": 0,
+   "infra": 0,
+   "usd_point": 0.0007,
+   "tok_point": 22320,
+   "s_point": 13.8,
+   "calls_med": 15,
+   "cache": 94.1,
+   "steady": 94.6,
+   "reliable": 11,
+   "lowest": 67
+  },
+  "pi": {
+   "approved": 36.7,
+   "lo": 21.7,
+   "hi": 51.5,
+   "raw": 71.4,
+   "solved": 37,
+   "cells": 81,
+   "gates": 0,
+   "infra": 0,
+   "usd_point": 0.0008,
+   "tok_point": 24112,
+   "s_point": 13.2,
+   "calls_med": 11,
+   "cache": 90.4,
+   "steady": 91.9,
+   "reliable": 5,
+   "lowest": 0
+  }
+ },
+ "calls": 7942,
+ "span_h": 10.872222222222222,
+ "t0_utc": "2026-11-05 16:29:13",
+ "t1_utc": "2026-11-06 03:21:33",
+ "slowest_count": {
+  "overseer": 27,
+  "omp": 25,
+  "dsh": 16,
+  "pi": 5,
+  "hermes": 8
+ },
+ "task_seeds": 81,
+ "status": {
+  "200 ok": 7175,
+  "200 client_gone": 27,
+  "200 cut": 70,
+  "400 ok": 8,
+  "429 ok": 660,
+  "500 ok": 1,
+  "429 cut": 1
+ },
+ "worst_429_bin": {
+  "worst_bin_utc": "22:49",
+  "worst_bin_429": 102,
+  "worst_bin_calls": 261
+ },
+ "no_answer_cells": {
+  "overseer": 0,
+  "omp": 0,
+  "dsh": 4,
+  "pi": 8,
+  "hermes": 0
+ },
+ "usd_total": 5.78261
+}

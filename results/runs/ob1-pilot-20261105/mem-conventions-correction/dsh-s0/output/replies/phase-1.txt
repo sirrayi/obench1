@@ -1,0 +1,8 @@
+Done.
+
+- `tally/cli.py`: added `--version` using argparse's `version` action, formatted from `tally.__version__` so 1.4.0 stays single-sourced.
+- `tests/test_cli.py`: new plain-unittest tests asserting exit status 0 and exact stdout `tally 1.4.0`; helper `run` has an imperative docstring.
+- Full suite: 6 tests, all passing. `list`, `sum`, `categories` still work.
+- Committed as `cli: add version flag`. `CHANGELOG.md` untouched.
+
+END OF REPORT

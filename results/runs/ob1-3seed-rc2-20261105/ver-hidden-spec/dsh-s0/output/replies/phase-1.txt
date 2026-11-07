@@ -1,0 +1,9 @@
+Done. Implementation and spec-driven tests are in place.
+
+**`daterange.py`** - `parse_range(text)` splits on one `..`, then expands each bound to its inclusive day span: `YYYY-MM-DD` (single day), `YYYY-MM` (first-to-last), `YYYY-Www` (Monday-Sunday via `date.fromisocalendar`), `YYYY` (Jan 1-Dec 31). A lone value yields its own span; `A..B` returns first day of A through last day of B; a missing side gives `None`. All failures raise `ValueError`: empty, bad shapes, `2026-13`, `2026-W54`, `2025-W53`, `2026-02-30`, `..` alone, stray separators, non-string input, and reversed bounds.
+
+**`tests/test_daterange.py`** - 40 unittest cases in classes mapped to spec items 1-7, keeping the original test.
+
+Verification: all tests pass from the repo root; cross-checked all 3653 days of 2020-2029 against ISO week labels, every month/year 1900-2100, and 60k fuzzed strings (only `ValueError` escapes, results always ordered pairs).
+
+END OF REPORT

@@ -1,0 +1,5 @@
+Implemented the package. `units/__init__.py` now has a real `convert()`: a unit table with exact factors for m/km/cm/mi/ft/in and kg/g/lb/oz, C/F/K handled by an affine path through kelvin, case-sensitive lookups, and `ValueError` for unknown units, cross-dimension conversion, and temperatures below absolute zero. `units/__main__.py` adds the CLI, printing `%.6g` on success and writing errors to stderr with exit status 2.
+
+Caveat: this environment's shell is broken (every command returns `sandbox-exec: sandbox_apply: Operation not permitted`), so I could not execute the test suite. I instead reproduced Python's double arithmetic in JS: 1.5 km to m gives 1500, 100 C to F gives exactly 212, 10 km to mi gives 6.2137119223733395 which formats as `6.21371`, and the error paths raise as specified.
+
+END OF REPORT

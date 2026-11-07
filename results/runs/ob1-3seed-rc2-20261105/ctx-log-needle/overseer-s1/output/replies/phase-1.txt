@@ -1,0 +1,5 @@
+INCIDENT.md is written with exactly four lines.
+
+Findings: the 06:58:41.337Z reload set `db.pool_size` 40 -> 4 (the accompanying `cache.ttl_s` 300 -> 600 was never reverted, yet failures stopped, so it is not the cause). `db pool near capacity (4/4 in use)` warnings begin 07:06:12Z, first pool-exhausted failure is req=610ec56a84dc at 07:31:10.409Z, and the revert to 40 at 14:20:05.120Z ends them. Gateway has 4202 502s total; 549 are pre-existing inventory timeouts (starting 00:07:33Z, before any config change). The remaining 3653 match the checkout "db pool exhausted" request ids exactly, one to one, so the report counts those.
+
+END OF REPORT

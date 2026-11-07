@@ -1,0 +1,9 @@
+Fixed the null-temperature crash in both readers.
+
+packages/edge/edge/uploader.py: `upload(readings, since=None)` now drops readings dated before `since` first, then skips readings whose `temp` is None, returning `sent`, `skipped` and `payload`. The payload only receives real numbers, so fastjson's strict mode no longer raises.
+
+packages/web/web/export.py: `export(readings, since=None)` applies the same filter, returns `title`, `rows`, `skipped`, and adds `note` (`"%d readings skipped (no temperature)"` through `_()`) only when the count exceeds zero.
+
+Tests extended in tests/test_edge.py and tests/test_web.py. Verified: 8 tests pass, `python3 tools/lint.py` reports ok, edge code parses under Python 3.6 grammar. Changes are uncommitted.
+
+END OF REPORT

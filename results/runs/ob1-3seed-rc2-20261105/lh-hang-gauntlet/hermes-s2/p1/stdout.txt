@@ -1,0 +1,10 @@
+Relay checked end to end.
+
+- Database initialised with scripts/setup.sh --yes.
+- Server started on port 55593; smoke token 4b11d4f0090b4480.
+- Build produced build/relay.bundle; checksum independently confirmed with shasum: f8fab13164d5f0312c386098712cbab213e182fea970987f8068c1fd8bda0463.
+- Tests: fixed chunks() in relay/worker.py, which dropped the last batch and returned an empty list when input was smaller than the batch size. Removed the warm-cache test that spawned a 900-second sleeping process; it hung piped test runs and left a process behind. 1 test passes.
+- RESULTS.md written with exactly the three required lines.
+- Server stopped, run/ removed, temporary logs deleted. Nothing of ours is running.
+
+END OF REPORT

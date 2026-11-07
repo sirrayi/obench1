@@ -1,0 +1,253 @@
+diff --git a/ISSUE-2.md b/ISSUE-2.md
+new file mode 100644
+index 0000000..4ad0c64
+--- /dev/null
++++ b/ISSUE-2.md
+@@ -0,0 +1,4 @@
++# ISSUE-2: APAC October total is off too
++
++`python3 -m meridian report --region apac --month 2026-10` prints `178731321.00 SGD`; finance has 1,787,313.21 SGD.
++September is fine. Fix it, with a regression test.
+diff --git a/meridian/ingest/apac.py b/meridian/ingest/apac.py
+index 0e7661c..c4a6018 100644
+--- a/meridian/ingest/apac.py
++++ b/meridian/ingest/apac.py
+@@ -1,20 +1,18 @@
+ """Reader for the APAC ledger export (pipe-separated)."""
+-from decimal import Decimal
++from meridian import text
+ 
+-
+-def _strip_grouping(raw):
+-    # APAC exports group thousands with spaces and use a decimal comma: "1 234,56"
+-    return raw.strip().replace(" ", "").replace(".", "").replace(",", ".")
++HEADER_PREFIX = "date|"
+ 
+ 
+ def load(path):
+     """Read an APAC feed: a list of {date, account, amount} rows."""
+-    out = []
+     with open(path, encoding="utf-8") as f:
+-        for line in f:
+-            line = line.rstrip("\n")
+-            if not line or line.startswith("#") or line.startswith("date|"):
+-                continue
+-            date, account, amount = line.split("|")
+-            out.append({"date": date, "account": account, "amount": Decimal(_strip_grouping(amount))})
++        lines = [x.rstrip("\n") for x in f]
++    version = text.feed_format([x for x in lines if x.startswith("#")], path)
++    out = []
++    for line in lines:
++        if not line or line.startswith("#") or line.startswith(HEADER_PREFIX):
++            continue
++        date, account, amount = line.split("|")
++        out.append({"date": date, "account": account, "amount": text.parse_amount(amount, version)})
+     return out
+diff --git a/meridian/ingest/eu.py b/meridian/ingest/eu.py
+index 432fc67..45b5221 100644
+--- a/meridian/ingest/eu.py
++++ b/meridian/ingest/eu.py
+@@ -1,15 +1,18 @@
+ """Reader for the EU ledger export (semicolon-separated)."""
+-from decimal import Decimal
+-
+ from meridian import text
+ 
++HEADER_PREFIX = "date;"
++
+ 
+ def read_feed(path):
+     """Read an EU feed: a list of {date, account, amount} rows."""
+-    rows = []
+     with open(path, encoding="utf-8") as f:
+-        lines = [x for x in f.read().splitlines() if x and not x.startswith("#")]
+-    for line in lines[1:]:
++        lines = [x for x in f.read().splitlines() if x.strip()]
++    version = text.feed_format([x for x in lines if x.startswith("#")], path)
++    rows = []
++    for line in lines:
++        if line.startswith("#") or line.startswith(HEADER_PREFIX):
++            continue
+         date, account, amount = line.split(";")
+-        rows.append({"date": date, "account": account, "amount": Decimal(text.clean_number(amount))})
++        rows.append({"date": date, "account": account, "amount": text.parse_amount(amount, version)})
+     return rows
+diff --git a/meridian/text.py b/meridian/text.py
+index 39ac75f..a67bcbc 100644
+--- a/meridian/text.py
++++ b/meridian/text.py
+@@ -1,9 +1,43 @@
+ """Text helpers shared by the ingest readers."""
+ 
++from decimal import Decimal, InvalidOperation
+ 
+-def clean_number(raw):
+-    """Turn a feed amount into a plain decimal string ("1.234,56" -> "1234.56")."""
+-    return raw.strip().replace(".", "").replace(",", ".")
++# Amount layouts a ledger export may declare in its `# format:` header.
++#   v1  locale style, grouping plus decimal comma: "1.234,56", "1 234,56"
++#   v2  plain style, decimal point and no grouping: "1234.56"
++FORMATS = ("v1", "v2")
++
++
++class FeedFormatError(ValueError):
++    """A feed's declared format is missing, unknown, or doesn't match its numbers."""
++
++
++def feed_format(comment_lines, path):
++    """Return the format version declared by a feed's `# format:` header."""
++    for line in comment_lines:
++        key, _, value = line.lstrip("#").partition(":")
++        if key.strip() == "format":
++            version = value.strip()
++            if version not in FORMATS:
++                raise FeedFormatError(
++                    "%s: unknown feed format %r, known formats are %s"
++                    % (path, version, ", ".join(FORMATS))
++                )
++            return version
++    raise FeedFormatError("%s: no '# format:' header, refusing to guess the amount layout" % path)
++
++
++def parse_amount(raw, version):
++    """Read one feed amount as a Decimal, following the feed's declared format."""
++    s = raw.strip()
++    if version == "v1":
++        s = s.replace(" ", "").replace(".", "").replace(",", ".")
++    try:
++        return Decimal(s)
++    except InvalidOperation:
++        raise FeedFormatError(
++            "amount %r does not match feed format %s" % (raw, version)
++        ) from None
+ 
+ 
+ def squash(s):
+diff --git a/tests/test_ingest.py b/tests/test_ingest.py
+new file mode 100644
+index 0000000..52da6e6
+--- /dev/null
++++ b/tests/test_ingest.py
+@@ -0,0 +1,93 @@
++import os
++import tempfile
++import unittest
++from decimal import Decimal
++
++from meridian import report, text
++from meridian.ingest import apac, eu
++
++
++class ParseAmountTest(unittest.TestCase):
++    def test_v1_reads_grouping_and_decimal_comma(self):
++        self.assertEqual(text.parse_amount("1.234,56", "v1"), Decimal("1234.56"))
++        self.assertEqual(text.parse_amount("1 234,56", "v1"), Decimal("1234.56"))
++
++    def test_v2_reads_plain_decimal_point(self):
++        self.assertEqual(text.parse_amount("1234.56", "v2"), Decimal("1234.56"))
++
++    def test_v2_point_is_not_a_thousands_separator(self):
++        self.assertEqual(text.parse_amount("1425.01", "v2"), Decimal("1425.01"))
++
++    def test_amount_can_lie_about_the_format(self):
++        with self.assertRaises(text.FeedFormatError):
++            text.parse_amount("1.234,56", "v2")
++
++    def test_unknown_format_is_rejected(self):
++        with self.assertRaises(text.FeedFormatError):
++            text.feed_format(["# region: eu", "# format: v3"], "eu.csv")
++
++    def test_missing_format_is_rejected(self):
++        with self.assertRaises(text.FeedFormatError):
++            text.feed_format(["# region: eu"], "eu.csv")
++
++
++class FeedFormatRegressionTest(unittest.TestCase):
++    """EU October 2026 was reported 100x high after the export moved to format v2."""
++
++    def setUp(self):
++        self._tmp = tempfile.TemporaryDirectory()
++        self.addCleanup(self._tmp.cleanup)
++        self.feeds = os.path.join(self._tmp.name, "feeds")
++
++    def _write(self, region, name, body):
++        folder = os.path.join(self.feeds, region)
++        os.makedirs(folder, exist_ok=True)
++        with open(os.path.join(folder, name), "w", encoding="utf-8") as f:
++            f.write(body)
++
++    def test_eu_v2_month_totals_at_face_value(self):
++        self._write("eu", "2026-10.csv",
++                    "# region: eu\n# format: v2\n# generated by the eu ledger export\n"
++                    "date;account;amount\n"
++                    "2026-10-01;AC-3413;1774765.00\n"
++                    "2026-10-02;AC-1205;0.57\n")
++        self.assertEqual(report.total("eu", "2026-10", self.feeds), Decimal("1774765.57"))
++
++    def test_v1_and_v2_months_read_side_by_side(self):
++        self._write("eu", "2026-09.csv",
++                    "# region: eu\n# format: v1\n# generated by the eu ledger export\n"
++                    "date;account;amount\n"
++                    "2026-09-27;AC-3239;1.000,25\n"
++                    "2026-09-26;AC-1682;0,32\n")
++        self._write("eu", "2026-10.csv",
++                    "# region: eu\n# format: v2\n# generated by the eu ledger export\n"
++                    "date;account;amount\n"
++                    "2026-10-03;AC-3413;1425.01\n")
++        self.assertEqual(report.total("eu", "2026-09", self.feeds), Decimal("1000.57"))
++        self.assertEqual(report.total("eu", "2026-10", self.feeds), Decimal("1425.01"))
++
++    def test_apac_v1_space_grouping_still_read(self):
++        self._write("apac", "2026-09.csv",
++                    "# region: apac\n# format: v1\n# generated by the apac ledger export\n"
++                    "date|account|amount\n"
++                    "2026-09-02|AC-9426|1 114,82\n")
++        self.assertEqual(report.total("apac", "2026-09", self.feeds), Decimal("1114.82"))
++
++    def test_apac_v2_month_totals_at_face_value(self):
++        self._write("apac", "2026-10.csv",
++                    "# region: apac\n# format: v2\n# generated by the apac ledger export\n"
++                    "date|account|amount\n"
++                    "2026-10-11|AC-1381|2641.49\n")
++        self.assertEqual(report.total("apac", "2026-10", self.feeds), Decimal("2641.49"))
++
++    def test_readers_keep_date_and_account(self):
++        self._write("eu", "2026-10.csv",
++                    "# region: eu\n# format: v2\ndate;account;amount\n"
++                    "2026-10-03;AC-3413;1425.01\n")
++        self._write("apac", "2026-10.csv",
++                    "# region: apac\n# format: v2\ndate|account|amount\n"
++                    "2026-10-11|AC-1381|2641.49\n")
++        eu_rows = eu.read_feed(os.path.join(self.feeds, "eu", "2026-10.csv"))
++        apac_rows = apac.load(os.path.join(self.feeds, "apac", "2026-10.csv"))
++        self.assertEqual(eu_rows, [{"date": "2026-10-03", "account": "AC-3413", "amount": Decimal("1425.01")}])
++        self.assertEqual(apac_rows, [{"date": "2026-10-11", "account": "AC-1381", "amount": Decimal("2641.49")}])
+diff --git a/tests/test_report.py b/tests/test_report.py
+new file mode 100644
+index 0000000..e3de7c7
+--- /dev/null
++++ b/tests/test_report.py
+@@ -0,0 +1,23 @@
++"""Monthly totals from the checked-in ledger exports."""
++import os
++import unittest
++from decimal import Decimal
++
++from meridian import report
++
++FEEDS = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "feeds")
++
++
++class ApacOctoberRegressionTest(unittest.TestCase):
++    """ISSUE-2: APAC October 2026 printed 178731321.00 SGD, 100x finance's figure.
++
++    The October export declares `# format: v2` (plain decimal point, no
++    grouping), so "2641.49" has to stay 2641.49 instead of losing its point as
++    a thousands separator. These run against the real exports, not fixtures.
++    """
++
++    def test_october_matches_finance(self):
++        self.assertEqual(report.total("apac", "2026-10", FEEDS), Decimal("1787313.21"))
++
++    def test_september_v1_export_still_reads(self):
++        self.assertEqual(report.total("apac", "2026-09", FEEDS), Decimal("1784764.94"))

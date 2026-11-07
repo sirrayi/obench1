@@ -1,0 +1,10 @@
+Added `tally top N`:
+
+- `tally/report.py`: `top(rows, n)` sorts by amount descending, date ascending for ties, and returns the first `n`.
+- `tally/cli.py`: new `top N` subcommand printing `<date> <amount> <category>` with 2-decimal amounts; negative or non-integer N is rejected with exit 2.
+- Tests: ordering, tie-break by earlier date, N larger than the number of rows, N = 0, CLI output, and negative-N rejection. All 11 tests pass.
+- README lists the new command; committed as "report: add top expenses" and "cli: add top command".
+
+Sample: `python3 -m tally top 3` gives 2026-10-19 96.80 fun, 2026-08-08 92.09 books, 2026-08-10 89.01 books.
+
+END OF REPORT

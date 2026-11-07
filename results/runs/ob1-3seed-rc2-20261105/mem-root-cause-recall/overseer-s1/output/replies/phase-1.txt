@@ -1,0 +1,7 @@
+Fixed and committed as 9674218.
+
+Root cause: `feeds/*/2026-10.csv` switched to `# format: v2` (plain `1425.01`), but both readers ignored the header and always applied the v1 locale rules, stripping the dot as a thousands separator. Every October amount was read 100x too big. EU October now prints `1774765.57 EUR`, matching finance; September is unchanged at `1734482.25`. APAC October was hit by the same bug and moved from `178731321` to `1787313.21`.
+
+Fix: readers now take the version from the feed header and `meridian/text.py` normalises amounts per format; a missing, unknown or mismatched format raises `FeedFormatError` instead of being guessed. Regression tests in `tests/test_ingest.py` cover v1 and v2 for both regions and the side-by-side case; all 12 tests pass.
+
+END OF REPORT

@@ -1,0 +1,5 @@
+Rename complete. `accounts.fetch_user` is now `accounts.load_account` (`with_deleted` keyword) across harbor/ and tests/: calls, named/`as`/star imports, attribute refs, `getattr`, `mock.patch` targets, `harbor/rpc/routes.py` handlers. `harbor/accounts/__init__.py` exports `load_account`, keeps a `fetch_user` wrapper that warns then delegates, and leaves it out of `__all__`. Both handler protos were updated and `accounts_pb2.py`/`billing_pb2.py` regenerated with tools/genproto.py's exact renderer (verified byte-for-byte against github.proto first, since bash was unavailable). docs/API.md section renamed, CHANGELOG line added. Left untouched: `fetch_user_count`/`prefetch_user`, log and metric strings, GitHub/admin/legacy/third-party `fetch_user`s, legacy_cache/, third_party/, logs/.
+
+Checked: every surviving `fetch_user`/`include_deleted` occurrence accounted for, all 110 files using bare `load_account` have a binding, quote/bracket scan clean. The unit suite could not be run here (no shell), so its pass is unverified.
+
+END OF REPORT

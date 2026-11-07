@@ -1,0 +1,11 @@
+All seven edits applied and verified; nothing else changed.
+
+1. `config/app.ini`: `[server] timeout = 45` (client/cache unchanged).
+2. `Makefile`: `lint` target with `python3 -m pyflakes src` directly after `test`; `make -n lint` resolves it.
+3. `src/legacy.py`: `calc` → `calculate`, both call sites updated; file is latin-1, so byte-level replacement preserved `José Nuñez, Zürich`; module imports and runs (`calculate(2,3)` = 7).
+4. `src/handlers.py`: `delete_account` raises `PermissionError("no user")`; verified at runtime, other handlers still return `None`.
+5. `data/catalog.min.json`: K-7731 price 19.99 → 17.49; byte diff confirms only that span, JSON parses, 16000 items intact.
+6. `notes/README.txt`: appended `Reviewed: 2026-10-30`, BOM preserved, no trailing newline.
+7. `src/weird name (copy).py`: `DEBUG = False`, `DEBUG_SQL` untouched.
+
+END OF REPORT

@@ -1,0 +1,7 @@
+Fixed all 19 tickets (including TCK-19, which arrived mid-run) across the seven service modules: clamps, backoff caps, window ranges, hour-to-second units, key separators, inclusive thresholds, bucket widths, ID padding, integer-division truncation, tag dedupe, wrapping quiet hours, and the TCK-12 retry-after pair kept identical in both v1 and v2.
+
+Each touched `def` line carries a `# TCK-n` marker, TCK-19's hotfix got its own version bump, `2.8.1` is set in `fleetd/__init__.py` and `pyproject.toml`, and `CHANGELOG.md` lists all nineteen lines in numeric order under Unreleased. `tests/test_tickets.py` now holds one `TestTickets` class with `test_tck_1` through `test_tck_19`.
+
+`python3 -m unittest discover -s tests -t .` runs 25 tests, all passing. The `fleetd/` diff contains only the ticket functions' lines plus markers.
+
+END OF REPORT

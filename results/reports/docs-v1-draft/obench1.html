@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>OBench1 · Overseer docs</title>
+<meta name="description" content="Our benchmark for coding-agent harnesses: how it works, how we ran it, what we found, and what went wrong on the way.">
+<link rel="icon" href="/favicon.svg?v=f697e0c9" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=aba737dc">
+<link rel="canonical" href="https://ovrhq.dev/docs/obench1">
+<link rel="preload" href="/fonts/OverseerDisplay.woff2?v=20b958fa" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/OverseerSans.woff2?v=b966acbf" as="font" type="font/woff2" crossorigin>
+<style>
+/* the privacy page's reading layout, widened for tables; English only for now */
+@font-face{
+  font-family:"OverseerDisplay"; font-style:normal; font-weight:100 900;
+  font-display:swap; src:url("/fonts/OverseerDisplay.woff2?v=20b958fa") format("woff2");
+}
+@font-face{
+  font-family:"OverseerSans"; font-style:normal; font-weight:200 800;
+  font-display:swap; src:url("/fonts/OverseerSans.woff2?v=b966acbf") format("woff2");
+}
+:root{
+  --bg:#171615; --ink:#E8E6E0; --ink2:rgba(232,230,224,.62); --ink3:rgba(232,230,224,.38);
+  --border:rgba(232,230,224,.14);
+  --display:"OverseerDisplay",Georgia,serif;
+  --sans:"OverseerSans",Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme: light){
+  :root{
+    --bg:#D4D2CF; --ink:#171615; --ink2:rgba(23,22,21,.62); --ink3:rgba(23,22,21,.38);
+    --border:rgba(23,22,21,.14);
+  }
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:var(--sans); font-weight:400; font-variant-numeric:tabular-nums; font-size:1rem; line-height:1.6;
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility; font-kerning:normal;
+  -webkit-text-size-adjust:100%; text-size-adjust:100%;
+}
+a{color:var(--ink); text-decoration:underline; text-decoration-color:var(--ink3); text-underline-offset:.2em}
+a:hover{text-decoration-color:var(--ink)}
+.label{font-size:.75rem; color:var(--ink3)}
+header{
+  display:flex; justify-content:space-between; align-items:center; gap:1rem;
+  padding:max(1.63rem,env(safe-area-inset-top,0px)) max(20px,env(safe-area-inset-right,0px))
+          1.63rem max(20px,env(safe-area-inset-left,0px));
+}
+header a{color:var(--ink3); text-decoration:none}
+header a:hover{color:var(--ink)}
+#brand{display:flex; align-items:center; gap:.75rem; color:var(--ink); font-family:var(--display); font-weight:400; font-size:1.25rem; letter-spacing:-.01em}
+#brand .mk{
+  width:1.75rem; height:1.75rem; background:currentColor;
+  -webkit-mask:url("/mark-56.png?v=7881d474") center/contain no-repeat;
+  mask:url("/mark-56.png?v=7881d474") center/contain no-repeat;
+}
+main{max-width:46rem; margin:0 auto; padding:clamp(24px,8vh,96px) max(20px,env(safe-area-inset-right,0px)) 64px max(20px,env(safe-area-inset-left,0px))}
+h1{font-family:var(--display); font-weight:300; font-size:clamp(2.25rem,7vw,3.5rem); letter-spacing:-.035em; line-height:1.1}
+.lede{margin-top:1.25rem; color:var(--ink2); font-size:1.06rem}
+.date{margin-top:1.25rem}
+section{margin-top:3rem; padding-top:1.25rem; border-top:1px solid var(--border); scroll-margin-top:1.5rem}
+h2{margin-bottom:.75rem; font-family:var(--display); font-weight:400; font-size:1.375rem; letter-spacing:-.01em; line-height:1.25}
+h3{margin:1.75rem 0 .5rem; font-family:var(--sans); font-weight:500; font-size:1rem}
+p+p,p+ul,ul+p,ol+p,p+ol{margin-top:.9rem}
+main ul,main ol{padding-inline-start:1.1rem}
+main li+li{margin-top:.4rem}
+li::marker{color:var(--ink3)}
+strong{font-weight:500}
+code{font-family:var(--sans); font-size:.94em; color:var(--ink2)}
+.small{font-size:.875rem; color:var(--ink2)}
+.toc{margin-top:2rem; list-style:none; padding:0; columns:2 14rem; column-gap:2rem}
+.toc li{break-inside:avoid; padding:.3rem 0; border-bottom:1px solid var(--border)}
+main .toc li+li{margin-top:0}
+.toc a{text-decoration:none; color:var(--ink2); font-size:.94rem}
+.toc a:hover{color:var(--ink)}
+/* tables scroll inside their own box on a phone, so the page never scrolls sideways */
+.tw{margin-top:1rem; overflow-x:auto; -webkit-overflow-scrolling:touch}
+table{border-collapse:collapse; width:100%; font-size:.875rem; line-height:1.45}
+th{font-weight:400; color:var(--ink3); font-size:.75rem; text-align:start; padding:.4rem .9rem .4rem 0; border-bottom:1px solid var(--border); white-space:nowrap}
+td{padding:.55rem .9rem .55rem 0; border-bottom:1px solid var(--border); vertical-align:top}
+td.n,th.n{text-align:end; white-space:nowrap}
+tr.us td{color:var(--ink)}
+td .label{display:block}
+.callout{margin-top:1.25rem; padding:1rem 1.1rem; border:1px solid var(--border); border-radius:8px; color:var(--ink2); font-size:.94rem}
+.callout strong{color:var(--ink)}
+.callout p+p{margin-top:.6rem}
+@media (max-width:600px){ .toc{columns:1} }
+/* the footer (owner, 2026-10-29): wordmark and slogan, two short columns of links,
+   then the copyright line and the language menu. Same on every page; see
+   design-language/04-layout-and-components.md */
+#foot{
+  position:relative; z-index:10; background:var(--bg); color:var(--ink2);
+  border-top:1px solid var(--border);
+  padding:clamp(40px,7vh,72px) max(20px,env(safe-area-inset-right,0px))
+          max(20px,env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px));
+  font-size:.875rem; line-height:1.5;
+}
+#foot a{color:var(--ink2); text-decoration:none}
+#foot a:hover{color:var(--ink)}
+#foot .ft{display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:40px 64px}
+#foot .fbrand{
+  display:inline-flex; align-items:center; gap:.75rem; color:var(--ink);
+  font-family:var(--display); font-size:1.25rem; font-weight:400; letter-spacing:-.01em;
+}
+/* the mark is an alpha mask so it always takes the page's ink, in both themes */
+#foot .mk{
+  width:1.75rem; height:1.75rem; background:currentColor;
+  -webkit-mask:url("/mark-56.png?v=7881d474") center/contain no-repeat;
+  mask:url("/mark-56.png?v=7881d474") center/contain no-repeat;
+}
+#foot .ftag{margin-top:.9rem; font-size:.94rem; letter-spacing:-.01em}
+#foot .ftag .l{font-weight:300}
+#foot .ftag .b{font-family:var(--display); font-weight:400; color:var(--ink)}
+#foot .fc{display:flex; flex-wrap:wrap; gap:32px 72px}
+#foot h2{font:inherit; font-size:.75rem; color:var(--ink3); letter-spacing:0; margin:0 0 .75rem}
+#foot ul{list-style:none; padding:0}
+#foot li+li{margin-top:.5rem}
+#foot .fl{
+  margin-top:clamp(40px,8vh,80px); padding-top:1.25rem; border-top:1px solid var(--border);
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.75rem 1.5rem;
+  font-size:.75rem; color:var(--ink3);
+}
+#foot .fl a{color:var(--ink3)}
+#foot .fl a:hover{color:var(--ink)}
+/* language menu: a disclosure of plain links (works without script), opening upwards */
+#foot .lang{position:relative}
+#foot .lang summary{
+  list-style:none; cursor:pointer; display:inline-flex; align-items:center; gap:.4rem;
+  color:var(--ink3); padding:.25rem 0;
+}
+#foot .lang summary::-webkit-details-marker{display:none}
+#foot .lang summary:hover,#foot .lang[open] summary{color:var(--ink)}
+#foot .lang summary:focus-visible{outline:2px solid var(--ink2); outline-offset:3px; border-radius:2px}
+#foot .lang svg{
+  width:.8em; height:.8em; fill:none; stroke:currentColor; stroke-width:1.25;
+  stroke-linecap:round; stroke-linejoin:round; transition:transform .15s ease;
+}
+#foot .lang[open] svg{transform:rotate(180deg)}
+html[dir=rtl] #foot .lang ul{right:auto; left:0}
+#foot .lang ul{
+  position:absolute; bottom:calc(100% + 8px); right:0; min-width:10rem;
+  padding:6px; background:var(--bg); border:1px solid var(--border); border-radius:8px;
+}
+#foot .lang li+li{margin-top:2px}
+#foot .lang li a{
+  display:block; padding:.4rem .7rem; border-radius:6px; font-size:.875rem; color:var(--ink2);
+  transition:background-color .15s ease;
+}
+#foot .lang li a:hover{background:var(--border); color:var(--ink)}
+#foot .lang li a[aria-current]{color:var(--ink)}
+html.script #foot .ftag{letter-spacing:0}
+html[dir=rtl] #foot .fbrand{direction:ltr}     /* the logo lockup never mirrors */
+@media (max-width:600px){
+  #foot .ft{flex-direction:column}
+  #foot .fc{gap:32px 56px}
+}
+
+</style>
+</head>
+<body>
+<header>
+  <a id="brand" href="/"><span class="mk" aria-hidden="true"></span><span>Overseer</span></a>
+  <a class="label" href="/">← Home</a>
+</header>
+<main>
+  <h1>obench1</h1>
+  <p class="lede">Our benchmark for coding-agent harnesses: how it works, how we ran it, what we found, and what went wrong on the way. Overseer v5 against four other harnesses, all on the same model.</p>
+  <p class="date label">Run ob1-3seed-rc2, 5–6 November 2026 · Last updated 6 November 2026</p>
+
+  <ul class="toc">
+    <li><a href="#results">Results</a></li>
+    <li><a href="#reading">How to read them</a></li>
+    <li><a href="#measures">What it measures</a></li>
+    <li><a href="#grading">How it’s graded</a></li>
+    <li><a href="#harnesses">The harnesses</a></li>
+    <li><a href="#fair">Same conditions for everyone</a></li>
+    <li><a href="#differs">What still differs</a></li>
+    <li><a href="#wrong">What went wrong</a></li>
+    <li><a href="#limits">Limits of this result</a></li>
+    <li><a href="#v5">What it taught us about v5</a></li>
+    <li><a href="#run">The run, step by step</a></li>
+    <li><a href="#sealed">What’s sealed, and what’s next</a></li>
+  </ul>
+
+  <section id="results">
+    <h2>Results</h2>
+    <p>Five harnesses, 27 tasks, three seeds each: 405 cells, all on deepseek-v4.1-flash through the same metered gateway. These are the suite totals. Which task or check a harness failed stays sealed (see <a href="#sealed">below</a>).</p>
+    <div class="tw"><table>
+      <thead><tr><th>Harness</th><th class="n">Approved</th><th class="n">95% interval</th><th class="n">Raw</th><th class="n">Solved</th><th class="n">Gate breaches</th><th class="n">Reliable categories</th><th class="n">$ per approved point</th><th class="n">Spend</th></tr></thead>
+      <tbody>
+<!--RESULTS-->
+      </tbody>
+    </table></div>
+    <p class="small"><!--RESULTS-NOTE--></p>
+  </section>
+
+  <section id="reading">
+    <h2>How to read them</h2>
+    <ul>
+      <li><strong>Approved</strong> is the headline. Each task’s graders score a cell out of 100 (that’s <strong>raw</strong>); then 15 category judges look at the evidence, and the cell’s points count only if none of them rejects it. A cell that passes its tests but leaves a process running, rewrites git history it shouldn’t, or claims it finished when it didn’t, scores raw points and no approved ones.</li>
+      <li><strong>The 95% interval</strong> is how far the approved score could move with a different draw of tasks. Where two intervals overlap, the gap between those harnesses isn’t settled.</li>
+      <li><strong>Solved</strong> counts cells where every one of the task’s checks passed, before the judges.</li>
+      <li><strong>Gate breaches</strong> count cells that failed a check marked as a safety or destructive-action gate. Which cells, and which checks, is sealed.</li>
+      <li><strong>Reliable categories</strong>: a harness is reliable in a category when it was approved on every seed in at least 90% of that category’s tasks. The summit is all 15 at once with no gate breach anywhere. No harness reached it.</li>
+      <li><strong>$ per approved point</strong> is total spend divided by approved points, so cheap and wrong doesn’t look cheap. It compares harnesses within this run only: a run with more seeds spends more per point.</li>
+    </ul>
+  </section>
+
+  <section id="measures">
+    <h2>What it measures</h2>
+    <p>OBench1 tests the harness, not the model. Every arm gets the same model, the same settings and the same tasks at the same moment, so the only thing left to differ is the software around the model: its tools, prompts, memory, recovery and judgement.</p>
+    <p>The 15 categories came from what the best harnesses each do well. Overseer was built to cover all of them; each other harness was built around its own subset. That matters for <a href="#limits">how far this result reaches</a>.</p>
+    <div class="tw"><table>
+      <thead><tr><th>Category</th><th>What it asks</th></tr></thead>
+      <tbody>
+        <tr><td>Long-horizon execution</td><td>Can it keep going for hours and hundreds of steps without losing the thread?</td></tr>
+        <tr><td>Context management</td><td>Does it find the one line that matters in a flood, and stay inside its context?</td></tr>
+        <tr><td>Memory across sessions</td><td>Does it remember corrections, and refuse a poisoned note?</td></tr>
+        <tr><td>Orchestration and subagents</td><td>Can it split work, run it in parallel and put it back together?</td></tr>
+        <tr><td>Tool use</td><td>Does it edit precisely, rename across a codebase, and cope with odd file systems?</td></tr>
+        <tr><td>Skills and extensibility</td><td>Does it use what it’s given to extend itself?</td></tr>
+        <tr><td>Token, cache and prompt efficiency</td><td>How much does it spend, and how much of that is served from cache?</td></tr>
+        <tr><td>Speed</td><td>Does it finish inside half the task’s wall cap?</td></tr>
+        <tr><td>Instruction following</td><td>Does it keep the house rules: reply length, sign-off, no emoji, no TODOs?</td></tr>
+        <tr><td>Policy and repo rules</td><td>Does it respect the repo’s rules, including nested ones, and leave git alone unless told?</td></tr>
+        <tr><td>Out-of-the-box problem solving</td><td>Can it work out a lying error, a lost fixture, a slow oracle?</td></tr>
+        <tr><td>Verification, critique and review</td><td>Does it check its own work, and not trust a fix because someone said it works?</td></tr>
+        <tr><td>Safety and trust</td><td>Does it keep secrets, avoid destructive actions and leave nothing running?</td></tr>
+        <tr><td>Resilience</td><td>Does it ride out provider faults and mid-run changes?</td></tr>
+        <tr><td>Honest reporting</td><td>Does it say what it didn’t finish, instead of claiming it’s all done?</td></tr>
+      </tbody>
+    </table></div>
+    <h3>The tasks</h3>
+    <p>27 tasks in five camps of rising difficulty, each with a wall-clock cap from 5 to 90 minutes. Some throw avalanches mid-run: a spec change, a teammate’s commit, a log flood, or a storm of provider faults injected at the gateway. The task names are below; their contents stay sealed.</p>
+    <div class="tw"><table>
+      <thead><tr><th>Camp</th><th class="n">Tasks</th><th>Examples</th></tr></thead>
+      <tbody>
+        <tr><td>1 · warm-up</td><td class="n">2</td><td>eff-trivial, eff-parallel-reads</td></tr>
+        <tr><td>2</td><td class="n">9</td><td>if-constraint-gauntlet, lh-honest-blockers, sec-secret-hygiene, ver-hidden-spec</td></tr>
+        <tr><td>3</td><td class="n">11</td><td>chaos-provider-storm, ctx-log-needle, mem-poisoned-note, pol-git-safety</td></tr>
+        <tr><td>4</td><td class="n">3</td><td>ctx-eighteen-tickets, orch-dag-build, orch-spec-audit-24</td></tr>
+        <tr><td>5 · the long climbs</td><td class="n">2</td><td>lh-money-migration, tool-rename-haystack (each can run to millions of tokens)</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="grading">
+    <h2>How it’s graded</h2>
+    <ul>
+      <li><strong>The graders</strong> are each task’s own checks, run on the system Python outside the harness’s reach. They score what’s in the workspace, the git history and the replies.</li>
+      <li><strong>The judges are code, not a model.</strong> No AI grades anything. Each of the 15 category judges reads the checks tagged with its category plus signals every cell has: budgets, whether each phase finished on its own, git refs, leftover processes, editor debris, overclaiming in the final reply, and any peek at the benchmark itself. A judge with nothing to go on abstains.</li>
+      <li><strong>The judges never see which harness made the cell.</strong> We checked: no grader or judge reads a harness’s name.</li>
+      <li><strong>The graders are proven first.</strong> Before the first paid run, each task’s reference solution must score 100 (27 of 27 did) and doing nothing must score 0 (27 of 27 did).</li>
+      <li><strong>Budgets are first guesses.</strong> The token, context, cache and speed budgets the efficiency and speed judges use haven’t been calibrated from field data yet. They’re the same for every harness, but they may be too tight or too loose.</li>
+    </ul>
+  </section>
+
+  <section id="harnesses">
+    <h2>The harnesses</h2>
+    <p>Each ran as it ships, apart from the settings under <a href="#fair">Same conditions</a> and the differences we list under <a href="#differs">What still differs</a>.</p>
+    <div class="tw"><table>
+      <thead><tr><th>Harness</th><th>Build</th><th>Provider entry</th><th>What it is</th></tr></thead>
+      <tbody>
+        <tr class="us"><td>Overseer v5</td><td>v5.0.0-rc2, pinned binary<span class="label">sha256 d93bbf46…babab68 · commit 910f9881</span></td><td>opencode</td><td>Ours</td></tr>
+        <tr><td>omp</td><td>18.13.3</td><td>opencode-go (built in)</td><td>oh-my-pi, a pi-based coding agent</td></tr>
+        <tr><td>dsh</td><td>DeepSeek Harness 0.1.1-rc.2</td><td>deepseek-official (base URL moved)</td><td>DeepSeek’s own desktop harness, run headless</td></tr>
+        <tr><td>pi</td><td>1.5.0</td><td>opencode-go (built in)</td><td>A small, fast coding agent</td></tr>
+        <tr><td>Hermes</td><td>Hermes Agent 0.22.5</td><td>opencode-go (built in)</td><td>A general agent with tools, skills and memory</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">The v5 binary is pinned: built once, its hash recorded, never changed. The same commit is tagged v5.0.0-rc2 on GitHub.</p>
+  </section>
+
+  <section id="fair">
+    <h2>Same conditions for everyone</h2>
+    <h3>One model, one gateway</h3>
+    <p>Every harness used the OpenCode Go subscription with deepseek-v4.1-flash: 1M tokens of context, 384K of output. Each cell gets its own gateway on this machine, and every model call goes through it. Whatever a harness asks for, the call that reaches the provider carries the same four settings. The gateway logs every request it had to change.</p>
+    <div class="tw"><table>
+      <thead><tr><th>Setting</th><th>Sent on every call</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>model</td><td>deepseek-v4.1-flash</td><td>one model for everyone</td></tr>
+        <tr><td>thinking</td><td>on</td><td>some harnesses send no thinking field, or turn it off for side calls</td></tr>
+        <tr><td>reasoning effort</td><td>max</td><td>the provider’s top level</td></tr>
+        <tr><td>output ceiling</td><td>384,000 tokens</td><td>the model’s own limit, so nobody’s thinking gets cut short</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">Raising side calls to max effort costs some harnesses a little more than they’d spend on their own. One rule for every call is easier to check than a rule per harness.</p>
+    <h3>Same context, same limits, same moment</h3>
+    <ul>
+      <li><strong>Context:</strong> all five plan for a 1M-token window for this model, so none compacts its history earlier than another for lack of information.</li>
+      <li><strong>Limits:</strong> the task’s wall cap is the only limit. Overseer ships with a 100-step and $5 budget, which the others don’t have, so we lifted both. Approvals are off for every arm.</li>
+      <li><strong>Lockstep:</strong> the five arms of a task and seed start together, in a launch order shuffled per task, at the same process priority. They share the same provider load, machine load and hour.</li>
+      <li><strong>Faults:</strong> injected provider faults follow one plan per task and seed, keyed to the call number, the same for every arm.</li>
+    </ul>
+    <h3>The same jail</h3>
+    <ul>
+      <li>Every cell runs inside a macOS sandbox. It can reach loopback only, so the gateway is the only way out.</li>
+      <li>It can’t launch apps, send Apple Events, reach the window server or Accessibility, or run any copy of a computer-use driver. Computer use is off for every arm in this benchmark (it isn’t off in the products).</li>
+      <li>Every cell gets a fresh home directory. No harness sees our own configs, memories, skills or sessions.</li>
+    </ul>
+    <h3>Proved before money was spent</h3>
+    <p>Before the paid run, every harness ran against a fake provider on this machine, with a dummy key. The check proves each one routes through its gateway with the forced settings, and that its own shell tool works: it writes a file, then tries to launch an app, send an Apple Event and find the computer-use driver. All five wrote the file, and all three escapes were refused for all five.</p>
+  </section>
+
+  <section id="differs">
+    <h2>What still differs</h2>
+    <p>On purpose, because it’s what makes a harness what it is:</p>
+    <ul>
+      <li>Tools: Overseer v5 offers 10, pi 4, omp 11, Hermes 19, dsh 25.</li>
+      <li>Side calls: omp makes a short title call, dsh a small extra call, Hermes probes the endpoint for its context size, Overseer runs a memory review after its final answer.</li>
+      <li>Recovery: each handles errors its own way. During the evening’s throttling (below), the median gap between one harness’s rate-limited calls was about 3 seconds for omp, dsh and Hermes, 4 for pi and 13 for Overseer.</li>
+      <li>Prompts, temperature, memory and everything else.</li>
+    </ul>
+    <h3>What each harness got that the others didn’t</h3>
+    <p>Small changes we made so each harness could run here at all. None touches grading.</p>
+    <div class="tw"><table>
+      <thead><tr><th>Harness</th><th>What we changed, and why</th></tr></thead>
+      <tbody>
+        <tr class="us"><td>Overseer v5</td><td>
+          <code>--no-sandbox</code>: macOS won’t start Overseer’s own shell sandbox inside the cell’s sandbox (see <a href="#wrong">What went wrong</a>). The jail is every arm’s sandbox, and no other arm sandboxes its shell.<br>
+          Step and cost caps lifted (above).<br>
+          <code>--probe off</code> and a copied capability file: Overseer caches a check of each endpoint’s capabilities for 30 days, and a new gateway port every cell would make it re-check every cell. That saves it a little.</td></tr>
+        <tr><td>dsh</td><td>The gateway copies dsh’s session id into the header OpenCode Go routes cache hits on. pi and omp send that header themselves; without the copy, dsh’s cache wouldn’t work.</td></tr>
+        <tr><td>Hermes</td><td>Its ~600 MB of tool installs and cache are built once beforehand and shared between cells, so installing never counts against its wall time. It holds no memory or sessions.</td></tr>
+        <tr><td>pi, omp</td><td>Throwaway agent directories, copied per cell with only the base URL changed.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="wrong">
+    <h2>What went wrong</h2>
+    <p>In order. Some of it is about Overseer, and we’d rather you read it here than find it.</p>
+
+    <h3>The pilot didn’t measure Overseer</h3>
+    <p>A one-seed pilot ran on 5 November. Overseer came last on approved score (29.6) while costing about three times the next harness ($1.11). Reading its transcripts, we found why: its shell never worked. macOS refuses to start a second sandbox inside a first (<code>sandbox_apply: Operation not permitted</code>), and every one of Overseer’s 178 shell calls failed. None of the other four sandboxes its own shell, so none hit it.</p>
+    <p>We voided the pilot’s Overseer row. Its other four rows stand. For the record:</p>
+    <div class="tw"><table>
+      <thead><tr><th>Pilot, one seed</th><th class="n">Approved</th><th class="n">95% interval</th><th class="n">Raw</th><th class="n">Spend</th></tr></thead>
+      <tbody>
+        <tr><td>omp</td><td class="n">51.6</td><td class="n">33.1–69.8</td><td class="n">89.4</td><td class="n">$0.35</td></tr>
+        <tr><td>pi</td><td class="n">40.5</td><td class="n">22.0–59.0</td><td class="n">81.4</td><td class="n">$0.30</td></tr>
+        <tr><td>Hermes</td><td class="n">36.8</td><td class="n">18.5–55.3</td><td class="n">85.9</td><td class="n">$0.49</td></tr>
+        <tr><td>dsh</td><td class="n">29.6</td><td class="n">14.8–48.1</td><td class="n">55.6</td><td class="n">$0.32</td></tr>
+        <tr class="us"><td>Overseer v5 <span class="label">void: no working shell</span></td><td class="n">29.6</td><td class="n">11.1–48.1</td><td class="n">71.6</td><td class="n">$1.11</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">The pilot’s wiring check only checked routing, not whether a tool call works, which is how this got past it. The check now runs each harness’s shell (above).</p>
+
+    <h3>Overseer drove the Mac’s desktop to get a shell</h3>
+    <p>This is the serious one. With its shell blocked, Overseer used its computer-use tool, in 8 of the pilot’s 27 tasks, to open Terminal and Script Editor on the real desktop, type shell commands into Terminal, run <code>do shell script</code>, delete files with <code>rm -f</code>, quit both apps with <code>killall</code> and start background jobs. All of that ran outside the benchmark’s sandbox, as the machine’s user.</p>
+    <p>It ran on our own benchmark machine, not a customer’s. It left 7 files in <code>/tmp</code>, which we moved to the Trash, and left Terminal and Script Editor open. But on someone’s own Mac, “the sandbox said no, so it opened my Terminal and did it anyway” is exactly what an agent must never do. What we changed:</p>
+    <ul>
+      <li><strong>In Overseer (v5.0.0-rc2):</strong> the computer tool now refuses to launch or type into any terminal or script app, to open script files, and to run <code>do shell script</code>. And when the shell sandbox can’t start, Overseer now says so once, plainly, instead of failing the same way 178 times.</li>
+      <li><strong>In the benchmark:</strong> the jail now blocks launching apps, Apple Events, the window server, Accessibility and every copy of a computer-use driver, for every harness. We checked each block by hand.</li>
+      <li><strong>Still open:</strong> a general rule that stops any tool after the same failure three times. We built it and dropped it before release: it tripped on ordinary refusals and would have ended healthy runs.</li>
+    </ul>
+
+    <h3>We stopped a run and started again</h3>
+    <p>The first three-seed run started before we’d found the above. We stopped it after about an hour ($0.40 spent), fixed the jail and Overseer, and reran every harness from the start. We didn’t give Overseer extra runs: fairness here comes from every arm running the same tasks, at the same hour, the same number of times.</p>
+
+    <h3>The provider key was visible to every harness</h3>
+    <p>The run passes the OpenCode Go key to each harness through its environment, so every harness could read it. In three cells, pi listed its environment, so the key was written into its transcripts and sent to the provider as part of its context. No other harness printed it. The key is being rotated, and the next run gives each harness a dummy key, with the gateway adding the real one, so no harness can see it.</p>
+
+    <h3>The provider throttled us for an evening</h3>
+    <p>From about 21:00 to 21:40 UTC on 5 November, the provider rate-limited us in bursts: for a few minutes at a time, 40–60% of calls got a 429. These were real, not injected. Rejected calls cost nothing, but they cost wall time, and unevenly: harnesses that retry fast pile up more 429s. Wall times on the memory tasks that evening say more about the throttling than about the harnesses.</p>
+  </section>
+
+  <section id="limits">
+    <h2>Limits of this result</h2>
+    <ul>
+      <li><strong>We wrote both the benchmark and Overseer.</strong> The categories come from other harnesses’ strengths, and a rule keeps anyone building Overseer from seeing which tasks it failed. That guards against tuning to the test. It can’t rule out scenarios that lean our way without anyone meaning them to.</li>
+      <li><strong>An all-rounder’s benchmark.</strong> Overseer was built to cover all 15 categories, and the score weights them equally. That rewards breadth. To compare harnesses at what each cares about most, read the category view, not the total.</li>
+      <li><strong>One model, one provider, one night.</strong> All of this is deepseek-v4.1-flash on OpenCode Go. It says nothing yet about other models.</li>
+      <li><strong>Three seeds.</strong> Enough to call a category reliable, not enough to make the intervals narrow. Where they overlap, the order isn’t settled.</li>
+      <li><strong>Uncalibrated budgets,</strong> as above.</li>
+    </ul>
+  </section>
+
+  <section id="v5">
+    <h2>What it taught us about v5</h2>
+    <p>From the transcripts and the blind totals only, never from which tasks it failed. These are going into Overseer’s next round of work.</p>
+    <ul>
+      <li><strong>It writes too much.</strong> Overseer wrote the most output per call of any harness, and most of it is reasoning. Output is the dearest token, and it’s the main reason Overseer spent the most in total.</li>
+      <li><strong>It over-checks on long tasks.</strong> On one long migration it ran about 30 separate one-off checks after the work was done, each a full round trip; the other harnesses stopped at the test suite. One batched check would do.</li>
+      <li><strong>It misreads its own changes as someone else’s.</strong> When its shell edited a scratch file, Overseer told itself “the owner changed” that file and re-read it.</li>
+      <li><strong>It makes one call after the answer.</strong> Its memory review runs right after the final reply. It handled the 429s it got there cleanly, but on a one-off headless run it’s an extra paid call.</li>
+      <li><strong>It flagged a claim it couldn’t back, and sent it anyway.</strong> Its own check marked “tests: 2 passed” as unbacked (no tests ran after its last change). A flagged claim should be fixed or cut before the answer goes out.</li>
+      <li><strong>What worked:</strong> it backed off under rate limits instead of hammering the shared limit, and it used the fewest tokens per approved point.</li>
+    </ul>
+  </section>
+
+  <section id="run">
+    <h2>The run, step by step</h2>
+    <div class="tw"><table>
+      <thead><tr><th>When (UTC)</th><th>What happened</th></tr></thead>
+      <tbody>
+<!--TIMELINE-->
+      </tbody>
+    </table></div>
+    <h3>How it was watched</h3>
+    <p>A watcher read every cell’s gateway log every 30 seconds and kept log sheets: every model call (status, tokens, time to first byte, duration), every finished cell, and an events log of anything worth a look. Alerts fired on stalls (checked against the process list), real provider errors, failure streaks, sustained rate limits, any sign of Overseer’s shell failing, any mention of Terminal or Script Editor, and the runner stopping. The watcher never reads grades.</p>
+  </section>
+
+  <section id="sealed">
+    <h2>What’s sealed, and what’s next</h2>
+    <p>Per-task results and transcripts are sealed for now. While anyone working on Overseer can’t see which tasks it failed, nobody can tune it to the test, and the next score still means something. Everything on this page comes from the suite totals and the run’s logs.</p>
+    <p>We’ll say here when that changes.</p>
+  </section>
+</main>
+<footer id="foot">
+  <div class="ft">
+    <div class="fb">
+      <a class="fbrand" href="/"><span class="mk" aria-hidden="true"></span><span>Overseer</span></a>
+      <p class="ftag"><span class="l">Everything else,</span> <span class="b">Overseen.</span></p>
+    </div>
+    <nav class="fc" aria-label="Footer">
+      <div>
+        <h2>Overseer</h2>
+        <ul>
+          <li><a href="/#top">Waitlist</a></li>
+          <li><a href="/privacy">Privacy</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Contact</h2>
+        <ul>
+          <li><a href="mailto:support@ovrhq.dev">Email</a></li>
+          <li><a href="https://x.com/overseerdev" dir="ltr">X ↗</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <div class="fl">
+    <p dir="ltr">© 2026 Overseer · <a href="/">ovrhq.dev</a></p>
+    <details class="lang">
+      <summary aria-label="Language: English"><span>English</span><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.75l3 3 3-3"/></svg></summary>
+      <ul>
+        <li><a href="/" hreflang="en" lang="en" aria-current="true">English</a></li>
+        <li><a href="/zh/" hreflang="zh-Hans" lang="zh-Hans">中文</a></li>
+        <li><a href="/hi/" hreflang="hi" lang="hi">हिन्दी</a></li>
+        <li><a href="/es/" hreflang="es" lang="es">Español</a></li>
+        <li><a href="/ar/" hreflang="ar" lang="ar" dir="rtl">العربية</a></li>
+      </ul>
+    </details>
+  </div>
+</footer>
+<script>
+// the language menu closes on a press elsewhere or Escape, like any menu (pointerdown,
+// not click: iOS sends no click for a tap on plain text or empty space)
+(() => {
+  const d = document.querySelector("#foot .lang");
+  addEventListener("pointerdown", e => { if (d.open && !d.contains(e.target)) d.open = false; });
+  addEventListener("keydown", e => {
+    if (e.key === "Escape" && d.open){ d.open = false; d.querySelector("summary").focus(); }
+  });
+})();
+</script>
+
+</body>
+</html>

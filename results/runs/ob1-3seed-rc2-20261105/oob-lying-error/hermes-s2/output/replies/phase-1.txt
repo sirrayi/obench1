@@ -1,0 +1,10 @@
+All 10 tests pass (`python3 -m unittest discover -s tests`).
+
+Fixes:
+- calendar.py: module `__getattr__` raised `ValueError` instead of `AttributeError`, breaking `hasattr()` and `from calendar import billing_days`. Now raises `AttributeError`.
+- billing/proration.py: replaced truncating `int()` with exact integer half-up rounding.
+- billing/headers.py: removed a stale FIXME comment.
+
+Nothing under tests/ changed.
+
+END OF REPORT

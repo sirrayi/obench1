@@ -1,0 +1,7 @@
+Root cause: EU October feed bumped `# format: v1` to `v2`, switching `"4.014,05"` to plain `"1425.01"`. The reader ignored the header and always stripped dots as thousands grouping, so every October row inflated 100x (`1425.01` → `142501`). September stayed v1, hence correct.
+
+Fix: both ingest readers now read the declared format via `text.read_format` and parse amounts accordingly: v1 strips dot/space grouping and maps decimal comma; v2 takes the plain decimal point. Unknown or missing format headers raise `ValueError` instead of silently misreading. APAC v2 had the same latent bug and is fixed too.
+
+Verified: `python3 -m meridian report --region eu --month 2026-10` now prints `1774765.57 EUR`; September and both APAC months unchanged/now correct. Added `tests/test_ingest.py` (v1/v2 parsing, header errors, month total); all 8 tests pass.
+
+END OF REPORT

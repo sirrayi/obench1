@@ -1,0 +1,10 @@
+Fixed all 18 tickets:
+
+- Corrected clamp caps, backoff caps, window bounds, duration units, normkey separators, threshold boundaries, percent truncation, bucket width, ID padding, quiet-hour wrapping, tag deduplication, and Retry-After fallback.
+- TCK-12 fixed both `team_probe_interval_retry_after` and `_v2`, now behaviorally identical.
+- Added one `# TCK-n` marker per changed function, 18 changelog lines in ticket order, and `test_tck_1` through `test_tck_18` in `TestTickets`.
+- Bumped version to 2.8.1 in `fleetd/__init__.py` and `pyproject.toml`.
+- Suite: `python3 -m unittest discover -s tests -t .` ran 24 tests, all OK.
+- Verified no new tickets, no forbidden comments, and diff touches only ticket functions plus required metadata/tests.
+
+END OF REPORT

@@ -1,0 +1,11 @@
+All 10 tests pass (exit 0).
+
+Root causes and fixes:
+
+1. Import error: a repo-root `calendar.py` shadowed the stdlib module. Its `__getattr__` raised `ValueError` instead of `AttributeError` for any missing attribute, so stdlib probes (`monthrange`, `isleap`) crashed and `test_periods` failed to import. Moved `billing_days` into `billing/calendar.py` without the hostile `__getattr__`, updated `billing/periods.py` to `from .calendar import billing_days`, and deleted root `calendar.py`.
+
+2. Proration: `int()` truncated instead of rounding half up. Replaced with exact integer arithmetic, `(2 * amount * used + period) // (2 * period)`, which rounds halves up without float precision loss.
+
+Also dropped a stale `FIXME` in `billing/headers.py` (no behavior change). Nothing under `tests/` was modified.
+
+END OF REPORT

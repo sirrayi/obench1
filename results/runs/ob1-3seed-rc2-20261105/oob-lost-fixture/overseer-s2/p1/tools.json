@@ -1,0 +1,336 @@
+[
+  {
+    "description": "Run via `sh -c`; cd and env don't carry between calls. For build, test, run, git, packages; view files with `read`. To verify, run the project's tests or the result once; no throwaway test scripts unless asked. Batched after a write it runs once that lands. Long runs: background, then `job` via `tools`; a call past its timeout moves there too.",
+    "input_schema": {
+      "properties": {
+        "background": {
+          "description": "Returns now; a note marks its end.",
+          "type": "boolean"
+        },
+        "command": {
+          "type": "string"
+        },
+        "timeout_ms": {
+          "description": "≤600000, default 120000.",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "command"
+      ],
+      "type": "object"
+    },
+    "name": "bash"
+  },
+  {
+    "description": "Replace text in a file read this session. `old_string` must match one place (unless replace_all); whitespace or quote drift still lands. `edits`: several against the original, all or nothing. `patch`: a unified diff.",
+    "input_schema": {
+      "properties": {
+        "check": {
+          "description": "Runs after.",
+          "type": "string"
+        },
+        "edits": {
+          "description": "[{old_string, new_string, replace_all?}]",
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "new_string": {
+          "type": "string"
+        },
+        "old_string": {
+          "type": "string"
+        },
+        "patch": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "replace_all": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "path"
+      ],
+      "type": "object"
+    },
+    "name": "edit"
+  },
+  {
+    "description": "Find files by glob, e.g. '**/*.rs'. Capped at 500; skips ignored.",
+    "input_schema": {
+      "properties": {
+        "extension": {
+          "description": "e.g. 'rs,py'.",
+          "type": "string"
+        },
+        "file_type": {
+          "enum": [
+            "file",
+            "dir",
+            "symlink"
+          ],
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "pattern": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "pattern"
+      ],
+      "type": "object"
+    },
+    "name": "glob"
+  },
+  {
+    "description": "Regex search of files. Skips ignored and binary.",
+    "input_schema": {
+      "properties": {
+        "context": {
+          "description": "Lines around, max 10.",
+          "type": "integer"
+        },
+        "glob": {
+          "description": "e.g. '*.rs'.",
+          "type": "string"
+        },
+        "ignore_case": {
+          "type": "boolean"
+        },
+        "limit": {
+          "description": "Default 200, max 1000.",
+          "type": "integer"
+        },
+        "mode": {
+          "enum": [
+            "content",
+            "files",
+            "count"
+          ],
+          "type": "string"
+        },
+        "offset": {
+          "type": "integer"
+        },
+        "path": {
+          "type": "string"
+        },
+        "pattern": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "pattern"
+      ],
+      "type": "object"
+    },
+    "name": "grep"
+  },
+  {
+    "description": "Long-term memory. search {query}; get {name}; remember {text, layer}; forget {name=layer/n.md, text=reason}. More: `tools` op=search memory.",
+    "input_schema": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "op": {
+          "enum": [
+            "search",
+            "get",
+            "remember",
+            "edit",
+            "forget"
+          ]
+        },
+        "query": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "op"
+      ],
+      "type": "object"
+    },
+    "name": "memory"
+  },
+  {
+    "description": "Read files, line-numbered. A code file over 400 lines returns its outline unless offset/limit is given.",
+    "input_schema": {
+      "properties": {
+        "limit": {
+          "description": "Default 2000.",
+          "type": "integer"
+        },
+        "offset": {
+          "description": "From 1.",
+          "type": "integer"
+        },
+        "path": {
+          "type": "string"
+        },
+        "paths": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 8,
+          "type": "array"
+        },
+        "symbol": {
+          "description": "Definition name.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "name": "read"
+  },
+  {
+    "description": "Load or find",
+    "input_schema": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "query": {
+          "type": "string"
+        },
+        "section": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "name": "skill"
+  },
+  {
+    "description": "Fresh-context subagent on your budget → digest+trace. Graph/board/best_of/agent: `tools` op=search task.",
+    "input_schema": {
+      "properties": {
+        "action": {
+          "description": "cancel|wait (id)",
+          "type": "string"
+        },
+        "background": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "max_cost_usd": {
+          "type": "number"
+        },
+        "max_steps": {
+          "description": "≤20, default 10.",
+          "type": "integer"
+        },
+        "mode": {
+          "description": "read ro|write worktree|verify verdict|consult no tools|fork ro+ctx",
+          "enum": [
+            "read",
+            "write",
+            "verify",
+            "consult",
+            "fork"
+          ],
+          "type": "string"
+        },
+        "prompt": {
+          "description": "Standalone brief.",
+          "type": "string"
+        },
+        "resume": {
+          "description": "task-N.",
+          "type": "string"
+        },
+        "scope": {
+          "description": "write paths; overlap refused; none overlaps all.",
+          "type": "array"
+        },
+        "target": {
+          "description": "verify: writer task-N",
+          "type": "string"
+        },
+        "tier": {
+          "enum": [
+            "light",
+            "standard",
+            "heavy"
+          ],
+          "type": "string"
+        },
+        "verify": {
+          "description": "bool: then verify. str: best_of cmd.",
+          "type": [
+            "boolean",
+            "string"
+          ]
+        }
+      },
+      "type": "object"
+    },
+    "name": "task"
+  },
+  {
+    "description": "Tools not listed here: browser (Chrome pages), diagnostics (compiler errors), history (past sessions), job (background), plan (step list), repo_map/symbol (code index), run_code (JS batches). op=search {query} → schemas; op=call {name, args}.",
+    "input_schema": {
+      "properties": {
+        "args": {
+          "type": "object"
+        },
+        "name": {
+          "type": "string"
+        },
+        "op": {
+          "enum": [
+            "search",
+            "call",
+            "refresh"
+          ],
+          "type": "string"
+        },
+        "query": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "op"
+      ],
+      "type": "object"
+    },
+    "name": "tools"
+  },
+  {
+    "description": "Write a whole file, only what the request needs: no unrequested options or scaffolding. Prefer `edit` for existing files.",
+    "input_schema": {
+      "properties": {
+        "check": {
+          "description": "Runs after.",
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "content"
+      ],
+      "type": "object"
+    },
+    "name": "write"
+  }
+]

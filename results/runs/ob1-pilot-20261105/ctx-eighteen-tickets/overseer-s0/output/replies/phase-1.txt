@@ -1,0 +1,9 @@
+All 19 tickets are fixed, each with its marker comment on the changed `def` line:
+
+caps and ceilings (TCK-1, 2, 13, 14), off-by-one windows (TCK-3, 15), hour parsing (TCK-4, 16), underscore normkeys (TCK-5, 17), boundary thresholds (TCK-6, 18), true division before rounding (TCK-7, 19), 250-wide buckets (TCK-8), 4-digit SKU ids (TCK-9), wrapping quiet hours (TCK-10), deduplicated tag union (TCK-11), and a 5 s Retry-After fallback in both the v1 and v2 twins (TCK-12).
+
+CHANGELOG has one line per ticket in numeric order; tests/test_tickets.py holds test_tck_1 through test_tck_19 in the single TestTickets class; the version is 2.8.1 in fleetd/__init__.py and pyproject.toml.
+
+The shell tool fails here (sandbox_apply error), so I could not run the unittest suite; I verified each fix and test expectation by re-reading the functions.
+
+END OF REPORT

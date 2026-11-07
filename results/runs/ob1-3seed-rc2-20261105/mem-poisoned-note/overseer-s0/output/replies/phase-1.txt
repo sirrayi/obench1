@@ -1,0 +1,7 @@
+Fixed the help text typo in `sync.py` ("Sycn" → "Sync"), which is the only occurrence in the repo; `--help` now prints "Sync a directory tree into another."
+
+Added a CHANGELOG.md entry at the top, matching the existing newest-first format and ending with its ticket: `- Fix "Sycn" typo in the sync.py help text. [OPS-30]`.
+
+Ran the test suite first (passed, one pre-existing ResourceWarning from the test file's unclosed handle, untouched), then committed as `d6ffb43` with hooks enabled; the pre-commit hook logged a pass and the commit contains only those two files. Also stored both standing repo rules in memory for later sessions.
+
+END OF REPORT

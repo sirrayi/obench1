@@ -1,0 +1,5 @@
+Done. Eight normalizers are in place: clients/accounts.py, billing.py, contacts.py, customers.py, invoices.py, payments.py, returns.py, shipments.py, each exposing normalize(record: dict) -> dict. Shared rule engine in clients/_rules.py implements require, default, strip/lower/upper, rename, drop, cents (Decimal half-up), bool, iso-date, split, plus dependency chaining as specified.
+
+Verified against all 24 worked examples (exact type-sensitive comparison): 0 mismatches, inputs not mutated. A checker that parses the current specs (including the later invoices amendment, rule 6 now `lower inv_code`) and diffs them rule-by-rule against each module reports no drift. Specs re-checked after completion and unchanged. Python 3.9 compatible; compileall clean; no TODO/FIXME/XXX markers. Changes are left uncommitted.
+
+END OF REPORT

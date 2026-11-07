@@ -1,0 +1,1 @@
+tally repo standing conventions: new public functions get a docstring starting with an imperative verb; each change adds plain-unittest tests in tests/test_<module>.py; commits use lowercase "<area>: <summary>" with area cli/store/report; CHANGELOG.md is never edited (release tooling writes it).

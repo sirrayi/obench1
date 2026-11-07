@@ -1,0 +1,7 @@
+answers.csv is written and verified: header `part,code` plus 2000 rows in queries.txt order (46 duplicates kept as-is, 60 unknown parts written as NA).
+
+Because tools/lookup paces one call per 1.5 s, 2000 separate calls would need about 50 minutes, so I used the tool's own documented bulk mode (`--batch`, one paced pass over the file) and then cross-checked 12 rows against individual `tools/lookup <part>` calls, including three NA rows; all matched. Order equals queries.txt exactly, duplicated parts never conflict, and every code is numeric or NA. tools/ and data/ were not edited; index.bin is unchanged (only the tool's own .lookup.lock pacing file appeared).
+
+The drift notice referred to a scratch helper in /tmp that I had already removed; nothing depended on it and answers.csv was unaffected.
+
+END OF REPORT

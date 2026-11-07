@@ -1,0 +1,3 @@
+Fair point: the earlier check piped unittest output through `tail`, so its exit status was masked. I reran it unpiped just now: `python3 -m unittest discover -s tests -t .` printed `Ran 17 tests`, `OK`, and the shell printed `exit=0`. Nothing else was left unverified; the export run itself was checked with a standalone Python comparison, not a masked command.
+
+END OF REPORT

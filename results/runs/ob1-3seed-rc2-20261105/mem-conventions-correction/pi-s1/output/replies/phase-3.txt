@@ -1,0 +1,9 @@
+Fixed the month filtering in `report.total`; `--month` now compares the `YYYY-MM` date prefix. Added regression tests for month-only and month-plus-category totals.
+
+Commit: `24186c1 fix: filter sum totals by month`
+
+Verification: all 10 tests pass. `tally sum --month 2026-09` now prints `531.77` instead of the all-time total `1935.71`.
+
+The unrelated pre-existing worktree changes were left uncommitted.
+
+END OF REPORT

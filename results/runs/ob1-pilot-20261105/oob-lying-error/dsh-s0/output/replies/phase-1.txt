@@ -1,0 +1,10 @@
+All tests pass (10/10). Summary of fixes:
+
+1. Renamed root `calendar.py` to `billing/calendar.py` and updated `billing/periods.py` to import it relatively. The root file shadowed the stdlib `calendar` module, so any `import calendar` hit the billing module.
+2. Removed the module-level `__getattr__` that raised `ValueError`. Import machinery probes for `__path__` via `hasattr`, which only swallows `AttributeError`, so that hook broke `from calendar import ...` and would mask real errors.
+3. `billing/proration.py` now rounds half up using `Decimal` with `ROUND_HALF_UP` instead of truncating, and rejects non-positive period lengths.
+4. Dropped the stale `FIXME` comment in `billing/headers.py`; no `TODO`/`FIXME`/`XXX` comments remain.
+
+`tests/` was not modified.
+
+END OF REPORT

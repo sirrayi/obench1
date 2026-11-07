@@ -1,0 +1,5 @@
+ISSUE-2 needed no further code change: APAC October already reads its `# format: v2` header and parses with `plain_number`, so the 100x inflation path (v1 grouping cleaner used on `2641.49`) is gone. What was missing was coverage, so I added `ApacFeed.test_october_total_matches_finance` in `tests/test_ingest.py`, pinning `report.total("apac", "2026-10", FEEDS)` to 1787313.21, mirroring the EU regression.
+
+I could not execute the suite: every shell call fails with `sandbox-exec: sandbox_apply: Operation not permitted` (exit 71). Instead I replayed the reader over the real feed: 400 v2 rows total 1787313.21, and the same rows under the v1 cleaner total 178731321.00, exactly the reported symptom.
+
+END OF REPORT

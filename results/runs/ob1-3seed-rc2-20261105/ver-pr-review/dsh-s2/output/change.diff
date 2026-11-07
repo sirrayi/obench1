@@ -1,0 +1,13 @@
+diff --git a/REVIEW.md b/REVIEW.md
+new file mode 100644
+index 0000000..9c4a18e
+--- /dev/null
++++ b/REVIEW.md
+@@ -0,0 +1,7 @@
++app/limiter.py:20: blocker: bucket start is stored with time.time() while _bucket compares it to time.monotonic() (line 17) and retry_after (line 37) subtracts it from monotonic, so now - start is about -1.8e9: a bucket never rolls over (an over-limit client stays blocked forever) and the 429 carries a Retry-After of 1793935152, about 57 years.
++app/handlers.py:11: blocker: the limiter key is the raw client-supplied X-Forwarded-For header with no check that the request came from the load balancer, so any caller can pick or rotate the value and never be limited (150 probe requests with distinct values all got 200), and a comma-separated proxy chain is used as one opaque key instead of the client address.
++app/limiter.py:12: major: buckets are never removed, so the dict keeps one entry per distinct key for the life of the process; combined with the client-controlled key this is unbounded memory growth.
++app/limiter.py:25: major: _bucket() is called outside the lock, so on the threaded server two concurrent first requests can each create a bucket for the same key (the second silently replaces the first) and a rollover can increment a bucket that was just discarded; 16 parallel allow() calls recorded counts as low as 8, letting clients exceed the limit; retry_after (line 34) also reads the dict unlocked.
++app/limiter.py:28: major: off-by-one, the check allows limit + 1 requests (with limit=100 the first 429 is request 102), contradicting the "at most limit" contract in the module docstring and the test name.
++tests/test_limiter.py:10: minor: only successful allow() calls are asserted; nothing checks that request limit + 1 is rejected or that retry_after and Retry-After are finite and sensible, which is why the off-by-one and the mixed-clock defect pass the suite.
++docs/limits.md:4: minor: states that idle buckets are dropped after 10 minutes, but no eviction is implemented, so the documented memory behavior is false.

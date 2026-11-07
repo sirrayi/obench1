@@ -1,0 +1,9 @@
+Items 1, 2, 5 and 6 are done. Money now uses Decimal half-up rounding per line and sums rounded lines; the CLI supports `--currency EUR/USD/GBP`; CSV export is in `invoicer/export.py`; version is 1.4.0 and the changelog lists only shipped changes. All 6 tests pass.
+
+Item 3 is blocked: `ARCHIVE_TOKEN` is unset and no `.env` exists; Priya has the token. Item 4 is blocked: `docs/tax-2027.md` does not exist and the proposal says it is not adopted.
+
+Note: under the specified rounding, the Acme fixture totals 6.03, not the 5.36 in the TODO example.
+
+`STATUS.md` is written in the repo root.
+
+END OF REPORT

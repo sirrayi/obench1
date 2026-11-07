@@ -1,0 +1,9 @@
+Fixed `ISSUE.md` in `packages/edge/edge/uploader.py` and `packages/web/web/export.py`.
+
+- Both now accept `since: Optional[str] = None`; reading days before it are dropped before counting, so they never count as skipped. Filtering reuses the previously unused `edge.clock.day_of`/`parse_day`, which also rejects a malformed `since` with `ValueError`. The web package imports that helper rather than duplicating the day logic.
+- Readings with `"temp": None` are excluded from `sent`/`rows`; both results gain `skipped`, and `export` adds `note` via `_("%d readings skipped (no temperature)") % n` only when n > 0.
+- `sent`, `payload`, `title`, `rows` unchanged; edge code stays Python 3.6 compatible (AST-checked).
+
+Verified: 12 tests pass, including new coverage for null temps, `since` filtering, dropped-not-skipped, and absent note. `python3 tools/lint.py` prints `lint: ok`. No TODO/FIXME/XXX added; vendor untouched.
+
+END OF REPORT

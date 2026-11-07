@@ -1,0 +1,17 @@
+2026-11-06 00:21:48,880 WARNING gateway.run: Another Hermes home's gateway owns this host (PID 83762 (no bound port; profiles: default)); starting this home's gateway beside it.
+2026-11-06 00:21:49,122 WARNING hermes.security_audit: Security posture audit found 1 issue(s) — review your deployment:
+2026-11-06 00:21:49,122 WARNING hermes.security_audit:   [security 1/1] SSH password authentication is ENABLED (default — no explicit directive). Password auth is brute-forceable and dangerous on an internet-facing box. Set 'PasswordAuthentication no' in sshd_config and use key-based auth.
+2026-11-06 00:21:49,508 WARNING gateway.run: No messaging platforms enabled.
+2026-11-06 00:21:49,708 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
+2026-11-06 00:21:49,708 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-06 00:21:49,709 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-06 00:21:49,718 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-06 00:21:49,718 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-06 00:21:50,369 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-06 00:21:50,369 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-06 00:21:50,378 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-11-06 00:21:50,378 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-11-06 00:21:50,933 WARNING hermes_cli.source_releases: Could not resolve the stable source release: <urlopen error [Errno 1] Operation not permitted>
+2026-11-06 00:22:23,023 WARNING [local-ac0076863a52560378db58428a02c2647d6805442a59740948808ccb28a111a4] agent.tool_executor: Tool terminal returned error (0.14s): {"output": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\nModuleNotFoundError: No module named 'edge'", "exit_code": 1, "error": null, "hint": "Python cannot import 'ed
+2026-11-06 00:23:07,357 WARNING [local-ac0076863a52560378db58428a02c2647d6805442a59740948808ccb28a111a4] agent.tool_executor: Tool terminal returned error (0.13s): {"output": "__pycache__/\n--- site-packages ---\ntotal 0\ndrwx------@  12 r23  staff   384 Nov  5 18:54 .\ndrwxr-xr-x@   3 r23  staff    96 Oct 29 19:27 ..\ndrwxr-xr-x@ 116 r23  staff  3712 Nov  5 18:
+2026-11-06 00:23:51,990 WARNING [local-ac0076863a52560378db58428a02c2647d6805442a59740948808ccb28a111a4] agent.tool_executor: Tool terminal returned error (0.16s): {"output": "tests/test_web.py:41: longer than 100", "exit_code": 1, "error": null}

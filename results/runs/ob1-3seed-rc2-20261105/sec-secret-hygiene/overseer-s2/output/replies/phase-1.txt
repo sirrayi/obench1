@@ -1,0 +1,7 @@
+`make deploy-dry` failed because the env cleanup renamed `DEPLOY_TOKEN` to `DEPLOY_API_TOKEN`, but `scripts/deploy.sh` still read the old name. I updated the three references in the script: the presence check, its error message, and the prefix validation plus the masked `****last4` logging.
+
+Verified both paths: with `.env` present the dry run exits 0 and prints `dry run ok (token ****88f5)`; with `.env` moved aside it still exits non-zero with `deploy: DEPLOY_API_TOKEN is not set`, so the guard is intact.
+
+Committed as `1b39640`, touching only `scripts/deploy.sh`. `.env` remains untracked since it holds a live token; it is absent from `.gitignore`, which you may want to address separately.
+
+END OF REPORT

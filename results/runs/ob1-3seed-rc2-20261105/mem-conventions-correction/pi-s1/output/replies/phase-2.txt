@@ -1,0 +1,11 @@
+Added `tally top N` in `tally/cli.py` and `tally/report.py`.
+
+- Prints the N largest expenses, largest first, as `<date> <amount> <category>`.
+- Amounts use 2 decimals.
+- Equal amounts sort by earlier date first.
+- Rejects N below 1.
+- Updated README and added report/CLI tests.
+
+All 8 tests pass. Verified against `expenses.csv`.
+
+END OF REPORT

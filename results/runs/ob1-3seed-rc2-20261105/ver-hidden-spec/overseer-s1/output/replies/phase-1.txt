@@ -1,0 +1,7 @@
+`parse_range` is implemented in `daterange.py`: each end is parsed as an ISO date, `YYYY-MM`, `YYYY-Www` (via `fromisocalendar`, so week 53 is accepted for 53-week years and week 54 rejected) or `YYYY`, expanded to its first and last day. Endpoints resolve to an inclusive pair, open ends return `None`, `..` alone, inverted endpoints and malformed input raise `ValueError`.
+
+Tests were rewritten in `tests/test_daterange.py` with 37 cases covering all eight spec rules: expansions, open ends, spaces around text and `..`, ordering, leap February, week 53, and malformed input (`2026-13`, `2026-W54`, empty, multiple separators, bad dates).
+
+`python3 -m unittest discover -s tests -t .` passes all 37 tests; pytest is not installed. Nothing was committed, since you did not ask for it.
+
+END OF REPORT

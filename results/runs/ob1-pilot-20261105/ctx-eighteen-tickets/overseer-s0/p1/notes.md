@@ -1,0 +1,2 @@
+- [drift] [workspace drift] since your last step: uncommitted changes you never touched appeared in TICKETS/TCK-19.md. Nothing was reverted — adapt, or ask the owner before overwriting.
+- [drift] [workspace drift] since your last step: the owner changed fleetd/storage.py since you last wrote it — re-read it before editing it again. Nothing was reverted — adapt, or ask the owner before overwriting.

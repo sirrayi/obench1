@@ -1,0 +1,5 @@
+Wrote `REVIEW.md` with eight findings, all reproduced against a clean export of `feature/rate-limit`; the branch itself was not modified.
+
+Headline issues: spoofable `X-Forwarded-For` gives a complete limiter bypass; wall-clock `time.time()` stored against `time.monotonic()` means buckets never expire; off-by-one allows `limit + 1` requests; unsynchronized bucket creation loses counts under concurrent requests; `Retry-After` is about 1.79e9 seconds; buckets are never evicted despite the docs; tests never exercise rejection or rollover.
+
+END OF REPORT
